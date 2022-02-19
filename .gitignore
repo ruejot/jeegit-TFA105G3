@@ -43,3 +43,6 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+# My adding_ Preventing auto updating after each member change context.xml into their personal PW, DB_Name.
+META-INF/context.xml
