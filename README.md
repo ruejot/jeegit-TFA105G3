@@ -10,7 +10,7 @@ Project成功拉回Eclipse後，記得要先右鍵做Maven_F5。
 - 跟個人環境有關。(例:context.xml)
 - 執行後自動產生。(例如:target資料夾)
 - 有些是Eclipse、Maven的自動記錄。
-- 
+
 因此已經在 .gitignore設定，這些不會上傳，所以不會出現在sourceTree也不會上傳正常。
 
 ## 確認sql、tomcat連線
