@@ -76,7 +76,7 @@ public class ProductService {
 		return dao.getAll();
 	}
 	
-	public Set<ProductImgVO> getImgsByImgno(Integer merid) {
+	public Set<ProductVO> getImgsByImgno(Integer merid) {
 		return dao.getImgsByImgno(merid);
 	}
 

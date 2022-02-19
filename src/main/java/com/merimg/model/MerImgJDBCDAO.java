@@ -18,7 +18,6 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.members.model.MembersBean;
 import com.product.model.ProductJDBCDAO;
 import com.product.model.ProductVO;
 

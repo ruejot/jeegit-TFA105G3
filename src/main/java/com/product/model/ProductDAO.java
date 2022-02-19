@@ -28,7 +28,7 @@ public class ProductDAO implements ProductDAO_interface {
 	private static final String DELETE_IMGs = "DELETE FROM MER_IMG where MER_ID = ?";
 	private static final String DELETE_MER = "DELETE FROM mer where MER_ID = ?";
 	private static final String UPDATE = "UPDATE mer set BUS_ID=?, name=?, price=?, stock=?, SHELF_Date=?, status=?, description=?, SHIPPING_METHOD=?, MAIN_CATEGORY=?, SUB_CATEGORY=? where MER_ID = ?";
-	private static final String GET_Imgs_ByMerid_STMT = "SELECT IMG_ID, MER_PIC, time, MER_ID FROM MER_IMG where MER_ID = ? order by IMG_ID";
+	private static final String GET_Imgs_ByMerid_STMT = "SELECT IMG_ID, MER_PIC, time, MER_ID FROM MER_IMG where MER_ID = ?";
 	private static final String FIND_AllbyMerid = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_ID =?";
 	private static final String FIND_AllbyMerName = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_NAME= ? ";
 
@@ -153,7 +153,6 @@ public class ProductDAO implements ProductDAO_interface {
 			// 設定於 pstm.executeUpdate()之後
 			con.commit();
 			con.setAutoCommit(true);
-			System.out.println("�R���ӫ~�s��" + merid + "��,�@���Ӥ�" + updateCount_IMGs + "�i�P�ɳQ�R��");
 
 			// Handle any SQL errors
 		} catch (SQLException se) {
@@ -203,17 +202,17 @@ public class ProductDAO implements ProductDAO_interface {
 
 			while (rs.next()) {
 				productVO = new ProductVO();
-				productVO.setMerid(rs.getInt("merid"));
-				productVO.setBusid(rs.getInt("busid"));
+				productVO.setMerid(rs.getInt("mer_id"));
+				productVO.setBusid(rs.getInt("bus_id"));
 				productVO.setName(rs.getString("name"));
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setStock(rs.getInt("stock"));
-				productVO.setShelfDate(rs.getDate("shelfDate"));
+				productVO.setShelfDate(rs.getDate("shelf_Date"));
 				productVO.setStatus(rs.getInt("status"));
 				productVO.setDescription(rs.getString("description"));
-				productVO.setShippingMethod(rs.getString("shippingMethod"));
-				productVO.setMainCategory(rs.getString("mainCategory"));
-				productVO.setSubCategory(rs.getString("subCategory"));
+				productVO.setShippingMethod(rs.getString("shipping_Method"));
+				productVO.setMainCategory(rs.getString("main_Category"));
+				productVO.setSubCategory(rs.getString("sub_Category"));
 			}
 
 			// Handle any driver errors
@@ -264,17 +263,17 @@ public class ProductDAO implements ProductDAO_interface {
 
 			while (rs.next()) {
 				productVO = new ProductVO();
-				productVO.setMerid(rs.getInt("merid"));
-				productVO.setBusid(rs.getInt("busid"));
+				productVO.setMerid(rs.getInt("mer_id"));
+				productVO.setBusid(rs.getInt("bus_id"));
 				productVO.setName(rs.getString("name"));
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setStock(rs.getInt("stock"));
-				productVO.setShelfDate(rs.getDate("shelfDate"));
+				productVO.setShelfDate(rs.getDate("shelf_Date"));
 				productVO.setStatus(rs.getInt("status"));
 				productVO.setDescription(rs.getString("description"));
-				productVO.setShippingMethod(rs.getString("shippingMethod"));
-				productVO.setMainCategory(rs.getString("mainCategory"));
-				productVO.setSubCategory(rs.getString("subCategory"));
+				productVO.setShippingMethod(rs.getString("shipping_Method"));
+				productVO.setMainCategory(rs.getString("main_Category"));
+				productVO.setSubCategory(rs.getString("sub_Category"));
 				list.add(productVO); // Store the row in the list
 			}
 
@@ -309,9 +308,9 @@ public class ProductDAO implements ProductDAO_interface {
 	}
 
 	@Override
-	public Set<ProductImgVO> getImgsByImgno(Integer merid) {
-		Set<ProductImgVO> set = new LinkedHashSet<ProductImgVO>();
-		ProductImgVO productImgVO = null;
+	public Set<ProductVO> getImgsByImgno(Integer merid) {
+		Set<ProductVO> set = new LinkedHashSet<ProductVO>();
+		ProductVO productVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -320,17 +319,23 @@ public class ProductDAO implements ProductDAO_interface {
 		try {
 
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_Imgs_ByMerid_STMT);
+			pstmt = con.prepareStatement(FIND_AllbyMerid);
 			pstmt.setInt(1, merid);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				productImgVO = new ProductImgVO();
-				productImgVO.setImgid(rs.getInt("imgid"));
-				productImgVO.setMerpic(rs.getBytes("merpic"));
-				productImgVO.setTime(rs.getDate("time"));
-				productImgVO.setMerid(rs.getInt("merid"));
-				set.add(productImgVO); // Store the row in the vector
+				productVO = new ProductVO();
+				productVO.setImgid(rs.getInt("img_id"));
+				productVO.setMerid(rs.getInt("mer_id"));
+				productVO.setBusid(rs.getInt("bus_id"));
+				productVO.setName(rs.getString("mer_name"));
+				productVO.setPicname(rs.getString("pic_name"));
+				productVO.setMerpic(rs.getBytes("mer_pic"));
+				productVO.setPrice(rs.getInt("price"));
+				productVO.setStock(rs.getInt("stock"));
+				productVO.setMainCategory(rs.getString("main_category"));
+				productVO.setSubCategory(rs.getString("sub_category"));
+				set.add(productVO); // Store the row in the vector
 			}
 
 			// Handle any SQL errors
@@ -389,7 +394,6 @@ public class ProductDAO implements ProductDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FIND_AllbyMerid);
 			pstmt.setInt(1, merid);
-			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				productVO = new ProductVO();
@@ -442,18 +446,53 @@ public class ProductDAO implements ProductDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FIND_AllbyMerName);
-			pstmt.setString(1, "%"+name+"%");
+			pstmt.setString(1, "%" + name + "%");
 			rs = pstmt.executeQuery();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			while (rs.next()) {
+				productVO = new ProductVO();
+				productVO.setImgid(rs.getInt("img_id"));
+				productVO.setMerid(rs.getInt("mer_id"));
+				productVO.setBusid(rs.getInt("bus_id"));
+				productVO.setName(rs.getString("mer_name"));
+				productVO.setPicname(rs.getString("pic_name"));
+				productVO.setMerpic(rs.getBytes("mer_pic"));
+				productVO.setPrice(rs.getInt("price"));
+				productVO.setStock(rs.getInt("stock"));
+				productVO.setMainCategory(rs.getString("main_category"));
+				productVO.setSubCategory(rs.getString("sub_category"));
+				list.add(productVO); // Store the row in the list
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
 		}
-		
-		return null;
+		return list;
 	}
 }

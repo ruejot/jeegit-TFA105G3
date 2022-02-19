@@ -26,6 +26,8 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	private static final String DELETE_MER = "DELETE FROM mer where MER_ID = ?";
 	private static final String UPDATE = "UPDATE mer set BUS_ID=?, name=?, price=?, stock=?, SHELF_Date=?, status=?, description=?, SHIPPING_METHOD=?, MAIN_CATEGORY=?, SUB_CATEGORY=? where MER_ID = ?";
 	private static final String GET_Imgs_ByMerid_STMT = "SELECT IMG_ID, MER_PIC, time, MER_ID FROM MER_IMG where MER_ID = ? order by IMG_ID";
+	private static final String FIND_AllbyMerid = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_ID =?";
+	private static final String FIND_AllbyMerName = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_NAME= ? ";
 
 	@Override
 	public void insert(ProductVO productVO) {
@@ -320,9 +322,9 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	}
 
 	@Override
-	public Set<ProductImgVO> getImgsByImgno(Integer merid) {
-		Set<ProductImgVO> set = new LinkedHashSet<ProductImgVO>();
-		ProductImgVO productImgVO = null;
+	public Set<ProductVO> getImgsByImgno(Integer merid) {
+		Set<ProductVO> set = new LinkedHashSet<ProductVO>();
+		ProductVO productVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -332,17 +334,23 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_Imgs_ByMerid_STMT);
+			pstmt = con.prepareStatement(FIND_AllbyMerid);
 			pstmt.setInt(1, merid);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				productImgVO = new ProductImgVO();
-				productImgVO.setImgid(rs.getInt("imgid"));
-				productImgVO.setMerpic(rs.getBytes("merpic"));
-				productImgVO.setTime(rs.getDate("time"));
-				productImgVO.setMerid(rs.getInt("merid"));
-				set.add(productImgVO); // Store the row in the vector
+				productVO = new ProductVO();
+				productVO.setImgid(rs.getInt("img_id"));
+				productVO.setMerid(rs.getInt("mer_id"));
+				productVO.setBusid(rs.getInt("bus_id"));
+				productVO.setName(rs.getString("mer_name"));
+				productVO.setPicname(rs.getString("pic_name"));
+				productVO.setMerpic(rs.getBytes("mer_pic"));
+				productVO.setPrice(rs.getInt("price"));
+				productVO.setStock(rs.getInt("stock"));
+				productVO.setMainCategory(rs.getString("main_category"));
+				productVO.setSubCategory(rs.getString("sub_category"));
+				set.add(productVO); // Store the row in the vector
 			}
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -451,6 +459,24 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 //			System.out.print(aImg.getMerid() + ",");
 //			System.out.println();
 //		}
+	}
+
+	@Override
+	public ProductVO queryByImgid(Integer imgid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ProductVO> getAllByMerid(Integer merid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ProductVO> getAllByProductName(String name) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

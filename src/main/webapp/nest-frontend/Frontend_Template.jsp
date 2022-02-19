@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="zh-Hant-TW">
 <head>
 <meta charset="utf-8" />
@@ -34,13 +33,13 @@
                     </div>
                 </div>
             </div>
-            <!-- End 頂端  首頁>其他頁 顯示列 -->
-            <!-- 開始寫此頁內容，看class name注意結構 -->
-            <!-- 開始寫此頁內容，看class name注意結構 -->
-            <!-- 開始寫此頁內容，看class name注意結構 -->
-            <!-- 開始寫此頁內容，看class name注意結構 -->
-            <!-- 結束此頁內容，看class name注意結構 -->
-        </main>
+			<!-- End 頂端  首頁>其他頁 顯示列 -->
+			<!-- 開始寫此頁內容，看class name注意結構 -->
+			<!-- 開始寫此頁內容，看clas s name注意結構 -->
+			<!-- 開始寫此頁內容，看class name注意結構 -->
+			<!-- 開始寫此頁內容，看class name注意結構 -->
+			<!-- 結束此頁內容，看class name注意結構 -->
+	</main>
         <jsp:include page="/views/FIXFooter.jsp"/>
         <!-- Preloader Start -->
         <!-- Vendor JS-->

@@ -24,7 +24,6 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 			e.printStackTrace();
 		}
 	}
-		
 	private static final String INSERT_STMT = "INSERT INTO MER_IMG (MER_ID, MER_PIC, TIME) VALUES (?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT IMG_ID, MER_ID, MER_PIC, TIME FROM MER_IMG ";
 	private static final String GET_ONE_STMT = "SELECT IMG_ID, MER_ID, MER_PIC, TIME FROM MER_IMG where IMG_ID = ?";

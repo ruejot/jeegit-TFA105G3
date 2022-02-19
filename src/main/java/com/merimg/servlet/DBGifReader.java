@@ -20,12 +20,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.product.model.ProductVO;
 
-import oracle.net.aso.i;
 
 /**
  * Servlet implementation class getPic
  */
-@WebServlet("/getPic")
+@WebServlet("/getproductPic")
 
 public class DBGifReader extends HttpServlet {
 

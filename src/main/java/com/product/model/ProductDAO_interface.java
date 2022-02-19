@@ -15,6 +15,6 @@ public interface ProductDAO_interface {
 	public abstract List<ProductVO> getAllByMerid(Integer merid);
 	public abstract List<ProductVO> getAllByProductName(String name);
 	//查詢某商品照片(一對多)(回傳 Set)
-	public Set<ProductImgVO> getImgsByImgno(Integer merid);
+	public Set<ProductVO> getImgsByImgno(Integer merid);
 
 }
