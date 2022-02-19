@@ -9,7 +9,7 @@
 <html class="no-js" lang="zh-Hant">
 <head>
 	<meta charset="utf-8">
-	<title>Petting 會員中心</title>
+	<title>Petting 會員設定</title>
         <meta http-equiv="x-ua-compatible" content="ie=edge" />
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

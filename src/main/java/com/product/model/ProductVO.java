@@ -19,6 +19,9 @@ public class ProductVO implements java.io.Serializable {
 	private String shippingMethod;
 	private String mainCategory;
 	private String subCategory;
+	private Integer imgid;
+	private String picname ;
+	private byte[] merpic;
 	
 	public Integer getMerid() {
 		return merid;
@@ -88,6 +91,24 @@ public class ProductVO implements java.io.Serializable {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public Integer getImgid() {
+		return imgid;
+	}
+	public void setImgid(Integer imgid) {
+		this.imgid = imgid;
+	}
+	public String getPicname() {
+		return picname;
+	}
+	public void setPicname(String picname) {
+		this.picname = picname;
+	}
+	public byte[] getMerpic() {
+		return merpic;
+	}
+	public void setMerpic(byte[] merpic) {
+		this.merpic = merpic;
 	}
 	
 }
