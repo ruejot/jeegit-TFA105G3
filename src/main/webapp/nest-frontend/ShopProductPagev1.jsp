@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="com.merimg.model.MerImgService"%>
+<%@page import="com.merimg.service.MerImgService"%>
 <%@page import="com.merimg.model.MerImgVO"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.product.model.*"%>
@@ -60,14 +60,14 @@ pageContext.setAttribute("imglist", imglist);
                                                 <div class="product-image-slider">
                                                     <c:forEach var="merImgVO" items="${imglist}" >
                                                     <figure class="border-radius-10">
-                                                        <img src="http://localhost:8081/TFA105G3/getPic?aa=${merImgVO.imgid}" alt="product image" />
+                                                        <img src="http://localhost:7080/jeeweb-TFA105G3/getproductPic?aa=${merImgVO.imgid}" alt="product image" />
                                                     </figure>
                                                     </c:forEach>
                                                 </div>
                                                 <!-- THUMBNAILS 商品圖片小圖-->
                                                 <div class="slider-nav-thumbnails">
                                                 <c:forEach var="merImgVO" items="${imglist}" >
-                                                    <div><img src="http://localhost:8081/TFA105G3/getPic?aa=${merImgVO.imgid}" alt="product image" /></div>
+                                                    <div><img src="http://localhost:7080/jeeweb-TFA105G3/getproductPic?aa=${merImgVO.imgid}" alt="product image" /></div>
                                                 </c:forEach>
                                                 </div>
                                             </div>
@@ -402,10 +402,10 @@ pageContext.setAttribute("imglist", imglist);
 <jsp:include page="../views/footer.jsp"/>
         <!-- Vendor JS-->
         
-        <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
-        <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-        <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-        <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+        <script src="assets/js/vendors/modernizr-3.6.0.min.js"></script>
+        <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
+        <script src="assets/js/vendors/jquery-migrate-3.3.0.min.js"></script>
+        <script src="assets/js/vendors/bootstrap.bundle.min.js"></script>
         <script src="assets/js/plugins/slick.js"></script>
         <!-- <script src="assets/js/plugins/jquery.syotimer.min.js"></script> -->
         <script src="assets/js/plugins/slider-range.js"></script>

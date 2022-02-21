@@ -479,4 +479,10 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		return null;
 	}
 
+	@Override
+	public List<ProductVO> getAllbyV_MerPro() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
