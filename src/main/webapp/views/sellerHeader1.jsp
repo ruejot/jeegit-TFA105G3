@@ -125,7 +125,7 @@
                 </div>
             </div>
         </div>
-        <!--End header-->
+        <!-- End header -->
 	<!-- Vendor JS-->
 	<script src="<%=request.getContextPath()%>/assets/js/vendor/modernizr-3.6.0.min.js"></script>
 	<script src="<%=request.getContextPath()%>/assets/js/vendor/jquery-3.6.0.min.js"></script>

@@ -15,7 +15,10 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
     List<ProductVO> list = proSvc.getAll();
     pageContext.setAttribute("list",list);
 %>
- 
+
+<%-- 
+<jsp:useBean id="shippingSvc" scope="page" class="com.shipping.model.ShippingService" />
+--%>
 
 <!DOCTYPE html>
 <html>
@@ -48,23 +51,18 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 						<i class="icon material-icons md-home"></i> <span class="text">會員中心</span>
 				</a></li>
 				<li class="menu-item has-submenu"><a class="menu-link"
-					href="<%=request.getContextPath()%>/nest-backend/productManage.jsp"> <i
-						class="icon material-icons md-shopping_bag"></i> <span
+					href="<%=request.getContextPath()%>/nest-backend/productManage.jsp"> 
+					<i class="icon material-icons md-shopping_bag"></i> <span
 						class="text">商品管理</span>
 				</a></li>
 				<li class="menu-item has-submenu"><a class="menu-link"
-					href="page-orders-1.html"> <i
-						class="icon material-icons md-shopping_cart"></i> <span
+					href="<%=request.getContextPath()%>/nest-backend/orderManage.jsp"> 
+					<i class="icon material-icons md-shopping_cart"></i> <span
 						class="text">訂單管理</span>
 				</a></li>
 				<li class="menu-item has-submenu"><a class="menu-link"
-					href="page-form-product-1.html"> <i
+					href="<%=request.getContextPath()%>/nest-backend/addProduct.jsp"> <i
 						class="icon material-icons md-add_box"></i> <span class="text">商品上架</span>
-				</a></li>
-				<li class="menu-item has-submenu"><a class="menu-link"
-					href="page-transactions-1.html"> <i
-						class="icon material-icons md-monetization_on"></i> <span
-						class="text">財務管理</span>
 				</a></li>
 				<li class="menu-item has-submenu"><a class="menu-link" href="#">
 						<i class="icon material-icons md-person"></i> <span class="text">我的帳戶</span>
@@ -120,7 +118,7 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 								<option selected>上架狀態</option>
 								<option>尚未開賣</option>
 								<option>熱賣中</option>
-								<option>已下架</option>
+								<option>暫停販售</option>
 							</select>
 						</div>
 					</div>
@@ -159,7 +157,7 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 						</div>
 						<!-- row .// -->
 					</article>
-				<%@ include file="../pages/Prod_page1.file" %> 
+				<%@ include file="/pages/Prod_page1.file" %> 
 				<c:forEach var="productVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" > 
 					<article class="itemlist">
 						<div class="row align-items-center">
@@ -203,14 +201,13 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 						<!-- row .// -->
 					</article>
 				</c:forEach>
-				
 						<!-- row .// -->
 					<!-- itemlist  .// -->
 				</div>
 				<!-- card-body end// -->
 			</div>
 			<!-- card end// -->
-			<%@ include file="../pages/Prod_page2.file" %>
+			<%@ include file="/pages/Prod_page2.file" %>
 			<!--  
 			<div class="pagination-area mt-30 mb-50">
 				<nav aria-label="Page navigation example">
