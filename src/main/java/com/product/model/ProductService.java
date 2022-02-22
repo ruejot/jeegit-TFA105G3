@@ -90,4 +90,11 @@ public class ProductService {
 		return dao.getAllbyV_MerPro();
 	}
 	
+	public List<ProductVO> getAllByProductName(String name){
+		if(name==null||name.trim().length()==0) {
+			return null;
+		}
+		return dao.getAllByProductName(name);
+	}
+	
 }

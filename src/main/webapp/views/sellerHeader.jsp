@@ -26,7 +26,7 @@
 					</div>
 					<div class="header-right">
 						<div class="search-style-2">
-							<form action="#">
+							<form action="../product/SearchServlet" method="GET">
 								<select class="select-active">
 									<option>所有類別</option>
 									<option>寵物飼料</option>
@@ -40,7 +40,9 @@
 									<option>人氣商品</option>
 									<option>其他</option>
 								</select> 
-								<input type="text" placeholder="請輸入關鍵字...." />
+								<input type="text" placeholder="請輸入關鍵字...." name="usersearch"/>
+								<input type="hidden" name="action" value="search_from_header">
+								<button type="submit" value="搜尋" ></button>
 							</form>
 						</div>
 						<div class="header-action-right">

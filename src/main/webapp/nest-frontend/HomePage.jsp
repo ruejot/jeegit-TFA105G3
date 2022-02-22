@@ -14,10 +14,11 @@ pageContext.setAttribute("productbean", productbean);
 List<ProductVO> productlist = productSvc.getAll();
 pageContext.setAttribute("productlist", productlist);
 %>
+
 <html class="no-js" lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Nest - Multipurpose eCommerce HTML Template</title>
+<title>Nest - Homepage</title>
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,13 +31,15 @@ pageContext.setAttribute("productlist", productlist);
 	href="assets/imgs/theme/favicon.svg" />
 
 <!-- Template CSS -->
-<link rel="stylesheet" href="assets/css/plugins/animate.min.css" />
-<link rel="stylesheet" href="assets/css/main.css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/assets/css/main.css" />
 </head>
 
 <jsp:include page="/views/sellerHeader.jsp" />
 <body>
-	<!--End hero slider-->
+<!-- 頭 上排十大類 -->
 	<section class="popular-categories section-padding">
 		<div class="container wow animate__animated animate__fadeIn">
 			<div class="section-title">
@@ -185,13 +188,14 @@ pageContext.setAttribute("productlist", productlist);
 			</div>
 		</div>
 	</section>
-	<!--End header-->
+<!-- 尾 上排十大類 -->
 	<main class="main">
+	
 		<section class="home-slider position-relative mb-30">
+<!--頭 滑動廣告頁面-->
 			<div class="container">
 				<div class="home-slide-cover mt-30">
-					<div
-						class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
+					<div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
 						<div class="single-hero-slider single-animation-wrap"
 							style="background-image: url(assets/imgs/slider/slider-1.png)">
 							<div class="slider-content">
@@ -223,8 +227,8 @@ pageContext.setAttribute("productlist", productlist);
 				</div>
 			</div>
 		</section>
-
-		<!--End category slider-->
+	<!--尾 滑動廣告頁面-->
+		<!--廣告頁面-->
 		<section class="banners mb-25">
 			<div class="container">
 				<div class="row">
@@ -234,8 +238,7 @@ pageContext.setAttribute("productlist", productlist);
 							<img src="assets/imgs/banner/banner-1.png" alt="" />
 							<div class="banner-text">
 								<h4>
-									&#129409;阿偉的商店&#129409; <br />
-									<br /> 寵物百貨
+									&#129409;阿偉的商店&#129409; <br /> <br /> 寵物百貨
 								</h4>
 								<a href="shop-grid-left.html" class="btn btn-xs">逛起來 <i
 									class="fi-rs-arrow-small-right"></i></a>
@@ -275,8 +278,7 @@ pageContext.setAttribute("productlist", productlist);
 		<!--End banners-->
 		<section class="product-tabs section-padding position-relative">
 			<div class="container">
-				<div
-					class="section-title style-2 wow animate__animated animate__fadeIn">
+				<div class="section-title style-2 wow animate__animated animate__fadeIn">
 					<h3>熱門商品</h3>
 					<ul class="nav nav-tabs links" id="myTab" role="tablist">
 
@@ -312,13 +314,14 @@ pageContext.setAttribute("productlist", productlist);
 						</li>
 					</ul>
 				</div>
+				</div>
 				<!--End nav-tabs熱門商品-->
 				<div class="tab-content" id="myTabContent">
 					<div class="tab-pane fade show active" id="tab-one" role="tabpanel"
 						aria-labelledby="tab-one">
 						<div class="row product-grid-4">
-							<!--end product card 熱門五商品-->
-							<c:forEach var="product" items="${productlist}" end="9" >
+							<!--頭 熱門十商品-->
+							<c:forEach var="product" items="${productlist}" end="9">
 								<div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
 									<div
 										class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn"
@@ -357,6 +360,7 @@ pageContext.setAttribute("productlist", productlist);
 									</div>
 								</div>
 							</c:forEach>
+							<!--頭 熱門十商品-->
 						</div>
 					</div>
 				</div>
@@ -1563,7 +1567,7 @@ pageContext.setAttribute("productlist", productlist);
 			</div>
 		</section>
 	</main>
-<%-- 	 <jsp:include page="/views/footer.jsp"/> --%>
+	<%-- 	 <jsp:include page="/views/footer.jsp"/> --%>
 	<!-- Vendor JS-->
 	<script src="assets/js/vendors/modernizr-3.6.0.min.js"></script>
 	<script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
