@@ -11,11 +11,11 @@ public interface ProductDAO_interface {
 	public abstract void delete(Integer merid);
 	public abstract ProductVO findByPrimaryKey(Integer merid);
 	public abstract List<ProductVO> getAll();
-	public abstract List<ProductVO> getAllbyV_MerPro();
 	public abstract ProductVO queryByImgid (Integer imgid);
-	public abstract List<ProductVO> getAllByMerid(Integer merid);
+	public abstract List<ProductVO> getAllByProdid(Integer merid);
 	public abstract List<ProductVO> getAllByProductName(String name);
 	//查詢某商品照片(一對多)(回傳 Set)
-	public Set<ProductVO> getImgsByImgno(Integer merid);
+	public Set<ProductImgVO> getImgsByImgno(Integer merid);
+	public abstract List<ProductVO> getAllbyV_MerPro();
 
 }

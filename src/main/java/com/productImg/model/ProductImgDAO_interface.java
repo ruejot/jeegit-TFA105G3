@@ -13,6 +13,7 @@ public interface ProductImgDAO_interface {
 	public ProductImgVO findByPrimaryKey(Integer imgid);
 
 	public List<ProductImgVO> getAll();
-
+	
+	public List<ProductImgVO> getAllByProdid(Integer prodid);
 
 }

@@ -15,21 +15,22 @@ import javax.sql.DataSource;
 public class ProductImgDAO implements ProductImgDAO_interface {
 	
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
-	private static DataSource ds = null;
-	static {
-		try {
-			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TFA105G3TestDB"); 
-		} catch (NamingException e) {
-			e.printStackTrace();
+		private static DataSource ds = null;
+		static {
+			try {
+				Context ctx = new InitialContext();
+				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TFA105G3TestDB"); 
+			} catch (NamingException e) {
+				e.printStackTrace();
+			}
 		}
-	}
-	private static final String INSERT_STMT = "INSERT INTO MER_IMG (MER_ID, MER_PIC, TIME) VALUES (?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT IMG_ID, MER_ID, MER_PIC, TIME FROM MER_IMG ";
-	private static final String GET_ONE_STMT = "SELECT IMG_ID, MER_ID, MER_PIC, TIME FROM MER_IMG where IMG_ID = ?";
-	private static final String DELETE = "DELETE FROM MER_IMG where IMG_ID = ?";
-	private static final String UPDATE = "UPDATE MER_IMG set MER_ID=?, MER_PIC=?, TIME=? where IMG_ID = ?";
-
+		
+		private static final String INSERT_STMT = "INSERT INTO MER_IMG (MER_ID, MER_PIC, TIME) VALUES (?, ?, ?)";
+		private static final String GET_ALL_STMT = "SELECT IMG_ID, MER_ID, MER_PIC, TIME FROM MER_IMG ORDER BY IMG_ID";
+		private static final String GET_ONE_STMT = "SELECT IMG_ID, MER_ID, MER_PIC, TIME FROM MER_IMG WHERE IMG_ID = ?";
+		private static final String DELETE = "DELETE FROM MER_IMG where IMG_ID = ?";
+		private static final String UPDATE = "UPDATE MER_IMG set MER_ID=?, MER_PIC=?, TIME=? where IMG_ID = ?";
+		private static final String FIND_AllbyProdid= "SELECT * FROM pet_g3db_tfa105.MER_IMG WHERE MER_ID =?";
 	@Override
 	public void insert(ProductImgVO productImgVO) {
 		
@@ -168,10 +169,10 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 			while (rs.next()) {
 				
 				productImgVO = new ProductImgVO();
-				pstmt.setInt(1, productImgVO.getImgid());
-				pstmt.setInt(2, productImgVO.getMerid());
-				pstmt.setBytes(3, productImgVO.getMerpic());
-				pstmt.setDate(4, productImgVO.getTime());
+				productImgVO.setImgid(rs.getInt("IMG_ID"));
+				productImgVO.setMerid(rs.getInt("MER_ID"));
+				productImgVO.setMerpic(rs.getBytes("MER_PIC"));
+				productImgVO.setTime(rs.getDate("TIME"));
 				
 			}
 
@@ -225,14 +226,68 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 			while (rs.next()) {
 				
 				productImgVO = new ProductImgVO();
-				pstmt.setInt(1, productImgVO.getImgid());
-				pstmt.setInt(2, productImgVO.getMerid());
-				pstmt.setBytes(3, productImgVO.getMerpic());
-				pstmt.setDate(4, productImgVO.getTime());
+				productImgVO.setImgid(rs.getInt("IMG_ID"));
+				productImgVO.setMerid(rs.getInt("MER_ID"));
+				productImgVO.setMerpic(rs.getBytes("MER_PIC"));
+				productImgVO.setTime(rs.getDate("TIME"));
 				list.add(productImgVO); // Store the row in the list
 			}
 
 			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<ProductImgVO> getAllByProdid(Integer prodid) {
+		List<ProductImgVO> list = new ArrayList<ProductImgVO>();
+		ProductImgVO ProductImgVO = null;
+	
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FIND_AllbyProdid);
+			pstmt.setInt(1, prodid);
+			rs = pstmt.executeQuery();
+	
+			while (rs.next()) {
+				ProductImgVO = new ProductImgVO();
+				ProductImgVO.setImgid(rs.getInt("img_id"));
+				ProductImgVO.setMerid(rs.getInt("mer_id"));
+				ProductImgVO.setPicname(rs.getString("pic_name"));
+				ProductImgVO.setMerpic(rs.getBytes("mer_pic"));
+				list.add(ProductImgVO); // Store the row in the list
+			}
+	
+			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources

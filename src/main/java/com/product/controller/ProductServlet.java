@@ -69,7 +69,7 @@ public class ProductServlet extends HttpServlet {
 				// 其他錯誤處理
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/views/productManage.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/nest-backend/productManage.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -130,6 +130,8 @@ public class ProductServlet extends HttpServlet {
 
 				// 取得上架狀態
 				Integer status = new Integer(req.getParameter("status"));
+			
+
 
 				// 取得出貨方式
 				String shippingMethod = req.getParameter("shippingMethod");
@@ -192,7 +194,7 @@ public class ProductServlet extends HttpServlet {
 
 				// 其他可能錯誤處理
 //			} catch (Exception e) {
-//				RequestDispatcher failureView = req.getRequestDispatcher("/views/update_pro_input.jsp");
+//				RequestDispatcher failureView = req.getRequestDispatcher("/nest-backend/update_pro_input.jsp");
 //				failureView.forward(req, res);
 //			}
 
@@ -276,6 +278,7 @@ public class ProductServlet extends HttpServlet {
 
 				// 取得上架狀態
 				Integer status = new Integer(req.getParameter("status"));
+				
 
 				// 取得出貨方式
 				String shippingMethod = req.getParameter("shippingMethod");
@@ -336,7 +339,7 @@ public class ProductServlet extends HttpServlet {
 				// 其他可能的錯誤處理
 //			} catch (Exception e) {
 //				errorMsgs.add(e.getMessage());
-//				RequestDispatcher failureView = req.getRequestDispatcher("/views/addProduct.jsp");
+//				RequestDispatcher failureView = req.getRequestDispatcher("/nest-backend/addProduct.jsp");
 //				failureView.forward(req, res);
 //			}
 

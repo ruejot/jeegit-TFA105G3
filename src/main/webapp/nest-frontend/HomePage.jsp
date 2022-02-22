@@ -3,8 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.product.model.*"%>
-<%@page import="com.merimg.service.MerImgService"%>
-<%@page import="com.merimg.model.MerImgVO"%>
+
 <!DOCTYPE html>
 <%
 ProductService productSvc = new ProductService();

@@ -1,4 +1,4 @@
-package com.merimg.service;
+package com.productImg.controller;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;

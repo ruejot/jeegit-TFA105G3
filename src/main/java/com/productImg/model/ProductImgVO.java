@@ -8,11 +8,12 @@ public class ProductImgVO implements java.io.Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private Integer merid;
 	private Integer imgid;
 	private Integer busid;
 	private byte[] merpic;
 	private Date time;
-	private Integer merid;
+	private String picname;
 	
 	public Integer getImgid() {
 		return imgid;
@@ -43,6 +44,12 @@ public class ProductImgVO implements java.io.Serializable{
 	}
 	public void setMerid(Integer merid) {
 		this.merid = merid;
+	}
+	public String getPicname() {
+		return picname;
+	}
+	public void setPicname(String picname) {
+		this.picname = picname;
 	}
 	
 }
