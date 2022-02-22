@@ -359,7 +359,7 @@ pageContext.setAttribute("productlist", productlist);
                 </div>
             </div>
         </main>
-        <jsp:include page="/views/FIXFooter.jsp"/>
+        <jsp:include page="/views/footer.jsp"/>
         <!-- Preloader Start -->
         <!-- Vendor JS-->
         <script src="<%=request.getContextPath()%>/assets/js/vendors/modernizr-3.6.0.min.js"></script>
