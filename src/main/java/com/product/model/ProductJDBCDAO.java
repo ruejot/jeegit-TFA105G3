@@ -13,7 +13,7 @@ import java.util.Set;
 import com.productImg.model.ProductImgVO;
 
 public class ProductJDBCDAO implements ProductDAO_interface {
-	
+
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/pet_g3db_tfa105?serverTimezone=Asia/Taipei";
 	String userid = "root";
@@ -27,7 +27,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	private static final String UPDATE = "UPDATE mer set BUS_ID=?, name=?, price=?, stock=?, SHELF_Date=?, status=?, description=?, SHIPPING_METHOD=?, MAIN_CATEGORY=?, SUB_CATEGORY=? where MER_ID = ?";
 	private static final String GET_Imgs_ByMerid_STMT = "SELECT IMG_ID, MER_PIC, time, MER_ID FROM MER_IMG where MER_ID = ? order by IMG_ID";
 	private static final String FIND_AllbyMerid = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_ID =?";
-	private static final String FIND_AllbyMerName = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_NAME= ? ";
+	private static final String FIND_AllbyMerName = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_NAME like ? ";
 
 	@Override
 	public void insert(ProductVO productVO) {
@@ -147,8 +147,8 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 
 			pstmt = con.prepareStatement(DELETE_IMGs);
 			pstmt.setInt(1, merid);
-			updateCount_IMGs = pstmt.executeUpdate();		
-		
+			updateCount_IMGs = pstmt.executeUpdate();
+
 			pstmt = con.prepareStatement(DELETE_MER);
 			pstmt.setInt(1, merid);
 			pstmt.executeUpdate();
@@ -209,17 +209,17 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 
 			while (rs.next()) {
 				productVO = new ProductVO();
-				productVO.setMerid(rs.getInt("merid"));
-				productVO.setBusid(rs.getInt("busid"));
+				productVO.setMerid(rs.getInt("MER_ID"));
+				productVO.setBusid(rs.getInt("BUS_ID"));
 				productVO.setName(rs.getString("name"));
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setStock(rs.getInt("stock"));
-				productVO.setShelfDate(rs.getDate("shelfDate"));
+				productVO.setShelfDate(rs.getDate("SHELF_Date"));
 				productVO.setStatus(rs.getInt("status"));
 				productVO.setDescription(rs.getString("description"));
-				productVO.setShippingMethod(rs.getString("shippingMethod"));
-				productVO.setMainCategory(rs.getString("mainCategory"));
-				productVO.setSubCategory(rs.getString("subCategory"));
+				productVO.setShippingMethod(rs.getString("SHIPPING_METHOD"));
+				productVO.setMainCategory(rs.getString("MAIN_CATEGORY"));
+				productVO.setSubCategory(rs.getString("SUB_CATEGORY"));
 			}
 
 			// Handle any driver errors
@@ -274,17 +274,17 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 
 			while (rs.next()) {
 				productVO = new ProductVO();
-				productVO.setMerid(rs.getInt("merid"));
-				productVO.setBusid(rs.getInt("busid"));
+				productVO.setMerid(rs.getInt("MER_ID"));
+				productVO.setBusid(rs.getInt("BUS_ID"));
 				productVO.setName(rs.getString("name"));
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setStock(rs.getInt("stock"));
-				productVO.setShelfDate(rs.getDate("shelfDate"));
+				productVO.setShelfDate(rs.getDate("SHELF_Date"));
 				productVO.setStatus(rs.getInt("status"));
 				productVO.setDescription(rs.getString("description"));
-				productVO.setShippingMethod(rs.getString("shippingMethod"));
-				productVO.setMainCategory(rs.getString("mainCategory"));
-				productVO.setSubCategory(rs.getString("subCategory"));
+				productVO.setShippingMethod(rs.getString("SHIPPING_METHOD"));
+				productVO.setMainCategory(rs.getString("MAIN_CATEGORY"));
+				productVO.setSubCategory(rs.getString("SUB_CATEGORY"));
 				list.add(productVO); // Store the row in the list
 			}
 
@@ -322,9 +322,9 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	}
 
 	@Override
-	public Set<ProductVO> getImgsByImgno(Integer merid) {
-		Set<ProductVO> set = new LinkedHashSet<ProductVO>();
-		ProductVO productVO = null;
+	public Set<ProductImgVO> getImgsByImgno(Integer merid) {
+		Set<ProductImgVO> set = new LinkedHashSet<ProductImgVO>();
+		ProductImgVO productImgVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -334,23 +334,17 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(FIND_AllbyMerid);
+			pstmt = con.prepareStatement(GET_Imgs_ByMerid_STMT);
 			pstmt.setInt(1, merid);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				productVO = new ProductVO();
-				productVO.setImgid(rs.getInt("img_id"));
-				productVO.setMerid(rs.getInt("mer_id"));
-				productVO.setBusid(rs.getInt("bus_id"));
-				productVO.setName(rs.getString("mer_name"));
-				productVO.setPicname(rs.getString("pic_name"));
-				productVO.setMerpic(rs.getBytes("mer_pic"));
-				productVO.setPrice(rs.getInt("price"));
-				productVO.setStock(rs.getInt("stock"));
-				productVO.setMainCategory(rs.getString("main_category"));
-				productVO.setSubCategory(rs.getString("sub_category"));
-				set.add(productVO); // Store the row in the vector
+				productImgVO = new ProductImgVO();
+				productImgVO.setImgid(rs.getInt("IMG_ID"));
+				productImgVO.setMerpic(rs.getBytes("MER_PIC"));
+				productImgVO.setTime(rs.getDate("TIME"));
+				productImgVO.setMerid(rs.getInt("MER_ID"));
+				set.add(productImgVO); // Store the row in the vector
 			}
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -384,81 +378,74 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		return set;
 	}
 
-	public static void main(String[] args) {
+	@Override
+	public List<ProductVO> getAllByProductName(String name) {
+		List<ProductVO> list = new ArrayList<ProductVO>();
+		ProductVO productVO = null;
 
-		ProductJDBCDAO dao = new ProductJDBCDAO();
-		//新增
-		ProductVO productVO1 = new ProductVO();
-		productVO1.setBusid(1);
-		productVO1.setName("HAPPYPUPPY");
-		productVO1.setPrice(350);
-		productVO1.setStock(15);
-		productVO1.setShelfDate(java.sql.Date.valueOf("2022-02-03"));
-		productVO1.setStatus(1);
-		productVO1.setDescription("HAPPYPUPPY");
-		productVO1.setShippingMethod("100");
-		productVO1.setMainCategory("FOOD");
-		productVO1.setSubCategory("FOOD");
-		dao.insert(productVO1);
-		
-		//修改
-//		ProductVO productVO2 = new ProductVO();
-//		productVO2.setMerid(2);
-//		productVO2.setBusid(2);
-//		productVO2.setName("HERO-MAMA");
-//		productVO2.setPrice(450);
-//		productVO2.setStock(30);
-//		productVO2.setShelfDate(java.sql.Date.valueOf("2022-01-20"));
-//		productVO2.setStatus(3);
-//		productVO2.setDescription("HERO-MAMA");
-//		productVO2.setShippingMethod("111");
-//		productVO2.setMainCategory("FOOD");
-//		productVO2.setSubCategory("FOOD");
-//		dao.update(productVO2);
-//		
-//		//刪除
-//		dao.delete(3);
-//
-//		//查詢
-//		ProductVO productVO3 = dao.findByPrimaryKey(1);
-//		System.out.print(productVO3.getMerid() + ",");
-//		System.out.print(productVO3.getBusid() + ",");
-//		System.out.print(productVO3.getName() + ",");
-//		System.out.print(productVO3.getPrice() + ",");
-//		System.out.print(productVO3.getStock() + ",");
-//		System.out.print(productVO3.getShelfDate() + ",");
-//		System.out.println(productVO3.getStatus() + ",");
-//		System.out.println(productVO3.getDescription() + ",");
-//		System.out.println(productVO3.getShippingMethod() + ",");
-//		System.out.println(productVO3.getMainCategory() + ",");
-//		System.out.println(productVO3.getSubCategory() +",");
-//		System.out.println("---------------------");
-//
-//		List<ProductVO> list = dao.getAll();
-//		for (ProductVO aPro : list) {
-//			System.out.print(aPro.getMerid() + ",");
-//			System.out.print(aPro.getBusid() + ",");
-//			System.out.print(aPro.getName() + ",");
-//			System.out.print(aPro.getPrice() + ",");
-//			System.out.print(aPro.getStock() + ",");
-//			System.out.print(aPro.getShelfDate() + ",");
-//			System.out.println(aPro.getStatus() + ",");
-//			System.out.println(aPro.getDescription() + ",");
-//			System.out.println(aPro.getShippingMethod() + ",");
-//			System.out.println(aPro.getMainCategory() + ",");
-//			System.out.println(aPro.getSubCategory() +",");
-//			
-//			System.out.println();
-//		}
-//
-//		Set<ProductImgVO> set = dao.getImgsByImgno(1);
-//		for (ProductImgVO aImg : set) {
-//			System.out.print(aImg.getImgid() + ",");
-//			System.out.print(aImg.getMerpic() + ",");
-//			System.out.print(aImg.getTime() + ",");
-//			System.out.print(aImg.getMerid() + ",");
-//			System.out.println();
-//		}
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(FIND_AllbyMerName);
+			pstmt.setString(1, "%" + name + "%");
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				productVO = new ProductVO();
+				productVO.setImgid(rs.getInt("img_id"));
+				productVO.setMerid(rs.getInt("mer_id"));
+				productVO.setBusid(rs.getInt("bus_id"));
+				productVO.setName(rs.getString("mer_name"));
+				productVO.setPicname(rs.getString("pic_name"));
+				productVO.setMerpic(rs.getBytes("mer_pic"));
+				productVO.setPrice(rs.getInt("price"));
+				productVO.setStock(rs.getInt("stock"));
+				productVO.setMainCategory(rs.getString("main_category"));
+				productVO.setSubCategory(rs.getString("sub_category"));
+				list.add(productVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<ProductVO> getAllbyV_MerPro() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -468,21 +455,85 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	}
 
 	@Override
-	public List<ProductVO> getAllByMerid(Integer merid) {
+	public List<ProductVO> getAllByProdid(Integer merid) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public List<ProductVO> getAllByProductName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+public static void main(String[] args) {
+
+	ProductJDBCDAO dao = new ProductJDBCDAO();
+	//�憓�
+	ProductVO productVO1 = new ProductVO();
+	productVO1.setBusid(1);
+	productVO1.setName("HAPPYPUPPY");
+	productVO1.setPrice(350);
+	productVO1.setStock(15);
+	productVO1.setShelfDate(java.sql.Date.valueOf("2022-02-03"));
+	productVO1.setStatus(1);
+	productVO1.setDescription("HAPPYPUPPY");
+	productVO1.setShippingMethod("100");
+	productVO1.setMainCategory("FOOD");
+	productVO1.setSubCategory("FOOD");
+	dao.insert(productVO1);
+	
+	//靽格
+	ProductVO productVO2 = new ProductVO();
+	productVO2.setMerid(2);
+	productVO2.setBusid(2);
+	productVO2.setName("HERO-MAMA");
+	productVO2.setPrice(450);
+	productVO2.setStock(30);
+	productVO2.setShelfDate(java.sql.Date.valueOf("2022-01-20"));
+	productVO2.setStatus(3);
+	productVO2.setDescription("HERO-MAMA");
+	productVO2.setShippingMethod("111");
+	productVO2.setMainCategory("FOOD");
+	productVO2.setSubCategory("FOOD");
+	dao.update(productVO2);
+	
+//	//��
+//	dao.delete(3);
+//
+//	//�閰�
+	ProductVO productVO3 = dao.findByPrimaryKey(2);
+	System.out.print(productVO3.getMerid() + ",");
+	System.out.print(productVO3.getBusid() + ",");
+	System.out.print(productVO3.getName() + ",");
+	System.out.print(productVO3.getPrice() + ",");
+	System.out.print(productVO3.getStock() + ",");
+	System.out.print(productVO3.getShelfDate() + ",");
+	System.out.println(productVO3.getStatus() + ",");
+	System.out.println(productVO3.getDescription() + ",");
+	System.out.println(productVO3.getShippingMethod() + ",");
+	System.out.println(productVO3.getMainCategory() + ",");
+	System.out.println(productVO3.getSubCategory() +",");
+	System.out.println("---------------------");
+
+	List<ProductVO> list = dao.getAll();
+	for (ProductVO aPro : list) {
+		System.out.print(aPro.getMerid() + ",");
+		System.out.print(aPro.getBusid() + ",");
+		System.out.print(aPro.getName() + ",");
+		System.out.print(aPro.getPrice() + ",");
+		System.out.print(aPro.getStock() + ",");
+		System.out.print(aPro.getShelfDate() + ",");
+		System.out.println(aPro.getStatus() + ",");
+		System.out.println(aPro.getDescription() + ",");
+		System.out.println(aPro.getShippingMethod() + ",");
+		System.out.println(aPro.getMainCategory() + ",");
+		System.out.println(aPro.getSubCategory() +",");
+		
+		System.out.println();
 	}
 
-	@Override
-	public List<ProductVO> getAllbyV_MerPro() {
-		// TODO Auto-generated method stub
-		return null;
+	Set<ProductImgVO> set = dao.getImgsByImgno(1);
+	for (ProductImgVO aImg : set) {
+		System.out.print(aImg.getImgid() + ",");
+		System.out.print(aImg.getMerpic() + ",");
+		System.out.print(aImg.getTime() + ",");
+		System.out.print(aImg.getMerid() + ",");
+		System.out.println();
 	}
-
+}
 }

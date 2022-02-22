@@ -24,14 +24,14 @@ public class ProductDAO implements ProductDAO_interface {
 
 	private static final String INSERT_STMT = "INSERT INTO MER (BUS_ID, name, price, stock, SHELF_Date, status, description, SHIPPING_METHOD, MAIN_CATEGORY, SUB_CATEGORY) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT  MER_ID, BUS_ID, name, price, stock, SHELF_Date, status, description, SHIPPING_METHOD, MAIN_CATEGORY, SUB_CATEGORY FROM MER order by MER_ID";
-	private static final String GET_ALL_By_vMerPro = "SELECT * FROM pet_g3db_tfa105.v_merimg_mer";
 	private static final String GET_ONE_STMT = "SELECT MER_ID, BUS_ID, name, price, stock, SHELF_Date, status, description, SHIPPING_METHOD, MAIN_CATEGORY, SUB_CATEGORY FROM MER where MER_ID = ?";
 	private static final String DELETE_IMGs = "DELETE FROM MER_IMG where MER_ID = ?";
 	private static final String DELETE_MER = "DELETE FROM mer where MER_ID = ?";
 	private static final String UPDATE = "UPDATE mer set BUS_ID=?, name=?, price=?, stock=?, SHELF_Date=?, status=?, description=?, SHIPPING_METHOD=?, MAIN_CATEGORY=?, SUB_CATEGORY=? where MER_ID = ?";
 	private static final String GET_Imgs_ByMerid_STMT = "SELECT IMG_ID, MER_PIC, time, MER_ID FROM MER_IMG where MER_ID = ?";
+	private static final String GET_ALL_By_vMerPro = "SELECT * FROM pet_g3db_tfa105.v_merimg_mer";
 	private static final String FIND_AllbyMerid = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_ID =?";
-	private static final String FIND_AllbyMerName = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_NAME= ? ";
+	private static final String FIND_AllbyMerName = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_NAME like ? ";
 
 	@Override
 	public void insert(ProductVO productVO) {
@@ -101,7 +101,7 @@ public class ProductDAO implements ProductDAO_interface {
 			pstmt.setString(8, productVO.getShippingMethod());
 			pstmt.setString(9, productVO.getMainCategory());
 			pstmt.setString(10, productVO.getSubCategory());
-			pstmt.setInt(10, productVO.getMerid());
+			pstmt.setInt(11, productVO.getMerid());
 
 			pstmt.executeUpdate();
 
@@ -309,9 +309,9 @@ public class ProductDAO implements ProductDAO_interface {
 	}
 
 	@Override
-	public Set<ProductVO> getImgsByImgno(Integer merid) {
-		Set<ProductVO> set = new LinkedHashSet<ProductVO>();
-		ProductVO productVO = null;
+	public Set<ProductImgVO> getImgsByImgno(Integer merid) {
+		Set<ProductImgVO> set = new LinkedHashSet<ProductImgVO>();
+		ProductImgVO productImgVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -320,23 +320,17 @@ public class ProductDAO implements ProductDAO_interface {
 		try {
 
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(FIND_AllbyMerid);
+			pstmt = con.prepareStatement(GET_Imgs_ByMerid_STMT);
 			pstmt.setInt(1, merid);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				productVO = new ProductVO();
-				productVO.setImgid(rs.getInt("img_id"));
-				productVO.setMerid(rs.getInt("mer_id"));
-				productVO.setBusid(rs.getInt("bus_id"));
-				productVO.setName(rs.getString("mer_name"));
-				productVO.setPicname(rs.getString("pic_name"));
-				productVO.setMerpic(rs.getBytes("mer_pic"));
-				productVO.setPrice(rs.getInt("price"));
-				productVO.setStock(rs.getInt("stock"));
-				productVO.setMainCategory(rs.getString("main_category"));
-				productVO.setSubCategory(rs.getString("sub_category"));
-				set.add(productVO); // Store the row in the vector
+				productImgVO = new ProductImgVO();
+				productImgVO.setImgid(rs.getInt("IMG_ID"));
+				productImgVO.setMerpic(rs.getBytes("MER_PIC"));
+				productImgVO.setTime(rs.getDate("TIME"));
+				productImgVO.setMerid(rs.getInt("MER_ID"));
+				set.add(productImgVO); // Store the row in the vector
 			}
 
 			// Handle any SQL errors
@@ -370,20 +364,11 @@ public class ProductDAO implements ProductDAO_interface {
 
 	@Override
 	public ProductVO queryByImgid(Integer imgid) {
-//		???????????????????????????????????????????
-//		???????????????????????????????????????????
-//		Connection con =null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		
-//		
-//		con = ds.getConnection();
-////		pstmt = con.prepareStatement()
 		return null;
 	}
 
 	@Override
-	public List<ProductVO> getAllByMerid(Integer merid) {
+	public List<ProductVO> getAllByProdid(Integer prodid) {
 		List<ProductVO> list = new ArrayList<ProductVO>();
 		ProductVO productVO = null;
 
@@ -394,7 +379,7 @@ public class ProductDAO implements ProductDAO_interface {
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FIND_AllbyMerid);
-			pstmt.setInt(1, merid);
+			pstmt.setInt(1, prodid);
 
 			while (rs.next()) {
 				productVO = new ProductVO();
