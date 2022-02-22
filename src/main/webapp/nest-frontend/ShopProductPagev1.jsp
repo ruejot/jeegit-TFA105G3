@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="com.merimg.service.MerImgService"%>
-<%@page import="com.merimg.model.MerImgVO"%>
+<%@page import="com.productImg.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.product.model.*"%>
 <!DOCTYPE html>
@@ -10,8 +9,7 @@ ProductService productSvc = new ProductService();
 ProductVO productbean = productSvc.getOneProduct(5);
 pageContext.setAttribute("productbean", productbean);
 
-MerImgService merImgSvc = new MerImgService(); 
-List<MerImgVO> imglist = merImgSvc.getImgIdByMerId(8);
+List<ProductVO> imglist = productSvc.getAllByProdId(8);
 pageContext.setAttribute("imglist", imglist);
 %>
 <html class="no-js" lang="en">
@@ -58,16 +56,16 @@ pageContext.setAttribute("imglist", imglist);
                                                 <span class="zoom-icon"><i class="fi-rs-search"></i></span>
                                                 <!-- MAIN SLIDES 商品圖片大圖 -->
                                                 <div class="product-image-slider">
-                                                    <c:forEach var="merImgVO" items="${imglist}" >
+                                                    <c:forEach var="prodImgVO" items="${imglist}" >
                                                     <figure class="border-radius-10">
-                                                        <img src="http://localhost:7080/jeeweb-TFA105G3/getproductPic?aa=${merImgVO.imgid}" alt="product image" />
+                                                        <img src="http://localhost:7080/jeeweb-TFA105G3/getproductPic?aa=${prodImgVO.imgid}" alt="product image" />
                                                     </figure>
                                                     </c:forEach>
                                                 </div>
                                                 <!-- THUMBNAILS 商品圖片小圖-->
                                                 <div class="slider-nav-thumbnails">
-                                                <c:forEach var="merImgVO" items="${imglist}" >
-                                                    <div><img src="http://localhost:7080/jeeweb-TFA105G3/getproductPic?aa=${merImgVO.imgid}" alt="product image" /></div>
+                                                <c:forEach var="prodImgVO" items="${imglist}" >
+                                                    <div><img src="http://localhost:7080/jeeweb-TFA105G3/getproductPic?aa=${prodImgVO.imgid}" alt="product image" /></div>
                                                 </c:forEach>
                                                 </div>
                                             </div>

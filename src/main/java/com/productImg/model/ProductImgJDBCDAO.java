@@ -17,8 +17,8 @@ public class ProductImgJDBCDAO implements ProductImgDAO_interface {
 	String passwd = "password";
 
 	private static final String INSERT_STMT = "INSERT INTO MER_IMG (MER_ID, MER_PIC, TIME) VALUES (?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT IMG_ID, MER_ID, MER_PIC, TIME FROM MER_IMG order by IMG_ID";
-	private static final String GET_ONE_STMT = "SELECT IMG_ID, MER_ID, MER_PIC, TIME FROM MER_IMG where IMG_ID = ?";
+	private static final String GET_ALL_STMT = "SELECT IMG_ID, MER_ID, MER_PIC, TIME FROM MER_IMG ORDER BY IMG_ID";
+	private static final String GET_ONE_STMT = "SELECT IMG_ID, MER_ID, MER_PIC, TIME FROM MER_IMG WHERE IMG_ID = ?";
 	private static final String DELETE = "DELETE FROM MER_IMG where IMG_ID = ?";
 	private static final String UPDATE = "UPDATE MER_IMG set MER_ID=?, MER_PIC=?, TIME=? where IMG_ID = ?";
 
@@ -171,10 +171,10 @@ public class ProductImgJDBCDAO implements ProductImgDAO_interface {
 			while (rs.next()) {
 
 				productImgVO = new ProductImgVO();
-				productImgVO.setImgid(rs.getInt("imgid"));
-				productImgVO.setMerid(rs.getInt("merid"));
-				productImgVO.setMerpic(rs.getBytes("merpic"));
-				productImgVO.setTime(rs.getDate("time"));
+				productImgVO.setImgid(rs.getInt("IMG_ID"));
+				productImgVO.setMerid(rs.getInt("MER_ID"));
+				productImgVO.setMerpic(rs.getBytes("MER_PIC"));
+				productImgVO.setTime(rs.getDate("TIME"));
 			}
 
 			// Handle any driver errors
@@ -229,10 +229,10 @@ public class ProductImgJDBCDAO implements ProductImgDAO_interface {
 
 			while (rs.next()) {
 				productImgVO = new ProductImgVO();
-				productImgVO.setImgid(rs.getInt("imgid"));
-				productImgVO.setMerid(rs.getInt("merid"));
-				productImgVO.setMerpic(rs.getBytes("merpic"));
-				productImgVO.setTime(rs.getDate("time"));
+				productImgVO.setImgid(rs.getInt("IMG_ID"));
+				productImgVO.setMerid(rs.getInt("MER_ID"));
+				productImgVO.setMerpic(rs.getBytes("MER_PIC"));
+				productImgVO.setTime(rs.getDate("TIME"));
 				list.add(productImgVO); // Store the row in the list
 			}
 
@@ -283,21 +283,21 @@ public class ProductImgJDBCDAO implements ProductImgDAO_interface {
 		fis1.close();
 
 		ProductImgVO productImgVO1 = new ProductImgVO();
-		productImgVO1.setMerid(1);
+		productImgVO1.setMerid(2);
 		productImgVO1.setMerpic(photo1);
 		productImgVO1.setTime(java.sql.Date.valueOf("2022-02-03"));
 		dao.insert(productImgVO1);
 
 		// 修改
 		ProductImgVO productImgVO2 = new ProductImgVO();
-		productImgVO2.setMerid(1);
+		productImgVO2.setMerid(2);
 		productImgVO2.setMerpic(photo1);
 		productImgVO2.setTime(java.sql.Date.valueOf("2022-02-10"));
 		productImgVO2.setImgid(1);
 		dao.update(productImgVO2);
 
 		// 刪除
-		dao.delete(2);
+//		dao.delete(2);
 
 		// 查詢
 		ProductImgVO productImgVO3 = dao.findByPrimaryKey(3);
@@ -315,6 +315,12 @@ public class ProductImgJDBCDAO implements ProductImgDAO_interface {
 			System.out.print(aImg.getTime() + ",");
 			System.out.println();
 		}
+	}
+
+	@Override
+	public List<ProductImgVO> getAllByProdid(Integer prodid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

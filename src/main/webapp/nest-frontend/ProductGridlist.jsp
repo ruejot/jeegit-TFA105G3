@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.product.model.*"%>
-<%@ page import="com.merimg.*"%>
 <!DOCTYPE html>
 <%-- 取出 Concroller EmpServlet.java已存入request的EmpVO物件--%>
 <% String usersearch = (String) request.getAttribute("usersearch");%>
