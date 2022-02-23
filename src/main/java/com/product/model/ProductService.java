@@ -11,7 +11,7 @@ public class ProductService {
 	private ProductDAO_interface dao;
 	
 	public ProductService() {
-		dao = new ProductJDBCDAO();
+		dao = new ProductDAO();
 	}
 	
 	public ProductVO addPro(Integer busid, String name, Integer price, Integer stock, Date shelfDate, 
@@ -80,4 +80,31 @@ public class ProductService {
 		return dao.getImgsByImgno(merid);
 	}
 
+	public List<ProductVO> getAllByProdId(Integer merid) {
+		if (merid != null) {
+			return dao.getAllByProdid(merid);
+		} else
+			return null;
+	}
+	public List<ProductVO> getAllByProductId(Integer prodid) {
+		if(prodid != null) {
+			return dao.getAllByProdid(prodid);
+		} else
+			return null;
+	}
+
+	public List<ProductVO> getAllbyV_MerPro() {
+		return dao.getAllbyV_MerPro();
+	}
+
+	public List<ProductVO> getAllByProductName(String name) {
+		if (name == null || name.trim().length() == 0) {
+			return null;
+		}
+		return dao.getAllByProductName(name);
+	}
+
+	public List<ProductVO> getSpecialClassByMainCategory(String maincategory){
+		return dao.getAllByMainCategory(maincategory);
+	}
 }
