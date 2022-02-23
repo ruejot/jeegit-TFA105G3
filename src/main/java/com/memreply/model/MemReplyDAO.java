@@ -295,6 +295,67 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 		return list;
 	}
 
+	
+	@Override
+	public List<MemReplyVO> getAllByArtId(Integer reArtId) {
+		List<MemReplyVO> list = new ArrayList<MemReplyVO>();
+		MemReplyVO replyVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();	
+			pstmt = con.prepareStatement(GET_ONE_STMT);
+
+			pstmt.setInt(1, reArtId);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				replyVO = new MemReplyVO();
+				replyVO.setReId(rs.getInt("RE_ID"));
+				replyVO.setReArtId(rs.getInt("RE_ART_ID"));
+				replyVO.setReMemberId(rs.getInt("RE_MEMBER_ID"));
+				replyVO.setRe(rs.getString("RE"));
+				replyVO.setTime(rs.getTimestamp("TIME"));
+				list.add(replyVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	
+	
 	@Override
 	public Set<MemReplyVO> getReByArtId(Integer reMemberId) {
 		Set<MemReplyVO> set = new LinkedHashSet<MemReplyVO>();

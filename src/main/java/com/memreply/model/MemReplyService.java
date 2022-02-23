@@ -12,7 +12,7 @@ public class MemReplyService {
 	private MemReplyDAO_interface dao;
 
 	public MemReplyService() {
-		dao = new MemReplyJDBCDAO();
+		dao = new MemReplyDAO();
 	}
 
 	public List<MemReplyVO> getAll() {
