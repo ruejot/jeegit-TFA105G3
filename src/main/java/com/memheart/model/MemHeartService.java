@@ -11,7 +11,7 @@ public class MemHeartService {
 	private MemHeartDAO_interface dao;
 
 	public MemHeartService() {
-		dao = new MemHeartDAO();
+		dao = new MemHeartJDBCDAO();
 	}
 
 	public List<MemHeartVO> getAll() {

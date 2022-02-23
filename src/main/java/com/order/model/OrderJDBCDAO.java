@@ -10,6 +10,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.orderDetail.model.OrderDetailJDBCDAO;
+import com.orderDetail.model.OrderDetailVO;
+
+
+
 public class OrderJDBCDAO implements OrderDAO_interface{
 	
 	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -17,7 +22,7 @@ public class OrderJDBCDAO implements OrderDAO_interface{
 	private static final String USER = "root";
 	private static final String PASSWORD = "password";
 	
-	private static final String INSERT_STMT = "INSERT INTO pet_g3db_tfa105.ORDER(ORDER_ID, MEMBER_ID, BUS_ID, ORDER_TIME, ORDER_SUM, PAYMENT_ID, SHIPPING_ID, TRACKING, ORDER_STATUS, INVOICE_ID, RECEIVER, RECEIVER_ADDR, RECEIVER_PHONE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_STMT = "INSERT INTO pet_g3db_tfa105.ORDER(MEMBER_ID, BUS_ID, ORDER_TIME, ORDER_SUM, PAYMENT_ID, SHIPPING_ID, TRACKING, ORDER_STATUS, INVOICE_ID, RECEIVER, RECEIVER_ADDR, RECEIVER_PHONE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE_STMT = "UPDATE pet_g3db_tfa105.ORDER SET MEMBER_ID = ?, BUS_ID = ?, ORDER_SUM = ?, PAYMENT_ID = ?, SHIPPING_ID = ?, TRACKING = ?, ORDER_STATUS = ?, INVOICE_ID = ?, RECEIVER = ?, RECEIVER_ADDR = ?, RECEIVER_PHONE= ? WHERE ORDER_ID = ?";
 	private static final String DELETE_STMT = "DELETE FROM pet_g3db_tfa105.ORDER WHERE ORDER_ID = ?";
 	private static final String FIND_BY_ORDER_ID = "SELECT * FROM pet_g3db_tfa105.ORDER WHERE ORDER_ID = ?";
@@ -33,6 +38,101 @@ public class OrderJDBCDAO implements OrderDAO_interface{
 		}
 	}
 
+	public void insertWithOrderDetail(OrderVO orderVO, List<OrderDetailVO> list) {
+		Connection  con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			
+			// 1.設定於 pstmt.executeUpdate()之前
+    		con.setAutoCommit(false);
+    		
+    		// 先新增訂單主檔
+			String cols[] = {"ORDER_ID"};
+			pstmt = con.prepareStatement(INSERT_STMT, cols);
+			
+			pstmt.setInt(1, orderVO.getMemberId());
+			pstmt.setInt(2, orderVO.getBusId());
+			pstmt.setTimestamp(3, orderVO.getOrderTime());
+			pstmt.setInt(4, orderVO.getOrderSum());
+			pstmt.setInt(5, orderVO.getPaymentId());
+			pstmt.setInt(6, orderVO.getShippingId());
+			
+			if (orderVO.getTracking() == null) {
+				pstmt.setNull(7, Types.INTEGER);
+			} else {
+				pstmt.setInt(7, orderVO.getTracking());
+			}
+			
+			pstmt.setInt(8, orderVO.getOrderStatus());
+			pstmt.setString(9, orderVO.getInvoiceId());
+			pstmt.setString(10, orderVO.getReceiver());
+			pstmt.setString(11, orderVO.getReceiverAddr());
+			pstmt.setString(12, orderVO.getReceiverPhone());
+			
+			pstmt.executeUpdate();
+			
+			//獲取對應的自增主鍵值
+			String next_orderId = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+				next_orderId = rs.getString(1);
+				System.out.println("自增主鍵值= " + next_orderId +"(剛新增成功的訂單編號)");
+			} else {
+				System.out.println("未取得自增主鍵值");
+			}
+			rs.close();
+			
+			//再同時新增訂單明細
+			OrderDetailJDBCDAO dao = new OrderDetailJDBCDAO();
+			System.out.println("list.size()-A="+list.size());
+			for (OrderDetailVO addOrderDetail : list) {
+				addOrderDetail.setOrderId(new Integer(next_orderId));
+				dao.insert(addOrderDetail, con);
+			}
+			
+			// 2.設定於 pstmt.executeUpdate()之後
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println("list.size()-B="+list.size());
+			System.out.println("新增訂單編號" + next_orderId + "時,共有" + list.size()
+					+ "筆訂單明細同時被新增");
+			
+			
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3.設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-order");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if (con != null ) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+	}
+
+/*	
 	@Override
 	public void insert(OrderVO orderVO) {
 		Connection con = null;
@@ -82,7 +182,7 @@ public class OrderJDBCDAO implements OrderDAO_interface{
 			}
 		}
 	}
-
+*/
 	@Override
 	public void update(OrderVO orderVO) {
 		Connection con = null;
@@ -409,23 +509,61 @@ public class OrderJDBCDAO implements OrderDAO_interface{
 	
 	public static void main(String[] args) {
 		OrderJDBCDAO dao = new OrderJDBCDAO();
-//		// 新增測試
-		OrderVO orderVO1 = new OrderVO();
-		orderVO1.setOrderId(5);
-		orderVO1.setMemberId(22);
-		orderVO1.setBusId(1);
-		orderVO1.setOrderTime(java.sql.Timestamp.valueOf(LocalDateTime.now()));
-		orderVO1.setOrderSum(1500);
-		orderVO1.setPaymentId(1);
-		orderVO1.setShippingId(3);
-		orderVO1.setTracking(null);
-		orderVO1.setOrderStatus(1);
-		orderVO1.setInvoiceId("");
-		orderVO1.setReceiver("");
-		orderVO1.setReceiverAddr("");
-		orderVO1.setReceiverPhone("");
-		dao.insert(orderVO1);
-		System.out.println("新增成功");
+		// 新增訂單主檔跟明細測試
+		OrderVO orderVO = new OrderVO();
+		orderVO.setMemberId(6);
+		orderVO.setBusId(2);
+		orderVO.setOrderTime(java.sql.Timestamp.valueOf(LocalDateTime.now()));
+		orderVO.setOrderSum(1800);
+		orderVO.setPaymentId(4);
+		orderVO.setShippingId(2);
+		orderVO.setTracking(null);
+		orderVO.setOrderStatus(1);
+		orderVO.setInvoiceId("");
+		orderVO.setReceiver("");
+		orderVO.setReceiverAddr("");
+		orderVO.setReceiverPhone("");
+		
+		List<OrderDetailVO> testList = new ArrayList<OrderDetailVO>();
+		OrderDetailVO orderDetailVO1 = new OrderDetailVO();
+		orderDetailVO1.setMerId(5);
+		orderDetailVO1.setQty(2);
+		orderDetailVO1.setUnitPrice(500);
+		orderDetailVO1.setRanking(null);
+		orderDetailVO1.setComment("");
+		
+		OrderDetailVO orderDetailVO2 = new OrderDetailVO();
+		orderDetailVO2.setMerId(2);
+		orderDetailVO2.setQty(2);
+		orderDetailVO2.setUnitPrice(400);
+		orderDetailVO2.setRanking(null);
+		orderDetailVO2.setComment("");
+		
+		testList.add(orderDetailVO1);
+		testList.add(orderDetailVO2);
+		
+		dao.insertWithOrderDetail(orderVO, testList);
+		
+		
+		
+//		// 新增測試 (非正式版)
+//		OrderVO orderVO1 = new OrderVO();
+//		orderVO1.setOrderId(5);
+//		orderVO1.setMemberId(22);
+//		orderVO1.setBusId(1);
+//		orderVO1.setOrderTime(java.sql.Timestamp.valueOf(LocalDateTime.now()));
+//		orderVO1.setOrderSum(1500);
+//		orderVO1.setPaymentId(1);
+//		orderVO1.setShippingId(3);
+//		orderVO1.setTracking(null);
+//		orderVO1.setOrderStatus(1);
+//		orderVO1.setInvoiceId("");
+//		orderVO1.setReceiver("");
+//		orderVO1.setReceiverAddr("");
+//		orderVO1.setReceiverPhone("");
+//		dao.insert(orderVO1);
+//		System.out.println("新增成功");
+		
 		
 //		// 更新測試
 //		OrderVO orderVO2 = new OrderVO();

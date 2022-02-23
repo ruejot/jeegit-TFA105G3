@@ -42,6 +42,7 @@ public class MemBlogArtVO implements java.io.Serializable{
 		this.heart = heart;
 	}
 	public String getContent() {
+		content.replaceAll("\n", "<br>");
 		return content;
 	}
 	public void setContent(String content) {

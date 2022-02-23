@@ -29,13 +29,13 @@ public class MemBlogArtJDBCDAO implements MemBlogArtDAO_interface {
 	private static final String UPDATE = "UPDATE MEM_BLOG_ART set TITLE=? , POSTTIME=? , CONTENT=? where ART_ID = ?";
 
 	@Override
-	public void insert(MemBlogArtVO memblogartVO) {
+	public int insert(MemBlogArtVO memblogartVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		ResultSet generatedKeys = null;
 
-		
+		int pkArtId=0 ;
+
 		try {
 
 			Class.forName(driver);
@@ -48,18 +48,17 @@ public class MemBlogArtJDBCDAO implements MemBlogArtDAO_interface {
 			pstmt.setTimestamp(3, memblogartVO.getPosttime());
 			pstmt.setString(4,memblogartVO.getContent());
 			
-		
 			
             pstmt.executeUpdate("set auto_increment_offset=1;");
             pstmt.executeUpdate("set auto_increment_increment=1;");
 			pstmt.executeUpdate();
 			
-			ResultSet rs= pstmt.executeQuery(FIND_LAST_INSERTID);
-			int i=0 ;
-			while (rs.next()) {
-				i = rs.getInt(1);
-			}
-			System.out.println(i);
+//			ResultSet rs= pstmt.executeQuery(FIND_LAST_INSERTID);
+//			
+//			while (rs.next()) {
+//				pkArtId = rs.getInt(1);
+//			}
+////			System.out.println(pkArtId);
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
@@ -85,7 +84,7 @@ public class MemBlogArtJDBCDAO implements MemBlogArtDAO_interface {
 				}
 			}
 		}
-
+		return pkArtId;
 	}
 
 	@Override
@@ -387,7 +386,71 @@ public class MemBlogArtJDBCDAO implements MemBlogArtDAO_interface {
 		}
 		return list;
 	}
+	
+	
+	@Override
+	public List<MemBlogArtVO> getAllByArtId(Integer artId) {
+		List<MemBlogArtVO> list = new ArrayList<MemBlogArtVO>();
+		MemBlogArtVO artVO = null;
 
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);		
+			pstmt = con.prepareStatement(GET_ALL_STMT_ByMemberId);
+
+			pstmt.setInt(1, artId);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				artVO = new MemBlogArtVO();
+				artVO.setArtid(rs.getInt("ART_ID"));
+				artVO.setMemberId(rs.getInt("MEMBER_ID"));
+				artVO.setTitle(rs.getString("TITLE"));
+				artVO.setPosttime(rs.getTimestamp("POSTTIME"));
+				artVO.setHeart(rs.getInt("HEART"));
+				artVO.setContent(rs.getString("CONTENT"));
+				list.add(artVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
 	
 	
 

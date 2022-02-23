@@ -2,6 +2,8 @@ package com.order.model;
 
 import java.util.List;
 
+import com.orderDetail.model.OrderDetailVO;
+
 public class OrderService {
 	
 	private OrderDAO_interface dao;
@@ -10,7 +12,7 @@ public class OrderService {
 		dao = new OrderDAO();
 	}
 
-	public OrderVO insertOrder(Integer orderId, Integer memberId, Integer busId, java.sql.Timestamp orderTime, Integer orderSum, Integer paymentId, Integer shippingId, Integer tracking, Integer orderStatus, String invoiceId, String receiver, String receiverAddr, String receiverPhone) {
+	public OrderVO insertOrder(Integer orderId, Integer memberId, Integer busId, java.sql.Timestamp orderTime, Integer orderSum, Integer paymentId, Integer shippingId, Integer tracking, Integer orderStatus, String invoiceId, String receiver, String receiverAddr, String receiverPhone, List<OrderDetailVO> list) {
 		
 		OrderVO orderVO = new OrderVO();
 		
@@ -28,7 +30,7 @@ public class OrderService {
 		orderVO.setReceiverAddr(receiverAddr);
 		orderVO.setReceiverPhone(receiverPhone);
 		
-		dao.insert(orderVO);
+		dao.insertWithOrderDetail(orderVO, list);
 		
 		return orderVO;
 	}

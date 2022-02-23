@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
+import com.memblogart.model.MemBlogArtVO;
 import com.memsavedart.model.MemSavedArtVO;
 
 public class MemReplyService {
@@ -11,20 +12,20 @@ public class MemReplyService {
 	private MemReplyDAO_interface dao;
 
 	public MemReplyService() {
-		dao = new MemReplyDAO();
+		dao = new MemReplyJDBCDAO();
 	}
 
 	public List<MemReplyVO> getAll() {
 		return dao.getAll();
 	}
 
-	public MemReplyVO findByPrimaryKey(Integer reId) {
-		return dao.findByPrimaryKey(reId);
+	public MemReplyVO findByPrimaryKey(Integer reArtId) {
+		return dao.findByPrimaryKey(reArtId);
 	}
 
-	public Set<MemReplyVO> getReByArtId(Integer reArtId) {
-		return dao.getReByArtId(reArtId);
-	}
+//	public Set<MemReplyVO> getReByArtId(Integer reArtId) {
+//		return dao.getReByArtId(reArtId);
+//	}
 	
 	public MemReplyVO addRe(Integer reArtId, Integer reMemberId,
 			String re,Timestamp time) {
@@ -51,7 +52,11 @@ public class MemReplyService {
 	}
 	
 	
-
+	public List<MemReplyVO> getAllByArtId(Integer reArtId) {
+		return dao.getAllByArtId(reArtId);
+	}
+	
+	
 	public void delete(Integer reId) {
 		dao.delete(reId);
 	}

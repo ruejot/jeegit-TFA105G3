@@ -2,6 +2,7 @@ package com.memreply.model;
 
 import java.util.*;
 
+import com.memblogart.model.MemBlogArtVO;
 import com.memsavedart.model.MemSavedArtVO;
 
 import java.sql.*;
@@ -310,6 +311,75 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 	}
 
 	@Override
+	public List<MemReplyVO> getAllByArtId(Integer reArtId) {
+		List<MemReplyVO> list = new ArrayList<MemReplyVO>();
+		MemReplyVO replyVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);		
+			pstmt = con.prepareStatement(GET_ONE_STMT);
+
+			pstmt.setInt(1, reArtId);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				replyVO = new MemReplyVO();
+				replyVO.setReId(rs.getInt("RE_ID"));
+				replyVO.setReArtId(rs.getInt("RE_ART_ID"));
+				replyVO.setReMemberId(rs.getInt("RE_MEMBER_ID"));
+				replyVO.setRe(rs.getString("RE"));
+				replyVO.setTime(rs.getTimestamp("TIME"));
+				list.add(replyVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	
+	
+	
+	
+	
+	
+	@Override
 	public Set<MemReplyVO> getReByArtId(Integer reMemberId) {
 		Set<MemReplyVO> set = new LinkedHashSet<MemReplyVO>();
 		MemReplyVO memReplyVO = null;
@@ -377,29 +447,29 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 		MemReplyService service = new MemReplyService();
 		
 		service.addRe(20, 5, "沒看過這麼可愛的狗", new Timestamp(System.currentTimeMillis()));
-		
-		service.updateRe("卡哇伊", new Timestamp(System.currentTimeMillis()), 4);
-		
-		service.delete(8);
-		
-		MemReplyVO memReplyVO3 = service.findByPrimaryKey(5);
-		System.out.print(memReplyVO3.getReId() + ",");
-		System.out.print(memReplyVO3.getReArtId() + ",");
-		System.out.print(memReplyVO3.getReMemberId() + ",");
-		System.out.print(memReplyVO3.getRe() + ",");
-		System.out.println(memReplyVO3.getTime());
-		System.out.println("---------------------");
-
-		List<MemReplyVO> list = service.getAll();
-		for (MemReplyVO memReplyVO4 : list) {
-			System.out.print(memReplyVO4.getReId() + ",");
-			System.out.print(memReplyVO4.getReArtId() + ",");
-			System.out.print(memReplyVO4.getReMemberId() + ",");
-			System.out.print(memReplyVO4.getRe() + ",");
-			System.out.println(memReplyVO4.getTime());
-			System.out.println();
-		}
-		
+//		
+//		service.updateRe("卡哇伊", new Timestamp(System.currentTimeMillis()), 4);
+//		
+//		service.delete(8);
+//		
+//		MemReplyVO memReplyVO3 = service.findByPrimaryKey(5);
+//		System.out.print(memReplyVO3.getReId() + ",");
+//		System.out.print(memReplyVO3.getReArtId() + ",");
+//		System.out.print(memReplyVO3.getReMemberId() + ",");
+//		System.out.print(memReplyVO3.getRe() + ",");
+//		System.out.println(memReplyVO3.getTime());
+//		System.out.println("---------------------");
+//
+//		List<MemReplyVO> list = service.getAll();
+//		for (MemReplyVO memReplyVO4 : list) {
+//			System.out.print(memReplyVO4.getReId() + ",");
+//			System.out.print(memReplyVO4.getReArtId() + ",");
+//			System.out.print(memReplyVO4.getReMemberId() + ",");
+//			System.out.print(memReplyVO4.getRe() + ",");
+//			System.out.println(memReplyVO4.getTime());
+//			System.out.println();
+//		}
+//		
 //		// 新增
 //		MemReplyVO memReplyVO1 = new MemReplyVO();
 //		
