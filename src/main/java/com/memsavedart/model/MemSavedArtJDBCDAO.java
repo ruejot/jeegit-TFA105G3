@@ -129,7 +129,7 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 
-			// 1â—è¨­å®šæ–¼ pstm.executeUpdate()ä¹‹å‰
+			// 1¡´³]©w©ó pstm.executeUpdate()¤§«e
 			con.setAutoCommit(false);
 			
 			pstmt = con.prepareStatement(DELETE);
@@ -137,11 +137,11 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 			
 			updateCount_EMPs = pstmt.executeUpdate();
 
-			// 2â—è¨­å®šæ–¼ pstm.executeUpdate()ä¹‹å¾Œ
+			// 2¡´³]©w©ó pstm.executeUpdate()¤§«á
 			con.commit();
 			con.setAutoCommit(true);
-//			System.out.println("åˆªé™¤éƒ¨é–€ç·¨è™Ÿ" + deptno + "æ™‚,å…±æœ‰å“¡å·¥" + updateCount_EMPs
-//					+ "äººåŒæ™‚è¢«åˆªé™¤");
+//			System.out.println("§R°£³¡ªù½s¸¹" + deptno + "®É,¦@¦³­û¤u" + updateCount_EMPs
+//					+ "¤H¦P®É³Q§R°£");
 			
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -151,7 +151,7 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 		} catch (SQLException se) {
 			if (con != null) {
 				try {
-					// 3â—è¨­å®šæ–¼ç•¶æœ‰exceptionç™¼ç”Ÿæ™‚ä¹‹catchå€å¡Šå…§
+					// 3¡´³]©w©ó·í¦³exceptionµo¥Í®É¤§catch°Ï¶ô¤º
 					con.rollback();
 				} catch (SQLException excep) {
 					throw new RuntimeException("rollback error occured. "
@@ -198,7 +198,7 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// deptVO ä¹Ÿç¨±ç‚º Domain objects
+				// deptVO ¤]ºÙ¬° Domain objects
 				artVO = new MemSavedArtVO();
 				artVO.setSavId(rs.getInt("SAV_ID"));
 				artVO.setSavMemberId(rs.getInt("SAV_MEMBER_ID"));
@@ -393,7 +393,7 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 		
 //		MemSavedArtJDBCDAO dao = new MemSavedArtJDBCDAO();
 		
-		// æ–°å¢
+		// ·s¼W
 //		MemSavedArtVO memsavedartVO1 = new MemSavedArtVO();
 		
 //		memsavedartVO1.setSavId(1);
@@ -402,7 +402,7 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 //		memsavedartVO1.setTime(new Timestamp(System.currentTimeMillis()));
 //		dao.insert(memsavedartVO1);
 		
-		// ä¿®æ”¹
+		// ­×§ï
 //		MemSavedArtVO memsavedartVO2 = new MemSavedArtVO();
 //		memsavedartVO2.setSavId(1);
 //		memsavedartVO2.setSavMemberId(1);
@@ -410,10 +410,10 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 //		memsavedartVO2.setTime(new Timestamp(System.currentTimeMillis()));
 //		dao.update(memsavedartVO2);
 //
-		// åˆªé™¤
+		// §R°£
 //		dao.delete(6);
 //
-//		// æŸ¥è©¢
+//		// ¬d¸ß
 //		MemSavedArtVO memsavedartVO3 = dao.findByPrimaryKey(3);
 //		System.out.print(memsavedartVO3.getSavId() + ",");
 //		System.out.print(memsavedartVO3.getSavMemberId() + ",");
@@ -421,7 +421,7 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 //		System.out.println(memsavedartVO3.getTime());
 //		System.out.println("---------------------");
 //
-//		// æŸ¥è©¢éƒ¨é–€
+//		// ¬d¸ß³¡ªù
 //		List<MemSavedArtVO> list = dao.getAll();
 //		for (MemSavedArtVO memsavedartVO4 : list) {
 //			System.out.print(memsavedartVO4.getSavId() + ",");

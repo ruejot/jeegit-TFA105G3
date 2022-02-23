@@ -20,28 +20,34 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class getPic
  */
-@WebServlet("/getPic")
+@WebServlet("/GetPic")
 
-public class getPic extends HttpServlet {
+public class GetPic extends HttpServlet {
 
 	Connection con;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
 	
 	private static final String GET_PIC_STMT = "SELECT * from MEM_ART_PIC where BL_ART_ID = ?";
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
-
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		System.out.println("okokkoko");
 		res.setContentType("image/gif");
 		ServletOutputStream out = res.getOutputStream();
 	
 		
 		try {
+//			Class.forName("com.mysql.cj.jdbc.Driver");
+//			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_g3db_tfa105?serverTimezone=Asia/Taipei", "root", "5525");
+//			
 			pstmt = con.prepareStatement(GET_PIC_STMT);
-			pstmt.setInt(1,Integer.parseInt(req.getParameter("blArtPic")));
+			pstmt.setInt(1,Integer.parseInt(req.getParameter("blArtPicId")));
 			rs = pstmt.executeQuery();
 
+			System.out.println(req.getParameter("blArtPicId"));
+			
 			if (rs.next()) {
 				BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream(3));
 				byte[] buf = new byte[4 * 1024]; // 4K buffer
@@ -49,17 +55,43 @@ public class getPic extends HttpServlet {
 				while ((len = in.read(buf)) != -1) {
 					out.write(buf, 0, len);
 				}
+				out.flush();
 				in.close();
 			} else {
 				res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			}
-			rs.close();
-			pstmt.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-//			System.out.println(e);
-		}
-	}
+			
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. "
+//					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+	    }
+        }
 
 	public void init() throws ServletException {
 		try {

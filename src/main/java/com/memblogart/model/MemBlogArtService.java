@@ -11,7 +11,7 @@ public class MemBlogArtService {
 	private MemBlogArtDAO_interface dao;
 
 	public MemBlogArtService() {
-		dao = new MemBlogArtDAO();
+		dao = new MemBlogArtJDBCDAO();
 	}
 
 	public List<MemBlogArtVO> getAll() {
@@ -61,5 +61,9 @@ public class MemBlogArtService {
 
 	public List<MemBlogArtVO> getAllByMember(Integer memberId) {
 		return dao.getAllByMember(memberId);
+	}
+	
+	public List<MemBlogArtVO> getAllByArtId(Integer artId) {
+		return dao.getAllByMember(artId);
 	}
 }

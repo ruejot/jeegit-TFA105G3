@@ -1,6 +1,9 @@
 package com.memartpic.model;
 
 import java.util.*;
+
+import com.memblogart.model.MemBlogArtJDBCDAO;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -376,28 +379,27 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 		return buffer;
 	}
 	
-	
-	
-	
 	public static void main(String[] args) throws IOException {
 
 		MemArtPicService service = new MemArtPicService();
 		
-		byte[] pic = getPictureByteArray("C:\\TFA105_WebApp\\eclipse_WTP_workspace1\\petting_table_kame01\\src\\main\\webapp\\image\\06.jpg");
-		service.addArtPic(3, pic, Timestamp.valueOf(LocalDateTime.now()));
 		
-		byte[] pic2 = getPictureByteArray("C:\\TFA105_WebApp\\eclipse_WTP_workspace1\\petting_table_kame01\\src\\main\\webapp\\image\\03.jpg");
-		service.updateArtPic(1, 7, pic2, Timestamp.valueOf(LocalDateTime.now()));
-		
-		
-		service.delete(3);
-		
-		MemArtPicVO memArtPicVO3 = service.findByPrimaryKey(4);
-		System.out.print(memArtPicVO3.getBlArtPicId() + ",");
-		System.out.print(memArtPicVO3.getBlArtId() + ",");
-		System.out.print(memArtPicVO3.getBlArtPic() + ",");
-		System.out.println(memArtPicVO3.getTime());
-		System.out.println("---------------------");
+//		byte[] pic = getPictureByteArray("C:\\TFA105_WebApp\\eclipse_WTP_workspace1\\petting_table_kame01\\src\\main\\webapp\\image\\06.jpg");
+//		
+//		service.addArtPic(3, pic, Timestamp.valueOf(LocalDateTime.now()));
+//		
+//		byte[] pic2 = getPictureByteArray("C:\\TFA105_WebApp\\eclipse_WTP_workspace1\\petting_table_kame01\\src\\main\\webapp\\image\\03.jpg");
+//		service.updateArtPic(1, 7, pic2, Timestamp.valueOf(LocalDateTime.now()));
+//		
+//		
+//		service.delete(3);
+//		
+//		MemArtPicVO memArtPicVO3 = service.findByPrimaryKey(4);
+//		System.out.print(memArtPicVO3.getBlArtPicId() + ",");
+//		System.out.print(memArtPicVO3.getBlArtId() + ",");
+//		System.out.print(memArtPicVO3.getBlArtPic() + ",");
+//		System.out.println(memArtPicVO3.getTime());
+//		System.out.println("---------------------");
 		
 		List<MemArtPicVO> list = service.getAll();
 		for (MemArtPicVO memArtPicVO4 : list) {

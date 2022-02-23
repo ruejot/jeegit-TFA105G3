@@ -11,7 +11,7 @@ public class MemArtPicService {
 	private MemArtPicDAO_interface dao;
 
 	public MemArtPicService() {
-		dao = new MemArtPicDAO();
+		dao = new MemArtPicJDBCDAO();
 	}
 
 	public List<MemArtPicVO> getAll() {
