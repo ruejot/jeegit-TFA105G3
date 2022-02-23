@@ -157,7 +157,7 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 						</div>
 						<!-- row .// -->
 					</article>
-				<%@ include file="/pages/Prod_page1.file" %> 
+				<%@ include file="./page1.file" %> 
 				<c:forEach var="productVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" > 
 					<article class="itemlist">
 						<div class="row align-items-center">
@@ -207,7 +207,7 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 				<!-- card-body end// -->
 			</div>
 			<!-- card end// -->
-			<%@ include file="/pages/Prod_page2.file" %>
+			<%@ include file="./page2.file" %>
 			<!--  
 			<div class="pagination-area mt-30 mb-50">
 				<nav aria-label="Page navigation example">
