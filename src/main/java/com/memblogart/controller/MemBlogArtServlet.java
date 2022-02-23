@@ -105,7 +105,7 @@ public class MemBlogArtServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
 				Integer artid = new Integer(req.getParameter("artid"));
-//				System.out.println(artid + "安安");
+				System.out.println(artid + "編輯");
 				req.setAttribute("artid", artid);
 
 				/*************************** 2.開始查詢資料 ****************************************/
@@ -128,7 +128,6 @@ public class MemBlogArtServlet extends HttpServlet {
 
 		if ("update".equals(action)) { // 來自blog_edit-article.jsp的請求
 
-			System.out.println("12345");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -147,15 +146,15 @@ public class MemBlogArtServlet extends HttpServlet {
 				String content = req.getParameter("content");
 				if (content == null || content.trim().length() == 0) {
 					errorMsgs.add("文章內容: 請勿空白");
-				} else if (content.trim().length() >= 1000) {
-					errorMsgs.add("文章內容: 請勿輸入超過1000個字元");
+				} else if (content.trim().length() >= 2000) {
+					errorMsgs.add("文章內容: 請勿輸入超過2000個字元");
 				}
 
 				Timestamp posttime = new Timestamp(System.currentTimeMillis());
 
 				Integer artid = new Integer(req.getParameter("artid"));
 //Integer artid= (Integer) req.getAttribute("artid");
-				System.out.println(artid);
+				System.out.println(artid+"修改");
 
 				
 				MemBlogArtVO memBlogArtVO = new MemBlogArtVO();
@@ -180,7 +179,7 @@ public class MemBlogArtServlet extends HttpServlet {
 //				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("memBlogArtVO", memBlogArtVO); // 資料庫update成功後,正確的的empVO物件,存入req
 				String url = "/nest-backend/blog_manage.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交blog_edit-article.jsp
 				successView.forward(req, res);
 
 //				/***************************其他可能的錯誤處理*************************************/
@@ -261,7 +260,7 @@ public class MemBlogArtServlet extends HttpServlet {
 					while (rs.next()) {
 						artid = rs.getInt(1);
 					}
-					System.out.println(artid + "安安");
+//					System.out.println(artid + "安安");
 					// Handle any driver errors
 				} catch (Exception e) {
 					throw new RuntimeException("Couldn't load database driver. "
@@ -294,7 +293,7 @@ public class MemBlogArtServlet extends HttpServlet {
 
 //				Collection<Part> parts = req.getParts(); // Servlet3.0新增了Part介面，讓我們方便的進行檔案上傳處理
 				Part part =  req.getPart("file");
-				System.out.println(part);
+//				System.out.println(part);
 
 //				for (Part part : parts) {
 //					String filename = getFileNameFromPart(part);
@@ -322,7 +321,7 @@ public class MemBlogArtServlet extends HttpServlet {
 //				}
 				
 				String filename = getFileNameFromPart(part);
-				System.out.println(filename+"sssssssssssss");
+//				System.out.println(filename+"sssssssssssss");
 				if (filename != null && part.getContentType() != null) {
 					
 					String name = part.getName();
@@ -374,7 +373,7 @@ public class MemBlogArtServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			System.out.println("yeah");
+//			System.out.println("yeah");
 
 			try {
 				/*************************** 1.接收請求參數 ***************************************/
