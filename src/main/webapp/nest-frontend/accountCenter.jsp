@@ -24,8 +24,8 @@
         <meta property="og:url" content="" />
         <meta property="og:image" content="" />
         <!-- Template CSS -->
-
-        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
+        <link rel="stylesheet" href="assets/css/plugins/animate.min.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/main.css" />
     </head>
 
     <body>
@@ -111,7 +111,7 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                            <%@ include file="/pages/Order_page1.file" %>
+                                                            <%@ include file="page1.file" %>
 															<c:forEach var="orderVO" items="${list}"
 																begin="<%=pageIndex%>"
 																end="<%=pageIndex+rowsPerPage-1%>">
@@ -129,7 +129,7 @@
 																	</td>
 																</tr>
 															</c:forEach>
-															<%@ include file="/pages/Order_page2.file" %>
+															<%@ include file="page2.file" %>
                                                             </tbody>
                                                         </table>
                                                     </div>

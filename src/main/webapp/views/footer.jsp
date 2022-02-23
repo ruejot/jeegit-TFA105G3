@@ -102,7 +102,7 @@
 						<script>
                             document.write(new Date().getFullYear());
                         </script>
-                        - Enjoy the company of <strong class="text-brand">Petting</strong> .
+                        - <strong class="text-brand">Petting</strong> ,  All for our pets.
 					</p>
 				</div>
 			</div>

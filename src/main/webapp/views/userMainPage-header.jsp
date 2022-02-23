@@ -17,7 +17,8 @@
 <%-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" /> --%>
 </head>
 <body>
-<!-- 	<header class="header-area header-style-1 header-height-2">...</header> -->
+<!-- 	<header class="header-area header-style-1 header-height-2"> -->
+<!-- ...</header> -->
 <!-- 	<div class="mobile-header-active mobile-header-wrapper-style">...</div> -->
 	<!--End header-->
 

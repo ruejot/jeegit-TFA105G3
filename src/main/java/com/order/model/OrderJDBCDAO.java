@@ -511,7 +511,7 @@ public class OrderJDBCDAO implements OrderDAO_interface{
 		OrderJDBCDAO dao = new OrderJDBCDAO();
 		// 新增訂單主檔跟明細測試
 		OrderVO orderVO = new OrderVO();
-		orderVO.setMemberId(6);
+		orderVO.setMemberId(7);
 		orderVO.setBusId(2);
 		orderVO.setOrderTime(java.sql.Timestamp.valueOf(LocalDateTime.now()));
 		orderVO.setOrderSum(1800);
