@@ -5,6 +5,7 @@
 
 <%
 ProductVO productVO = (ProductVO) request.getAttribute("productVO");
+int i = 0, index = 0;
 %>
 
 <!DOCTYPE html>
@@ -38,17 +39,17 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 						<i class="icon material-icons md-home"></i> <span class="text">會員中心</span>
 				</a></li>
 				<li class="menu-item has-submenu"><a class="menu-link"
-					href="page-products-list.html"> <i
+					href="<%=request.getContextPath()%>/nest-backend/productManage.jsp"> <i
 						class="icon material-icons md-shopping_bag"></i> <span
 						class="text">商品管理</span>
 				</a></li>
 				<li class="menu-item has-submenu"><a class="menu-link"
-					href="page-orders-1.html"> <i
+					href="<%=request.getContextPath()%>/nest-backend/orderManage.jsp"> <i
 						class="icon material-icons md-shopping_cart"></i> <span
 						class="text">訂單管理</span>
 				</a></li>
 				<li class="menu-item has-submenu"><a class="menu-link"
-					href="page-form-product-1.html"> <i
+					href="<%=request.getContextPath()%>/nest-backend/addProduct.jsp"> <i
 						class="icon material-icons md-add_box"></i> <span class="text">商品上架</span>
 				</a></li>
 				<li class="menu-item has-submenu"><a class="menu-link"
@@ -136,18 +137,18 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 								</div>
 								 <div class="mb-4">
                                         <label class="form-label">上架狀態</label><br>
-                                        <input class="form-check-input" id="yet" type="radio" name="status" value="<%=productVO.getStatus() %>" />
+                                        <input class="form-check-input" id="yet" type="radio" name="status" value="1" <%=productVO.getStatus() == 1 ? "checked" : ""  %>/>
                                         <label for="yet">尚未開賣</label>
-                                        <input class="form-check-input ml-10" id="onsell" type="radio" name="status" value="<%=productVO.getStatus() %>"/>
+                                        <input class="form-check-input ml-10" id="onsell" type="radio" name="status" value="2" <%=productVO.getStatus() == 2 ? "checked" : ""  %>/>
                                         <label for="onsell">熱賣中</label>
-                                        <input class="form-check-input ml-10" id="off" type="radio" name="status"  value="<%=productVO.getStatus() %>" />
+                                        <input class="form-check-input ml-10" id="off" type="radio" name="status"  value="3" <%=productVO.getStatus() == 3 ? "checked" : ""  %>/>
                                         <label for="off">暫停販售</label>
                                 </div>
 								 <jsp:useBean id="shippingSvc" scope="page" class="com.shipping.model.ShippingService" />
 								<div class="mb-4">
 									<label class="form-label">出貨方式</label><br>
 									<c:forEach var="shippingVO" items="${shippingSvc.all}">
-									<input name="shippingMethod" class="form-check-input ml-10" type="checkbox" value="<%=productVO.getShippingMethod() %>" /> 
+										<input name="shippingMethod" class="form-check-input ml-10" type="checkbox" value="<%=i++ %>" <%=productVO.getShippingMethod().charAt(index++) == 49 ? "checked" : ""  %> /> 
 									<label>${shippingVO.shippingMethod}</label>
 									</c:forEach>
 								</div>

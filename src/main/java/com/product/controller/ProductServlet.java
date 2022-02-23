@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.product.model.ProductService;
 import com.product.model.ProductVO;
 
+@WebServlet("/nest-backend/product.do")
 public class ProductServlet extends HttpServlet {
 
 	/**
@@ -132,20 +134,26 @@ public class ProductServlet extends HttpServlet {
 				Integer status = new Integer(req.getParameter("status"));
 			
 
-
 				// 取得出貨方式
-				String shippingMethod = req.getParameter("shippingMethod");
+//				String shippingMethod = req.getParameter("shippingMethod");
+				String[] shippingMethod = req.getParameterValues("shippingMethod");
+				StringBuffer sb = new StringBuffer("0000");
+				for (String s : shippingMethod) {
+					int index = Integer.parseInt(s);
+					sb.setCharAt(index, '1');
+				}
+				System.out.println(sb);
 				if (shippingMethod == null) {
 					errorMsgs.add("請選擇出貨方式!");
 				}
 
 				// 到時需從登入頁面getSession取得busid(要改寫)
-				Integer busid = null; 
-				try {
-				busid = new Integer(req.getParameter("busid"));
-				} catch(NumberFormatException e) {
-					errorMsgs.add("請填數字");
-				}
+				Integer busid = 1; 
+//				try {
+//				busid = new Integer(req.getParameter("busid"));
+//				} catch(NumberFormatException e) {
+//					errorMsgs.add("請填數字");
+//				}
 				
 				// 取得主商品類別
 				String mainCategory = req.getParameter("mainCategory");
@@ -169,7 +177,7 @@ public class ProductServlet extends HttpServlet {
 				proVO.setShelfDate(shelfDate);
 				proVO.setStatus(status);
 				proVO.setDescription(description);
-				proVO.setShippingMethod(shippingMethod);
+				proVO.setShippingMethod(sb.toString());
 				proVO.setMainCategory(mainCategory);
 				proVO.setSubCategory(subCategory);
 
@@ -183,7 +191,7 @@ public class ProductServlet extends HttpServlet {
 
 				// 開始修改資料
 				ProductService proSvc = new ProductService();
-				proVO = proSvc.updatePro(merid, busid, name, price, stock, shelfDate, status, description, shippingMethod,
+				proVO = proSvc.updatePro(merid, busid, name, price, stock, shelfDate, status, description, sb.toString(),
 						mainCategory, subCategory);
 
 				// 修改完成，準備轉交
@@ -281,7 +289,13 @@ public class ProductServlet extends HttpServlet {
 				
 
 				// 取得出貨方式
-				String shippingMethod = req.getParameter("shippingMethod");
+//				String shippingMethod = req.getParameter("shippingMethod");
+				String[] shippingMethod = req.getParameterValues("shippingMethod");
+				StringBuffer sb = new StringBuffer("0000");
+				for (String s : shippingMethod) {
+					int index = Integer.parseInt(s);
+					sb.setCharAt(index, '1');
+				}
 				if (shippingMethod == null) {
 					errorMsgs.add("請選擇出貨方式!");
 				}
@@ -315,7 +329,7 @@ public class ProductServlet extends HttpServlet {
 				proVO.setShelfDate(shelfDate);
 				proVO.setStatus(status);
 				proVO.setDescription(description);
-				proVO.setShippingMethod(shippingMethod);
+				proVO.setShippingMethod(sb.toString());
 				proVO.setMainCategory(mainCategory);
 				proVO.setSubCategory(subCategory);
 
@@ -328,7 +342,7 @@ public class ProductServlet extends HttpServlet {
 				}
 				// 開始新增資料
 				ProductService proSvc = new ProductService();
-				proVO = proSvc.addPro(busid, name, price, stock, shelfDate, status, description, shippingMethod, mainCategory,
+				proVO = proSvc.addPro(busid, name, price, stock, shelfDate, status, description, sb.toString(), mainCategory,
 						subCategory);
 
 				// 新增完成，準備轉交
