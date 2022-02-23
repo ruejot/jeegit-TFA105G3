@@ -108,8 +108,9 @@ public class ProductService {
 			return null;
 		}
 		return dao.getAllByProductName(name);
-
 	}
 
-
+	public List<ProductVO> getSpecialClassByMainCategory(String maincategory){
+		return dao.getAllByMainCategory(maincategory);
+	}
 }

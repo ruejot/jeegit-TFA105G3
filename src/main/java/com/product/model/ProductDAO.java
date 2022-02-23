@@ -30,8 +30,9 @@ public class ProductDAO implements ProductDAO_interface {
 	private static final String UPDATE = "UPDATE mer set BUS_ID=?, name=?, price=?, stock=?, SHELF_Date=?, status=?, description=?, SHIPPING_METHOD=?, MAIN_CATEGORY=?, SUB_CATEGORY=? where MER_ID = ?";
 	private static final String GET_Imgs_ByMerid_STMT = "SELECT IMG_ID, MER_PIC, time, MER_ID FROM MER_IMG where MER_ID = ?";
 	private static final String GET_ALL_By_vMerPro = "SELECT * FROM pet_g3db_tfa105.v_merimg_mer";
-	private static final String FIND_AllbyMerid = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_ID =?";
+	private static final String FIND_AllbyMerid = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_ID= ?";
 	private static final String FIND_AllbyMerName = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_NAME like ? ";
+	private static final String FIND_AllbyMainCategory = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE Main_Category like ? ";
 
 	@Override
 	public void insert(ProductVO productVO) {
@@ -380,6 +381,7 @@ public class ProductDAO implements ProductDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FIND_AllbyMerid);
 			pstmt.setInt(1, prodid);
+			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				productVO = new ProductVO();
@@ -513,6 +515,64 @@ public class ProductDAO implements ProductDAO_interface {
 			}
 
 			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<ProductVO> getAllByMainCategory(String maincategory) {
+		List<ProductVO> list = new ArrayList<ProductVO>();
+		ProductVO productVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FIND_AllbyMainCategory);
+			pstmt.setString(1, "%" + maincategory + "%");
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				productVO = new ProductVO();
+				productVO.setImgid(rs.getInt("img_id"));
+				productVO.setMerid(rs.getInt("mer_id"));
+				productVO.setBusid(rs.getInt("bus_id"));
+				productVO.setName(rs.getString("mer_name"));
+				productVO.setPicname(rs.getString("pic_name"));
+				productVO.setMerpic(rs.getBytes("mer_pic"));
+				productVO.setPrice(rs.getInt("price"));
+				productVO.setStock(rs.getInt("stock"));
+				productVO.setMainCategory(rs.getString("main_category"));
+				productVO.setSubCategory(rs.getString("sub_category"));
+				list.add(productVO); // Store the row in the list
+			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
