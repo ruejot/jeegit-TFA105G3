@@ -11,7 +11,7 @@
 -- [WAY_1] use "right click" on Navigator window DB name -> select "Drop Schema...".
 -- [WAY_2] Executing this script will auto DROP old DATABASE, make sure without any error message.;
 
-
+--[0223] 新增view table: v_merimg_mer 
 CREATE DATABASE IF NOT EXISTS `pet_g3db_tfa105`;
 
 USE `pet_g3db_tfa105`;
@@ -345,3 +345,7 @@ CREATE TABLE `SERORDER_DETAIL` (
   FOREIGN KEY (`MEMBER_ID`) REFERENCES `MEMBERS`(`MEMBER_ID`),
   FOREIGN KEY (`BUS_ID`) REFERENCES `BUS`(`BUS_ID`)
   ) COMMENT = '客服明細';
+
+CREATE VIEW pet_g3db_tfa105.v_merimg_mer (IMG_ID, MER_ID, BUS_ID, MER_NAME, PIC_NAME, MER_PIC, PRICE, STOCK, MAIN_CATEGORY, SUB_CATEGORY)
+AS SELECT i.IMG_ID, m.MER_ID, m.BUS_ID, m.NAME, i.PIC_NAME, i.MER_PIC, m.PRICE, m.STOCK, m.MAIN_CATEGORY, m.SUB_CATEGORY
+FROM MER_IMG i right join MER m on i.MER_ID = m.MER_ID;
