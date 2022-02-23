@@ -1,5 +1,6 @@
 package com.orderDetail.model;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class OrderDetailService {
@@ -9,7 +10,7 @@ public class OrderDetailService {
 		dao = new OrderDetailDAO();
 	}
 	
-	public OrderDetailVO insertOrderDetail(Integer orderId, Integer merId, Integer qty, Integer unitPrice, Integer ranking, String comment) {
+	public OrderDetailVO insertOrderDetail(Integer orderId, Integer merId, Integer qty, Integer unitPrice, Integer ranking, String comment, Connection con) {
 
 		OrderDetailVO orderDetailVO = new OrderDetailVO();
 
@@ -19,7 +20,7 @@ public class OrderDetailService {
 		orderDetailVO.setUnitPrice(unitPrice);
 		orderDetailVO.setRanking(ranking);
 		orderDetailVO.setComment(comment);
-		dao.insert(orderDetailVO);
+		dao.insert(orderDetailVO, con);
 
 		return orderDetailVO;
 	}

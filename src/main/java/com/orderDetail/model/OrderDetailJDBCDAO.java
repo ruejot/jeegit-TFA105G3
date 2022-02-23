@@ -32,6 +32,44 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		}
 	}
 
+	public void insert(OrderDetailVO orderDetailVO, Connection con) {
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = con.prepareStatement(INSERT_STMT);
+			
+			pstmt.setInt(1, orderDetailVO.getOrderId());
+			pstmt.setInt(2, orderDetailVO.getMerId());
+			pstmt.setInt(3, orderDetailVO.getQty());
+			pstmt.setInt(4, orderDetailVO.getUnitPrice());
+			pstmt.setNull(5, Types.INTEGER);
+			pstmt.setString(6, orderDetailVO.getComment());
+			
+			pstmt.executeUpdate();
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3. 設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-orderDetail");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		
+	}
+/*	
 	@Override
 	public void insert(OrderDetailVO orderDetailVO) {
 		Connection con = null;
@@ -72,7 +110,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 			}
 		}
 	}
-
+*/
 	@Override
 	public void update(OrderDetailVO orderDetailVO) {
 		Connection con = null;

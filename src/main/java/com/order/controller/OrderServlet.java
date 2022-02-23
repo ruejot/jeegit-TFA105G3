@@ -29,7 +29,7 @@ public class OrderServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
-		// 訂單管理頁面資料修改
+		// 商家訂單管理頁面資料修改
 				if ("get_Ord_Update".equals(action)) { // 來自orderManage的請求
 
 					List<String> errorMsgs = new LinkedList<String>();
