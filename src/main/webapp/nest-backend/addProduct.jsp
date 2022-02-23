@@ -27,7 +27,7 @@ int i = 0;
 	<main class="main-wrap">
 		<jsp:include page="/views/sellerHeader_2.jsp"/>
 		<section class="content-main">
-		<form method="post" action="product.do" name="form1">
+		<form method="post" action="product.do" name="form1" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-9">
 					<div class="content-header">
@@ -141,10 +141,7 @@ int i = 0;
 							<!-- row.// -->
 						</div>
 					</div>
-					</form>	
 					<!-- card end// -->
-					<!--  
-					<form method="post" action="productImg.do" name="form2" enctype="multipart/form-data">
 					<div class="card mb-4">
 						<div class="card-header">
 							<h4>新增照片</h4>
@@ -152,16 +149,14 @@ int i = 0;
 						<div class="card-body">
 							<div class="input-upload">
 								<img src="../assets/imgs/theme/upload.svg" alt="" /> 
-								<input class="form-control" type="file" name="upfile1" value="insert">
+								<input class="form-control" type="file" name="upfile1">
 							</div>
 						</div>
 					</div>
-					</form>	
-					-->
 					<!-- card end// -->
 				</div>
 			</div>
-			
+		</form>
 		</section>
 		<!-- content-main end// -->
 		<jsp:include page="/views/sellerFooter.jsp" />  

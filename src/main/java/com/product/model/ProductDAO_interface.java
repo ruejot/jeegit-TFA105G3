@@ -19,5 +19,3 @@ public interface ProductDAO_interface {
 	public abstract List<ProductVO> getAllbyV_MerPro();
 
 }
-
-//test merge
