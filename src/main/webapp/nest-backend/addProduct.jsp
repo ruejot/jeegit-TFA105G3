@@ -15,7 +15,6 @@ int i = 0;
 <title>Add Product</title>
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<%-- <%@ include file="./sellerHeader.jsp" %>  --%>
 <!-- Template CSS -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
@@ -27,7 +26,7 @@ int i = 0;
 	<main class="main-wrap">
 		<jsp:include page="/views/sellerHeader_2.jsp"/>
 		<section class="content-main">
-		<form method="post" action="product.do" name="form1" enctype="multipart/form-data">
+		<form method="post" action="product.do" name="form1" >
 			<div class="row">
 				<div class="col-9">
 					<div class="content-header">
@@ -142,6 +141,7 @@ int i = 0;
 						</div>
 					</div>
 					<!-- card end// -->
+					<!-- 
 					<div class="card mb-4">
 						<div class="card-header">
 							<h4>新增照片</h4>
@@ -168,6 +168,7 @@ int i = 0;
 	<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery.fullscreen.min.js"></script>
 	<!-- Main Script -->
 	<script src="<%=request.getContextPath()%>/assets/js/main_backend.js" type="text/javascript"></script>
+	<script src="https://kit.fontawesome.com/60002e5c50.js"></script>
 </body>
 
 	<!-- 以下為日期設定 -->
