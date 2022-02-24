@@ -3,6 +3,7 @@
 <%@page import="com.productImg.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.product.model.*"%>
+<%@ page import="com.product.controller.*"%>
 <!DOCTYPE html>
 <%
 ProductService productSvc = new ProductService();
@@ -31,7 +32,7 @@ pageContext.setAttribute("imglist", imglist);
     </head>
 
     <body class="single-product">
-<jsp:include page="../views/userHeader.jsp"/>
+       <jsp:include page="../views/sellerHeader_2.jsp"/>
         <!--product tree-->
         
         <main class="main">
@@ -54,7 +55,7 @@ pageContext.setAttribute("imglist", imglist);
                                         <div class="col-md-6 col-sm-12 col-xs-12 mb-md-0 mb-sm-5">
                                             <div class="detail-gallery">
                                                 <span class="zoom-icon"><i class="fi-rs-search"></i></span>
-                                                <!-- MAIN SLIDES 商品圖片大圖 -->
+                                    <!-- MAIN SLIDES 商品圖片大圖 -->
                                                 <div class="product-image-slider">
                                                     <c:forEach var="prodImgVO" items="${imglist}" >
                                                     <figure class="border-radius-10">
@@ -62,7 +63,7 @@ pageContext.setAttribute("imglist", imglist);
                                                     </figure>
                                                     </c:forEach>
                                                 </div>
-                                                <!-- THUMBNAILS 商品圖片小圖-->
+                                    <!-- THUMBNAILS 商品圖片小圖-->
                                                 <div class="slider-nav-thumbnails">
                                                 <c:forEach var="prodImgVO" items="${imglist}" >
                                                     <div><img src="http://localhost:7080/jeeweb-TFA105G3/getproductPic?aa=${prodImgVO.imgid}" alt="product image" /></div>
@@ -143,7 +144,6 @@ pageContext.setAttribute("imglist", imglist);
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                   
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-4">
@@ -405,21 +405,21 @@ pageContext.setAttribute("imglist", imglist);
         <script src="assets/js/vendors/jquery-migrate-3.3.0.min.js"></script>
         <script src="assets/js/vendors/bootstrap.bundle.min.js"></script>
         <script src="assets/js/plugins/slick.js"></script>
-        <!-- <script src="assets/js/plugins/jquery.syotimer.min.js"></script> -->
+        <script src="assets/js/plugins/jquery.syotimer.min.js"></script>
         <script src="assets/js/plugins/slider-range.js"></script>
-        <!-- <script src="assets/js/plugins/perfect-scrollbar.js"></script> -->
-        <!-- <script src="assets/js/plugins/magnific-popup.js"></script> -->
+        <script src="assets/js/plugins/perfect-scrollbar.js"></script>
+        <script src="assets/js/plugins/magnific-popup.js"></script>
         <script src="assets/js/plugins/select2.min.js"></script>
         <script src="assets/js/plugins/waypoints.js"></script>
         <script src="assets/js/plugins/counterup.js"></script>
         <script src="assets/js/plugins/jquery.countdown.min.js"></script>
         <script src="assets/js/plugins/images-loaded.js"></script>
-        <!-- <script src="assets/js/plugins/isotope.js"></script> -->
+        <script src="assets/js/plugins/isotope.js"></script>
         <script src="assets/js/plugins/wow.js"></script>
         <script src="assets/js/plugins/scrollup.js"></script>
         <script src="assets/js/plugins/jquery.theia.sticky.js"></script>
         <script src="assets/js/plugins/jquery.elevatezoom.js"></script>
-        <!-- <script src="assets/js/plugins/jquery.vticker-min.js"></script> -->
+        <script src="assets/js/plugins/jquery.vticker-min.js"></script>
         <!-- Template  JS -->
         <script src="./assets/js/main.js?v=4.0"></script>
         <script src="./assets/js/shop.js?v=4.0"></script>

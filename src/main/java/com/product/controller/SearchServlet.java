@@ -42,7 +42,16 @@ public class SearchServlet extends HttpServlet {
 				req.getRequestDispatcher("../nest-frontend/ProductGridlist.jsp").forward(req, res);
 			}
 		}
-//		=========↑ 跳轉頁面 ↑==============
 
+//        =========↓ 來自HomePage.jsp specialClass的請求↓==============
+if ("HomeTag".equals(action)) {
+	String mainCategory = req.getParameter("mainCategory");
+	List<ProductVO> searchlist = SERVICE.getSpecialClassByMainCategory(mainCategory);
+	if (searchlist != null) {
+		req.setAttribute("searchlist", searchlist);
+		req.setAttribute("mainCategory", mainCategory);
+		req.getRequestDispatcher("../nest-frontend/ProductGridlist.jsp").forward(req, res);
+	}
+}
 	}
 }

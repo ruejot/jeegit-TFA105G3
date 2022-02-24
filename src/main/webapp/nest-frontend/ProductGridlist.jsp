@@ -5,9 +5,11 @@
 <%@ page import="com.product.model.*"%>
 <!DOCTYPE html>
 <%-- 取出 Concroller EmpServlet.java已存入request的EmpVO物件--%>
-<% String usersearch = (String) request.getAttribute("usersearch");%>
-<% List<ProductVO> searchlist = (List<ProductVO>) request.getAttribute("searchlist");
-   request.setAttribute("searchlist", searchlist);
+<%  
+String usersearch = (String) request.getAttribute("usersearch");
+String mainCategory = (String) request.getAttribute("mainCategory");
+List<ProductVO> searchlist = (List<ProductVO>) request.getAttribute("searchlist");
+     request.setAttribute("searchlist", searchlist);
 %>
 <%
 ProductService productSvc = new ProductService();
@@ -37,7 +39,7 @@ pageContext.setAttribute("productlist", productlist);
 </head>
 
     <body>
-		<jsp:include page="/views/sellerHeader.jsp" />
+		<jsp:include page="/views/sellerHeader_2.jsp" />
         <!-- Start 頂端  首頁> 其他頁 顯示列 -->
           <main class="main">
             <div class="page-header mt-30 mb-50">
@@ -45,7 +47,7 @@ pageContext.setAttribute("productlist", productlist);
                     <div class="archive-header">
                         <div class="row align-items-center">
                             <div class="col-xl-3">
-                                <h1 class="mb-15">您想找的商品:${usersearch}</h1>
+                                <h1 class="mb-15">您想找的商品:${usersearch}${mainCategory}</h1>
                             </div>
                             <div class="col-xl-9 text-end d-none d-xl-block">
                                 <ul class="tags-list">

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.product.model.*"%>
 
@@ -8,10 +9,10 @@
 <%
 ProductService productSvc = new ProductService();
 ProductVO productbean = productSvc.getOneProduct(5);
-pageContext.setAttribute("productbean", productbean);
+session.setAttribute("productbean", productbean);
 
 List<ProductVO> productlist = productSvc.getAll();
-pageContext.setAttribute("productlist", productlist);
+session.setAttribute("productlist", productlist);
 %>
 
 <html class="no-js" lang="en">
@@ -36,7 +37,7 @@ pageContext.setAttribute("productlist", productlist);
 	href="<%=request.getContextPath()%>/assets/css/main.css" />
 </head>
 
-<jsp:include page="/views/sellerHeader.jsp" />
+<jsp:include page="/views/sellerHeader1.jsp" />
 <body>
 <!-- 頭 上排十大類 -->
 	<section class="popular-categories section-padding">
@@ -45,15 +46,33 @@ pageContext.setAttribute("productlist", productlist);
 				<div class="title">
 					<h3>特色類別</h3>
 					<ul class="list-inline nav nav-tabs links">
-						<li class="list-inline-item nav-item"><a class="nav-link"
-							href="shop-grid-left.html">寵物食品</a></li>
-						<li class="list-inline-item nav-item"><a class="nav-link"
-							href="shop-grid-left.html">寵物玩具</a></li>
-						<li class="list-inline-item nav-item"><a
-							class="nav-link active" href="shop-grid-left.html">居家清潔</a></li>
-						<li class="list-inline-item nav-item"><a class="nav-link"
-							href="shop-grid-left.html">美容用具</a></li>
-					</ul>
+                        <li class="list-inline-item nav-item"> <a class="nav-link"
+                            href="http://localhost:7080/jeeweb-TFA105G3/product/SearchServlet?action=HomeTag&mainCategory=寵物玩具">寵物玩具</a>
+                            <input type="hidden" name="action" value="HomeTag">
+                            <input type="hidden" name="mainCategory" value="寵物玩具">
+                        </li>
+                        </ul>
+                        <ul class="list-inline nav nav-tabs links">
+                        <li class="list-inline-item nav-item"> <a class="nav-link"
+                            href="http://localhost:7080/jeeweb-TFA105G3/product/SearchServlet?action=HomeTag&mainCategory=居家清潔">居家清潔</a>
+                            <input type="hidden" name="action" value="HomeTag">
+                            <input type="hidden" name="mainCategory" value="居家清潔">
+                        </li>
+                        </ul>
+                        <ul class="list-inline nav nav-tabs links">
+                        <li class="list-inline-item nav-item"> <a class="nav-link"
+                            href="http://localhost:7080/jeeweb-TFA105G3/product/SearchServlet?action=HomeTag&mainCategory=生活用品">生活用品</a>
+                            <input type="hidden" name="action" value="HomeTag">
+                            <input type="hidden" name="mainCategory" value="生活用品">
+                        </li>
+                        </ul>
+                        <ul class="list-inline nav nav-tabs links">
+                        <li class="list-inline-item nav-item"> <a class="nav-link"
+                            href="http://localhost:7080/jeeweb-TFA105G3/product/SearchServlet?action=HomeTag&mainCategory=寵物食品">寵物食品</a>
+                            <input type="hidden" name="action" value="HomeTag">
+                            <input type="hidden" name="mainCategory" value="寵物食品">
+                        </li>
+                        </ul>
 				</div>
 				<div
 					class="slider-arrow slider-arrow-2 flex-right carausel-10-columns-arrow"
@@ -68,7 +87,7 @@ pageContext.setAttribute("productlist", productlist);
 								src="assets/imgs/shop/罐頭.png" alt="" /></a>
 						</figure>
 						<h6>
-							<a href="shop-grid-left.html">貓犬罐頭</a>
+                            <a href="shop-grid-left.html">貓犬飼料</a>
 						</h6>
 						<span>36 items</span>
 					</div>
@@ -156,7 +175,7 @@ pageContext.setAttribute("productlist", productlist);
 								src="assets/imgs/shop/梳子.png" alt="" /></a>
 						</figure>
 						<h6>
-							<a href="shop-grid-left.html">美容商品</a>
+                            <a href="shop-grid-left.html">美容、裝飾</a>
 						</h6>
 						<span>34 items</span>
 					</div>
@@ -177,7 +196,6 @@ pageContext.setAttribute("productlist", productlist);
 							<a href="shop-grid-left.html"><img
 								src="assets/imgs/shop/洗澡精.png" alt="" /></a>
 						</figure>
-						assets/imgs/shop/catcloth.png
 						<h6>
 							<a href="shop-grid-left.html">清潔用品</a>
 						</h6>

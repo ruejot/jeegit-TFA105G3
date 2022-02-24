@@ -4,7 +4,6 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import com.product.model.ProductService;
-import com.product.model.ProductVO;
 
 
 /**
@@ -37,7 +35,8 @@ public class ProdFirstPic extends HttpServlet {
 	private ProductService SERVICE;
 	private static DataSource ds = null;
 	Connection con;
-	
+	private static final String GET_1stPIC = "SELECT  * FROM pet_g3db_tfa105.v_merimg_mer where MER_ID = ? limit 1 ";
+
 	public void init() throws ServletException {
 		try {
 				SERVICE = new ProductService();
@@ -50,10 +49,6 @@ public class ProdFirstPic extends HttpServlet {
 			} 
 	}
 
-	private static final String GET_1stPIC = "SELECT  * FROM pet_g3db_tfa105.v_merimg_mer where MER_ID = ? limit 1 ";
-
-	  
-			
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		res.setContentType("image/gif");
