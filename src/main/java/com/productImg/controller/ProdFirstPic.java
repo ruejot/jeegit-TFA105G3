@@ -35,7 +35,6 @@ public class ProdFirstPic extends HttpServlet {
 	private ProductService SERVICE;
 	private static DataSource ds = null;
 	Connection con;
-	private static final String GET_1stPIC = "SELECT  * FROM pet_g3db_tfa105.v_merimg_mer where MER_ID = ? limit 1 ";
 
 	public void init() throws ServletException {
 		try {
@@ -43,11 +42,11 @@ public class ProdFirstPic extends HttpServlet {
 				Context ctx =new InitialContext();
 				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TFA105G3TestDB");
 				
-				
 			} catch (NamingException e) {
 				e.printStackTrace();
 			} 
 	}
+	private static final String GET_1stPIC = "SELECT  MER_PIC FROM pet_g3db_tfa105.v_merimg_mer where MER_ID = ? limit 1 ";
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
@@ -72,8 +71,7 @@ public class ProdFirstPic extends HttpServlet {
 					}
 					in.close();
 				} else {
-//					res.sendError(HttpServletResponse.SC_NOT_FOUND);
-					InputStream in = getServletContext().getResourceAsStream("/nest-frontend/assets/imgs/noPic.jpg");
+					InputStream in = getServletContext().getResourceAsStream("nest-frontend/assets/imgs/noPic.jpg");
 					byte[] b = new byte[in.available()];
 					in.read(b);
 					out.write(b);
@@ -84,7 +82,11 @@ public class ProdFirstPic extends HttpServlet {
 			}catch (SQLException e) {
 					throw new UnavailableException("Couldn't get db connection");
 			} catch (Exception e) {
-				e.printStackTrace();
+				InputStream in = getServletContext().getResourceAsStream("nest-frontend/assets/imgs/noPic.jpg");
+				byte[] b = new byte[in.available()];
+				in.read(b);
+				out.write(b);
+				in.close();
 				System.out.println(e);
 			}
 		}

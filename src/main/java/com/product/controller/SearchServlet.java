@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.product.model.HomePageService;
 import com.product.model.ProductDAO_interface;
 import com.product.model.ProductService;
 import com.product.model.ProductVO;
@@ -19,11 +20,12 @@ import com.product.model.ProductVO;
  */
 @WebServlet("/product/SearchServlet")
 public class SearchServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private ProductService SERVICE;
-
+	{
+		
+	}
+	private HomePageService SERVICE;
 	public SearchServlet() {
-		SERVICE = new ProductService();
+		SERVICE = new HomePageService();
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -44,14 +46,14 @@ public class SearchServlet extends HttpServlet {
 		}
 
 //        =========↓ 來自HomePage.jsp specialClass的請求↓==============
-if ("HomeTag".equals(action)) {
-	String mainCategory = req.getParameter("mainCategory");
-	List<ProductVO> searchlist = SERVICE.getSpecialClassByMainCategory(mainCategory);
-	if (searchlist != null) {
-		req.setAttribute("searchlist", searchlist);
-		req.setAttribute("mainCategory", mainCategory);
-		req.getRequestDispatcher("../nest-frontend/ProductGridlist.jsp").forward(req, res);
-	}
-}
+		if ("HomeTag".equals(action)) {
+			String mainCategory = req.getParameter("mainCategory");
+			List<ProductVO> searchlist = SERVICE.getSpecialClassByMainCategory(mainCategory);
+			if (searchlist != null) {
+				req.setAttribute("searchlist", searchlist);
+				req.setAttribute("mainCategory", mainCategory);
+				req.getRequestDispatcher("../nest-frontend/ProductGridlist.jsp").forward(req, res);
+			}
+		}
 	}
 }

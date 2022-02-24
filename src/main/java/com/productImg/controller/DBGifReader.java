@@ -2,6 +2,7 @@ package com.productImg.controller;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -43,15 +44,11 @@ public class DBGifReader extends HttpServlet {
 				Context ctx =new InitialContext();
 				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TFA105G3TestDB");
 				
-				
 			} catch (NamingException e) {
 				e.printStackTrace();
 			} 
 	}
-
-	private static final String GET_PIC_by_IMGId = "SELECT * from pet_g3db_tfa105.MER_IMG where IMG_ID = ?";
-
-	  
+	private static final String GET_PIC_by_IMGId = "SELECT MER_PIC from pet_g3db_tfa105.MER_IMG where IMG_ID = ?";
 			
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
@@ -76,15 +73,24 @@ public class DBGifReader extends HttpServlet {
 					}
 					in.close();
 				} else {
-					res.sendError(HttpServletResponse.SC_NOT_FOUND);
+					InputStream in = getServletContext().getResourceAsStream("nest-frontend/assets/imgs/noPic.jpg");
+					byte[] b = new byte[in.available()];
+					in.read(b);
+					out.write(b);
+					in.close();
 				}
 				rs.close();
 				pstmt.close();
 			}catch (SQLException e) {
 					throw new UnavailableException("Couldn't get db connection");
 			} catch (Exception e) {
+				InputStream in = getServletContext().getResourceAsStream("nest-frontend/assets/imgs/noPic.jpg");
+				byte[] b = new byte[in.available()];
+				in.read(b);
+				out.write(b);
+				in.close();
 				e.printStackTrace();
-				System.out.println(e);
+				System.out.println(e+"haah");
 			}
 		}
 

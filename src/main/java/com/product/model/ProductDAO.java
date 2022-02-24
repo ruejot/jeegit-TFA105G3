@@ -33,6 +33,7 @@ public class ProductDAO implements ProductDAO_interface {
 	private static final String FIND_AllbyMerid = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_ID= ?";
 	private static final String FIND_AllbyMerName = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_NAME like ? ";
 	private static final String FIND_AllbyMainCategory = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE Main_Category like ? ";
+	private static final String FIND_AllbySubCategory = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE Sub_Category = ? ";
 
 	@Override
 	public void insert(ProductVO productVO) {
@@ -601,4 +602,12 @@ public class ProductDAO implements ProductDAO_interface {
 		}
 		return list;
 	}
+
+	@Override
+	public List<ProductVO> getAllBySubCategory(String subcategory) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 }

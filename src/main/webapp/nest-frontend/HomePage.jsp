@@ -8,11 +8,14 @@
 <!DOCTYPE html>
 <%
 ProductService productSvc = new ProductService();
-ProductVO productbean = productSvc.getOneProduct(5);
-session.setAttribute("productbean", productbean);
+// ProductVO productbean = productSvc.getOneProduct(8);
+// session.setAttribute("productbean", productbean);
 
 List<ProductVO> productlist = productSvc.getAll();
 session.setAttribute("productlist", productlist);
+
+HomePageService homePageSVC = new HomePageService();
+pageContext.setAttribute("homePageSVC", homePageSVC);
 %>
 
 <html class="no-js" lang="en">
@@ -47,30 +50,22 @@ session.setAttribute("productlist", productlist);
 					<h3>特色類別</h3>
 					<ul class="list-inline nav nav-tabs links">
                         <li class="list-inline-item nav-item"> <a class="nav-link"
-                            href="http://localhost:7080/jeeweb-TFA105G3/product/SearchServlet?action=HomeTag&mainCategory=寵物玩具">寵物玩具</a>
-                            <input type="hidden" name="action" value="HomeTag">
-                            <input type="hidden" name="mainCategory" value="寵物玩具">
+                            href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=寵物玩具">寵物玩具</a>
                         </li>
                         </ul>
                         <ul class="list-inline nav nav-tabs links">
                         <li class="list-inline-item nav-item"> <a class="nav-link"
-                            href="http://localhost:7080/jeeweb-TFA105G3/product/SearchServlet?action=HomeTag&mainCategory=居家清潔">居家清潔</a>
-                            <input type="hidden" name="action" value="HomeTag">
-                            <input type="hidden" name="mainCategory" value="居家清潔">
+                            href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=居家清潔">居家清潔</a>
                         </li>
                         </ul>
                         <ul class="list-inline nav nav-tabs links">
                         <li class="list-inline-item nav-item"> <a class="nav-link"
-                            href="http://localhost:7080/jeeweb-TFA105G3/product/SearchServlet?action=HomeTag&mainCategory=生活用品">生活用品</a>
-                            <input type="hidden" name="action" value="HomeTag">
-                            <input type="hidden" name="mainCategory" value="生活用品">
+                            href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=生活用品">生活用品</a>
                         </li>
                         </ul>
                         <ul class="list-inline nav nav-tabs links">
                         <li class="list-inline-item nav-item"> <a class="nav-link"
-                            href="http://localhost:7080/jeeweb-TFA105G3/product/SearchServlet?action=HomeTag&mainCategory=寵物食品">寵物食品</a>
-                            <input type="hidden" name="action" value="HomeTag">
-                            <input type="hidden" name="mainCategory" value="寵物食品">
+                            href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=寵物食品">寵物食品</a>
                         </li>
                         </ul>
 				</div>
@@ -78,6 +73,7 @@ session.setAttribute("productlist", productlist);
 					class="slider-arrow slider-arrow-2 flex-right carausel-10-columns-arrow"
 					id="carausel-10-columns-arrows"></div>
 			</div>
+			
 			<div class="carausel-10-columns-cover position-relative">
 				<div class="carausel-10-columns" id="carausel-10-columns">
 					<div class="card-2 bg-9 wow animate__animated animate__fadeInUp"
@@ -89,117 +85,117 @@ session.setAttribute("productlist", productlist);
 						<h6>
                             <a href="shop-grid-left.html">貓犬飼料</a>
 						</h6>
-						<span>36 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('貓犬飼料')} items</span>
 					</div>
 					<div class="card-2 bg-10 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".2s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img
+							<a href="shop-grid-left.html"><img style="height:80px"
 								src="assets/imgs/shop/魚飼料.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">魚蝦飼料</a>
 						</h6>
-						<span>8 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('魚蝦飼料')} items</span>
 					</div>
 					<div class="card-2 bg-11 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".3s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img
+							<a href="shop-grid-left.html"><img style="height:80px"
 								src="assets/imgs/shop/貓抓板.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">貓抓板</a>
 						</h6>
-						<span>14 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('貓抓板')} items</span>
 					</div>
 					<div class="card-2 bg-12 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".4s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img
+							<a href="shop-grid-left.html"><img style="height:80px"
 								src="assets/imgs/shop/牽繩.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">外出牽繩</a>
 						</h6>
-						<span>24 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('外出牽繩')} items</span>
 					</div>
 					<div class="card-2 bg-13 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".5s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img
+							<a href="shop-grid-left.html"><img style="height:80px"
 								src="assets/imgs/shop/狗零食.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">零食點心</a>
 						</h6>
-						<span>56 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('零食點心')}items</span>
 					</div>
 					<div class="card-2 bg-14 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".6s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="ShopProductPagev1.jsp"><img
+							<a href="ShopProductPagev1.jsp"><img style="height:80px"
 								src="assets/imgs/shop/精靈球.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="ShopProductPagev1.jsp">精靈球</a>
 						</h6>
-						<span>18 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('精靈球')}items</span>
 					</div>
 					<div class="card-2 bg-15 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".7s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img
+							<a href="shop-grid-left.html"><img style="height:80px"
 								src="assets/imgs/shop/catcloth.png" alt="" /></a>
 						</figure>
 						<h6>
-							<a href="shop-grid-left.html">服裝</a>
+							<a href="shop-grid-left.html">寵物服裝</a>
 						</h6>
-						<span>36 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('寵物服裝')} items</span>
 					</div>
 					<div class="card-2 bg-12 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".8s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img
+							<a href="shop-grid-left.html"><img style="height:80px"
 								src="assets/imgs/shop/過濾器.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">過濾器材</a>
 						</h6>
-						<span>13 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('過濾器材')}items</span>
 					</div>
 					<div class="card-2 bg-10 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".9s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img
+							<a href="shop-grid-left.html"><img style="height:80px"
 								src="assets/imgs/shop/梳子.png" alt="" /></a>
 						</figure>
 						<h6>
                             <a href="shop-grid-left.html">美容、裝飾</a>
 						</h6>
-						<span>34 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('裝飾')} items</span>
 					</div>
 					<div class="card-2 bg-12 wow animate__animated animate__fadeInUp"
 						data-wow-delay="1s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img
+							<a href="shop-grid-left.html"><img style="height:80px"
 								src="assets/imgs/shop/外出背包.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">寵物背包</a>
 						</h6>
-						<span>19 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('寵物背包')} items</span>
 					</div>
 					<div class="card-2 bg-11 wow animate__animated animate__fadeInUp"
 						data-wow-delay="0s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img
+							<a href="shop-grid-left.html"><img style="height:80px"
 								src="assets/imgs/shop/洗澡精.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">清潔用品</a>
 						</h6>
-						<span>8 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('清潔')} items</span>
 					</div>
 				</div>
 			</div>
@@ -207,14 +203,13 @@ session.setAttribute("productlist", productlist);
 	</section>
 <!-- 尾 上排十大類 -->
 	<main class="main">
-	
 		<section class="home-slider position-relative mb-30">
 <!--頭 滑動廣告頁面-->
 			<div class="container">
 				<div class="home-slide-cover mt-30">
 					<div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
-						<div class="single-hero-slider single-animation-wrap"
-							style="background-image: url(assets/imgs/slider/slider-1.png)">
+						<div class="single-hero-slider single-animation-wrap"  
+							style="background-image: url(assets/imgs/slider/buyingdog.jpg) ">
 							<div class="slider-content">
 								<h1 class="display-2 mb-40">
 									趕緊加入<br /> 全台灣最ㄒㄧㄚ的寵物商店
@@ -227,7 +222,7 @@ session.setAttribute("productlist", productlist);
 							</div>
 						</div>
 						<div class="single-hero-slider single-animation-wrap"
-							style="background-image: url(assets/imgs/slider/slider-2.png)">
+							style="background-image: url(assets/imgs/slider/)">
 							<div class="slider-content">
 								<h1 class="display-2 mb-40">
 									品牌特惠!!<br /> &emsp;&emsp;3.18購物節
@@ -252,7 +247,7 @@ session.setAttribute("productlist", productlist);
 					<div class="col-lg-4 col-md-6">
 						<div class="banner-img wow animate__animated animate__fadeInUp"
 							data-wow-delay="0">
-							<img src="assets/imgs/banner/banner-1.png" alt="" />
+							<img src="assets/imgs/banner/sleepdog.jpg" alt="" height=340px width=512px />
 							<div class="banner-text">
 								<h4>
 									&#129409;阿偉的商店&#129409; <br /> <br /> 寵物百貨
@@ -265,7 +260,7 @@ session.setAttribute("productlist", productlist);
 					<div class="col-lg-4 col-md-6">
 						<div class="banner-img wow animate__animated animate__fadeInUp"
 							data-wow-delay=".2s">
-							<img src="assets/imgs/banner/banner-2.png" alt="" />
+							<img src="assets/imgs/banner/152.jpg" alt="" height=340px width=512px/>
 							<div class="banner-text">
 								<h4>
 									Poké Ball ϞϞ(๑⚈ ․̫ ⚈๑)∩<br /> 寶可夢是種非常可愛的生物
@@ -279,7 +274,7 @@ session.setAttribute("productlist", productlist);
 						<div
 							class="banner-img mb-sm-0 wow animate__animated animate__fadeInUp"
 							data-wow-delay=".4s">
-							<img src="assets/imgs/banner/banner-3.png" alt="" />
+							<img src="assets/imgs/banner/ego.png" alt="" height=340px width=512px/>
 							<div class="banner-text">
 								<h4>
 									寵物也要吃好好 <br />有機寵物鮮食
@@ -345,8 +340,8 @@ session.setAttribute("productlist", productlist);
 										data-wow-delay=".1s">
 										<div class="product-img-action-wrap">
 											<div class="product-img product-img-zoom">
-												<a href="ShopProductPage.jsp"> <img class="default-img"
-													src="http://localhost:7080/jeeweb-TFA105G3/ProdFirstPic?aa=${product.merid}"
+												<a href="ShopProductPage.jsp"> <img class="default-img" style="height:266px"
+													src="<%=request.getContextPath()%>/ProdFirstPic?aa=${product.merid}"
 													alt="" />
 												</a>
 											</div>
@@ -385,29 +380,7 @@ session.setAttribute("productlist", productlist);
 		<!--Products Tabs今日熱銷-->
 		<section class="section-padding pb-5">
 			<div class="container">
-				<div class="section-title wow animate__animated animate__fadeIn">
-					<h3 class="">今日熱銷</h3>
-					<!-- <ul class="nav nav-tabs links" id="myTab-2" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="nav-tab-one-1" data-bs-toggle="tab" data-bs-target="#tab-one-1" type="button" role="tab" aria-controls="tab-one" aria-selected="true">Featured</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="nav-tab-two-1" data-bs-toggle="tab" data-bs-target="#tab-two-1" type="button" role="tab" aria-controls="tab-two" aria-selected="false">Popular</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="nav-tab-three-1" data-bs-toggle="tab" data-bs-target="#tab-three-1" type="button" role="tab" aria-controls="tab-three" aria-selected="false">New added</button>
-                            </li>
-                        </ul> -->
-				</div>
 				<div class="row">
-					<!-- <div class="col-lg-3 d-none d-lg-flex wow animate__animated animate__fadeIn">
-                             <div class="banner-img style-2">
-                                <div class="banner-text">
-                                    <h2 class="mb-100">Bring nature into your home</h2>
-                                    <a href="shop-grid-left.html" class="btn btn-xs">逛起來 <i class="fi-rs-arrow-small-right"></i></a>
-                                </div>
-                            </div>
-                        </div> -->
 					<div
 						class="col-lg-9 col-md-12 wow animate__animated animate__fadeIn"
 						data-wow-delay=".4s">

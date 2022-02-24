@@ -32,7 +32,7 @@ pageContext.setAttribute("imglist", imglist);
     </head>
 
     <body class="single-product">
-       <jsp:include page="../views/sellerHeader_2.jsp"/>
+       <jsp:include page="../views/sellerHeader1.jsp"/>
         <!--product tree-->
         
         <main class="main">
