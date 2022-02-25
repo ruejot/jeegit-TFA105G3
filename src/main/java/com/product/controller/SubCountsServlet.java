@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.product.model.HomePageService;
 
-@WebServlet("/HomePage")
+//@WebServlet("/HomePage")
 public class SubCountsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private HomePageService SERVICE;

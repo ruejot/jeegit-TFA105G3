@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.product.model.*"%>
 
 <!DOCTYPE html>
+<!-- [editor,date] wei,2022-02-22 -->
 <%
 ProductService productSvc = new ProductService();
 // ProductVO productbean = productSvc.getOneProduct(8);
@@ -17,11 +16,10 @@ session.setAttribute("productlist", productlist);
 HomePageService homePageSVC = new HomePageService();
 pageContext.setAttribute("homePageSVC", homePageSVC);
 %>
-
-<html class="no-js" lang="en">
+<html lang="zh-Hant-TW">
 <head>
-<meta charset="UTF-8" />
-<title>Nest - Homepage</title>
+<meta charset="utf-8" />
+<title>FrontEnd板模-Petting</title>
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -31,18 +29,20 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 <meta property="og:image" content="" />
 <!-- Favicon -->
 <link rel="shortcut icon" type="image/x-icon"
-	href="assets/imgs/theme/favicon.svg" />
-
+	href="<%=request.getContextPath()%>/assets/imgs/theme/Petting_logo.png" />
 <!-- Template CSS -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" />
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/assets/css/main.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/slider-range.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
 </head>
 
-<jsp:include page="/views/sellerHeader1.jsp" />
 <body>
-<!-- 頭 上排十大類 -->
+	<jsp:include page="/views/userHeader.jsp" />
+
+	<!--End userHeader-->
+	<main class="main pages">
+		<jsp:include page="/views/userMainPage-header.jsp" />
+			<!-- 頭 上排十大類 -->
 	<section class="popular-categories section-padding">
 		<div class="container wow animate__animated animate__fadeIn">
 			<div class="section-title">
@@ -80,7 +80,7 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 						data-wow-delay=".1s">
 						<figure class="img-hover-scale overflow-hidden">
 							<a href="shop-grid-left.html"><img
-								src="assets/imgs/shop/罐頭.png" alt="" /></a>
+								src="<%=request.getContextPath()%>/assets/imgs/shop/罐頭.png" alt="" /></a>
 						</figure>
 						<h6>
                             <a href="shop-grid-left.html">貓犬飼料</a>
@@ -91,7 +91,7 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 						data-wow-delay=".2s">
 						<figure class="img-hover-scale overflow-hidden">
 							<a href="shop-grid-left.html"><img style="height:80px"
-								src="assets/imgs/shop/魚飼料.png" alt="" /></a>
+								src="<%=request.getContextPath()%>/assets/imgs/shop/魚飼料.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">魚蝦飼料</a>
@@ -102,7 +102,7 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 						data-wow-delay=".3s">
 						<figure class="img-hover-scale overflow-hidden">
 							<a href="shop-grid-left.html"><img style="height:80px"
-								src="assets/imgs/shop/貓抓板.png" alt="" /></a>
+								src="<%=request.getContextPath()%>/assets/imgs/shop/貓抓板.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">貓抓板</a>
@@ -113,7 +113,7 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 						data-wow-delay=".4s">
 						<figure class="img-hover-scale overflow-hidden">
 							<a href="shop-grid-left.html"><img style="height:80px"
-								src="assets/imgs/shop/牽繩.png" alt="" /></a>
+								src="<%=request.getContextPath()%>/assets/imgs/shop/牽繩.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">外出牽繩</a>
@@ -124,29 +124,29 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 						data-wow-delay=".5s">
 						<figure class="img-hover-scale overflow-hidden">
 							<a href="shop-grid-left.html"><img style="height:80px"
-								src="assets/imgs/shop/狗零食.png" alt="" /></a>
+								src="<%=request.getContextPath()%>/assets/imgs/shop/狗零食.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">零食點心</a>
 						</h6>
-						<span>${homePageSVC.getCountsBySubCategory('零食點心')}items</span>
+						<span>${homePageSVC.getCountsBySubCategory('零食點心')} items</span>
 					</div>
 					<div class="card-2 bg-14 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".6s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="ShopProductPagev1.jsp"><img style="height:80px"
-								src="assets/imgs/shop/精靈球.png" alt="" /></a>
+							<a href="ShopProductPage.jsp"><img style="height:80px"
+								src="<%=request.getContextPath()%>/assets/imgs/shop/精靈球.png" alt="" /></a>
 						</figure>
 						<h6>
-							<a href="ShopProductPagev1.jsp">精靈球</a>
+							<a href="ShopProductPage.jsp">精靈球</a>
 						</h6>
-						<span>${homePageSVC.getCountsBySubCategory('精靈球')}items</span>
+						<span>${homePageSVC.getCountsBySubCategory('精靈球')} items</span>
 					</div>
 					<div class="card-2 bg-15 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".7s">
 						<figure class="img-hover-scale overflow-hidden">
 							<a href="shop-grid-left.html"><img style="height:80px"
-								src="assets/imgs/shop/catcloth.png" alt="" /></a>
+								src="<%=request.getContextPath()%>/assets/imgs/shop/catcloth.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">寵物服裝</a>
@@ -157,7 +157,7 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 						data-wow-delay=".8s">
 						<figure class="img-hover-scale overflow-hidden">
 							<a href="shop-grid-left.html"><img style="height:80px"
-								src="assets/imgs/shop/過濾器.png" alt="" /></a>
+								src="<%=request.getContextPath()%>/assets/imgs/shop/過濾器.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">過濾器材</a>
@@ -168,7 +168,7 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 						data-wow-delay=".9s">
 						<figure class="img-hover-scale overflow-hidden">
 							<a href="shop-grid-left.html"><img style="height:80px"
-								src="assets/imgs/shop/梳子.png" alt="" /></a>
+								src="<%=request.getContextPath()%>/assets/imgs/shop/梳子.png" alt="" /></a>
 						</figure>
 						<h6>
                             <a href="shop-grid-left.html">美容、裝飾</a>
@@ -179,7 +179,7 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 						data-wow-delay="1s">
 						<figure class="img-hover-scale overflow-hidden">
 							<a href="shop-grid-left.html"><img style="height:80px"
-								src="assets/imgs/shop/外出背包.png" alt="" /></a>
+								src="<%=request.getContextPath()%>/assets/imgs/shop/外出背包.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">寵物背包</a>
@@ -190,7 +190,7 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 						data-wow-delay="0s">
 						<figure class="img-hover-scale overflow-hidden">
 							<a href="shop-grid-left.html"><img style="height:80px"
-								src="assets/imgs/shop/洗澡精.png" alt="" /></a>
+								src="<%=request.getContextPath()%>/assets/imgs/shop/洗澡精.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">清潔用品</a>
@@ -202,14 +202,10 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 		</div>
 	</section>
 <!-- 尾 上排十大類 -->
-	<main class="main">
-		<section class="home-slider position-relative mb-30">
-<!--頭 滑動廣告頁面-->
-			<div class="container">
-				<div class="home-slide-cover mt-30">
+		<div class="home-slide-cover mt-30">
 					<div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
-						<div class="single-hero-slider single-animation-wrap"  
-							style="background-image: url(assets/imgs/slider/buyingdog.jpg) ">
+						<div class="single-hero-slider single-animation-wrap" >
+							<img  style="margin:auto;" src="<%=request.getContextPath()%>/assets/imgs/slider/buyingdog.jpg" width=1200px/> 
 							<div class="slider-content">
 								<h1 class="display-2 mb-40">
 									趕緊加入<br /> 全台灣最ㄒㄧㄚ的寵物商店
@@ -333,7 +329,7 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 						aria-labelledby="tab-one">
 						<div class="row product-grid-4">
 							<!--頭 熱門十商品-->
-							<c:forEach var="product" items="${productlist}" end="9">
+							<c:forEach var="product" items="${productlist}" end="36" step="4" >
 								<div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
 									<div
 										class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn"
@@ -1557,29 +1553,42 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 			</div>
 		</section>
 	</main>
-	<%-- 	 <jsp:include page="/views/footer.jsp"/> --%>
+	<jsp:include page="/views/footer.jsp" />
+
+	<!-- Preloader Start -->
 	<!-- Vendor JS-->
-	<script src="assets/js/vendors/modernizr-3.6.0.min.js"></script>
-	<script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
-	<script src="assets/js/vendors/jquery-migrate-3.3.0.min.js"></script>
-	<script src="assets/js/vendors/bootstrap.bundle.min.js"></script>
-	<script src="assets/js/plugins/slick.js"></script>
-	<script src="assets/js/plugins/jquery.syotimer.min.js"></script>
-	<script src="assets/js/plugins/waypoints.js"></script>
-	<script src="assets/js/plugins/wow.js"></script>
-	<script src="assets/js/plugins/perfect-scrollbar.js"></script>
-	<script src="assets/js/plugins/magnific-popup.js"></script>
-	<script src="assets/js/plugins/select2.min.js"></script>
-	<script src="assets/js/plugins/counterup.js"></script>
-	<script src="assets/js/plugins/jquery.countdown.min.js"></script>
-	<script src="assets/js/plugins/images-loaded.js"></script>
-	<script src="assets/js/plugins/isotope.js"></script>
-	<script src="assets/js/plugins/scrollup.js"></script>
-	<script src="assets/js/plugins/jquery.vticker-min.js"></script>
-	<script src="assets/js/plugins/jquery.theia.sticky.js"></script>
-	<script src="assets/js/plugins/jquery.elevatezoom.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/modernizr-3.6.0.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-3.6.0.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-migrate-3.3.0.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/slick.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.syotimer.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/wow.js"></script>
+	<!--slider-range.js, jquery-ui.js , never appear at sametime-->
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/slider-range.js"></script>
+	<!-- index-3.html, index-4, shop-*.html，板模的這幾頁有用到jquery-ui.js -->
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery-ui.js"></script>
+	<!-- blog-post-fullwidth.html, shop-*.html，板模的這幾頁有用到perfect-scrollbar.js -->
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/perfect-scrollbar.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/magnific-popup.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/select2.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/waypoints.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/counterup.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.countdown.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/images-loaded.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/isotope.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/scrollup.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.vticker-min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.theia.sticky.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.elevatezoom.js"></script>
+
+	<!-- Invoice page's JS -->
+	<!-- <script src="assets/js/invoice/jspdf.min.js"></script> -->
+	<!-- <script src="assets/js/invoice/invoice.js"></script> -->
+
 	<!-- Template  JS -->
-	<script src="assets/js/main.js"></script>
-	<script src="assets/js/shop.js?v=4.0"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/main_frontend.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/shop.js"></script>
 </body>
 </html>
+

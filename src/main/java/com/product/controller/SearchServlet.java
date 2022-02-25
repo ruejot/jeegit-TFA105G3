@@ -38,6 +38,7 @@ public class SearchServlet extends HttpServlet {
 			List<ProductVO> searchlist = SERVICE.getAllByProductName(usersearch);
 			if (searchlist == null) {
 				req.getRequestDispatcher("../nest-frontend/HomePage.jsp").forward(req, res);
+				
 			} else {
 				req.setAttribute("searchlist", searchlist);
 				req.setAttribute("usersearch", usersearch);
