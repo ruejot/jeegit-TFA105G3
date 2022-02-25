@@ -13,31 +13,34 @@ pageContext.setAttribute("productbean", productbean);
 List<ProductVO> imglist = productSvc.getAllByProdId(8);
 pageContext.setAttribute("imglist", imglist);
 %>
-<html class="no-js" lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>Petting-好好but</title>
-        <meta http-equiv="x-ua-compatible" content="ie=edge" />
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta property="og:title" content="" />
-        <meta property="og:type" content="" />
-        <meta property="og:url" content="" />
-        <meta property="og:image" content="" />
-        <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg" />
-        <!-- Template CSS -->
-        <link rel="stylesheet" href="assets/css/plugins/slider-range.css" />
-        <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/main.css?v=4.0" />
-    </head>
+<!-- [editor,date] wei,2022-02-22 -->
 
-    <body class="single-product">
-       <jsp:include page="../views/sellerHeader1.jsp"/>
-        <!--product tree-->
-        
-        <main class="main">
-            <div class="page-header breadcrumb-wrap">
-                <div class="container">
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8" />
+<title>FrontEnd板模-Petting</title>
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="" />
+<meta property="og:type" content="" />
+<meta property="og:url" content="" />
+<meta property="og:image" content="" />
+<!-- Favicon -->
+<link rel="shortcut icon" type="image/x-icon"
+	href="<%=request.getContextPath()%>/assets/imgs/theme/Petting_logo.png" />
+<!-- Template CSS -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/slider-range.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
+</head>
+
+<body>
+	<jsp:include page="/views/userHeader.jsp" />
+	<!--End userHeader-->
+	<main class="main pages">
+		<jsp:include page="/views/userMainPage-header.jsp" />
+		 <div class="container">
                     <div class="breadcrumb">
                         <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>首頁</a>
                         <span></span> <a href="shop-grid-right.html">Vegetables & tubers</a> <span></span> Seeds of Change Organic
@@ -396,32 +399,43 @@ pageContext.setAttribute("imglist", imglist);
                     </div>
                 </div>
             </div>
-        </main>
-<jsp:include page="../views/footer.jsp"/>
-        <!-- Vendor JS-->
-        
-        <script src="assets/js/vendors/modernizr-3.6.0.min.js"></script>
-        <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
-        <script src="assets/js/vendors/jquery-migrate-3.3.0.min.js"></script>
-        <script src="assets/js/vendors/bootstrap.bundle.min.js"></script>
-        <script src="assets/js/plugins/slick.js"></script>
-        <script src="assets/js/plugins/jquery.syotimer.min.js"></script>
-        <script src="assets/js/plugins/slider-range.js"></script>
-        <script src="assets/js/plugins/perfect-scrollbar.js"></script>
-        <script src="assets/js/plugins/magnific-popup.js"></script>
-        <script src="assets/js/plugins/select2.min.js"></script>
-        <script src="assets/js/plugins/waypoints.js"></script>
-        <script src="assets/js/plugins/counterup.js"></script>
-        <script src="assets/js/plugins/jquery.countdown.min.js"></script>
-        <script src="assets/js/plugins/images-loaded.js"></script>
-        <script src="assets/js/plugins/isotope.js"></script>
-        <script src="assets/js/plugins/wow.js"></script>
-        <script src="assets/js/plugins/scrollup.js"></script>
-        <script src="assets/js/plugins/jquery.theia.sticky.js"></script>
-        <script src="assets/js/plugins/jquery.elevatezoom.js"></script>
-        <script src="assets/js/plugins/jquery.vticker-min.js"></script>
-        <!-- Template  JS -->
-        <script src="./assets/js/main.js?v=4.0"></script>
-        <script src="./assets/js/shop.js?v=4.0"></script>
-    </body>
+	</main>
+	<jsp:include page="/views/footer.jsp" />
+
+	<!-- Preloader Start -->
+	<!-- Vendor JS-->
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/modernizr-3.6.0.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-3.6.0.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-migrate-3.3.0.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/slick.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.syotimer.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/wow.js"></script>
+	<!--slider-range.js, jquery-ui.js , never appear at sametime-->
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/slider-range.js"></script>
+	<!-- index-3.html, index-4, shop-*.html，板模的這幾頁有用到jquery-ui.js -->
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery-ui.js"></script>
+	<!-- blog-post-fullwidth.html, shop-*.html，板模的這幾頁有用到perfect-scrollbar.js -->
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/perfect-scrollbar.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/magnific-popup.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/select2.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/waypoints.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/counterup.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.countdown.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/images-loaded.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/isotope.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/scrollup.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.vticker-min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.theia.sticky.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.elevatezoom.js"></script>
+
+	<!-- Invoice page's JS -->
+	<!-- <script src="assets/js/invoice/jspdf.min.js"></script> -->
+	<!-- <script src="assets/js/invoice/invoice.js"></script> -->
+
+	<!-- Template  JS -->
+	<script src="<%=request.getContextPath()%>/assets/js/main_frontend.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/shop.js"></script>
+</body>
 </html>
+

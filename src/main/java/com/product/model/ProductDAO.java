@@ -390,7 +390,6 @@ public class ProductDAO implements ProductDAO_interface {
 				productVO.setMerid(rs.getInt("mer_id"));
 				productVO.setBusid(rs.getInt("bus_id"));
 				productVO.setName(rs.getString("mer_name"));
-				productVO.setPicname(rs.getString("pic_name"));
 				productVO.setMerpic(rs.getBytes("mer_pic"));
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setStock(rs.getInt("stock"));
@@ -448,7 +447,6 @@ public class ProductDAO implements ProductDAO_interface {
 				productVO.setMerid(rs.getInt("mer_id"));
 				productVO.setBusid(rs.getInt("bus_id"));
 				productVO.setName(rs.getString("mer_name"));
-				productVO.setPicname(rs.getString("pic_name"));
 				productVO.setMerpic(rs.getBytes("mer_pic"));
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setStock(rs.getInt("stock"));
@@ -506,7 +504,6 @@ public class ProductDAO implements ProductDAO_interface {
 				productVO.setMerid(rs.getInt("mer_id"));
 				productVO.setBusid(rs.getInt("bus_id"));
 				productVO.setName(rs.getString("mer_name"));
-				productVO.setPicname(rs.getString("pic_name"));
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setStock(rs.getInt("stock"));
 				productVO.setMainCategory(rs.getString("main_Category"));
@@ -566,7 +563,6 @@ public class ProductDAO implements ProductDAO_interface {
 				productVO.setMerid(rs.getInt("mer_id"));
 				productVO.setBusid(rs.getInt("bus_id"));
 				productVO.setName(rs.getString("mer_name"));
-				productVO.setPicname(rs.getString("pic_name"));
 				productVO.setMerpic(rs.getBytes("mer_pic"));
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setStock(rs.getInt("stock"));
