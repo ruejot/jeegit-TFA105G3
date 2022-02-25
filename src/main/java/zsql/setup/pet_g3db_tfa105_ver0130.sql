@@ -1,8 +1,10 @@
+-- [日期:0225] [beta_5]版本。
+-- MER_IMG <table> 新增欄位 `PIC_NAME` VARCHAR(10) NOT NULL COMMENT '圖片名稱',
+
 -- [日期:0224] [beta_4]版本。
 -- MER <table> 的 SHIPPING_METHOD <column> 更新為 VARCHAR(3) <datatype>
 -- CS_DETAIL <table> 新增 MER_ID <column>
 -- CS_DETAIL <table> 新增 ORDER_ID <column> 
-
 
 -- [日期:0130] [beta_3]版本。
 -- 以後不改database名稱，db改動記錄在註解，。
@@ -17,7 +19,7 @@
 -- [WAY_1] use "right click" on Navigator window DB name -> select "Drop Schema...".
 -- [WAY_2] Executing this script will auto DROP old DATABASE, make sure without any error message.;
 
---[0223] 新增view table: v_merimg_mer 
+-- [0223] 新增view table: v_merimg_mer 
 CREATE DATABASE IF NOT EXISTS `pet_g3db_tfa105`;
 
 USE `pet_g3db_tfa105`;
@@ -215,6 +217,7 @@ CREATE TABLE `pet_g3db_tfa105`.`MER` (
 CREATE TABLE `pet_g3db_tfa105`.`MER_IMG` (
   `IMG_ID` INT NOT NULL AUTO_INCREMENT COMMENT '商品圖流水編號',
   `MER_ID` INT NOT NULL COMMENT '商品ID',
+  `PIC_NAME` VARCHAR(10) NOT NULL COMMENT '圖片名稱',
   `MER_PIC` BLOB NULL COMMENT '圖片',
   `TIME` DATE NULL COMMENT '時間',
   PRIMARY KEY (`IMG_ID`),
