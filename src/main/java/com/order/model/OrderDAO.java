@@ -1,6 +1,7 @@
 package com.order.model;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,8 +32,9 @@ public class OrderDAO implements OrderDAO_interface{
 	}
 	
 	private static final String INSERT_STMT = "INSERT INTO pet_g3db_tfa105.ORDER(MEMBER_ID, BUS_ID, ORDER_TIME, ORDER_SUM, PAYMENT_ID, SHIPPING_ID, TRACKING, ORDER_STATUS, INVOICE_ID, RECEIVER, RECEIVER_ADDR, RECEIVER_PHONE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String UPDATE_STMT = "UPDATE pet_g3db_tfa105.ORDER SET MEMBER_ID = ?, BUS_ID = ?, ORDER_SUM = ?, PAYMENT_ID = ?, SHIPPING_ID = ?, TRACKING = ?, ORDER_STATUS = ?, INVOICE_ID = ?, RECEIVER = ?, RECEIVER_ADDR = ?, RECEIVER_PHONE= ? WHERE ORDER_ID = ?";
+	private static final String UPDATE_STMT = "UPDATE pet_g3db_tfa105.ORDER SET TRACKING = ?, ORDER_STATUS = ?, INVOICE_ID = ?, RECEIVER = ?, RECEIVER_ADDR = ?, RECEIVER_PHONE= ? WHERE ORDER_ID = ?";
 	private static final String DELETE_STMT = "DELETE FROM pet_g3db_tfa105.ORDER WHERE ORDER_ID = ?";
+	private static final String CANCEL_STMT = "UPDATE pet_g3db_tfa105.ORDER SET ORDER_STATUS = 4 WHERE ORDER_ID = ?";
 	private static final String FIND_BY_ORDER_ID = "SELECT * FROM pet_g3db_tfa105.ORDER WHERE ORDER_ID = ?";
 	private static final String FIND_BY_BUS_ID = "SELECT * FROM pet_g3db_tfa105.ORDER WHERE BUS_ID = ? ORDER BY ORDER_TIME DESC";
 	private static final String FIND_BY_MEMBER_ID = "SELECT * FROM pet_g3db_tfa105.ORDER WHERE MEMBER_ID = ?  ORDER BY ORDER_TIME DESC";
@@ -199,24 +201,49 @@ public class OrderDAO implements OrderDAO_interface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_STMT);
 			
-			pstmt.setInt(1, orderVO.getMemberId());
-			pstmt.setInt(2, orderVO.getBusId());
-			pstmt.setInt(3, orderVO.getOrderSum());
-			pstmt.setInt(4, orderVO.getPaymentId());
-			pstmt.setInt(5, orderVO.getShippingId());
-		
 			if (orderVO.getTracking() == null) {
-				pstmt.setNull(6, Types.INTEGER);
+				pstmt.setNull(1, Types.INTEGER);
 			} else {
-				pstmt.setInt(6, orderVO.getTracking());
+				pstmt.setInt(1, orderVO.getTracking());
 			}
 			
-			pstmt.setInt(7, orderVO.getOrderStatus());
-			pstmt.setString(8, orderVO.getInvoiceId());
-			pstmt.setString(9, orderVO.getReceiver());
-			pstmt.setString(10, orderVO.getReceiverAddr());
-			pstmt.setString(11, orderVO.getReceiverPhone());
-			pstmt.setInt(12, orderVO.getOrderId());
+			pstmt.setInt(2, orderVO.getOrderStatus());
+			pstmt.setString(3, orderVO.getInvoiceId());
+			pstmt.setString(4, orderVO.getReceiver());
+			pstmt.setString(5, orderVO.getReceiverAddr());
+			pstmt.setString(6, orderVO.getReceiverPhone());
+			pstmt.setInt(7, orderVO.getOrderId());
+			
+			pstmt.executeUpdate();
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if (con != null ) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public void cancel(OrderVO orderVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(CANCEL_STMT);
+			
+			pstmt.setInt(1, orderVO.getOrderId());
 			
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
@@ -516,41 +543,41 @@ public class OrderDAO implements OrderDAO_interface{
 	
 	public static void main(String[] args) {
 		OrderDAO dao = new OrderDAO();
-		// 新增訂單主檔跟明細測試
-		OrderVO orderVO = new OrderVO();
-		orderVO.setMemberId(1);
-		orderVO.setBusId(2);
-		orderVO.setOrderTime(java.sql.Timestamp.valueOf(LocalDateTime.now()));
-		orderVO.setOrderSum(1800);
-		orderVO.setPaymentId(4);
-		orderVO.setShippingId(2);
-		orderVO.setTracking(null);
-		orderVO.setOrderStatus(1);
-		orderVO.setInvoiceId("");
-		orderVO.setReceiver("");
-		orderVO.setReceiverAddr("");
-		orderVO.setReceiverPhone("");
-		
-		List<OrderDetailVO> testList = new ArrayList<OrderDetailVO>();
-		OrderDetailVO orderDetailVO1 = new OrderDetailVO();
-		orderDetailVO1.setMerId(5);
-		orderDetailVO1.setQty(2);
-		orderDetailVO1.setUnitPrice(500);
-		orderDetailVO1.setRanking(null);
-		orderDetailVO1.setComment("");
-		
-		OrderDetailVO orderDetailVO2 = new OrderDetailVO();
-		orderDetailVO2.setMerId(2);
-		orderDetailVO2.setQty(2);
-		orderDetailVO2.setUnitPrice(400);
-		orderDetailVO2.setRanking(null);
-		orderDetailVO2.setComment("");
-		
-		testList.add(orderDetailVO1);
-		testList.add(orderDetailVO2);
-		
-		dao.insertWithOrderDetail(orderVO, testList);
-		
+//		// 新增訂單主檔跟明細測試
+//		OrderVO orderVO = new OrderVO();
+//		orderVO.setMemberId(1);
+//		orderVO.setBusId(2);
+//		orderVO.setOrderTime(java.sql.Timestamp.valueOf(LocalDateTime.now()));
+//		orderVO.setOrderSum(1800);
+//		orderVO.setPaymentId(4);
+//		orderVO.setShippingId(2);
+//		orderVO.setTracking(null);
+//		orderVO.setOrderStatus(1);
+//		orderVO.setInvoiceId("");
+//		orderVO.setReceiver("");
+//		orderVO.setReceiverAddr("");
+//		orderVO.setReceiverPhone("");
+//		
+//		List<OrderDetailVO> testList = new ArrayList<OrderDetailVO>();
+//		OrderDetailVO orderDetailVO1 = new OrderDetailVO();
+//		orderDetailVO1.setMerId(5);
+//		orderDetailVO1.setQty(2);
+//		orderDetailVO1.setUnitPrice(500);
+//		orderDetailVO1.setRanking(null);
+//		orderDetailVO1.setComment("");
+//		
+//		OrderDetailVO orderDetailVO2 = new OrderDetailVO();
+//		orderDetailVO2.setMerId(2);
+//		orderDetailVO2.setQty(2);
+//		orderDetailVO2.setUnitPrice(400);
+//		orderDetailVO2.setRanking(null);
+//		orderDetailVO2.setComment("");
+//		
+//		testList.add(orderDetailVO1);
+//		testList.add(orderDetailVO2);
+//		
+//		dao.insertWithOrderDetail(orderVO, testList);
+//		
 		
 		
 //		// 新增測試 (非正式版)
@@ -573,20 +600,21 @@ public class OrderDAO implements OrderDAO_interface{
 		
 //		// 更新測試
 //		OrderVO orderVO2 = new OrderVO();
-//		orderVO2.setMemberId(22);
-//		orderVO2.setBusId(3);
-//		orderVO2.setOrderSum(500);
-//		orderVO2.setPaymentId(1);
-//		orderVO2.setShippingId(1);
-//		orderVO2.setTracking(null);
-//		orderVO2.setOrderStatus(1);
+//		orderVO2.setTracking(34001200);
+//		orderVO2.setOrderStatus(2);
 //		orderVO2.setInvoiceId("");
-//		orderVO2.setReceiver("木木梟2");
-//		orderVO2.setReceiverAddr("神奇寶貝球2");
+//		orderVO2.setReceiver("木木梟來啦");
+//		orderVO2.setReceiverAddr("神奇寶貝球球球");
 //		orderVO2.setReceiverPhone("95279527");
-//		orderVO2.setOrderId(1);
+//		orderVO2.setOrderId(2);
 //		dao.update(orderVO2);
 //		System.out.println("更新成功");
+		
+//		// 取消測試
+//		OrderVO orderVO3 = new OrderVO();
+//		orderVO3.setOrderId(5);
+//		dao.cancel(orderVO3);
+//		System.out.println("取消成功");
 		
 //		// 刪除測試
 //		dao.delete(2);
