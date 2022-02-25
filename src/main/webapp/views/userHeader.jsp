@@ -32,7 +32,7 @@
 					</div>
 					<div class="header-right">
 						<div class="search-style-2">
-							<form action="#">
+							<form action="../product/SearchServlet" method="GET">
 								<select class="select-active">
 									<option>所有類別</option>
 									<option>寵物飼料</option>
@@ -45,7 +45,9 @@
 									<option>美容護理</option>
 									<option>人氣商品</option>
 									<option>其他</option>
-								</select> <input type="text" placeholder="請輸入關鍵字..." />
+								</select> <input type="text" placeholder="請輸入關鍵字...." name="usersearch" /> <input type="hidden" name="action"
+									value="search_from_header">
+								<button type="submit" value="搜尋"></button>
 							</form>
 						</div>
 						<div class="header-action-right">
@@ -305,36 +307,36 @@
 		</div>
 	</div>
 	<!--End header-->
-	
+
 	<!-- Template 移除所有header, footer, aside的CSS,JS引用，都拉到外面 -->
-<!--     Vendor JS -->
-<%--     <script src="<%=request.getContextPath()%>/assets/js/vendors/modernizr-3.6.0.min.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-3.6.0.min.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-migrate-3.3.0.min.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/vendors/bootstrap.bundle.min.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/slick.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.syotimer.min.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/wow.js"></script> --%>
-<!--     slider-range.js, jquery-ui.js , never appear at sametime -->
-<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/slider-range.js"></script> <!-- index-3.html, index-4, shop-*.html --> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/jquery-ui.js"></script> <!-- blog-post-fullwidth.html, shop-*.html --> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/perfect-scrollbar.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/magnific-popup.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/select2.min.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/waypoints.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/counterup.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.countdown.min.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/images-loaded.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/isotope.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/scrollup.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.vticker-min.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.theia.sticky.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.elevatezoom.js"></script> --%>
-<!--     Invoice JS, shop-inovice-*.html -->
-<!--     <script src="assets/js/invoice/jspdf.min.js"></script> -->
-<!--     <script src="assets/js/invoice/invoice.js"></script> -->
-<!--     Template  JS -->
-<%--     <script src="<%=request.getContextPath()%>/assets/js/main_frontend.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/assets/js/shop.js?v=4.0"></script> <!-- ?v=4.0 --> --%>
+	<!--     Vendor JS -->
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/vendors/modernizr-3.6.0.min.js"></script> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-3.6.0.min.js"></script> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-migrate-3.3.0.min.js"></script> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/vendors/bootstrap.bundle.min.js"></script> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/slick.js"></script> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.syotimer.min.js"></script> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/wow.js"></script> --%>
+	<!--     slider-range.js, jquery-ui.js , never appear at sametime -->
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/slider-range.js"></script> <!-- index-3.html, index-4, shop-*.html --> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/jquery-ui.js"></script> <!-- blog-post-fullwidth.html, shop-*.html --> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/perfect-scrollbar.js"></script> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/magnific-popup.js"></script> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/select2.min.js"></script> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/waypoints.js"></script> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/counterup.js"></script> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.countdown.min.js"></script> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/images-loaded.js"></script> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/isotope.js"></script> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/scrollup.js"></script> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.vticker-min.js"></script> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.theia.sticky.js"></script> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.elevatezoom.js"></script> --%>
+	<!--     Invoice JS, shop-inovice-*.html -->
+	<!--     <script src="assets/js/invoice/jspdf.min.js"></script> -->
+	<!--     <script src="assets/js/invoice/invoice.js"></script> -->
+	<!--     Template  JS -->
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/main_frontend.js"></script> --%>
+	<%--     <script src="<%=request.getContextPath()%>/assets/js/shop.js?v=4.0"></script> <!-- ?v=4.0 --> --%>
 </body>
 </html>

@@ -33,9 +33,8 @@ public class ProductDAO implements ProductDAO_interface {
 	private static final String FIND_AllbyMerid = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_ID= ?";
 	private static final String FIND_AllbyMerName = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_NAME like ? ";
 	private static final String FIND_AllbyMainCategory = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE Main_Category like ? ";
-    private static final String FIND_MERID_For_PIC = "select MER_ID from MER order by MER_ID desc limit 0 , 1 ";
-	
-	
+	private static final String FIND_AllbySubCategory = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE Sub_Category = ? ";
+
 	@Override
 	public void insert(ProductVO productVO) {
 
@@ -391,7 +390,6 @@ public class ProductDAO implements ProductDAO_interface {
 				productVO.setMerid(rs.getInt("mer_id"));
 				productVO.setBusid(rs.getInt("bus_id"));
 				productVO.setName(rs.getString("mer_name"));
-				productVO.setPicname(rs.getString("pic_name"));
 				productVO.setMerpic(rs.getBytes("mer_pic"));
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setStock(rs.getInt("stock"));
@@ -449,7 +447,6 @@ public class ProductDAO implements ProductDAO_interface {
 				productVO.setMerid(rs.getInt("mer_id"));
 				productVO.setBusid(rs.getInt("bus_id"));
 				productVO.setName(rs.getString("mer_name"));
-				productVO.setPicname(rs.getString("pic_name"));
 				productVO.setMerpic(rs.getBytes("mer_pic"));
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setStock(rs.getInt("stock"));
@@ -507,7 +504,6 @@ public class ProductDAO implements ProductDAO_interface {
 				productVO.setMerid(rs.getInt("mer_id"));
 				productVO.setBusid(rs.getInt("bus_id"));
 				productVO.setName(rs.getString("mer_name"));
-				productVO.setPicname(rs.getString("pic_name"));
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setStock(rs.getInt("stock"));
 				productVO.setMainCategory(rs.getString("main_Category"));
@@ -567,7 +563,6 @@ public class ProductDAO implements ProductDAO_interface {
 				productVO.setMerid(rs.getInt("mer_id"));
 				productVO.setBusid(rs.getInt("bus_id"));
 				productVO.setName(rs.getString("mer_name"));
-				productVO.setPicname(rs.getString("pic_name"));
 				productVO.setMerpic(rs.getBytes("mer_pic"));
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setStock(rs.getInt("stock"));
@@ -603,5 +598,12 @@ public class ProductDAO implements ProductDAO_interface {
 		}
 		return list;
 	}
+
+	@Override
+	public List<ProductVO> getAllBySubCategory(String subcategory) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }

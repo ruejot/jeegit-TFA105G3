@@ -4,7 +4,6 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import com.product.model.ProductService;
-import com.product.model.ProductVO;
 
 
 /**
@@ -37,23 +35,19 @@ public class ProdFirstPic extends HttpServlet {
 	private ProductService SERVICE;
 	private static DataSource ds = null;
 	Connection con;
-	
+
 	public void init() throws ServletException {
 		try {
 				SERVICE = new ProductService();
 				Context ctx =new InitialContext();
 				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TFA105G3TestDB");
 				
-				
 			} catch (NamingException e) {
 				e.printStackTrace();
 			} 
 	}
+	private static final String GET_1stPIC = "SELECT  MER_PIC FROM pet_g3db_tfa105.v_merimg_mer where MER_ID = ? limit 1 ";
 
-	private static final String GET_1stPIC = "SELECT  * FROM pet_g3db_tfa105.v_merimg_mer where MER_ID = ? limit 1 ";
-
-	  
-			
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		res.setContentType("image/gif");
@@ -77,8 +71,7 @@ public class ProdFirstPic extends HttpServlet {
 					}
 					in.close();
 				} else {
-//					res.sendError(HttpServletResponse.SC_NOT_FOUND);
-					InputStream in = getServletContext().getResourceAsStream("/nest-frontend/assets/imgs/noPic.jpg");
+					InputStream in = getServletContext().getResourceAsStream("nest-frontend/assets/imgs/noPic.jpg");
 					byte[] b = new byte[in.available()];
 					in.read(b);
 					out.write(b);
@@ -89,7 +82,11 @@ public class ProdFirstPic extends HttpServlet {
 			}catch (SQLException e) {
 					throw new UnavailableException("Couldn't get db connection");
 			} catch (Exception e) {
-				e.printStackTrace();
+				InputStream in = getServletContext().getResourceAsStream("nest-frontend/assets/imgs/noPic.jpg");
+				byte[] b = new byte[in.available()];
+				in.read(b);
+				out.write(b);
+				in.close();
 				System.out.println(e);
 			}
 		}

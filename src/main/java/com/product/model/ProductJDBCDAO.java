@@ -400,7 +400,6 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 				productVO.setMerid(rs.getInt("mer_id"));
 				productVO.setBusid(rs.getInt("bus_id"));
 				productVO.setName(rs.getString("mer_name"));
-				productVO.setPicname(rs.getString("pic_name"));
 				productVO.setMerpic(rs.getBytes("mer_pic"));
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setStock(rs.getInt("stock"));
@@ -464,81 +463,89 @@ public static void main(String[] args) {
 
 	ProductJDBCDAO dao = new ProductJDBCDAO();
 	//�憓�
-	ProductVO productVO1 = new ProductVO();
-	productVO1.setBusid(1);
-	productVO1.setName("HAPPYPUPPY");
-	productVO1.setPrice(350);
-	productVO1.setStock(15);
-	productVO1.setShelfDate(java.sql.Date.valueOf("2022-02-03"));
-	productVO1.setStatus(1);
-	productVO1.setDescription("HAPPYPUPPY");
-	productVO1.setShippingMethod("100");
-	productVO1.setMainCategory("FOOD");
-	productVO1.setSubCategory("FOOD");
-	dao.insert(productVO1);
-	
-	//靽格
-	ProductVO productVO2 = new ProductVO();
-	productVO2.setMerid(2);
-	productVO2.setBusid(2);
-	productVO2.setName("HERO-MAMA");
-	productVO2.setPrice(450);
-	productVO2.setStock(30);
-	productVO2.setShelfDate(java.sql.Date.valueOf("2022-01-20"));
-	productVO2.setStatus(3);
-	productVO2.setDescription("HERO-MAMA");
-	productVO2.setShippingMethod("111");
-	productVO2.setMainCategory("FOOD");
-	productVO2.setSubCategory("FOOD");
-	dao.update(productVO2);
-	
-//	//��
-//	dao.delete(3);
-//
-//	//�閰�
-	ProductVO productVO3 = dao.findByPrimaryKey(2);
-	System.out.print(productVO3.getMerid() + ",");
-	System.out.print(productVO3.getBusid() + ",");
-	System.out.print(productVO3.getName() + ",");
-	System.out.print(productVO3.getPrice() + ",");
-	System.out.print(productVO3.getStock() + ",");
-	System.out.print(productVO3.getShelfDate() + ",");
-	System.out.println(productVO3.getStatus() + ",");
-	System.out.println(productVO3.getDescription() + ",");
-	System.out.println(productVO3.getShippingMethod() + ",");
-	System.out.println(productVO3.getMainCategory() + ",");
-	System.out.println(productVO3.getSubCategory() +",");
-	System.out.println("---------------------");
-
+//	ProductVO productVO1 = new ProductVO();
+//	productVO1.setBusid(1);
+//	productVO1.setName("HAPPYPUPPY");
+//	productVO1.setPrice(350);
+//	productVO1.setStock(15);
+//	productVO1.setShelfDate(java.sql.Date.valueOf("2022-02-03"));
+//	productVO1.setStatus(1);
+//	productVO1.setDescription("HAPPYPUPPY");
+//	productVO1.setShippingMethod("100");
+//	productVO1.setMainCategory("FOOD");
+//	productVO1.setSubCategory("FOOD");
+//	dao.insert(productVO1);
+//	
+//	//靽格
+//	ProductVO productVO2 = new ProductVO();
+//	productVO2.setMerid(2);
+//	productVO2.setBusid(2);
+//	productVO2.setName("HERO-MAMA");
+//	productVO2.setPrice(450);
+//	productVO2.setStock(30);
+//	productVO2.setShelfDate(java.sql.Date.valueOf("2022-01-20"));
+//	productVO2.setStatus(3);
+//	productVO2.setDescription("HERO-MAMA");
+//	productVO2.setShippingMethod("111");
+//	productVO2.setMainCategory("FOOD");
+//	productVO2.setSubCategory("FOOD");
+//	dao.update(productVO2);
+//	
+////	//��
+////	dao.delete(3);
+////
+////	//�閰�
+//	ProductVO productVO3 = dao.findByPrimaryKey(2);
+//	System.out.print(productVO3.getMerid() + ",");
+//	System.out.print(productVO3.getBusid() + ",");
+//	System.out.print(productVO3.getName() + ",");
+//	System.out.print(productVO3.getPrice() + ",");
+//	System.out.print(productVO3.getStock() + ",");
+//	System.out.print(productVO3.getShelfDate() + ",");
+//	System.out.println(productVO3.getStatus() + ",");
+//	System.out.println(productVO3.getDescription() + ",");
+//	System.out.println(productVO3.getShippingMethod() + ",");
+//	System.out.println(productVO3.getMainCategory() + ",");
+//	System.out.println(productVO3.getSubCategory() +",");
+//	System.out.println("---------------------");
 	List<ProductVO> list = dao.getAll();
-	for (ProductVO aPro : list) {
-		System.out.print(aPro.getMerid() + ",");
-		System.out.print(aPro.getBusid() + ",");
-		System.out.print(aPro.getName() + ",");
-		System.out.print(aPro.getPrice() + ",");
-		System.out.print(aPro.getStock() + ",");
-		System.out.print(aPro.getShelfDate() + ",");
-		System.out.println(aPro.getStatus() + ",");
-		System.out.println(aPro.getDescription() + ",");
-		System.out.println(aPro.getShippingMethod() + ",");
-		System.out.println(aPro.getMainCategory() + ",");
-		System.out.println(aPro.getSubCategory() +",");
-		
-		System.out.println();
+	int count = 0;
+	for (int i = 0; i < list.size(); i++) {
+		if (list.get(i).getSubCategory().equals("貓犬飼料")) {
+			count++;
+			System.out.print(list.get(i).getSubCategory() + ",");
+			System.out.println(i);
+		}
 	}
-
-	Set<ProductImgVO> set = dao.getImgsByImgno(1);
-	for (ProductImgVO aImg : set) {
-		System.out.print(aImg.getImgid() + ",");
-		System.out.print(aImg.getMerpic() + ",");
-		System.out.print(aImg.getTime() + ",");
-		System.out.print(aImg.getMerid() + ",");
-		System.out.println();
-	}
+	System.out.println("count="+ count);
 }
+//	
+//		System.out.print(aPro.getName() + ",");
+//		System.out.print(aPro.getPrice() + ",");
+//		System.out.print(aPro.getStock() + ",");
+//		System.out.print(aPro.getShelfDate() + ",");
+//		System.out.println(aPro.getStatus() + ",");
+//		System.out.println(aPro.getDescription() + ",");
+//		System.out.println(aPro.getShippingMethod() + ",");
+//		System.out.println(aPro.getMainCategory() + ",");
+//		System.out.println(aPro.getSubCategory() +",");
+//	Set<ProductImgVO> set = dao.getImgsByImgno(1);
+//	for (ProductImgVO aImg : set) {
+//		System.out.print(aImg.getImgid() + ",");
+//		System.out.print(aImg.getMerpic() + ",");
+//		System.out.print(aImg.getTime() + ",");
+//		System.out.print(aImg.getMerid() + ",");
+//		System.out.println();
+//	}
 
 @Override
 public List<ProductVO> getAllByMainCategory(String maincategory) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+@Override
+public List<ProductVO> getAllBySubCategory(String subcategory) {
 	// TODO Auto-generated method stub
 	return null;
 }
