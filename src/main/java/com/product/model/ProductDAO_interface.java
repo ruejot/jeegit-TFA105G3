@@ -9,9 +9,9 @@ public interface ProductDAO_interface {
 	public abstract void insert(ProductVO productVO);
 	public abstract void update(ProductVO productVO);
 	public abstract void delete(Integer merid);
+	public abstract ProductVO queryByImgid(Integer imgid);
 	public abstract ProductVO findByPrimaryKey(Integer merid);
 	public abstract List<ProductVO> getAll();
-	public abstract ProductVO queryByImgid (Integer imgid);
 	public abstract List<ProductVO> getAllByProdid(Integer merid);
 	public abstract List<ProductVO> getAllByProductName(String name);
 	public abstract List<ProductVO> getAllByMainCategory(String maincategory);
@@ -20,4 +20,5 @@ public interface ProductDAO_interface {
 	public abstract List<ProductVO> getAllbyV_MerPro();
 	public abstract List<ProductVO> getAllBySubCategory(String subcategory);
 	public void insertWithProductImg(ProductVO productVO, List<ProductImgVO> list);
+	public abstract List<ProductVO> getProductByBusid(Integer busid);
 }

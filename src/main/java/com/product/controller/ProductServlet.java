@@ -4,11 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -144,7 +141,12 @@ public class ProductServlet extends HttpServlet {
 				}
 
 				// 取得上架狀態
-				Integer status = Integer.parseInt(req.getParameter("status"));
+				Integer status = null;
+				try {
+					status = Integer.parseInt(req.getParameter("status"));
+				} catch(NumberFormatException e) {
+					errorMsgs.add("請填上架狀態!");
+				}
 			
 
 				// 取得出貨方式
@@ -297,7 +299,12 @@ public class ProductServlet extends HttpServlet {
 				}
 
 				// 取得上架狀態
-				Integer status = Integer.parseInt(req.getParameter("status"));
+				Integer status = null;
+				try {
+					status = Integer.parseInt(req.getParameter("status"));
+				} catch(NumberFormatException e) {
+					errorMsgs.add("請填上架狀態!");
+				}
 				
 
 				// 取得出貨方式
@@ -331,7 +338,7 @@ public class ProductServlet extends HttpServlet {
 				if (subCategory == null) {
 					errorMsgs.add("請選擇商品子分類!");
 				}
-
+				
 				// 將新物件存入ProductVO
 				ProductVO proVO = new ProductVO();
 				proVO.setBusid(busid);
@@ -344,6 +351,59 @@ public class ProductServlet extends HttpServlet {
 				proVO.setShippingMethod(sb.toString());
 				proVO.setMainCategory(mainCategory);
 				proVO.setSubCategory(subCategory);
+				
+				//以下是圖片上傳
+				byte[] productImg = null;
+				
+				req.setCharacterEncoding("UTF-8"); // 處理中文檔名
+				res.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = res.getWriter();
+				System.out.println("ContentType=" + req.getContentType()); // 測試用
+				
+//				Part part = req.getPart("upfile1");
+//				System.out.println(part);
+				
+				Collection<Part> parts = req.getParts();
+				out.write("<h2> Total parts : " + parts.size() + "</h2>");
+				
+				for(Part part : parts) {
+					
+					String filename = getFileNameFromPart(part);
+					if (filename != null && part.getContentType() != null) {
+						
+						String picname = part.getName();
+						String ContentType = part.getContentType();
+						long size = part.getSize();
+						out.println("name: " + picname);
+						out.println("filename: " + filename);
+						out.println("ContentType: " + ContentType);
+						out.println("size: " + size);
+						
+						InputStream in = part.getInputStream();
+						productImg = new byte[in.available()];
+						in.read(productImg);
+						in.close();
+						out.println("buffer length: " + productImg.length);
+					}
+				
+				}
+						
+				//取得日期
+				java.sql.Date timepic = new java.sql.Date(System.currentTimeMillis());
+
+				//將新物件存入VO
+				List<ProductImgVO> proImgVO = new ArrayList<ProductImgVO>();
+				
+				ProductImgVO productImgVO1 = new ProductImgVO();
+				productImgVO1.setMerpic(productImg);
+				productImgVO1.setTime(timepic);
+				
+//				ProductImgVO productImgVO2 = new ProductImgVO();
+//				productImgVO2.setMerpic(productImg);
+//				productImgVO2.setTime(timepic);
+				
+				proImgVO.add(productImgVO1);
+//				proImgVO.add(productImgVO2);
 
 				// Send the user back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -355,91 +415,12 @@ public class ProductServlet extends HttpServlet {
 				// 開始新增資料
 				ProductService proSvc = new ProductService();
 				proVO = proSvc.addPro(busid, name, price, stock, shelfDate, status, description, sb.toString(), mainCategory,
-						subCategory);
+						subCategory, proImgVO);
+					
+				//新增照片
+				//ProductImgService proImgSvc = new ProductImgService();
+				//proImgVO = proImgSvc.addProductImg(merid, productImg, timepic);
 				
-			    //取得剛剛新增完成的PK用以新增圖片
-
-//				Connection con = null;
-//				PreparedStatement pstmt = null;
-//				ResultSet rs = null;
-//				
-//				Integer merid = 0;
-//				try {
-//					
-//					con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_g3db_tfa105?serverTimezone=Asia/Taipei", "root", "password");
-//					pstmt = con.prepareStatement("select MER_ID from MER order by MER_ID desc limit 0 , 1 ");
-//					rs= pstmt.executeQuery();
-//					
-//					while(rs.next()) {
-//						merid = rs.getInt(1);
-//					}
-//					// Handle any driver errors
-//				} catch (SQLException se) {
-//					throw new RuntimeException("A database error occured. " + se.getMessage());
-//					// Clean up JDBC resources
-//				} finally {
-//					if (rs != null) {
-//						try {
-//							rs.close();
-//						} catch (SQLException se) {
-//							se.printStackTrace(System.err);
-//						}
-//					}
-//					if (pstmt != null) {
-//						try {
-//							pstmt.close();
-//						} catch (SQLException se) {
-//							se.printStackTrace(System.err);
-//						}
-//					}
-//					if (con != null) {
-//						try {
-//							con.close();
-//						} catch (Exception e) {
-//							e.printStackTrace(System.err);
-//						}
-//					}
-//				}
-//				
-//				//取得日期
-//				java.sql.Date timepic = new java.sql.Date(System.currentTimeMillis());
-//				
-//				//以下是圖片上傳
-//				byte[] productImg = null;
-//				
-//				req.setCharacterEncoding("UTF-8"); // 處理中文檔名
-//				res.setContentType("text/html; charset=UTF-8");
-//				PrintWriter out = res.getWriter();
-//				System.out.println("ContentType=" + req.getContentType()); // 測試用
-//				
-//				Part part = req.getPart("upfile1");
-//				System.out.println(part);
-//				
-//				String filename = getFileNameFromPart(part);
-//				System.out.println(filename+"123");
-//				if (filename != null && part.getContentType() != null) {
-//					
-//					String picname = part.getName();
-//					String ContentType = part.getContentType();
-//					long size = part.getSize();
-//					
-//					InputStream in = part.getInputStream();
-//					productImg = new byte[in.available()];
-//					in.read(productImg);
-//					in.close();
-//				}
-//						
-//				
-//				//將新物件存入VO
-//				ProductImgVO proImgVO = new ProductImgVO();
-//				proImgVO.setImgid(merid);
-//				proImgVO.setMerpic(productImg);
-//				proImgVO.setTime(timepic);
-//				
-//				//新增照片
-//				ProductImgService proImgSvc = new ProductImgService();
-//				proImgVO = proImgSvc.addProductImg(merid, productImg, timepic);
-//				
 				// 新增完成，準備轉交
 				String url = "/nest-backend/productManage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
