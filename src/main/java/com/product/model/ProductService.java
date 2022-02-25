@@ -107,4 +107,5 @@ public class ProductService {
 	public List<ProductVO> getSpecialClassByMainCategory(String maincategory){
 		return dao.getAllByMainCategory(maincategory);
 	}
+	
 }

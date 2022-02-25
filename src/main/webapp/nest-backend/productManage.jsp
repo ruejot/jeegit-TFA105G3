@@ -118,7 +118,7 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 							</div>
 							<div class="col-lg-3 col-sm-4 col-8 flex-grow-1 col-name">
 								<a class="itemside" href="#">
-										<img src="<%=request.getContextPath()%>/assets/imgs/items/1.jpg"
+										<img src="<%=request.getContextPath()%>/ShowPic?imgid=${productVO.merid}"
 											class="img-sm img-thumbnail" alt="Item" />
 									<div class="info">
 										<h6 class="mb-0">${productVO.name}</h6>
