@@ -22,48 +22,48 @@ public class ProductImgJDBCDAO implements ProductImgDAO_interface {
 	private static final String DELETE = "DELETE FROM MER_IMG where IMG_ID = ?";
 	private static final String UPDATE = "UPDATE MER_IMG set MER_ID=?, MER_PIC=?, TIME=? where IMG_ID = ?";
 
-	@Override
-	public void insert(ProductImgVO productImgVO) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(INSERT_STMT);
-
-			pstmt.setInt(1, productImgVO.getMerid());
-			pstmt.setBytes(2, productImgVO.getMerpic());
-			pstmt.setDate(3, productImgVO.getTime());
-
-			pstmt.executeUpdate();
-
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-
-	}
+//	@Override
+//	public void insert(ProductImgVO productImgVO) {
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//
+//		try {
+//
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			pstmt = con.prepareStatement(INSERT_STMT);
+//
+//			pstmt.setInt(1, productImgVO.getMerid());
+//			pstmt.setBytes(2, productImgVO.getMerpic());
+//			pstmt.setDate(3, productImgVO.getTime());
+//
+//			pstmt.executeUpdate();
+//
+//			// Handle any driver errors
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+//			// Handle any SQL errors
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. " + se.getMessage());
+//			// Clean up JDBC resources
+//		} finally {
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//
+//	}
 
 	@Override
 	public void update(ProductImgVO productImgVO) {
@@ -274,27 +274,27 @@ public class ProductImgJDBCDAO implements ProductImgDAO_interface {
 		ProductImgJDBCDAO dao = new ProductImgJDBCDAO();
 
 		// 新增
-		String path = "C:/Tibame-Web Project";
-		File input1 = new File(path + "/1.jpg");
-		int length1 = (int) input1.length();
-		byte[] photo1 = new byte[length1];
-		FileInputStream fis1 = new FileInputStream(input1);
-		fis1.read(photo1);
-		fis1.close();
-
-		ProductImgVO productImgVO1 = new ProductImgVO();
-		productImgVO1.setMerid(2);
-		productImgVO1.setMerpic(photo1);
-		productImgVO1.setTime(java.sql.Date.valueOf("2022-02-03"));
-		dao.insert(productImgVO1);
-
-		// 修改
-		ProductImgVO productImgVO2 = new ProductImgVO();
-		productImgVO2.setMerid(2);
-		productImgVO2.setMerpic(photo1);
-		productImgVO2.setTime(java.sql.Date.valueOf("2022-02-10"));
-		productImgVO2.setImgid(1);
-		dao.update(productImgVO2);
+//		String path = "C:/Tibame-Web Project";
+//		File input1 = new File(path + "/1.jpg");
+//		int length1 = (int) input1.length();
+//		byte[] photo1 = new byte[length1];
+//		FileInputStream fis1 = new FileInputStream(input1);
+//		fis1.read(photo1);
+//		fis1.close();
+//
+//		ProductImgVO productImgVO1 = new ProductImgVO();
+//		productImgVO1.setMerid(2);
+//		productImgVO1.setMerpic(photo1);
+//		productImgVO1.setTime(java.sql.Date.valueOf("2022-02-03"));
+//		dao.insert(productImgVO1);
+//
+//		// 修改
+//		ProductImgVO productImgVO2 = new ProductImgVO();
+//		productImgVO2.setMerid(2);
+//		productImgVO2.setMerpic(photo1);
+//		productImgVO2.setTime(java.sql.Date.valueOf("2022-02-10"));
+//		productImgVO2.setImgid(1);
+//		dao.update(productImgVO2);
 
 		// 刪除
 //		dao.delete(2);
@@ -321,6 +321,12 @@ public class ProductImgJDBCDAO implements ProductImgDAO_interface {
 	public List<ProductImgVO> getAllByProdid(Integer prodid) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void insert(ProductImgVO productImgVO, Connection con) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

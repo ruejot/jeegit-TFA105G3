@@ -359,87 +359,87 @@ public class ProductServlet extends HttpServlet {
 				
 			    //取得剛剛新增完成的PK用以新增圖片
 
-				Connection con = null;
-				PreparedStatement pstmt = null;
-				ResultSet rs = null;
-				
-				Integer merid = 0;
-				try {
-					
-					con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_g3db_tfa105?serverTimezone=Asia/Taipei", "root", "password");
-					pstmt = con.prepareStatement("select MER_ID from MER order by MER_ID desc limit 0 , 1 ");
-					rs= pstmt.executeQuery();
-					
-					while(rs.next()) {
-						merid = rs.getInt(1);
-					}
-					// Handle any driver errors
-				} catch (SQLException se) {
-					throw new RuntimeException("A database error occured. " + se.getMessage());
-					// Clean up JDBC resources
-				} finally {
-					if (rs != null) {
-						try {
-							rs.close();
-						} catch (SQLException se) {
-							se.printStackTrace(System.err);
-						}
-					}
-					if (pstmt != null) {
-						try {
-							pstmt.close();
-						} catch (SQLException se) {
-							se.printStackTrace(System.err);
-						}
-					}
-					if (con != null) {
-						try {
-							con.close();
-						} catch (Exception e) {
-							e.printStackTrace(System.err);
-						}
-					}
-				}
-				
-				//取得日期
-				java.sql.Date timepic = new java.sql.Date(System.currentTimeMillis());
-				
-				//以下是圖片上傳
-				byte[] productImg = null;
-				
-				req.setCharacterEncoding("UTF-8"); // 處理中文檔名
-				res.setContentType("text/html; charset=UTF-8");
-				PrintWriter out = res.getWriter();
-				System.out.println("ContentType=" + req.getContentType()); // 測試用
-				
-				Part part = req.getPart("upfile1");
-				System.out.println(part);
-				
-				String filename = getFileNameFromPart(part);
-				System.out.println(filename+"123");
-				if (filename != null && part.getContentType() != null) {
-					
-					String picname = part.getName();
-					String ContentType = part.getContentType();
-					long size = part.getSize();
-					
-					InputStream in = part.getInputStream();
-					productImg = new byte[in.available()];
-					in.read(productImg);
-					in.close();
-				}
-						
-				
-				//將新物件存入VO
-				ProductImgVO proImgVO = new ProductImgVO();
-				proImgVO.setImgid(merid);
-				proImgVO.setMerpic(productImg);
-				proImgVO.setTime(timepic);
-				
-				//新增照片
-				ProductImgService proImgSvc = new ProductImgService();
-				proImgVO = proImgSvc.addProductImg(merid, productImg, timepic);
-				
+//				Connection con = null;
+//				PreparedStatement pstmt = null;
+//				ResultSet rs = null;
+//				
+//				Integer merid = 0;
+//				try {
+//					
+//					con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_g3db_tfa105?serverTimezone=Asia/Taipei", "root", "password");
+//					pstmt = con.prepareStatement("select MER_ID from MER order by MER_ID desc limit 0 , 1 ");
+//					rs= pstmt.executeQuery();
+//					
+//					while(rs.next()) {
+//						merid = rs.getInt(1);
+//					}
+//					// Handle any driver errors
+//				} catch (SQLException se) {
+//					throw new RuntimeException("A database error occured. " + se.getMessage());
+//					// Clean up JDBC resources
+//				} finally {
+//					if (rs != null) {
+//						try {
+//							rs.close();
+//						} catch (SQLException se) {
+//							se.printStackTrace(System.err);
+//						}
+//					}
+//					if (pstmt != null) {
+//						try {
+//							pstmt.close();
+//						} catch (SQLException se) {
+//							se.printStackTrace(System.err);
+//						}
+//					}
+//					if (con != null) {
+//						try {
+//							con.close();
+//						} catch (Exception e) {
+//							e.printStackTrace(System.err);
+//						}
+//					}
+//				}
+//				
+//				//取得日期
+//				java.sql.Date timepic = new java.sql.Date(System.currentTimeMillis());
+//				
+//				//以下是圖片上傳
+//				byte[] productImg = null;
+//				
+//				req.setCharacterEncoding("UTF-8"); // 處理中文檔名
+//				res.setContentType("text/html; charset=UTF-8");
+//				PrintWriter out = res.getWriter();
+//				System.out.println("ContentType=" + req.getContentType()); // 測試用
+//				
+//				Part part = req.getPart("upfile1");
+//				System.out.println(part);
+//				
+//				String filename = getFileNameFromPart(part);
+//				System.out.println(filename+"123");
+//				if (filename != null && part.getContentType() != null) {
+//					
+//					String picname = part.getName();
+//					String ContentType = part.getContentType();
+//					long size = part.getSize();
+//					
+//					InputStream in = part.getInputStream();
+//					productImg = new byte[in.available()];
+//					in.read(productImg);
+//					in.close();
+//				}
+//						
+//				
+//				//將新物件存入VO
+//				ProductImgVO proImgVO = new ProductImgVO();
+//				proImgVO.setImgid(merid);
+//				proImgVO.setMerpic(productImg);
+//				proImgVO.setTime(timepic);
+//				
+//				//新增照片
+//				ProductImgService proImgSvc = new ProductImgService();
+//				proImgVO = proImgSvc.addProductImg(merid, productImg, timepic);
+//				
 				// 新增完成，準備轉交
 				String url = "/nest-backend/productManage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);

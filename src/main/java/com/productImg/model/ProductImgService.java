@@ -1,5 +1,6 @@
 package com.productImg.model;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.util.List;
 
@@ -15,12 +16,12 @@ private ProductImgDAO_interface dao;
 //			dao.insert(productImgVO);
 //		}
 	
-		public ProductImgVO addProductImg(Integer merid, byte[] merpic, Date time) {
+		public ProductImgVO addProductImg(Integer merid, byte[] merpic, Date time, Connection con) {
 			ProductImgVO proImgVO = new ProductImgVO();
 			proImgVO.setMerid(merid);
 			proImgVO.setMerpic(merpic);
 			proImgVO.setTime(time);
-			dao.insert(proImgVO);
+			dao.insert(proImgVO, con);
 			
 			return proImgVO;
 		}
@@ -35,7 +36,7 @@ private ProductImgDAO_interface dao;
 			proImgVO.setMerid(merid);
 			proImgVO.setMerpic(merpic);
 			proImgVO.setTime(time);
-			dao.insert(proImgVO);
+			dao.update(proImgVO);
 			
 			return proImgVO;
 		}
@@ -51,5 +52,6 @@ private ProductImgDAO_interface dao;
 		public List<ProductImgVO> getAll(){
 			return dao.getAll();
 		}
+		
 		
 }

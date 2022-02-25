@@ -7,6 +7,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import com.productImg.model.ProductImgDAO;
 import com.productImg.model.ProductImgVO;
 
 public class ProductDAO implements ProductDAO_interface {
@@ -605,5 +607,86 @@ public class ProductDAO implements ProductDAO_interface {
 		return null;
 	}
 
-	
+	@Override
+	public void insertWithProductImg(ProductVO productVO, List<ProductImgVO> list) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+
+			// 設定於pstmt.executeUpdate()之前
+			con.setAutoCommit(false);
+
+			// 先新增商品主檔
+			String cols[] = { "MER_ID" };
+			pstmt = con.prepareStatement(INSERT_STMT, cols);
+
+			pstmt.setInt(1, productVO.getBusid());
+			pstmt.setString(2, productVO.getName());
+			pstmt.setInt(3, productVO.getPrice());
+			pstmt.setInt(4, productVO.getStock());
+			pstmt.setDate(5, productVO.getShelfDate());
+			pstmt.setInt(6, productVO.getStatus());
+			pstmt.setString(7, productVO.getDescription());
+			pstmt.setString(8, productVO.getShippingMethod());
+			pstmt.setString(9, productVO.getMainCategory());
+			pstmt.setString(10, productVO.getSubCategory());
+
+			pstmt.executeUpdate();
+
+			// 獲取對應的新增主鍵值
+			String next_merId = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+				next_merId = rs.getString(1);
+				System.out.println("自增主鍵值= " + next_merId + "(剛新增成功的商品編號)");
+			} else {
+				System.out.println("未取得自增主鍵值");
+			}
+			rs.close();
+
+			// 再同時新增照片
+			ProductImgDAO dao = new ProductImgDAO();
+			System.out.println("list.size()-A=" + list.size());
+			for (ProductImgVO addImg : list) {
+				addImg.setMerid(Integer.parseInt(next_merId));
+				dao.insert(addImg, con);
+			}
+			// 設定於pstmt.executeUpdate()之後
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println("list.size()-B=" + list.size());
+			System.out.println("新增商品編號" + next_merId + "時,共有" + list.size() + "筆圖片同時被新增");
+
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-order");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. " + excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+	}
+
 }

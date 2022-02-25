@@ -140,8 +140,8 @@ int i = 0;
 							<!-- row.// -->
 						</div>
 					</div>
-					<!-- card end// -->
-					  
+					<!-- card end// --> 
+					<!-- 
 					<div class="card mb-4">
 						<div class="card-header">
 							<h4>新增照片</h4>
