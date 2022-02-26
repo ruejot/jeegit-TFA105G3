@@ -46,22 +46,24 @@
                     </div>
                 </div>
                 <div class="card">
-<!--                     <header class="card-header"> -->
-<!--                         <div class="row align-items-center"> -->
-<!--                             <div class="col-lg-6 col-md-6 mb-lg-0 mb-15"> -->
-<!--                             </div> -->
-<!--                             <div class="col-lg-6 col-md-6 ms-auto text-md-end"> -->
-<!--                                 <select class="form-select d-inline-block mb-lg-0 mr-5 mw-200"> -->
-<!--                                     <option>修改訂單狀態</option> -->
-<!--                                     <option>處理中</option> -->
-<!--                                     <option>配送中</option> -->
-<!--                                     <option>已完成</option> -->
-<!--                                     <option>已取消</option> -->
-<!--                                 </select> -->
-<!--                                 <a class="btn btn-primary" href="#">儲存</a> 要寫updateServlet -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                     </header> -->
+                    <header class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 col-md-6 mb-lg-0 mb-15">
+                            </div>
+                            <div class="col-lg-6 col-md-6 ms-auto text-md-end">
+                                <select class="form-select d-inline-block mb-lg-0 mr-5 mw-200">
+                                    <option>修改訂單狀態</option>
+                                    <option value=1>處理中</option>
+                                    <option value=2>配送中</option>
+                                    <option value=3>已完成</option>
+                                    <option value=4>已取消</option>
+                                </select>
+                                <button class="btn btn-primary" type="submit">儲存</button>
+                                <input type="hidden" name="action" value="update">	
+								<input type="hidden" name="orderId" value="${orderVO.orderId}">
+                            </div>
+                        </div>
+                    </header>
                     <!-- card-header end// -->
                     <div class="card-body">
                         <div class="row mb-50 mt-20 order-info-wrap">
@@ -91,8 +93,9 @@
                                     <div class="text">
                                         <h6 class="mb-1">收件人資訊</h6>
                                         <p class="mb-1">
-                                            收件人: ${orderVO.receiver} <br />收件地址: ${orderVO.receiverAddr} <br />
-                                            電話: ${orderVO.receiverPhone}
+                                            收件人: <input type="text" name="receiver" class="form-control" value="${orderVO.receiver}" /> <br />
+                                            收件地址: <input type="text" name="receiverAddr" class="form-control" style="width:250px" value="${orderVO.receiverAddr}" /> <br />
+                                            電話: <input type="text" name="receiverPhone" class="form-control" value="${orderVO.receiverPhone}" />
                                         </p>
                                     </div>
                                 </article>
@@ -108,7 +111,7 @@
                                         <h6 class="mb-1">運送資訊</h6>
                                         <p class="mb-1">
                                             出貨方式: ${deliverySvc.getOneShipping(orderVO.shippingId).shippingMethod}<br />
-                                            追蹤碼: Not Available
+                                            追蹤碼: <input type="text" name="orderStatus" class="form-control" value="${(orderVO.tracking == null)? '' : orderVO.tracking}"/>
                                         </p>
                                     </div>
                                 </article>

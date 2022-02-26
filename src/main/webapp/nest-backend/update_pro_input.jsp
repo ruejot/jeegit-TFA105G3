@@ -163,20 +163,7 @@ int i = 0, index = 0;
 			</form>
 		</section>
 		<!-- content-main end// -->
-<%-- 		<%@ include file="./footer.jsp" %>   --%>
-<jsp:include page="/views/footer.jsp"/>
-		<!--
-		<footer class="main-footer font-xs">
-			<div class="row pb-30 pt-15">
-				<div class="col-sm-6">
-					<script>
-						document.write(new Date().getFullYear());
-					</script>
-					&copy; Petting - All rights reserved .
-				</div>
-			</div>
-		</footer>
-		 -->
+		<jsp:include page="/views/footer.jsp"/>
 	</main>
 	<script src="../assets/js/vendors/jquery-3.6.0.min.js"></script>
 	<script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
