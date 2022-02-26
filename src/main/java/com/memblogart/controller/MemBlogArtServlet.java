@@ -366,7 +366,45 @@ public class MemBlogArtServlet extends HttpServlet {
 //--------------------------------------新增文章結束--------------------------------------------        
 
 //---------------------------------------刪除文章--------------------------------------------        
+		if ("batch_delete".equals(action)) {
+			String artids = req.getParameter("artid");
+			
+			String[] arr = artids.split(",");
+			for(int i =0; i<arr.length;i++) {
+				System.out.println(arr[i]);
 
+				List<String> errorMsgs = new LinkedList<String>();
+				// Store this set in the request scope, in case we need to
+				// send the ErrorPage view.
+				req.setAttribute("errorMsgs", errorMsgs);
+	
+				try {
+					/*************************** 1.接收請求參數 ***************************************/
+					Integer artid = Integer.parseInt(arr[i]);
+	
+					/*************************** 2.開始刪除資料 ***************************************/
+					MemBlogArtService mbaSvc = new MemBlogArtService();
+					mbaSvc.delete(artid);
+	
+					/*************************** 其他可能的錯誤處理 **********************************/
+				} catch (Exception e) {
+					errorMsgs.add("刪除資料失敗:" + e.getMessage());
+					RequestDispatcher failureView = req.getRequestDispatcher("/nest-backend/blog_manage.jsp");
+					failureView.forward(req, res);
+				}
+			}
+			
+			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+
+			System.out.println("重轉~~~");
+			String url = "nest-backend/blog_manage.jsp";
+//			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+//			successView.forward(req, res);
+			res.sendRedirect(url);
+			System.out.println("轉送~~~");
+			
+		}
+		
 		if ("delete".equals(action)) { // 來自blog_manage.jsp
 
 			List<String> errorMsgs = new LinkedList<String>();
