@@ -8,8 +8,10 @@ CsDetailService csDetailSvc = new CsDetailService();
 List<CsDetailVO> list = csDetailSvc.selectAll();
 pageContext.setAttribute("list", list);
 %>
+
 <jsp:useBean id="membersSvc" scope="page" class="com.members.model.MembersService" />
 
+<!-- 可以改成productManage <div class="card-body">樣式，但要調整欄位寬 -->
 <html lang="zh-Hant-TW">
 <head>
 <meta charset="utf-8" />
@@ -24,20 +26,19 @@ pageContext.setAttribute("list", list);
 <!-- Favicon -->
 <link rel="shortcut icon" type="image/x-icon"
 	href="<%=request.getContextPath()%>/assets/imgs/theme/Petting_logo.png" />
+<%-- <jsp:include page="/views/sellerHeader_doing.jsp"/> --%>
 <!-- Template CSS -->
-<!-- /assets/css/main.css  /csDetail/assets/css/main.css -->
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/assets/css/main_backend.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/main_backend.css" type="text/css" />
 </head>
 
 <body>
 	<div class="screen-overlay"></div>
-	<jsp:include page="/views/FIXAside.jsp" />
+	<jsp:include page="/views/sellerAside.jsp" />
 	<main class="main-wrap">
-		<jsp:include page="/views/FIXsellerHeader.jsp" />
-			<!-- 在<section>content-main start開始寫此後台頁內容 -->
+		<%-- 		<jsp:include page="/views/sellerHeader.jsp" /> --%>
+		<jsp:include page="/views/sellerHeader_2.jsp" />
 		<section class="content-main">
 			<div class="content-header">
 				<div>
@@ -88,8 +89,7 @@ pageContext.setAttribute("list", list);
 							</thead>
 							<tbody>
 								<%@ include file="/pages/CsDetail_page1.file"%>
-								<c:forEach var="csDetailVO" items="${list}"
-									begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+								<c:forEach var="csDetailVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 									<tr>
 										<td>${csDetailVO.caseid}</td>
 										<%-- 										<td>${csDetailVO.memberid}</td> --%>
@@ -111,10 +111,11 @@ pageContext.setAttribute("list", list);
 											</c:if></td>
 										<td>${csDetailVO.replytime}</td>
 										<td class="text-end">
-											<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/CsDetail.do" class="badge rounded font-sm">
-												<input type="submit" value="回覆" class="btn btn-md rounded font-sm"> 
-												<input type="hidden" name="caseid" value="${csDetailVO.caseid}">
-												<input type="hidden" name="action" value="getOne_For_Update">
+											<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/CsDetail.do"
+												class="badge rounded font-sm">
+												<input type="submit" value="回覆" class="btn btn-md rounded font-sm"> <input type="hidden"
+													name="caseid" value="${csDetailVO.caseid}"> <input type="hidden" name="action"
+													value="getOne_For_Update">
 											</FORM> <!-- <a href="#" class="btn btn-md rounded font-sm">內容</a> -->
 										</td>
 									</tr>
@@ -145,27 +146,17 @@ pageContext.setAttribute("list", list);
 			</div>
 		</section>
 		<!-- content-main end// -->
-		<jsp:include page="/views/footer.jsp" />
+		<jsp:include page="/views/sellerFooter.jsp" />
 	</main>
 	<!-- 此頁<main>結束 -->
-
-	<script
-		src="<%=request.getContextPath()%>/assets/js/vendors/jquery-3.6.0.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/js/vendors/bootstrap.bundle.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/js/vendors/select2.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/js/vendors/perfect-scrollbar.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/assets/js/vendors/jquery.fullscreen.min.js"></script>
+	
 	<!-- Main Script -->
-	<script
-		src="<%=request.getContextPath()%>/assets/js/main_backend.js?v=1.1"
-		type="text/javascript"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-3.6.0.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/select2.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/perfect-scrollbar.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery.fullscreen.min.js"></script>
+	<!-- Main Script -->
+	<script src="<%=request.getContextPath()%>/assets/js/main_backend.js?v=1.1" type="text/javascript"></script>
 </body>
 </html>
-
-<!-- 延伸main分支。 -->
-<!-- 為了識別 main, RWEI 是不同branch所做的commit。 -->
-<!-- 這個commit只有這個註解變動 -->

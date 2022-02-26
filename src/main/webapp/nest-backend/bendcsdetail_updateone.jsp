@@ -7,36 +7,35 @@
 CsDetailVO csDetailVO = (CsDetailVO) request.getAttribute("csDetailVO"); //CsDetailServlet.java (Concroller) 存入req的csDetailBean物件 (包括幫忙取出的csDetailBean, 也包括輸入資料錯誤時的csDetailBean物件)
 %>
 
-<jsp:useBean id="membersSvc" scope="page"
-	class="com.members.model.MembersService" />
+<jsp:useBean id="membersSvc" scope="page" class="com.members.model.MembersService" />
 
 <html lang="zh-Hant-TW">
-	<head>
-		<meta charset="utf-8" />
-		<title>客服列表-Petting</title>
-		<meta http-equiv="x-ua-compatible" content="ie=edge" />
-		<meta name="description" content="" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta property="og:title" content="" />
-		<meta property="og:type" content="" />
-		<meta property="og:url" content="" />
-		<meta property="og:image" content="" />
-		<!-- Favicon -->
-		<link rel="shortcut icon" type="image/x-icon"
-			href="/assets/imgs/theme/Petting_logo.png" />
-		<!-- Template CSS -->
-		<!-- /assets/css/main.css  /csDetail/assets/css/main.css -->
-		<link rel="stylesheet" type="text/css"
-			href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
-		<link rel="stylesheet" type="text/css"
-			href="<%=request.getContextPath()%>/assets/css/main_backend.css" />
-	</head>
+<head>
+<meta charset="utf-8" />
+<title>客服明細-Petting</title>
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="" />
+<meta property="og:type" content="" />
+<meta property="og:url" content="" />
+<meta property="og:image" content="" />
+<!-- Favicon -->
+<link rel="shortcut icon" type="image/x-icon"
+	href="<%=request.getContextPath()%>/assets/imgs/theme/Petting_logo.png" />
+<%-- <jsp:include page="/views/sellerHeader_doing.jsp"/> --%>
+<!-- Template CSS -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/main_backend.css" type="text/css" />
+</head>
 
 <body>
 	<div class="screen-overlay"></div>
-	<jsp:include page="/views/FIXAside.jsp" />
+	<jsp:include page="/views/sellerAside.jsp" />
 	<main class="main-wrap">
-		<jsp:include page="/views/FIXsellerHeader.jsp" />
+		<%-- 		<jsp:include page="/views/sellerHeader.jsp" /> --%>
+		<jsp:include page="/views/sellerHeader_2.jsp" />
 		<section class="content-main">
 			<!-- 在<section>content-main start開始寫此後台頁內容 -->
 			<div class="row">
@@ -92,19 +91,15 @@ CsDetailVO csDetailVO = (CsDetailVO) request.getAttribute("csDetailVO"); //CsDet
 											<div class="row mb-4">
 												<label class="col-lg-3 col-form-label">回覆狀態</label>
 												<div class="col-lg-9">
-													<label class="mb-2 form-check form-check-inline"
-														style="width: 45%;"> <input
-														class="form-check-input" name="mycategory" type="radio">
-														<span class="col-form-label"> 1_待處理 </span>
-													</label> <label class="mb-2 form-check form-check-inline"
-														style="width: 45%;"> <input
-														class="form-check-input" checked="" name="mycategory"
-														type="radio"> <span class="col-form-label">
-															2_處理中 </span>
-													</label> <label class="mb-2 form-check form-check-inline"
-														style="width: 45%;"> <input
-														class="form-check-input" name="mycategory" type="radio">
-														<span class="col-form-label"> 3_已完成 </span>
+													<label class="mb-2 form-check form-check-inline" style="width: 45%;"> <input
+														class="form-check-input" name="mycategory" type="radio"> <span class="col-form-label">
+															1_待處理 </span>
+													</label> <label class="mb-2 form-check form-check-inline" style="width: 45%;"> <input
+														class="form-check-input" checked="" name="mycategory" type="radio"> <span
+														class="col-form-label"> 2_處理中 </span>
+													</label> <label class="mb-2 form-check form-check-inline" style="width: 45%;"> <input
+														class="form-check-input" name="mycategory" type="radio"> <span class="col-form-label">
+															3_已完成 </span>
 													</label>
 												</div>
 												<!-- col.// -->
@@ -113,8 +108,7 @@ CsDetailVO csDetailVO = (CsDetailVO) request.getAttribute("csDetailVO"); //CsDet
 											<div class="row mb-4">
 												<label class="col-lg-3 col-form-label">回覆內容</label>
 												<div class="col-lg-9">
-													<textarea class="form-control" placeholder="輸入回應..."
-														rows="3">幫您確認，晚點回覆您，請稍等!</textarea>
+													<textarea class="form-control" placeholder="輸入回應..." rows="3">幫您確認，晚點回覆您，請稍等!</textarea>
 												</div>
 												<!-- col.// -->
 											</div>
@@ -122,8 +116,7 @@ CsDetailVO csDetailVO = (CsDetailVO) request.getAttribute("csDetailVO"); //CsDet
 											<div class="row mb-4">
 												<label class="col-lg-3 col-form-label">回覆時間</label>
 												<div class="col-lg-4">
-													<input type="text" class="form-control"
-														placeholder="YYY-MM-DD" value="2022-02-17" />
+													<input type="text" class="form-control" placeholder="YYY-MM-DD" value="2022-02-17" />
 												</div>
 												<!-- col.// -->
 											</div>
@@ -145,14 +138,17 @@ CsDetailVO csDetailVO = (CsDetailVO) request.getAttribute("csDetailVO"); //CsDet
 			</div>
 		</section>
 		<!-- section content-main end// -->
-		<jsp:include page="/views/footer.jsp" />
+		<jsp:include page="/views/sellerFooter.jsp" />
 	</main>
-	<script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
-	<script src="assets/js/vendors/bootstrap.bundle.min.js"></script>
-	<script src="assets/js/vendors/select2.min.js"></script>
-	<script src="assets/js/vendors/perfect-scrollbar.js"></script>
-	<script src="assets/js/vendors/jquery.fullscreen.min.js"></script>
+	<!-- 此頁<main>結束 -->
+	
 	<!-- Main Script -->
-	<script src="assets/js/main.js?v=1.1" type="text/javascript"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-3.6.0.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/select2.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/perfect-scrollbar.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery.fullscreen.min.js"></script>
+	<!-- Main Script -->
+	<script src="<%=request.getContextPath()%>/assets/js/main_backend.js?v=1.1" type="text/javascript"></script>
 </body>
 </html>

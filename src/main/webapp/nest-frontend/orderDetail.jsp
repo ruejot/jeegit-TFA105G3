@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.order.model.*"%>
+<%@ page import="com.orderDetail.model.*"%>
 <%@ page import="java.util.*"%>
 
 <%	
-	Integer orderId = 5;
-    OrderService ordSvc = new OrderService();
-    OrderVO orderVO = ordSvc.getOneByOrderId(orderId);
-    pageContext.setAttribute("orderVO", orderVO);
+	List<OrderDetailVO> list = (List<OrderDetailVO>)request.getAttribute("orderDetailList");
+	pageContext.setAttribute("list",list);
 %>
 
 <!DOCTYPE html>
@@ -26,22 +24,13 @@
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/favicon.svg" />
         <!-- Template CSS -->
-        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
+        <link rel="stylesheet" href="assets/css/plugins/animate.min.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/main.css" />
 </head>
 <body>
 	<jsp:include page="/views/userHeader.jsp"/>
         <main class="main pages">
-            <div class="page-header breadcrumb-wrap">
-                <div class="container">
-                    <div class="breadcrumb">
-                        <a href="<%=request.getContextPath()%>/views/index.jsp" rel="nofollow"><i class="fi-rs-home mr-5"></i>首頁</a>
-                        <a href="<%=request.getContextPath()%>/nest-frontend/orderOverview.jsp" ><span></span> 會員中心</a>
-                        <!--
-                        <span></span> Pages <span></span> My Account
-                        -->
-                    </div>
-                </div>
-            </div>
+        	<jsp:include page="/views/userMainPage-header.jsp" />
             <div class="page-content pt-150 pb-150">
                 <div class="container">
                     <div class="row">
@@ -56,7 +45,7 @@
                                             </li>
                                             -->
                                             <li class="nav-item">
-                                                <a class="nav-link active" id="orders-tab" data-bs-toggle="tab" href="<%=request.getContextPath()%>/order/orderOverview.jsp" role="tab" aria-controls="orders" aria-selected="false"><i class="fi-rs-shopping-bag mr-10"></i>訂單管理</a>
+                                                <a class="nav-link active" id="orders-tab" data-bs-toggle="tab" href="accountCenter.jsp" role="tab" aria-controls="orders" aria-selected="false"><i class="fi-rs-shopping-bag mr-10"></i>訂單管理</a>
                                             </li>
                                             <!--
                                             <li class="nav-item">
@@ -104,35 +93,37 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th>訂單編號</th>
-                                                                    <th>訂購時間</th>
-                                                                    <th>訂單狀態</th>
-                                                                    <th>總金額</th>
+                                                                    <th>商品編號</th>
+                                                                    <th>數量</th>
+                                                                    <th>單價</th>
                                                                     
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
+                                                           		<%@ include file="page1.file" %>
+																<c:forEach var="orderDetailVO" items="${list}"
+																	begin="<%=pageIndex%>"
+																	end="<%=pageIndex+rowsPerPage-1%>">
+															
 																<tr>
-																	<td>${orderVO.orderId}</td>
-																	<td>${orderVO.orderTime}</td>
-																	<td><c:if test="${orderVO.orderStatus == 1}">處理中</c:if>
-																		<c:if test="${orderVO.orderStatus == 2}">配送中</c:if>
-																		<c:if test="${orderVO.orderStatus == 3}">已完成</c:if>
-																		<c:if test="${orderVO.orderStatus == 4}">已取消</c:if></td>
-																	<td>${orderVO.orderSum}</td>
-																	<td>
-																		<a METHOD="post"
-																			ACTION="<%=request.getContextPath()%>/emp/emp.do"
-																			class="btn-small d-block">
-																			<input type="submit" value="修改"> <input
-																				type="hidden" name="empno" value="${empVO.empno}">
-																			<input type="hidden" name="action"
-																				value="getOne_For_Update">
-																		</a>
-																	</td>
+																	<td>${orderDetailVO.orderId}</td>
+																	<td>${orderDetailVO.merId}</td>
+																	<td>${orderDetailVO.qty}</td>
+																	<td>${orderDetailVO.unitPrice}</td>
+																	<c:if test="${orderSvc.getOneByOrderId(orderDetailVO.orderId).orderStatus == 3}">
+																		<form method= "POST" ACTION= "orderDetail.do">
+																			<button class="btn-small d-block" type="submit">評價留言</button>
+																			<input type="hidden" name="orderId" value="${orderDetailVO.merId}">
+																			<input type="hidden" name="action" value="ranking_Ord_Detail">
+																		</form>
+																	</c:if>
 																</tr>
+															
+															</c:forEach>
+															<%@ include file="page2.file" %>
                                                             </tbody>
                                                         </table>
-                                                        <a href="<%=request.getContextPath()%>/order/orderOverview.jsp">回上頁</a>
+                                                        <a href="accountCenter.jsp">回上頁</a>
                                                     </div>
                                                 </div>
                                             </div>

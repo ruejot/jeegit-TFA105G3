@@ -7,6 +7,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import com.productImg.model.ProductImgDAO;
 import com.productImg.model.ProductImgVO;
 
 public class ProductDAO implements ProductDAO_interface {
@@ -30,8 +32,10 @@ public class ProductDAO implements ProductDAO_interface {
 	private static final String UPDATE = "UPDATE mer set BUS_ID=?, name=?, price=?, stock=?, SHELF_Date=?, status=?, description=?, SHIPPING_METHOD=?, MAIN_CATEGORY=?, SUB_CATEGORY=? where MER_ID = ?";
 	private static final String GET_Imgs_ByMerid_STMT = "SELECT IMG_ID, MER_PIC, time, MER_ID FROM MER_IMG where MER_ID = ?";
 	private static final String GET_ALL_By_vMerPro = "SELECT * FROM pet_g3db_tfa105.v_merimg_mer";
-	private static final String FIND_AllbyMerid = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_ID =?";
+	private static final String FIND_AllbyMerid = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_ID= ?";
 	private static final String FIND_AllbyMerName = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_NAME like ? ";
+	private static final String FIND_AllbyMainCategory = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE Main_Category like ? ";
+	private static final String FIND_AllbySubCategory = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE Sub_Category = ? ";
 
 	@Override
 	public void insert(ProductVO productVO) {
@@ -380,6 +384,7 @@ public class ProductDAO implements ProductDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FIND_AllbyMerid);
 			pstmt.setInt(1, prodid);
+			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				productVO = new ProductVO();
@@ -387,7 +392,6 @@ public class ProductDAO implements ProductDAO_interface {
 				productVO.setMerid(rs.getInt("mer_id"));
 				productVO.setBusid(rs.getInt("bus_id"));
 				productVO.setName(rs.getString("mer_name"));
-				productVO.setPicname(rs.getString("pic_name"));
 				productVO.setMerpic(rs.getBytes("mer_pic"));
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setStock(rs.getInt("stock"));
@@ -445,7 +449,6 @@ public class ProductDAO implements ProductDAO_interface {
 				productVO.setMerid(rs.getInt("mer_id"));
 				productVO.setBusid(rs.getInt("bus_id"));
 				productVO.setName(rs.getString("mer_name"));
-				productVO.setPicname(rs.getString("pic_name"));
 				productVO.setMerpic(rs.getBytes("mer_pic"));
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setStock(rs.getInt("stock"));
@@ -503,7 +506,6 @@ public class ProductDAO implements ProductDAO_interface {
 				productVO.setMerid(rs.getInt("mer_id"));
 				productVO.setBusid(rs.getInt("bus_id"));
 				productVO.setName(rs.getString("mer_name"));
-				productVO.setPicname(rs.getString("pic_name"));
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setStock(rs.getInt("stock"));
 				productVO.setMainCategory(rs.getString("main_Category"));
@@ -541,4 +543,150 @@ public class ProductDAO implements ProductDAO_interface {
 		}
 		return list;
 	}
+
+	@Override
+	public List<ProductVO> getAllByMainCategory(String maincategory) {
+		List<ProductVO> list = new ArrayList<ProductVO>();
+		ProductVO productVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FIND_AllbyMainCategory);
+			pstmt.setString(1, "%" + maincategory + "%");
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				productVO = new ProductVO();
+				productVO.setImgid(rs.getInt("img_id"));
+				productVO.setMerid(rs.getInt("mer_id"));
+				productVO.setBusid(rs.getInt("bus_id"));
+				productVO.setName(rs.getString("mer_name"));
+				productVO.setMerpic(rs.getBytes("mer_pic"));
+				productVO.setPrice(rs.getInt("price"));
+				productVO.setStock(rs.getInt("stock"));
+				productVO.setMainCategory(rs.getString("main_category"));
+				productVO.setSubCategory(rs.getString("sub_category"));
+				list.add(productVO); // Store the row in the list
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<ProductVO> getAllBySubCategory(String subcategory) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void insertWithProductImg(ProductVO productVO, List<ProductImgVO> list) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+
+			// 設定於pstmt.executeUpdate()之前
+			con.setAutoCommit(false);
+
+			// 先新增商品主檔
+			String cols[] = { "MER_ID" };
+			pstmt = con.prepareStatement(INSERT_STMT, cols);
+
+			pstmt.setInt(1, productVO.getBusid());
+			pstmt.setString(2, productVO.getName());
+			pstmt.setInt(3, productVO.getPrice());
+			pstmt.setInt(4, productVO.getStock());
+			pstmt.setDate(5, productVO.getShelfDate());
+			pstmt.setInt(6, productVO.getStatus());
+			pstmt.setString(7, productVO.getDescription());
+			pstmt.setString(8, productVO.getShippingMethod());
+			pstmt.setString(9, productVO.getMainCategory());
+			pstmt.setString(10, productVO.getSubCategory());
+
+			pstmt.executeUpdate();
+
+			// 獲取對應的新增主鍵值
+			String next_merId = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+				next_merId = rs.getString(1);
+				System.out.println("自增主鍵值= " + next_merId + "(剛新增成功的商品編號)");
+			} else {
+				System.out.println("未取得自增主鍵值");
+			}
+			rs.close();
+
+			// 再同時新增照片
+			ProductImgDAO dao = new ProductImgDAO();
+			System.out.println("list.size()-A=" + list.size());
+			for (ProductImgVO addImg : list) {
+				addImg.setMerid(Integer.parseInt(next_merId));
+				dao.insert(addImg, con);
+			}
+			// 設定於pstmt.executeUpdate()之後
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println("list.size()-B=" + list.size());
+			System.out.println("新增商品編號" + next_merId + "時,共有" + list.size() + "筆圖片同時被新增");
+
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-order");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. " + excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+	}
+
 }

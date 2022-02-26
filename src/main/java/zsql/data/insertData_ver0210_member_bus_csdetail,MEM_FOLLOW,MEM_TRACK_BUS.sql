@@ -2,7 +2,7 @@
 -- `tableName`, [這裡新增的table假資料筆數]
 -- 
 -- `MEMBERS`, [15筆預設]
--- `BUS`, [5筆預設]
+-- `BUS`, [9筆預設]
 -- `CS_DETAIL`, [5筆預設]
 -- `MEM_FOLLOW`, [10筆預設]
 -- `MEM_TRACK_BUS`, [4筆預設]
@@ -37,7 +37,11 @@ insert into BUS(NAME, PHONE, ADDRESS, TAX_ID, EMAIL, PASSWORD, PAYMENT_PROVIDE)
 values('pet caring inherit world', '28825252', '台北市大同區民權西路184巷11弄', '67670002','tibameBus02@gmail.com','password','0111'),
 ('吉德貓狗joy4 workshop', '28825253', '新北市板橋區實踐路5-1號3樓', '67670003','tibameBus03@gmail.com','password','1011'),
 ('FreshDOG暖暖店', '28825254', '基隆市暖暖區東碇路15號1樓', '67670004','tibameBus04@gmail.com','password','1101'),
-('米霏思寵物用品舖-木柵店', '28825255', '台北市文山區萬安街22巷13弄', '67670005','tibameBus05@gmail.com','password','1110');
+('阿瑋狗糧', '28825256', '台北市文山區萬安街22巷7號', '67670007','tibameBus06@gmail.com','password','1111'),
+('絲絲美容用品', '28825257', '台北市文山區萬安街22巷8弄', '67670008','tibameBus07@gmail.com','password','1112'),
+('大同寵物生活用品店', '28825258', '台北市文山區萬安街22巷9弄', '67670009','tibameBus09@gmail.com','password','1113'),
+('阿瑋貓糧', '28825210', '台北市文山區萬安街22巷22弄', '67670012','tibameBus9@gmail.com','password','1119'),
+('水族世界', '28825259', '台北市文山區萬安街22巷10弄', '67670010','tibameBus012@gmail.com','password','1114');
 
 
 insert into CS_DETAIL(MEMBER_ID, BUS_ID, CASE_TIME, FEEDBACK)

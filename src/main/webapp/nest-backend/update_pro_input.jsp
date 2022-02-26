@@ -5,78 +5,26 @@
 
 <%
 ProductVO productVO = (ProductVO) request.getAttribute("productVO");
+int i = 0, index = 0;
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
+<title>Revise Product</title>
 <meta charset="utf-8" />
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Revise Product</title>
-<%-- <%@ include file="./sellerHeader.jsp" %>  --%>
-<jsp:include page="/views/sellerHeader1.jsp"/>
 <!-- Template CSS -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/assets/css/main_backend.css" />
 </head>
 <body>
 	<div class="screen-overlay"></div>
-	<aside class="navbar-aside" id="offcanvas_aside">
-		<div class="aside-top">
-			<a href="index.html" class="brand-wrap"> 
-			<img src="<%=request.getContextPath()%>/assets/imgs/theme/logo_Petting.svg" class="logo" alt="logo" />
-			</a>
-			<div>
-				<button class="btn btn-icon btn-aside-minimize">
-					<i class="text-muted material-icons md-menu_open"></i>
-				</button>
-			</div>
-		</div>
-		<nav>
-			<ul class="menu-aside">
-				<li class="menu-item"><a class="menu-link" href="index.html">
-						<i class="icon material-icons md-home"></i> <span class="text">會員中心</span>
-				</a></li>
-				<li class="menu-item has-submenu"><a class="menu-link"
-					href="page-products-list.html"> <i
-						class="icon material-icons md-shopping_bag"></i> <span
-						class="text">商品管理</span>
-				</a></li>
-				<li class="menu-item has-submenu"><a class="menu-link"
-					href="page-orders-1.html"> <i
-						class="icon material-icons md-shopping_cart"></i> <span
-						class="text">訂單管理</span>
-				</a></li>
-				<li class="menu-item has-submenu"><a class="menu-link"
-					href="page-form-product-1.html"> <i
-						class="icon material-icons md-add_box"></i> <span class="text">商品上架</span>
-				</a></li>
-				<li class="menu-item has-submenu"><a class="menu-link"
-					href="page-transactions-1.html"> <i
-						class="icon material-icons md-monetization_on"></i> <span
-						class="text">財務管理</span>
-				</a></li>
-				<li class="menu-item has-submenu"><a class="menu-link" href="#">
-						<i class="icon material-icons md-person"></i> <span class="text">我的帳戶</span>
-				</a></li>
-				<li class="menu-item"><a class="menu-link"
-					href="page-reviews.html"> <i
-						class="icon material-icons md-comment"></i> <span class="text">留言評價</span>
-				</a></li>
-				<li class="menu-item"><a class="menu-link" href="#"> <i
-						class="icon material-icons md-pie_chart"></i> <span class="text">數據中心</span>
-				</a></li>
-			</ul>
-			<hr />
-			<ul class="menu-aside">
-				<li class="menu-item has-submenu"><a class="menu-link" href="#">
-						<i class="icon material-icons md-settings"></i> <span class="text">相關設定</span>
-				</a></li>
-			</ul>
-			<br /> <br />
-		</nav>
-	</aside>
-	<main class="main-wrap">		
+	<%@ include file="/views/sellerAside.jsp" %>
+	<main class="main-wrap">	
+	<jsp:include page="/views/sellerHeader_2.jsp"/>	
 		<section class="content-main">
 		<form method="post" action="product.do" name="form1">
 			<div class="row">
@@ -136,18 +84,18 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 								</div>
 								 <div class="mb-4">
                                         <label class="form-label">上架狀態</label><br>
-                                        <input class="form-check-input" id="yet" type="radio" name="status" value="<%=productVO.getStatus() %>" />
+                                        <input class="form-check-input" id="yet" type="radio" name="status" value="1" <%=productVO.getStatus() == 1 ? "checked" : ""  %>/>
                                         <label for="yet">尚未開賣</label>
-                                        <input class="form-check-input ml-10" id="onsell" type="radio" name="status" value="<%=productVO.getStatus() %>"/>
+                                        <input class="form-check-input ml-10" id="onsell" type="radio" name="status" value="2" <%=productVO.getStatus() == 2 ? "checked" : ""  %>/>
                                         <label for="onsell">熱賣中</label>
-                                        <input class="form-check-input ml-10" id="off" type="radio" name="status"  value="<%=productVO.getStatus() %>" />
+                                        <input class="form-check-input ml-10" id="off" type="radio" name="status"  value="3" <%=productVO.getStatus() == 3 ? "checked" : ""  %>/>
                                         <label for="off">暫停販售</label>
                                 </div>
 								 <jsp:useBean id="shippingSvc" scope="page" class="com.shipping.model.ShippingService" />
 								<div class="mb-4">
 									<label class="form-label">出貨方式</label><br>
 									<c:forEach var="shippingVO" items="${shippingSvc.all}">
-									<input name="shippingMethod" class="form-check-input ml-10" type="checkbox" value="<%=productVO.getShippingMethod() %>" /> 
+										<input name="shippingMethod" class="form-check-input ml-10" type="checkbox" value="<%=i++ %>" <%=productVO.getShippingMethod().charAt(index++) == 49 ? "checked" : ""  %> /> 
 									<label>${shippingVO.shippingMethod}</label>
 									</c:forEach>
 								</div>
@@ -237,6 +185,7 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 	<script src="../assets/js/vendors/jquery.fullscreen.min.js"></script>
 	<!-- Main Script -->
 	<script src="../assets/js/main.js?v=1.1" type="text/javascript"></script>
+	<script src="https://kit.fontawesome.com/60002e5c50.js"></script>
 </body>
 
 	<!-- 以下為日期設定 -->

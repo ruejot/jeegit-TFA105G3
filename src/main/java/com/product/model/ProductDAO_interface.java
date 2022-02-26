@@ -14,8 +14,10 @@ public interface ProductDAO_interface {
 	public abstract ProductVO queryByImgid (Integer imgid);
 	public abstract List<ProductVO> getAllByProdid(Integer merid);
 	public abstract List<ProductVO> getAllByProductName(String name);
+	public abstract List<ProductVO> getAllByMainCategory(String maincategory);
 	//查詢某商品照片(一對多)(回傳 Set)
 	public Set<ProductImgVO> getImgsByImgno(Integer merid);
 	public abstract List<ProductVO> getAllbyV_MerPro();
-
+	public abstract List<ProductVO> getAllBySubCategory(String subcategory);
+	public void insertWithProductImg(ProductVO productVO, List<ProductImgVO> list);
 }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.order.model.OrderService;
 import com.order.model.OrderVO;
 
-public class OrderServlet extends HttpServlet {
+public class OrderBusServlet extends HttpServlet {
 
 	/**
 	 * 

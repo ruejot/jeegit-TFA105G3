@@ -1,3 +1,8 @@
+-- [日期:0224] [beta_4]版本。
+-- MER <table> 的 SHIPPING_METHOD <column> 更新為 VARCHAR(3) <datatype>
+-- CS_DETAIL <table> 新增 MER_ID <column>
+-- CS_DETAIL <table> 新增 ORDER_ID <column> 
+
 -- [日期:0130] [beta_3]版本。
 -- 以後不改database名稱，db改動記錄在註解，。
 -- 完成全部22個table整合到一個sql script、紀錄column name、PK,FK,NN,AI,DEFAULT資訊到Excel。
@@ -11,7 +16,7 @@
 -- [WAY_1] use "right click" on Navigator window DB name -> select "Drop Schema...".
 -- [WAY_2] Executing this script will auto DROP old DATABASE, make sure without any error message.;
 
-
+-- [0223] 新增view table: v_merimg_mer 
 CREATE DATABASE IF NOT EXISTS `pet_g3db_tfa105`;
 
 USE `pet_g3db_tfa105`;
@@ -199,7 +204,7 @@ CREATE TABLE `pet_g3db_tfa105`.`MER` (
   `SHELF_DATE` DATE NULL COMMENT '上架日期',
   `STATUS` INT NULL COMMENT '上架狀態',
   `DESCRIPTION` VARCHAR(250) NULL COMMENT '商品描述',
-  `SHIPPING_METHOD` VARCHAR(3) NULL COMMENT '提供的出貨方式',
+  `SHIPPING_METHOD` VARCHAR(4) NULL COMMENT '提供的出貨方式',
   `MAIN_CATEGORY` VARCHAR(50) NULL COMMENT '主商品類別',
   `SUB_CATEGORY` VARCHAR(50) NULL COMMENT '子商品類別',
   PRIMARY KEY (`MER_ID`),
@@ -336,6 +341,8 @@ CREATE TABLE `SERORDER_DETAIL` (
   `CASE_ID` INT NOT NULL AUTO_INCREMENT COMMENT '客服案流水號',
   `MEMBER_ID` INT NOT NULL COMMENT '會員ID',
   `BUS_ID` INT NOT NULL COMMENT '商家ID',
+  `MER_ID` INT NULL COMMENT '詢問的商品ID',
+  `ORDER_ID` INT NULL COMMENT '詢問的訂單ID',
   `CASE_TIME` DATE NULL COMMENT '立案時間',
   `FEEDBACK` VARCHAR(500) NULL COMMENT '意見內容',
   `REPLY_STATUS` INT DEFAULT 1 COMMENT '回覆狀態',
@@ -343,5 +350,11 @@ CREATE TABLE `SERORDER_DETAIL` (
   `REPLY_TIME` DATE NULL COMMENT '回覆時間',
   PRIMARY KEY (`CASE_ID`),
   FOREIGN KEY (`MEMBER_ID`) REFERENCES `MEMBERS`(`MEMBER_ID`),
-  FOREIGN KEY (`BUS_ID`) REFERENCES `BUS`(`BUS_ID`)
+  FOREIGN KEY (`BUS_ID`) REFERENCES `BUS`(`BUS_ID`),
+  FOREIGN KEY (`MER_ID`) REFERENCES `MER` (`MER_ID`),
+  FOREIGN KEY (`ORDER_ID`) REFERENCES `ORDER`(`ORDER_ID`)
   ) COMMENT = '客服明細';
+
+CREATE VIEW pet_g3db_tfa105.v_merimg_mer (IMG_ID, MER_ID, BUS_ID, MER_NAME,  MER_PIC, PRICE, STOCK, MAIN_CATEGORY, SUB_CATEGORY)
+AS SELECT i.IMG_ID, m.MER_ID, m.BUS_ID, m.NAME, i.MER_PIC, m.PRICE, m.STOCK, m.MAIN_CATEGORY, m.SUB_CATEGORY
+FROM MER_IMG i right join MER m on i.MER_ID = m.MER_ID;

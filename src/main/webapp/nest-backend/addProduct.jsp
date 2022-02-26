@@ -5,6 +5,7 @@
 
 <%
 ProductVO productVO = (ProductVO) request.getAttribute("productVO");
+int i = 0;
 %>
 
 <!DOCTYPE html>
@@ -14,72 +15,18 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 <title>Add Product</title>
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<%-- <%@ include file="./sellerHeader.jsp" %>  --%>
 <!-- Template CSS -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/assets/css/main_backend.css" />
 </head>
 <body>
 	<div class="screen-overlay"></div>
-	<aside class="navbar-aside" id="offcanvas_aside">
-		<div class="aside-top">
-			<a href="index.html" class="brand-wrap"> 
-			<img src="<%=request.getContextPath()%>/assets/imgs/theme/logo_Petting.svg" class="logo" alt="logo" />
-			</a>
-			<div>
-				<button class="btn btn-icon btn-aside-minimize">
-					<i class="text-muted material-icons md-menu_open"></i>
-				</button>
-			</div>
-		</div>
-		<nav>
-			<ul class="menu-aside">
-				<li class="menu-item"><a class="menu-link" href="index.html">
-						<i class="icon material-icons md-home"></i> <span class="text">會員中心</span>
-				</a></li>
-				<li class="menu-item has-submenu"><a class="menu-link"
-					href="<%=request.getContextPath()%>/nest-backend/productManage.jsp"> <i
-						class="icon material-icons md-shopping_bag"></i> <span
-						class="text">商品管理</span>
-				</a></li>
-				<li class="menu-item has-submenu"><a class="menu-link"
-					href="page-orders-1.html"> <i
-						class="icon material-icons md-shopping_cart"></i> <span
-						class="text">訂單管理</span>
-				</a></li>
-				<li class="menu-item has-submenu"><a class="menu-link"
-					href="page-form-product-1.html"> <i
-						class="icon material-icons md-add_box"></i> <span class="text">商品上架</span>
-				</a></li>
-				<li class="menu-item has-submenu"><a class="menu-link"
-					href="page-transactions-1.html"> <i
-						class="icon material-icons md-monetization_on"></i> <span
-						class="text">財務管理</span>
-				</a></li>
-				<li class="menu-item has-submenu"><a class="menu-link" href="#">
-						<i class="icon material-icons md-person"></i> <span class="text">我的帳戶</span>
-				</a></li>
-				<li class="menu-item"><a class="menu-link"
-					href="page-reviews.html"> <i
-						class="icon material-icons md-comment"></i> <span class="text">留言評價</span>
-				</a></li>
-				<li class="menu-item"><a class="menu-link" href="#"> <i
-						class="icon material-icons md-pie_chart"></i> <span class="text">數據中心</span>
-				</a></li>
-			</ul>
-			<hr />
-			<ul class="menu-aside">
-				<li class="menu-item has-submenu"><a class="menu-link" href="#">
-						<i class="icon material-icons md-settings"></i> <span class="text">相關設定</span>
-				</a></li>
-			</ul>
-			<br /> <br />
-		</nav>
-	</aside>
+	<%@ include file="/views/sellerAside.jsp" %>
 	<main class="main-wrap">
-		<jsp:include page="/views/sellerHeader1.jsp"/>
+		<jsp:include page="/views/sellerHeader_2.jsp"/>
 		<section class="content-main">
-		<form method="post" action="product.do" name="form1">
-		<input type="hidden" name="busid" class="form-control" value="<%=(productVO==null)? "" : productVO.getBusid()%>" />
+		<form method="post" action="product.do" name="form1" enctype="multipart/form-data" >
 			<div class="row">
 				<div class="col-9">
 					<div class="content-header">
@@ -145,9 +92,9 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
                                 <jsp:useBean id="shippingSvc" scope="page" class="com.shipping.model.ShippingService" />
 								<div class="mb-4">
 									<label class="form-label">出貨方式</label><br>
-									<c:forEach var="shippingVO" items="${shippingSvc.all}">
-									<input name="shippingMethod" class="form-check-input ml-10" type="checkbox" value="1" /> 
-									<label>${shippingVO.shippingMethod}</label>
+									<c:forEach var="shippingVO" items="${shippingSvc.all}" >
+										<input name="shippingMethod" class="form-check-input ml-10" type="checkbox" value=<%=i++ %> /> 
+										<label>${shippingVO.shippingMethod}</label>
 									</c:forEach>
 								</div>
 						</div>
@@ -155,21 +102,6 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 					<!-- card end// -->
 				</div>
 				<div class="col-lg-3">
-				<!--  
-					<div class="card mb-4">
-						<div class="card-header">
-							<h4>新增照片</h4>
-						</div>
-						<div class="card-body">
-							<div class="input-upload">
-								<img src="../assets/imgs/theme/upload.svg" alt="" /> 
-								<input type="hidden" name="action" value="insert">
-								<input class="form-control" type="file" />
-							</div>
-						</div>
-					</div>
-					-->
-					<!-- card end// -->
 					<div class="card mb-4">
 						<div class="card-header">
 							<h4>商品分類</h4>
@@ -208,14 +140,26 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 							<!-- row.// -->
 						</div>
 					</div>
+					<!-- card end// --> 
+					<!-- 
+					<div class="card mb-4">
+						<div class="card-header">
+							<h4>新增照片</h4>
+						</div>
+						<div class="card-body">
+							<div class="input-upload">
+								<img src="../assets/imgs/theme/upload.svg" alt="" /> 
+								<input class="form-control" type="file" name="upfile1">
+							</div>
+						</div>
+					</div>
 					<!-- card end// -->
 				</div>
 			</div>
-			</form>
+		</form>
 		</section>
 		<!-- content-main end// -->
-<%-- 		<%@ include file="./footer.jsp" %>   --%>
-<!--<jsp:include page="/views/footer.jsp"/> -->
+		<jsp:include page="/views/sellerFooter.jsp" />  
 	</main>
 	<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-3.6.0.min.js"></script>
 	<script src="<%=request.getContextPath()%>/assets/js/vendors/bootstrap.bundle.min.js"></script>
@@ -224,6 +168,7 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 	<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery.fullscreen.min.js"></script>
 	<!-- Main Script -->
 	<script src="<%=request.getContextPath()%>/assets/js/main_backend.js" type="text/javascript"></script>
+	<script src="https://kit.fontawesome.com/60002e5c50.js"></script>
 </body>
 
 	<!-- 以下為日期設定 -->

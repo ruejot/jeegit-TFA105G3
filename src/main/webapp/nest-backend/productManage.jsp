@@ -25,66 +25,18 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 <head>
 <meta charset="utf-8" />
 <title>Manage Product</title>
-<jsp:include page="/views/sellerHeader1.jsp"/>
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!-- Template CSS -->
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/assets/css/main_backend.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/assets/css/main_backend.css" />
 </head>
 <body>
 	<div class="screen-overlay"></div>
-	<aside class="navbar-aside" id="offcanvas_aside">
-		<div class="aside-top">
-			<a href="index.html" class="brand-wrap"> 
-			<img src="<%=request.getContextPath()%>/assets/imgs/theme/logo_Petting.svg" class="logo" alt="logo" />
-			</a>
-			<div>
-				<button class="btn btn-icon btn-aside-minimize">
-					<i class="text-muted material-icons md-menu_open"></i>
-				</button>
-			</div>
-		</div>
-		<nav>
-			<ul class="menu-aside">
-				<li class="menu-item"><a class="menu-link" href="index.html">
-						<i class="icon material-icons md-home"></i> <span class="text">會員中心</span>
-				</a></li>
-				<li class="menu-item has-submenu"><a class="menu-link"
-					href="<%=request.getContextPath()%>/nest-backend/productManage.jsp"> 
-					<i class="icon material-icons md-shopping_bag"></i> <span
-						class="text">商品管理</span>
-				</a></li>
-				<li class="menu-item has-submenu"><a class="menu-link"
-					href="<%=request.getContextPath()%>/nest-backend/orderManage.jsp"> 
-					<i class="icon material-icons md-shopping_cart"></i> <span
-						class="text">訂單管理</span>
-				</a></li>
-				<li class="menu-item has-submenu"><a class="menu-link"
-					href="<%=request.getContextPath()%>/nest-backend/addProduct.jsp"> <i
-						class="icon material-icons md-add_box"></i> <span class="text">商品上架</span>
-				</a></li>
-				<li class="menu-item has-submenu"><a class="menu-link" href="#">
-						<i class="icon material-icons md-person"></i> <span class="text">我的帳戶</span>
-				</a></li>
-				<li class="menu-item"><a class="menu-link"
-					href="page-reviews.html"> <i
-						class="icon material-icons md-comment"></i> <span class="text">留言評價</span>
-				</a></li>
-				<li class="menu-item"><a class="menu-link" href="#"> <i
-						class="icon material-icons md-pie_chart"></i> <span class="text">數據中心</span>
-				</a></li>
-			</ul>
-			<hr />
-			<ul class="menu-aside">
-				<li class="menu-item has-submenu"><a class="menu-link" href="#">
-						<i class="icon material-icons md-settings"></i> <span class="text">相關設定</span>
-				</a></li>
-			</ul>
-			<br /> <br />
-		</nav>
-	</aside>
+	<%@ include file="/views/sellerAside.jsp" %>
 	<main class="main-wrap">
+	<jsp:include page="/views/sellerHeader_2.jsp"/>
 		<section class="content-main">
 			<div class="content-header">
 				<div>
@@ -157,7 +109,7 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 						</div>
 						<!-- row .// -->
 					</article>
-				<%@ include file="/pages/Prod_page1.file" %> 
+				<%@ include file="pages/page1.file" %> 
 				<c:forEach var="productVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" > 
 					<article class="itemlist">
 						<div class="row align-items-center">
@@ -166,7 +118,7 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 							</div>
 							<div class="col-lg-3 col-sm-4 col-8 flex-grow-1 col-name">
 								<a class="itemside" href="#">
-										<img src="<%=request.getContextPath()%>/assets/imgs/items/1.jpg"
+										<img src="<%=request.getContextPath()%>/ShowPic?imgid=${productVO.merid}"
 											class="img-sm img-thumbnail" alt="Item" />
 									<div class="info">
 										<h6 class="mb-0">${productVO.name}</h6>
@@ -193,7 +145,7 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 			     				<input type="hidden" name="merid"  value="${productVO.merid}">
 			     				<input type="hidden" name="action" value="getOne_For_Update"></FORM>
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/nest-backend/product.do">
-								<button class="btn btn-sm font-sm btn-light rounded" type="submit"><i class="material-icons md-delete_forever"></i>刪除</button>
+								<button class="btn btn-sm font-sm btn-light rounded" style="margin-top:5px" type="submit"><i class="material-icons md-delete_forever"></i>刪除</button>
 			     				<input type="hidden" name="merid"  value="${productVO.merid}">
 			     				<input type="hidden" name="action" value="delete"></FORM>
 							</div>
@@ -207,24 +159,10 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 				<!-- card-body end// -->
 			</div>
 			<!-- card end// -->
-			<%@ include file="/pages/Prod_page2.file" %>
-			<!--  
-			<div class="pagination-area mt-30 mb-50">
-				<nav aria-label="Page navigation example">
-					<ul class="pagination justify-content-start">
-						<li class="page-item active"><a class="page-link" href="#">01</a></li>
-						<li class="page-item"><a class="page-link" href="#">02</a></li>
-						<li class="page-item"><a class="page-link" href="#">03</a></li>
-						<li class="page-item"><a class="page-link dot" href="#">...</a></li>
-						<li class="page-item"><a class="page-link" href="#">16</a></li>
-						<li class="page-item"><a class="page-link" href="#">
-						<i class="material-icons md-chevron_right"></i></a></li>
-					</ul>
-				</nav>
-			</div>
-			-->
+			<%@ include file="pages/page2.file" %>
 		</section>
 		<!-- content-main end// -->
+		<jsp:include page="/views/sellerFooter.jsp" />  
 	</main>
 	<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-3.6.0.min.js"></script>
 	<script src="<%=request.getContextPath()%>/assets/js/vendors/bootstrap.bundle.min.js"></script>
@@ -233,5 +171,6 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 	<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery.fullscreen.min.js"></script>
 	<!-- Main Script -->
 	<script src="<%=request.getContextPath()%>/assets/js/main_backend.js" type="text/javascript"></script>
+	<script src="https://kit.fontawesome.com/60002e5c50.js"></script>
 </body>
 </html>

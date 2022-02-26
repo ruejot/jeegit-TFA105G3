@@ -1,23 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.product.model.*"%>
 
 <!DOCTYPE html>
+<!-- [editor,date] wei,2022-02-22 -->
 <%
 ProductService productSvc = new ProductService();
-ProductVO productbean = productSvc.getOneProduct(5);
-pageContext.setAttribute("productbean", productbean);
+// ProductVO productbean = productSvc.getOneProduct(8);
+// session.setAttribute("productbean", productbean);
 
 List<ProductVO> productlist = productSvc.getAll();
-pageContext.setAttribute("productlist", productlist);
-%>
+session.setAttribute("productlist", productlist);
 
-<html class="no-js" lang="en">
+HomePageService homePageSVC = new HomePageService();
+pageContext.setAttribute("homePageSVC", homePageSVC);
+%>
+<html lang="zh-Hant-TW">
 <head>
-<meta charset="UTF-8" />
-<title>Nest - Homepage</title>
+<meta charset="utf-8" />
+<title>FrontEnd板模-Petting</title>
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -27,176 +29,183 @@ pageContext.setAttribute("productlist", productlist);
 <meta property="og:image" content="" />
 <!-- Favicon -->
 <link rel="shortcut icon" type="image/x-icon"
-	href="assets/imgs/theme/favicon.svg" />
-
+	href="<%=request.getContextPath()%>/assets/imgs/theme/Petting_logo.png" />
 <!-- Template CSS -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" />
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/assets/css/main.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/slider-range.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
 </head>
 
-<jsp:include page="/views/sellerHeader.jsp" />
 <body>
-<!-- 頭 上排十大類 -->
+	<jsp:include page="/views/userHeader.jsp" />
+
+	<!--End userHeader-->
+	<main class="main pages">
+		<jsp:include page="/views/userMainPage-header.jsp" />
+			<!-- 頭 上排十大類 -->
 	<section class="popular-categories section-padding">
 		<div class="container wow animate__animated animate__fadeIn">
 			<div class="section-title">
 				<div class="title">
 					<h3>特色類別</h3>
 					<ul class="list-inline nav nav-tabs links">
-						<li class="list-inline-item nav-item"><a class="nav-link"
-							href="shop-grid-left.html">寵物食品</a></li>
-						<li class="list-inline-item nav-item"><a class="nav-link"
-							href="shop-grid-left.html">寵物玩具</a></li>
-						<li class="list-inline-item nav-item"><a
-							class="nav-link active" href="shop-grid-left.html">居家清潔</a></li>
-						<li class="list-inline-item nav-item"><a class="nav-link"
-							href="shop-grid-left.html">美容用具</a></li>
-					</ul>
+                        <li class="list-inline-item nav-item"> <a class="nav-link"
+                            href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=寵物玩具">寵物玩具</a>
+                        </li>
+                        </ul>
+                        <ul class="list-inline nav nav-tabs links">
+                        <li class="list-inline-item nav-item"> <a class="nav-link"
+                            href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=居家清潔">居家清潔</a>
+                        </li>
+                        </ul>
+                        <ul class="list-inline nav nav-tabs links">
+                        <li class="list-inline-item nav-item"> <a class="nav-link"
+                            href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=生活用品">生活用品</a>
+                        </li>
+                        </ul>
+                        <ul class="list-inline nav nav-tabs links">
+                        <li class="list-inline-item nav-item"> <a class="nav-link"
+                            href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=寵物食品">寵物食品</a>
+                        </li>
+                        </ul>
 				</div>
 				<div
 					class="slider-arrow slider-arrow-2 flex-right carausel-10-columns-arrow"
 					id="carausel-10-columns-arrows"></div>
 			</div>
+			
 			<div class="carausel-10-columns-cover position-relative">
 				<div class="carausel-10-columns" id="carausel-10-columns">
 					<div class="card-2 bg-9 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".1s">
 						<figure class="img-hover-scale overflow-hidden">
 							<a href="shop-grid-left.html"><img
-								src="assets/imgs/shop/罐頭.png" alt="" /></a>
+								src="<%=request.getContextPath()%>/assets/imgs/shop/罐頭.png" alt="" /></a>
 						</figure>
 						<h6>
-							<a href="shop-grid-left.html">貓犬罐頭</a>
+                            <a href="shop-grid-left.html">貓犬飼料</a>
 						</h6>
-						<span>36 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('貓犬飼料')} items</span>
 					</div>
 					<div class="card-2 bg-10 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".2s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img
-								src="assets/imgs/shop/魚飼料.png" alt="" /></a>
+							<a href="shop-grid-left.html"><img style="height:80px"
+								src="<%=request.getContextPath()%>/assets/imgs/shop/魚飼料.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">魚蝦飼料</a>
 						</h6>
-						<span>8 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('魚蝦飼料')} items</span>
 					</div>
 					<div class="card-2 bg-11 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".3s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img
-								src="assets/imgs/shop/貓抓板.png" alt="" /></a>
+							<a href="shop-grid-left.html"><img style="height:80px"
+								src="<%=request.getContextPath()%>/assets/imgs/shop/貓抓板.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">貓抓板</a>
 						</h6>
-						<span>14 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('貓抓板')} items</span>
 					</div>
 					<div class="card-2 bg-12 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".4s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img
-								src="assets/imgs/shop/牽繩.png" alt="" /></a>
+							<a href="shop-grid-left.html"><img style="height:80px"
+								src="<%=request.getContextPath()%>/assets/imgs/shop/牽繩.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">外出牽繩</a>
 						</h6>
-						<span>24 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('外出牽繩')} items</span>
 					</div>
 					<div class="card-2 bg-13 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".5s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img
-								src="assets/imgs/shop/狗零食.png" alt="" /></a>
+							<a href="shop-grid-left.html"><img style="height:80px"
+								src="<%=request.getContextPath()%>/assets/imgs/shop/狗零食.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">零食點心</a>
 						</h6>
-						<span>56 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('零食點心')} items</span>
 					</div>
 					<div class="card-2 bg-14 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".6s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="ShopProductPagev1.jsp"><img
-								src="assets/imgs/shop/精靈球.png" alt="" /></a>
+							<a href="ShopProductPage.jsp"><img style="height:80px"
+								src="<%=request.getContextPath()%>/assets/imgs/shop/精靈球.png" alt="" /></a>
 						</figure>
 						<h6>
-							<a href="ShopProductPagev1.jsp">精靈球</a>
+							<a href="ShopProductPage.jsp">精靈球</a>
 						</h6>
-						<span>18 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('精靈球')} items</span>
 					</div>
 					<div class="card-2 bg-15 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".7s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img
-								src="assets/imgs/shop/catcloth.png" alt="" /></a>
+							<a href="shop-grid-left.html"><img style="height:80px"
+								src="<%=request.getContextPath()%>/assets/imgs/shop/catcloth.png" alt="" /></a>
 						</figure>
 						<h6>
-							<a href="shop-grid-left.html">服裝</a>
+							<a href="shop-grid-left.html">寵物服裝</a>
 						</h6>
-						<span>36 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('寵物服裝')} items</span>
 					</div>
 					<div class="card-2 bg-12 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".8s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img
-								src="assets/imgs/shop/過濾器.png" alt="" /></a>
+							<a href="shop-grid-left.html"><img style="height:80px"
+								src="<%=request.getContextPath()%>/assets/imgs/shop/過濾器.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">過濾器材</a>
 						</h6>
-						<span>13 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('過濾器材')}items</span>
 					</div>
 					<div class="card-2 bg-10 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".9s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img
-								src="assets/imgs/shop/梳子.png" alt="" /></a>
+							<a href="shop-grid-left.html"><img style="height:80px"
+								src="<%=request.getContextPath()%>/assets/imgs/shop/梳子.png" alt="" /></a>
 						</figure>
 						<h6>
-							<a href="shop-grid-left.html">美容商品</a>
+                            <a href="shop-grid-left.html">美容、裝飾</a>
 						</h6>
-						<span>34 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('裝飾')} items</span>
 					</div>
 					<div class="card-2 bg-12 wow animate__animated animate__fadeInUp"
 						data-wow-delay="1s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img
-								src="assets/imgs/shop/外出背包.png" alt="" /></a>
+							<a href="shop-grid-left.html"><img style="height:80px"
+								src="<%=request.getContextPath()%>/assets/imgs/shop/外出背包.png" alt="" /></a>
 						</figure>
 						<h6>
 							<a href="shop-grid-left.html">寵物背包</a>
 						</h6>
-						<span>19 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('寵物背包')} items</span>
 					</div>
 					<div class="card-2 bg-11 wow animate__animated animate__fadeInUp"
 						data-wow-delay="0s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img
-								src="assets/imgs/shop/洗澡精.png" alt="" /></a>
+							<a href="shop-grid-left.html"><img style="height:80px"
+								src="<%=request.getContextPath()%>/assets/imgs/shop/洗澡精.png" alt="" /></a>
 						</figure>
-						assets/imgs/shop/catcloth.png
 						<h6>
 							<a href="shop-grid-left.html">清潔用品</a>
 						</h6>
-						<span>8 items</span>
+						<span>${homePageSVC.getCountsBySubCategory('清潔')} items</span>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 <!-- 尾 上排十大類 -->
-	<main class="main">
-	
-		<section class="home-slider position-relative mb-30">
-<!--頭 滑動廣告頁面-->
-			<div class="container">
-				<div class="home-slide-cover mt-30">
+		<div class="home-slide-cover mt-30">
 					<div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
-						<div class="single-hero-slider single-animation-wrap"
-							style="background-image: url(assets/imgs/slider/slider-1.png)">
+						<div class="single-hero-slider single-animation-wrap" >
+							<img  style="margin:auto;" src="<%=request.getContextPath()%>/assets/imgs/slider/buyingdog.jpg" width=1200px/> 
 							<div class="slider-content">
 								<h1 class="display-2 mb-40">
 									趕緊加入<br /> 全台灣最ㄒㄧㄚ的寵物商店
@@ -209,7 +218,7 @@ pageContext.setAttribute("productlist", productlist);
 							</div>
 						</div>
 						<div class="single-hero-slider single-animation-wrap"
-							style="background-image: url(assets/imgs/slider/slider-2.png)">
+							style="background-image: url(assets/imgs/slider/)">
 							<div class="slider-content">
 								<h1 class="display-2 mb-40">
 									品牌特惠!!<br /> &emsp;&emsp;3.18購物節
@@ -234,7 +243,7 @@ pageContext.setAttribute("productlist", productlist);
 					<div class="col-lg-4 col-md-6">
 						<div class="banner-img wow animate__animated animate__fadeInUp"
 							data-wow-delay="0">
-							<img src="assets/imgs/banner/banner-1.png" alt="" />
+							<img src="assets/imgs/banner/sleepdog.jpg" alt="" height=340px width=512px />
 							<div class="banner-text">
 								<h4>
 									&#129409;阿偉的商店&#129409; <br /> <br /> 寵物百貨
@@ -247,7 +256,7 @@ pageContext.setAttribute("productlist", productlist);
 					<div class="col-lg-4 col-md-6">
 						<div class="banner-img wow animate__animated animate__fadeInUp"
 							data-wow-delay=".2s">
-							<img src="assets/imgs/banner/banner-2.png" alt="" />
+							<img src="assets/imgs/banner/152.jpg" alt="" height=340px width=512px/>
 							<div class="banner-text">
 								<h4>
 									Poké Ball ϞϞ(๑⚈ ․̫ ⚈๑)∩<br /> 寶可夢是種非常可愛的生物
@@ -261,7 +270,7 @@ pageContext.setAttribute("productlist", productlist);
 						<div
 							class="banner-img mb-sm-0 wow animate__animated animate__fadeInUp"
 							data-wow-delay=".4s">
-							<img src="assets/imgs/banner/banner-3.png" alt="" />
+							<img src="assets/imgs/banner/ego.png" alt="" height=340px width=512px/>
 							<div class="banner-text">
 								<h4>
 									寵物也要吃好好 <br />有機寵物鮮食
@@ -320,15 +329,15 @@ pageContext.setAttribute("productlist", productlist);
 						aria-labelledby="tab-one">
 						<div class="row product-grid-4">
 							<!--頭 熱門十商品-->
-							<c:forEach var="product" items="${productlist}" end="9">
+							<c:forEach var="product" items="${productlist}" end="36" step="4" >
 								<div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
 									<div
 										class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn"
 										data-wow-delay=".1s">
 										<div class="product-img-action-wrap">
 											<div class="product-img product-img-zoom">
-												<a href="ShopProductPage.jsp"> <img class="default-img"
-													src="http://localhost:7080/jeeweb-TFA105G3/ProdFirstPic?aa=${product.merid}"
+												<a href="ShopProductPage.jsp"> <img class="default-img" style="height:266px"
+													src="<%=request.getContextPath()%>/ProdFirstPic?aa=${product.merid}"
 													alt="" />
 												</a>
 											</div>
@@ -367,29 +376,7 @@ pageContext.setAttribute("productlist", productlist);
 		<!--Products Tabs今日熱銷-->
 		<section class="section-padding pb-5">
 			<div class="container">
-				<div class="section-title wow animate__animated animate__fadeIn">
-					<h3 class="">今日熱銷</h3>
-					<!-- <ul class="nav nav-tabs links" id="myTab-2" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="nav-tab-one-1" data-bs-toggle="tab" data-bs-target="#tab-one-1" type="button" role="tab" aria-controls="tab-one" aria-selected="true">Featured</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="nav-tab-two-1" data-bs-toggle="tab" data-bs-target="#tab-two-1" type="button" role="tab" aria-controls="tab-two" aria-selected="false">Popular</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="nav-tab-three-1" data-bs-toggle="tab" data-bs-target="#tab-three-1" type="button" role="tab" aria-controls="tab-three" aria-selected="false">New added</button>
-                            </li>
-                        </ul> -->
-				</div>
 				<div class="row">
-					<!-- <div class="col-lg-3 d-none d-lg-flex wow animate__animated animate__fadeIn">
-                             <div class="banner-img style-2">
-                                <div class="banner-text">
-                                    <h2 class="mb-100">Bring nature into your home</h2>
-                                    <a href="shop-grid-left.html" class="btn btn-xs">逛起來 <i class="fi-rs-arrow-small-right"></i></a>
-                                </div>
-                            </div>
-                        </div> -->
 					<div
 						class="col-lg-9 col-md-12 wow animate__animated animate__fadeIn"
 						data-wow-delay=".4s">
@@ -1566,29 +1553,42 @@ pageContext.setAttribute("productlist", productlist);
 			</div>
 		</section>
 	</main>
-	<%-- 	 <jsp:include page="/views/footer.jsp"/> --%>
+	<jsp:include page="/views/footer.jsp" />
+
+	<!-- Preloader Start -->
 	<!-- Vendor JS-->
-	<script src="assets/js/vendors/modernizr-3.6.0.min.js"></script>
-	<script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
-	<script src="assets/js/vendors/jquery-migrate-3.3.0.min.js"></script>
-	<script src="assets/js/vendors/bootstrap.bundle.min.js"></script>
-	<script src="assets/js/plugins/slick.js"></script>
-	<script src="assets/js/plugins/jquery.syotimer.min.js"></script>
-	<script src="assets/js/plugins/waypoints.js"></script>
-	<script src="assets/js/plugins/wow.js"></script>
-	<script src="assets/js/plugins/perfect-scrollbar.js"></script>
-	<script src="assets/js/plugins/magnific-popup.js"></script>
-	<script src="assets/js/plugins/select2.min.js"></script>
-	<script src="assets/js/plugins/counterup.js"></script>
-	<script src="assets/js/plugins/jquery.countdown.min.js"></script>
-	<script src="assets/js/plugins/images-loaded.js"></script>
-	<script src="assets/js/plugins/isotope.js"></script>
-	<script src="assets/js/plugins/scrollup.js"></script>
-	<script src="assets/js/plugins/jquery.vticker-min.js"></script>
-	<script src="assets/js/plugins/jquery.theia.sticky.js"></script>
-	<script src="assets/js/plugins/jquery.elevatezoom.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/modernizr-3.6.0.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-3.6.0.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-migrate-3.3.0.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/slick.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.syotimer.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/wow.js"></script>
+	<!--slider-range.js, jquery-ui.js , never appear at sametime-->
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/slider-range.js"></script>
+	<!-- index-3.html, index-4, shop-*.html，板模的這幾頁有用到jquery-ui.js -->
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery-ui.js"></script>
+	<!-- blog-post-fullwidth.html, shop-*.html，板模的這幾頁有用到perfect-scrollbar.js -->
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/perfect-scrollbar.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/magnific-popup.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/select2.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/waypoints.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/counterup.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.countdown.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/images-loaded.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/isotope.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/scrollup.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.vticker-min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.theia.sticky.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.elevatezoom.js"></script>
+
+	<!-- Invoice page's JS -->
+	<!-- <script src="assets/js/invoice/jspdf.min.js"></script> -->
+	<!-- <script src="assets/js/invoice/invoice.js"></script> -->
+
 	<!-- Template  JS -->
-	<script src="assets/js/main.js"></script>
-	<script src="assets/js/shop.js?v=4.0"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/main_frontend.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/shop.js"></script>
 </body>
 </html>
+
