@@ -5,14 +5,10 @@
 <%@ page import="com.product.model.*"%>
 <%@ page import="com.product.controller.*"%>
 <!DOCTYPE html>
-<%
-ProductService productSvc = new ProductService();
-ProductVO productbean = productSvc.getOneProduct(5);
-pageContext.setAttribute("productbean", productbean);
+<%-- 取出 Concroller ProductJumpServlet.java存入request的一件商品--%>
+<% List<ProductVO> aProd = (List<ProductVO>) request.getAttribute("aProd");%>
 
-List<ProductVO> imglist = productSvc.getAllByProdId(8);
-pageContext.setAttribute("imglist", imglist);
-%>
+
 <!-- [editor,date] wei,2022-02-22 -->
 
 <html lang="zh-Hant-TW">
@@ -41,12 +37,6 @@ pageContext.setAttribute("imglist", imglist);
 	<main class="main pages">
 		<jsp:include page="/views/userMainPage-header.jsp" />
 		 <div class="container">
-                    <div class="breadcrumb">
-                        <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>首頁</a>
-                        <span></span> <a href="shop-grid-right.html">Vegetables & tubers</a> <span></span> Seeds of Change Organic
-                    </div>
-                </div>
-            </div>
             <!-- Main HERE -->
             <div class="container mb-30">
                 <div class="row">
@@ -60,7 +50,7 @@ pageContext.setAttribute("imglist", imglist);
                                                 <span class="zoom-icon"><i class="fi-rs-search"></i></span>
                                     <!-- MAIN SLIDES 商品圖片大圖 -->
                                                 <div class="product-image-slider">
-                                                    <c:forEach var="prodImgVO" items="${imglist}" >
+                                                    <c:forEach var="prodImgVO" items="${aProd}" >
                                                     <figure class="border-radius-10">
                                                         <img src="http://localhost:7080/jeeweb-TFA105G3/getproductPic?aa=${prodImgVO.imgid}" alt="product image" />
                                                     </figure>
@@ -68,7 +58,7 @@ pageContext.setAttribute("imglist", imglist);
                                                 </div>
                                     <!-- THUMBNAILS 商品圖片小圖-->
                                                 <div class="slider-nav-thumbnails">
-                                                <c:forEach var="prodImgVO" items="${imglist}" >
+                                                <c:forEach var="prodImgVO" items="${aProd}" >
                                                     <div><img src="http://localhost:7080/jeeweb-TFA105G3/getproductPic?aa=${prodImgVO.imgid}" alt="product image" /></div>
                                                 </c:forEach>
                                                 </div>
@@ -78,7 +68,7 @@ pageContext.setAttribute("imglist", imglist);
                                         <div class="col-md-6 col-sm-12 col-xs-12">
                                             <div class="detail-info pr-30 pl-30">
                                                 <span class="stock-status out-stock"> Sale Off </span>
-                                                <h2 class="title-detail">${productbean.name}</h2>
+                                                <h2 class="title-detail">${aProd.get(0).name}</h2>
                                                 <div class="product-detail-rating">
                                                     <div class="product-rate-cover text-end">
                                                         <div class="product-rate d-inline-block">
@@ -89,11 +79,11 @@ pageContext.setAttribute("imglist", imglist);
                                                 </div>
                                                 <div class="clearfix product-price-cover">
                                                     <div class="product-price primary-color float-left">
-                                                        <span class="current-price text-brand">$ ${productbean.price}</span>
+                                                        <span class="current-price text-brand">${aProd.get(0).price}</span>
                                                     </div>
                                                 </div>
                                                 <div class="short-desc mb-30">
-                                                    <p class="font-lg">${productbean.description}</p>
+                                                    <p class="font-lg">${aProd.get(0).description}</p>
                                                 </div>
                                                 <div class="detail-extralink mb-50">
                                                     <div class="detail-qty border radius">
@@ -126,7 +116,7 @@ pageContext.setAttribute("imglist", imglist);
                                                     <div class="comments-area">
                                                         <div class="row">
                                                             <div class="col-lg-8">
-                                                                <h4 class="mb-30">Customer questions & answers</h4>
+                                                                <h4 class="mb-30">Customer questions and answers</h4>
                                                                 <div class="comment-list">
                                                                     <div class="single-comment justify-content-between d-flex mb-30">
                                                                         <div class="user justify-content-between d-flex">
@@ -399,6 +389,7 @@ pageContext.setAttribute("imglist", imglist);
                     </div>
                 </div>
             </div>
+		</div>
 	</main>
 	<jsp:include page="/views/footer.jsp" />
 
