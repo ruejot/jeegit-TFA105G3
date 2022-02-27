@@ -58,9 +58,9 @@
 											<div class="card-body">
 												<h4 class="card-title mb-4 text-center rounded" style="background-color:#C9FED1">個人會員登入</h4>
 												
-												<!-- 用form綁定，這樣才可對應到MemberServlet的@WebServlet("/member/MemberLogin") -->
-												<form method="POST" action="<%=request.getContextPath()%>/member/MemberLogin">
-												<!-- 或可以這樣寫：<form action="../bus/BusLogin" method="POST"> -->
+												<!-- 用form綁定，這樣才可對應到MemberServlet的@WebServlet("/members/MembersLogin") -->
+												<form method="POST" action="<%=request.getContextPath()%>/members/MembersLogin">
+												<!-- 或可以這樣寫：<form action="../members/MembersLogin" method="POST"> -->
 													<div class="mb-3">
 														<input class="form-control" name="email" placeholder="個人會員 E-mail" type="email"/>
 													</div>
@@ -78,7 +78,7 @@
 													</div>
 													<!-- form-group form-check .// -->
 													<div class="mb-4">
-														<!-- memberLoginservlet的login的if判斷式是找到action=login↓ -->
+														<!-- membersLoginservlet的login的if判斷式是找到action=login↓ -->
 														<button type="submit" class="btn btn-primary w-100" name="action" value="login">登入</button>
 														<!-- <input type="hidden" name="action" value="login"> -->
 													</div>
@@ -126,11 +126,11 @@
 												<form method="POST" action="<%=request.getContextPath()%>/bus/BusLogin">
 												<!-- 或可以這樣寫：<form action="../bus/BusLogin" method="POST"> -->
 													<div class="mb-3">
-														<input class="form-control" placeholder="廠商 E-mail" type="email" />
+														<input class="form-control" name="email" placeholder="廠商 E-mail" type="email" />
 													</div>
 													<!-- form-group// -->
 													<div class="mb-3">
-														<input class="form-control" placeholder="密碼" type="password" />
+														<input class="form-control" name="password" placeholder="密碼" type="password" />
 													</div>
 													<!-- form-group// -->
 													<!-- 帳密錯誤時會出錯誤訊息在這 -->

@@ -1,8 +1,8 @@
-package com.member.model;
+package com.members.model;
 
 import java.io.Serializable;
 
-public class MemberVO implements Serializable{
+public class MembersVO implements Serializable{
 
 	/**
 	 * 

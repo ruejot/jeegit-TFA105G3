@@ -4,15 +4,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
-import com.csdetail.model.CsDetailVO;
-import com.csdetail.model.CsDetailJDBCDAO;
-import com.members.model.MembersVO;
 import com.members.model.MembersJDBCDAO;
+import com.members.model.MembersVO;
 
 // 還沒完成測試!!
-public class MembersJDBCDAOTest {
+public class MemberServiceTest {
 	public static void main(String[] args) throws Exception {
 //		File file = new File("");
 //		System.out.println(file.getAbsolutePath());
@@ -20,7 +17,6 @@ public class MembersJDBCDAOTest {
 		MembersJDBCDAO dao = null;
 
 //		insertTest(dao);
-		selectAllTest(dao);
 
 	}
 
@@ -59,32 +55,21 @@ public class MembersJDBCDAOTest {
  * FileInputStream(input1); fis1.read(photo1); fis1.close();
  */
 
-		MembersVO membersBean_in = new MembersVO();
-		membersBean_in.setName("吳大明");
-		membersBean_in.setMobile("0910123123");
-		membersBean_in.setPhone("0228117777");
-		membersBean_in.setAddress("台北市中山區民權東路二段109號");
-		membersBean_in.setDate(java.sql.Date.valueOf("2022-02-10"));
-		membersBean_in.setEmail("tibaMembyy@gmail.com");
-		membersBean_in.setPassword("a123456");
-		membersBean_in.setNickname("吳先生");
-		membersBean_in.setIntro("沒有話要說~");
-		membersBean_in.setPhoto(photo1);
-//		membersBean_in.setPhoto(is);
+		MembersVO memberBean_in = new MembersVO();
+		memberBean_in.setName("吳大明");
+		memberBean_in.setMobile("0910123123");
+		memberBean_in.setPhone("0228117777");
+		memberBean_in.setAddress("台北市中山區民權東路二段109號");
+		memberBean_in.setDate(java.sql.Date.valueOf("2022-02-10"));
+		memberBean_in.setEmail("tibaMembyy@gmail.com");
+		memberBean_in.setPassword("a123456");
+		memberBean_in.setNickname("吳先生");
+		memberBean_in.setIntro("沒有話要說~");
+		memberBean_in.setPhoto(photo1);
+//		memberBean_in.setPhoto(is);
 
 //		is.close();
-		dao.insert(membersBean_in);
-		System.out.println("==log.executed.Members_insertTest");
-	}
-	
-	private static void selectAllTest(MembersJDBCDAO dao) {
-		dao = new MembersJDBCDAO();
-		
-		List<MembersVO> list = dao.selectAll();
-		for(MembersVO one_Members : list) {
-			System.out.println(one_Members);
-		}
-		System.out.println("==log.executed.Members_selectAllTest");
-		
+		dao.insert(memberBean_in);
+		System.out.println("==log.executed.Member_insertTest");
 	}
 }

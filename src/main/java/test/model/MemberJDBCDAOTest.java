@@ -4,12 +4,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
-import com.members.model.MembersVO;
+import com.csdetail.model.CsDetailVO;
 import com.members.model.MembersJDBCDAO;
+import com.members.model.MembersVO;
+import com.csdetail.model.CsDetailJDBCDAO;
 
 // 還沒完成測試!!
-public class MembersServiceTest {
+public class MemberJDBCDAOTest {
 	public static void main(String[] args) throws Exception {
 //		File file = new File("");
 //		System.out.println(file.getAbsolutePath());
@@ -17,6 +20,7 @@ public class MembersServiceTest {
 		MembersJDBCDAO dao = null;
 
 //		insertTest(dao);
+		selectAllTest(dao);
 
 	}
 
@@ -71,5 +75,16 @@ public class MembersServiceTest {
 //		is.close();
 		dao.insert(membersBean_in);
 		System.out.println("==log.executed.Members_insertTest");
+	}
+	
+	private static void selectAllTest(MembersJDBCDAO dao) {
+		dao = new MembersJDBCDAO();
+		
+		List<MembersVO> list = dao.selectAll();
+		for(MembersVO one_Members : list) {
+			System.out.println(one_Members);
+		}
+		System.out.println("==log.executed.Members_selectAllTest");
+		
 	}
 }

@@ -1,20 +1,31 @@
-package com.member.model;
+package com.members.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemberJDBCDAO implements MemberDAO_interface{
-	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/pet_g3db_tfa105?serverTimezone=Asia/Taipei";
-	String userid = "root";
-	String passwd = "password";
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+public class MembersDAO implements MembersDAO_interface{
+
+	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TFA105G3TestDB"); 
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
-	//新增
+	//新增	
 	private static final String INSERT_STMT = 
 		"INSERT INTO MEMBERS (NAME, MOBILE, PHONE, ADDRESS, DATE, EMAIL, PASSWORD, NICKNAME, INTRO, PHOTO)"
 		+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -25,26 +36,25 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 	//刪除
 	private static final String DELETE = 
 		"DELETE FROM MEMBERS WHERE MEMBER_ID=?";
-	//查詢by Bus_ID
+	//查詢by MEMBER_ID
 	private static final String GET_ONE_STMT = 
 		"SELECT MEMBER_ID, NAME, MOBILE, PHONE, ADDRESS, DATE, EMAIL, PASSWORD, NICKNAME, INTRO, PHOTO FROM MEMBERS WHERE MEMBER_ID = ?";
 	//查詢by EMAIL and PASSWORD
 	private static final String GET_TWO_STMT = 
-			"SELECT MEMBER_ID, NAME, MOBILE, ADDRESS, DATE, EMAIL, PASSWORD, NICKNAME, INTRO, PHOTO FROM MEMBERS WHERE EMAIL =? and PASSWORD = ?";
+			"SELECT MEMBER_ID, NAME, MOBILE, PHONE, ADDRESS, DATE, EMAIL, PASSWORD, NICKNAME, INTRO, PHOTO FROM MEMBERS WHERE EMAIL =? and PASSWORD = ?";			
 	//查詢全部
 	private static final String GET_ALL_STMT = 
 		"SELECT MEMBER_ID, NAME, MOBILE, PHONE, ADDRESS, DATE, EMAIL, PASSWORD, NICKNAME, INTRO, PHOTO FROM MEMBERS ORDER BY MEMBER_ID";
 	
 	//新增INSERT_STMT
 	@Override
-	public void insert(MemberVO memberBean) {
+	public void insert(MembersVO memberBean) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, memberBean.getName());
@@ -61,10 +71,6 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			pstmt.executeUpdate();
 			
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -89,14 +95,13 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 	
 	//修改UPDATE
 	@Override
-	public void update(MemberVO memberBean) {
+	public void update(MembersVO memberBean) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 			
 			pstmt.setString(1, memberBean.getName());
@@ -114,10 +119,6 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			pstmt.executeUpdate();
 			
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -148,8 +149,7 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 			
 			pstmt.setInt(1, memberid);
@@ -157,10 +157,6 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			pstmt.executeUpdate();
 			
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -185,17 +181,16 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 	
 	//查詢單個欄位GET_ONE_STMT(此為memberid)
 	@Override
-	public MemberVO select(Integer memberid) {
+	public MembersVO select(Integer memberid) {
 		
-		MemberVO memberBean = null;
+		MembersVO memberBean = null;
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
 			pstmt.setInt(1, memberid);
@@ -203,7 +198,8 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				memberBean = new MemberVO();
+				memberBean = new MembersVO();
+				
 				
 				memberBean.setMemberid(rs.getInt("MEMBER_ID"));
 				memberBean.setName(rs.getString("NAME"));
@@ -219,10 +215,6 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			}
 			
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -246,19 +238,18 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		return memberBean;
 	}
 	
-	//查詢二個欄位GET_ONE_STMT(email和密碼)
+	//查詢二個欄位GET_TWO_STMT(email和密碼)
 	@Override
-	public MemberVO selectByEmailAndPassword(String email, String password) {
+	public MembersVO selectByEmailAndPassword(String email, String password) {
 		
-		MemberVO memberBean = null;
+		MembersVO memberBean = null;
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_TWO_STMT);
 			
 			pstmt.setString(1, email);
@@ -267,7 +258,7 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				memberBean = new MemberVO();
+				memberBean = new MembersVO();
 				
 				memberBean.setMemberid(rs.getInt("MEMBER_ID"));
 				memberBean.setName(rs.getString("NAME"));
@@ -283,10 +274,6 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			}
 			
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -310,24 +297,23 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		return memberBean;
 	}
 	
-	//查詢全部欄位GET_ALL_STMT
+	//查詢全部欄位GET_ALL_STMT	
 	@Override
-	public List<MemberVO> selectAll() {
-		List<MemberVO> list = new ArrayList<MemberVO>();
+	public List<MembersVO> selectAll() {
+		List<MembersVO> list = new ArrayList<MembersVO>();
 		
-		MemberVO memberBean = null;
+		MembersVO memberBean = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				memberBean = new MemberVO();
+				memberBean = new MembersVO();
 				
 				memberBean.setMemberid(rs.getInt("MEMBER_ID"));
 				memberBean.setName(rs.getString("NAME"));
@@ -340,16 +326,11 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 				memberBean.setNickname(rs.getString("NICKNAME"));
 				memberBean.setIntro(rs.getString("INTRO"));
 				memberBean.setPhoto(rs.getBytes("PHOTO"));
-				
 				// 讀取完一筆資料就存到list，若rs.next()還有再讀取下一個
 				list.add(memberBean);
 			}
 			
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
