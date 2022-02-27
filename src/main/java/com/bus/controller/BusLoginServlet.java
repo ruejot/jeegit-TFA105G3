@@ -29,27 +29,27 @@ public class BusLoginServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=utf-8");
 
-		String action = req.getParameter("action");
+		String busaction = req.getParameter("busaction");
 
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 
 		// 登入
-		if ("login".equals(action)) { // busLogin.jsp裡的請求
+		if ("login".equals(busaction)) { // login.jsp裡的請求
 			BusDAO_interface busDAOInterface = new BusDAO();
-			BusVO busbean = busDAOInterface.selectByEmailAndPassword(email, password);
-
+			BusVO busbean = busDAOInterface.selectByEmailAndPassword(email, password);	
+//			System.out.println(busDAOInterface);
+//			System.out.println(busbean);
 			// 若email有get到資料庫中相對應的email跟password，登入成功，否則登入失敗
 			if (busbean != null) {
 				// 為了資安考量，通常會在登入成功後再產製一個新的session
 				req.changeSessionId();
-				
 				//將該商業會員的busbean已經登入過的紀錄存入session，並取key名為BusUsing
 				//若之後要引用該商業會員的資料，直接在該頁面jsp檔用el取值即可(例如需要該商業會員的名稱就寫${BusUsing.name})
 				HttpSession session = req.getSession();
 				session.setAttribute("BusUsing", busbean);
 
-				res.sendRedirect("../views/busHomePage.jsp");
+				res.sendRedirect("../views/nest-frontend/HomePage.jsp");
 //				res.sendRedirect(req.getContextPath() + "/views/busHomePage.jsp");
 
 //			      try {                                                        
@@ -64,8 +64,8 @@ public class BusLoginServlet extends HttpServlet {
 //			      
 			} else {
 //				將錯誤訊息("資料有誤，請重新輸入!!")取key名為errMsg，放在login.jsp頁面上，以${errMsg}呈現
-				req.setAttribute("errMsg", "資料有誤，請重新輸入!!");
-				req.getRequestDispatcher("../views/busLogin.jsp").forward(req, res);
+				req.setAttribute("errMsg1", "資料有誤，請重新輸入!!");
+				req.getRequestDispatcher("../nest-frontend/Login.jsp").forward(req, res);
 				
 				//方法2.彈跳提醒錯誤的視窗
 //				JOptionPane.showMessageDialog(null, "資料有誤，請重新輸入", "Error", JOptionPane.ERROR_MESSAGE);

@@ -32,7 +32,7 @@ public class MemberLoginServlet extends HttpServlet {
 		String password = req.getParameter("password");
 
 		// 登入
-		if ("login".equals(action)) {
+		if ("login".equals(action)) { // login.jsp裡的請求
 			MemberDAO_interface memberDAOInterface = new MemberDAO();
 			MemberVO memberbean = memberDAOInterface.selectByEmailAndPassword(email, password);
 
@@ -46,7 +46,7 @@ public class MemberLoginServlet extends HttpServlet {
 				//若之後要引用該個人會員的資料，直接在該頁面jsp檔用el取值即可(例如需要該個人會員的名稱就寫${MemberUsing.name})
 				
 ///				req.getRequestDispatcher("memberIndex.jsp").forward(req, res);
-				res.sendRedirect("../views/memberHomePage.jsp");
+				res.sendRedirect("../views/nest-frontend/HomePage.jsp");
 
 //			      try {                                                        
 //			          String location = (String) session.getAttribute("location");
@@ -61,7 +61,7 @@ public class MemberLoginServlet extends HttpServlet {
 			} else {
 //				將錯誤訊息("資料有誤，請重新輸入!!")取key名為errMsg，放在login.jsp頁面上，以${errMsg}呈現
 				req.setAttribute("errMsg", "資料有誤，請重新輸入!!");
-				req.getRequestDispatcher("../views/Memberlogin.jsp").forward(req, res);
+				req.getRequestDispatcher("../nest-frontend/Login.jsp").forward(req, res);
 							
 				//方法2.彈跳提醒錯誤的視窗
 //				JOptionPane.showMessageDialog(null, "資料有誤，請重新輸入", "Error", JOptionPane.ERROR_MESSAGE);
