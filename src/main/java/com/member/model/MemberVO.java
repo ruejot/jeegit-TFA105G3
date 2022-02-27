@@ -1,8 +1,8 @@
-package com.members.model;
+package com.member.model;
 
 import java.io.Serializable;
 
-public class MembersVO implements Serializable{
+public class MemberVO implements Serializable{
 
 	/**
 	 * 
@@ -24,7 +24,7 @@ public class MembersVO implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "com.members.model.MembersBean [" + memberid + "," + name + "," + mobile + "," + phone
+		return "com.members.model.MemberBean [" + memberid + "," + name + "," + mobile + "," + phone
 				+ "," + address + "," + date + "," + email + "," + password
 				+ "," + nickname + "," + intro + "]";
 		// + "," + Arrays.toString(photo)

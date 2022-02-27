@@ -26,7 +26,7 @@ int i = 0;
 	<main class="main-wrap">
 		<jsp:include page="/views/sellerHeader_2.jsp"/>
 		<section class="content-main">
-		<form method="post" action="product.do" name="form1" >
+		<form method="post" action="product.do" name="form1" enctype="multipart/form-data" >
 			<div class="row">
 				<div class="col-9">
 					<div class="content-header">
@@ -140,7 +140,7 @@ int i = 0;
 							<!-- row.// -->
 						</div>
 					</div>
-					<!-- card end// -->
+					<!-- card end// --> 
 					<!-- 
 					<div class="card mb-4">
 						<div class="card-header">

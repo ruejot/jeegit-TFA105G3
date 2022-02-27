@@ -31,17 +31,7 @@
     <body>
 		<jsp:include page="/views/userHeader.jsp"/>
         <main class="main pages">
-            <div class="page-header breadcrumb-wrap">
-                <div class="container">
-                    <div class="breadcrumb">
-                        <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>首頁</a>
-                        <a href="page-account.html" ><span></span> 會員中心</a>
-                        <!--
-                        <span></span> Pages <span></span> My Account
-                        -->
-                    </div>
-                </div>
-            </div>
+        	<jsp:include page="/views/userMainPage-header.jsp" />
             <div class="page-content pt-150 pb-150">
                 <div class="container">
                     <div class="row">
@@ -123,10 +113,28 @@
 																		<c:if test="${orderVO.orderStatus == 2}">配送中</c:if>
 																		<c:if test="${orderVO.orderStatus == 3}">已完成</c:if>
 																		<c:if test="${orderVO.orderStatus == 4}">已取消</c:if></td>
-																	<td>${orderVO.orderSum}</td>
+																	<td>$${orderVO.orderSum}</td>
 																	<td>
-																		<a href="orderDetail.jsp" class="btn-small d-block">詳細</a>
+																		<form method= "POST" ACTION= "orderDetail.do">
+																			<button class="btn-small d-block" type="submit">詳細</button>
+																			<input type="hidden" name="orderId" value="${orderVO.orderId}">
+																			<input type="hidden" name="action" value="get_Ord_Detail">
+																		</form>
 																	</td>
+																	<c:if test="${orderVO.orderStatus == 1}">
+																		<td>
+																			<form method= "POST" ACTION= "order.do">
+																				<button class="" type="submit">取消</button>
+																				<input type="hidden" name="orderId" value="${orderVO.orderId}">
+																				<input type="hidden" name="action" value="cancel_Ord">
+																			</form>
+																		</td>
+																	</c:if>
+																	<c:if test="${orderVO.orderStatus != 1}">
+																		<td>
+																				<button class="" type="">無法取消</button>
+																		</td>
+																	</c:if>
 																</tr>
 															</c:forEach>
 															<%@ include file="page2.file" %>

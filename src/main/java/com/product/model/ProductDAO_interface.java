@@ -19,4 +19,5 @@ public interface ProductDAO_interface {
 	public Set<ProductImgVO> getImgsByImgno(Integer merid);
 	public abstract List<ProductVO> getAllbyV_MerPro();
 	public abstract List<ProductVO> getAllBySubCategory(String subcategory);
+	public void insertWithProductImg(ProductVO productVO, List<ProductImgVO> list);
 }

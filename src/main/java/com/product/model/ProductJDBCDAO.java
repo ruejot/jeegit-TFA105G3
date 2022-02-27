@@ -549,4 +549,10 @@ public List<ProductVO> getAllBySubCategory(String subcategory) {
 	// TODO Auto-generated method stub
 	return null;
 }
+
+@Override
+public void insertWithProductImg(ProductVO productVO, List<ProductImgVO> list) {
+	// TODO Auto-generated method stub
+	
+}
 }

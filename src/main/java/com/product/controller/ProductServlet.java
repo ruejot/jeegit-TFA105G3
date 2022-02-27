@@ -1,21 +1,35 @@
 package com.product.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.product.model.ProductService;
 import com.product.model.ProductVO;
+import com.productImg.model.ProductImgService;
+import com.productImg.model.ProductImgVO;
 
 @WebServlet("/nest-backend/product.do")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class ProductServlet extends HttpServlet {
+	
 
 	/**
 	 * 
@@ -27,6 +41,7 @@ public class ProductServlet extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
@@ -51,14 +66,13 @@ public class ProductServlet extends HttpServlet {
 		if ("getOne_For_Update".equals(action)) { // 來自productManage的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to send the ErrorPage
-			// view.
+			// Store this set in the request scope, in case we need to send the ErrorPage views.
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
 				// 接收請求參數
 				// 取得商品id
-				Integer merid = new Integer(req.getParameter("merid"));
+				Integer merid = Integer.parseInt(req.getParameter("merid"));
 				// 開始查詢資料
 				ProductService proSvc = new ProductService();
 				ProductVO proVO = proSvc.getOneProduct(merid);
@@ -80,13 +94,12 @@ public class ProductServlet extends HttpServlet {
 		if ("update".equals(action)) { // 來自update_pro_input.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to send the ErrorPage
-			// view.
+			// Store this set in the request scope, in case we need to send the ErrorPage views.
 			req.setAttribute("errorMsgs", errorMsgs);
 //			try {
 				// 接收請求參數 & 格式錯誤處理
 				// 取得商品id & 名稱
-				Integer merid = new Integer(req.getParameter("merid").trim());
+				Integer merid = Integer.parseInt(req.getParameter("merid").trim());
 				String name = req.getParameter("name");
 				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9\\s.)]{2,25}$";
 				if (name == null || name.trim().length() == 0) {
@@ -115,7 +128,7 @@ public class ProductServlet extends HttpServlet {
 				// 取得商品價格
 				Integer price = null;
 				try {
-					price = new Integer(req.getParameter("price").trim());
+					price = Integer.parseInt(req.getParameter("price").trim());
 				} catch (NumberFormatException e) {
 					price = 0;
 					errorMsgs.add("金額請填數字!");
@@ -124,14 +137,14 @@ public class ProductServlet extends HttpServlet {
 				// 取得商品庫存
 				Integer stock = null;
 				try {
-					stock = new Integer(req.getParameter("stock").trim());
+					stock = Integer.parseInt(req.getParameter("stock").trim());
 				} catch (NumberFormatException e) {
 					stock = 0;
 					errorMsgs.add("庫存請填數字!");
 				}
 
 				// 取得上架狀態
-				Integer status = new Integer(req.getParameter("status"));
+				Integer status = Integer.parseInt(req.getParameter("status"));
 			
 
 				// 取得出貨方式
@@ -218,7 +231,7 @@ public class ProductServlet extends HttpServlet {
 
 			try {
 				// 接收請求參數
-				Integer merid = new Integer(req.getParameter("merid"));
+				Integer merid = Integer.parseInt(req.getParameter("merid"));
 				// 開始查詢資料
 				ProductService proSvc = new ProductService();
 				proSvc.deleteProduct(merid);
@@ -237,8 +250,7 @@ public class ProductServlet extends HttpServlet {
 		if ("insert".equals(action)) { // 來自addProduct.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to send the ErrorPage
-			// view.
+			// Store this set in the request scope, in case we need to send the ErrorPage views.
 			req.setAttribute("errorMsgs", errorMsgs);
 
 //			try {
@@ -269,7 +281,7 @@ public class ProductServlet extends HttpServlet {
 				// 取得商品價格
 				Integer price = null;
 				try {
-					price = new Integer(req.getParameter("price").trim());
+					price = Integer.parseInt(req.getParameter("price").trim());
 				} catch (NumberFormatException e) {
 					price = 0;
 					errorMsgs.add("金額請填數字!");
@@ -278,14 +290,14 @@ public class ProductServlet extends HttpServlet {
 				// 取得商品庫存
 				Integer stock = null;
 				try {
-					stock = new Integer(req.getParameter("stock").trim());
+					stock = Integer.parseInt(req.getParameter("stock").trim());
 				} catch (NumberFormatException e) {
 					stock = 0;
 					errorMsgs.add("庫存請填數字!");
 				}
 
 				// 取得上架狀態
-				Integer status = new Integer(req.getParameter("status"));
+				Integer status = Integer.parseInt(req.getParameter("status"));
 				
 
 				// 取得出貨方式
@@ -344,7 +356,90 @@ public class ProductServlet extends HttpServlet {
 				ProductService proSvc = new ProductService();
 				proVO = proSvc.addPro(busid, name, price, stock, shelfDate, status, description, sb.toString(), mainCategory,
 						subCategory);
+				
+			    //取得剛剛新增完成的PK用以新增圖片
 
+//				Connection con = null;
+//				PreparedStatement pstmt = null;
+//				ResultSet rs = null;
+//				
+//				Integer merid = 0;
+//				try {
+//					
+//					con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_g3db_tfa105?serverTimezone=Asia/Taipei", "root", "password");
+//					pstmt = con.prepareStatement("select MER_ID from MER order by MER_ID desc limit 0 , 1 ");
+//					rs= pstmt.executeQuery();
+//					
+//					while(rs.next()) {
+//						merid = rs.getInt(1);
+//					}
+//					// Handle any driver errors
+//				} catch (SQLException se) {
+//					throw new RuntimeException("A database error occured. " + se.getMessage());
+//					// Clean up JDBC resources
+//				} finally {
+//					if (rs != null) {
+//						try {
+//							rs.close();
+//						} catch (SQLException se) {
+//							se.printStackTrace(System.err);
+//						}
+//					}
+//					if (pstmt != null) {
+//						try {
+//							pstmt.close();
+//						} catch (SQLException se) {
+//							se.printStackTrace(System.err);
+//						}
+//					}
+//					if (con != null) {
+//						try {
+//							con.close();
+//						} catch (Exception e) {
+//							e.printStackTrace(System.err);
+//						}
+//					}
+//				}
+//				
+//				//取得日期
+//				java.sql.Date timepic = new java.sql.Date(System.currentTimeMillis());
+//				
+//				//以下是圖片上傳
+//				byte[] productImg = null;
+//				
+//				req.setCharacterEncoding("UTF-8"); // 處理中文檔名
+//				res.setContentType("text/html; charset=UTF-8");
+//				PrintWriter out = res.getWriter();
+//				System.out.println("ContentType=" + req.getContentType()); // 測試用
+//				
+//				Part part = req.getPart("upfile1");
+//				System.out.println(part);
+//				
+//				String filename = getFileNameFromPart(part);
+//				System.out.println(filename+"123");
+//				if (filename != null && part.getContentType() != null) {
+//					
+//					String picname = part.getName();
+//					String ContentType = part.getContentType();
+//					long size = part.getSize();
+//					
+//					InputStream in = part.getInputStream();
+//					productImg = new byte[in.available()];
+//					in.read(productImg);
+//					in.close();
+//				}
+//						
+//				
+//				//將新物件存入VO
+//				ProductImgVO proImgVO = new ProductImgVO();
+//				proImgVO.setImgid(merid);
+//				proImgVO.setMerpic(productImg);
+//				proImgVO.setTime(timepic);
+//				
+//				//新增照片
+//				ProductImgService proImgSvc = new ProductImgService();
+//				proImgVO = proImgSvc.addProductImg(merid, productImg, timepic);
+//				
 				// 新增完成，準備轉交
 				String url = "/nest-backend/productManage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -360,4 +455,16 @@ public class ProductServlet extends HttpServlet {
 		}
 
 	}
+	
+	// 取出上傳的檔案名稱 (因為API未提供此method,所以必須自行撰寫)
+		public String getFileNameFromPart(Part part) {
+			String header = part.getHeader("content-disposition");
+			System.out.println("header=" + header); // 測試用
+			String filename = new File(header.substring(header.lastIndexOf("=") + 2, header.length() - 1)).getName();
+			System.out.println("filename=" + filename); // 測試用
+			if (filename.length() == 0) {
+				return null;
+			}
+			return filename;
+		}
 }
