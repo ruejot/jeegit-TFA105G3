@@ -1,22 +1,22 @@
-package com.member.model;
+package com.members.model;
 
 import java.util.List;
 
-public class MemberService {
-	private MemberDAO_interface dao;
+public class MembersService {
+	private MembersDAO_interface dao;
 	
-	public MemberService() {
-		dao = new MemberDAO();
+	public MembersService() {
+		dao = new MembersDAO();
 	}
 	
 //Integer memberid, String name, String mobile, String phone,	String address,	java.sql.Date date,	String email, String password, String nickname, String intro, byte[] photo 
 	
 	//新增
-	public MemberVO insertMember(String name
+	public MembersVO insertMember(String name
 			, String mobile, String phone,	String address,	java.sql.Date date
 			, String email, String password, String nickname, String intro, byte[] photo) {
 		
-		MemberVO memberBean = new MemberVO();
+		MembersVO memberBean = new MembersVO();
 		
 		memberBean.setName(name);
 		memberBean.setMobile(mobile);
@@ -34,11 +34,11 @@ public class MemberService {
 	}
 	
 	//修改
-	public MemberVO updateMember(Integer memberid, String name
+	public MembersVO updateMember(Integer memberid, String name
 			, String mobile, String phone,	String address,	java.sql.Date date
 			, String email, String password, String nickname, String intro, byte[] photo) {
 		
-		MemberVO memberBean = new MemberVO();
+		MembersVO memberBean = new MembersVO();
 		
 		memberBean.setMemberid(memberid);
 		memberBean.setName(name);
@@ -62,12 +62,12 @@ public class MemberService {
 	}
 		
 	//查詢
-	public MemberVO select(Integer memberid) {
+	public MembersVO select(Integer memberid) {
 		return dao.select(memberid);
 	}
 	
 	//查詢全部
-	public List<MemberVO> selectAll() {
+	public List<MembersVO> selectAll() {
 		return dao.selectAll();
 	}
 	
