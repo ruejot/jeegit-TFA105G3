@@ -25,11 +25,11 @@ public class PaymentDAO implements PaymentDAO_interface  {
 		}
 	}
 	
-	private static final String INSERT_STMT = "INSERT INTO payment (PAYMENT_METHOD) VALUES (?)";
-	private static final String GET_ALL_STMT = "SELECT  PATMENT_ID, PAYMENT_METHOD FROM payment order by PATMENT_ID";
-	private static final String GET_ONE_STMT = "SELECT PATMENT_ID, PAYMENT_METHOD FROM payment where PATMENT_ID = ?";
-	private static final String DELETE = "DELETE FROM payment where PATMENT_ID = ?";
-	private static final String UPDATE = "UPDATE payment set PAYMENT_METHOD=? where PATMENT_ID = ?";
+	private static final String INSERT_STMT = "INSERT INTO pet_g3db_tfa105.PAYMENT (PAYMENT_METHOD) VALUES (?)";
+	private static final String GET_ALL_STMT = "SELECT  PAYMENT_ID, PAYMENT_METHOD FROM pet_g3db_tfa105.PAYMENT ORDER BY PAYMENT_ID";
+	private static final String GET_ONE_STMT = "SELECT PAYMENT_ID, PAYMENT_METHOD FROM pet_g3db_tfa105.PAYMENT WHERE PAYMENT_ID = ?";
+	private static final String DELETE = "DELETE FROM pet_g3db_tfa105.PAYMENT WHERE PAYMENT_ID = ?";
+	private static final String UPDATE = "UPDATE payment set PAYMENT_METHOD=? where PAYMENT_ID = ?";
 
 
 
@@ -164,8 +164,8 @@ public class PaymentDAO implements PaymentDAO_interface  {
 
 			while (rs.next()) {
 				paymentVO = new PaymentVO();
-				paymentVO.setPaymentid(rs.getInt("paymentid"));
-				paymentVO.setPaymentmethod(rs.getString("paymentmethod"));
+				paymentVO.setPaymentid(rs.getInt("PAYMENT_ID"));
+				paymentVO.setPaymentmethod(rs.getString("PAYMENT_METHOD"));
 				
 			}
 
@@ -216,8 +216,8 @@ public class PaymentDAO implements PaymentDAO_interface  {
 
 			while (rs.next()) {
 				paymentVO = new PaymentVO();
-				paymentVO.setPaymentid(rs.getInt("paymentid"));
-				paymentVO.setPaymentmethod(rs.getString("paymentmethod"));
+				paymentVO.setPaymentid(rs.getInt("PAYMENT_ID"));
+				paymentVO.setPaymentmethod(rs.getString("PAYMENT_METHOD"));
 				list.add(paymentVO); // Store the row in the list
 			}
 
