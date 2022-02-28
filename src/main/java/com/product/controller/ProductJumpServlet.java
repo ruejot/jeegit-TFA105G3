@@ -29,7 +29,7 @@ public class ProductJumpServlet extends HttpServlet {
 			if(aProd!=null) {
 			req.setAttribute("aProd", aProd);
 			System.out.println(aProd.get(0).getName());
-			System.out.println(aProd.get(0).getDescription());
+			System.out.println("$"+aProd.get(0).getPrice()+" console from PJS");
 			req.getRequestDispatcher("../nest-frontend/ShopProductPage.jsp").forward(req,res);
 			}else
 				System.out.println("No data");

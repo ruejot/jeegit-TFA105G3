@@ -14,7 +14,7 @@
 <html lang="zh-Hant-TW">
 <head>
 <meta charset="utf-8" />
-<title>FrontEnd板模-Petting</title>
+<title>Petting-商品資訊</title>
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -79,7 +79,7 @@
                                                 </div>
                                                 <div class="clearfix product-price-cover">
                                                     <div class="product-price primary-color float-left">
-                                                        <span class="current-price text-brand">${aProd.get(0).price}</span>
+                                                        <span class="current-price text-brand">$ ${aProd.get(0).price}</span>
                                                     </div>
                                                 </div>
                                                 <div class="short-desc mb-30">
