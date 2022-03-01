@@ -712,17 +712,17 @@ public class ProductDAO implements ProductDAO_interface {
 			while (rs.next()) {
 				
 				productVO = new ProductVO();
-				productVO.setMerid(rs.getInt("mer_id"));
-				productVO.setBusid(rs.getInt("bus_id"));
-				productVO.setName(rs.getString("name"));
-				productVO.setPrice(rs.getInt("price"));
-				productVO.setStock(rs.getInt("stock"));
-				productVO.setShelfDate(rs.getDate("shelf_Date"));
-				productVO.setStatus(rs.getInt("status"));
-				productVO.setDescription(rs.getString("description"));
-				productVO.setShippingMethod(rs.getString("shipping_Method"));
-				productVO.setMainCategory(rs.getString("main_Category"));
-				productVO.setSubCategory(rs.getString("sub_Category"));
+				productVO.setMerid(rs.getInt("MER_ID"));
+				productVO.setBusid(rs.getInt("BUS_ID"));
+				productVO.setName(rs.getString("NAME"));
+				productVO.setPrice(rs.getInt("PRICE"));
+				productVO.setStock(rs.getInt("STOCK"));
+				productVO.setShelfDate(rs.getDate("SHELF_DATE"));
+				productVO.setStatus(rs.getInt("STATUS"));
+				productVO.setDescription(rs.getString("DESCRIPTION"));
+				productVO.setShippingMethod(rs.getString("SHIPPING_METHOD"));
+				productVO.setMainCategory(rs.getString("MAIN_CATEGORY"));
+				productVO.setSubCategory(rs.getString("SUB_CATEGORY"));
 				list.add(productVO); // Store the row in the list
 			}
 			

@@ -162,13 +162,14 @@ public class ProductServlet extends HttpServlet {
 					errorMsgs.add("請選擇出貨方式!");
 				}
 
-				// 到時需從登入頁面getSession取得busid(要改寫)
+				// 到時需從登入頁面getSession取得busid
 				Integer busid = 1; 
-//				try {
-//				busid = new Integer(req.getParameter("busid"));
-//				} catch(NumberFormatException e) {
-//					errorMsgs.add("請填數字");
-//				}
+//				Object account = session.getAttribute("BusUsing");
+//				if(account == null) {
+//				session.setAttribute("location", req.getRequestURI());
+//				res.sendRedirect(req.getContextPath() + "/login.html");
+//				return;
+//				
 				
 				// 取得主商品類別
 				String mainCategory = req.getParameter("mainCategory");

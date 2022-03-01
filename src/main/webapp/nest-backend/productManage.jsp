@@ -10,15 +10,18 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 //ProductServlet.java(Controller), 存入session的list物件
 --%>
 
+<%--
+
+BusVO busVO = (BusVO)session.getAttribute("BusUsing");
+
+ --%>
+
 <%
 	ProductService proSvc = new ProductService();
-    List<ProductVO> list = proSvc.getAll();
+    List<ProductVO> list = proSvc.getProductsByBusid(1); //proSvc.getProductsByBusid(busVO.getBusid());
     pageContext.setAttribute("list",list);
 %>
 
-<%-- 
-<jsp:useBean id="shippingSvc" scope="page" class="com.shipping.model.ShippingService" />
---%>
 
 <!DOCTYPE html>
 <html>
