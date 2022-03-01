@@ -8,6 +8,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.order.model.OrderVO;
 import com.productImg.model.ProductImgDAO;
 import com.productImg.model.ProductImgVO;
 
@@ -24,19 +25,20 @@ public class ProductDAO implements ProductDAO_interface {
 		}
 	}
 
-	private static final String INSERT_STMT = "INSERT INTO MER (BUS_ID, name, price, stock, SHELF_Date, status, description, SHIPPING_METHOD, MAIN_CATEGORY, SUB_CATEGORY) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT  MER_ID, BUS_ID, name, price, stock, SHELF_Date, status, description, SHIPPING_METHOD, MAIN_CATEGORY, SUB_CATEGORY FROM MER order by MER_ID";
-	private static final String GET_ONE_STMT = "SELECT MER_ID, BUS_ID, name, price, stock, SHELF_Date, status, description, SHIPPING_METHOD, MAIN_CATEGORY, SUB_CATEGORY FROM MER where MER_ID = ?";
-	private static final String DELETE_IMGs = "DELETE FROM MER_IMG where MER_ID = ?";
-	private static final String DELETE_MER = "DELETE FROM mer where MER_ID = ?";
-	private static final String UPDATE = "UPDATE mer set BUS_ID=?, name=?, price=?, stock=?, SHELF_Date=?, status=?, description=?, SHIPPING_METHOD=?, MAIN_CATEGORY=?, SUB_CATEGORY=? where MER_ID = ?";
-	private static final String GET_Imgs_ByMerid_STMT = "SELECT IMG_ID, MER_PIC, time, MER_ID FROM MER_IMG where MER_ID = ?";
+	private static final String INSERT_STMT = "INSERT INTO pet_g3db_tfa105.MER (BUS_ID, NAME, PRICE, STOCK, SHELF_DATE, STATUS, DESCRIPTION, SHIPPING_METHOD, MAIN_CATEGORY, SUB_CATEGORY) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT  MER_ID, BUS_ID, NAME, PRICE, STOCK, SHELF_DATE, STATUS, DESCRIPTION, SHIPPING_METHOD, MAIN_CATEGORY, SUB_CATEGORY FROM pet_g3db_tfa105.MER ORDER BY MER_ID";
+	private static final String GET_ONE_STMT = "SELECT MER_ID, BUS_ID, NAME, PRICE, STOCK, SHELF_DATE, STATUS, DESCRIPTION, SHIPPING_METHOD, MAIN_CATEGORY, SUB_CATEGORY FROM pet_g3db_tfa105.MER WHERE MER_ID = ?";
+	private static final String DELETE_IMGs = "DELETE FROM pet_g3db_tfa105.MER_IMG WHERE MER_ID = ?";
+	private static final String DELETE_MER = "DELETE FROM pet_g3db_tfa105.MER where MER_ID = ?";
+	private static final String UPDATE = "UPDATE pet_g3db_tfa105.MER SET BUS_ID=?, NAME=?, PRICE=?, STOCK=?, SHELF_DATE=?, STATUS=?, DESCRIPTION=?, SHIPPING_METHOD=?, MAIN_CATEGORY=?, SUB_CATEGORY=? WHERE MER_ID = ?";
+	private static final String GET_Imgs_ByMerid_STMT = "SELECT IMG_ID, MER_PIC, TIME, MER_ID FROM pet_g3db_tfa105.MER_IMG WHERE MER_ID = ?";
 	private static final String GET_ALL_By_vMerPro = "SELECT * FROM pet_g3db_tfa105.v_merimg_mer";
 	private static final String FIND_AllbyMerid = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_ID= ?";
 	private static final String FIND_AllbyMerName = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_NAME like ? ";
 	private static final String FIND_AllbyMainCategory = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE Main_Category like ? ";
 	private static final String FIND_AllbySubCategory = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE Sub_Category = ? ";
-
+	private static final String GET_PRODUCTS_BY_BUSID = "SELECT * FROM pet_g3db_tfa105.MER WHERE BUS_ID = ? ORDER BY SHELF_DATE DESC";
+	
 	@Override
 	public void insert(ProductVO productVO) {
 
@@ -689,4 +691,70 @@ public class ProductDAO implements ProductDAO_interface {
 		}
 	}
 
+
+	@Override
+	public List<ProductVO> getProductByBusid(Integer busid) {
+		List<ProductVO> list = new ArrayList<ProductVO>();
+		
+		ProductVO productVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_PRODUCTS_BY_BUSID);
+			
+			pstmt.setInt(1, busid);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				productVO = new ProductVO();
+				productVO.setMerid(rs.getInt("mer_id"));
+				productVO.setBusid(rs.getInt("bus_id"));
+				productVO.setName(rs.getString("name"));
+				productVO.setPrice(rs.getInt("price"));
+				productVO.setStock(rs.getInt("stock"));
+				productVO.setShelfDate(rs.getDate("shelf_Date"));
+				productVO.setStatus(rs.getInt("status"));
+				productVO.setDescription(rs.getString("description"));
+				productVO.setShippingMethod(rs.getString("shipping_Method"));
+				productVO.setMainCategory(rs.getString("main_Category"));
+				productVO.setSubCategory(rs.getString("sub_Category"));
+				list.add(productVO); // Store the row in the list
+			}
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if (con != null ) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
+	
+
 }
+
+

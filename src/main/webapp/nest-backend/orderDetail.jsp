@@ -5,15 +5,16 @@
 <%@ page import="com.orderDetail.model.*"%>
 <%@ page import="java.util.*"%>
 
-<%
+<% 
 	OrderDetailService ordDetailSvc = new OrderDetailService();
-    List<OrderDetailVO> list = ordDetailSvc.getAll();
-    pageContext.setAttribute("list",list);
+	List<OrderDetailVO> list = ordDetailSvc.getOrdersByOrderId(1);
+	pageContext.setAttribute("list", list);
+
 %>
 
 <%
 	OrderService ordSvc = new OrderService();
-    List<OrderVO> ordList = ordSvc.getAll();
+    List<OrderVO> ordList = ordSvc.getOrdersByBusId(1);
     pageContext.setAttribute("ordList",ordList);
 %>
 
@@ -28,62 +29,16 @@
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <!-- Template CSS -->
-        <link href="assets/css/main.css?v=1.1" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" />
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/assets/css/main_backend.css" />
     </head>
 
     <body>
         <div class="screen-overlay"></div>
-        <aside class="navbar-aside" id="offcanvas_aside">
-            <div class="aside-top">
-                <a href="index.html" class="brand-wrap"> 
-                <img src="<%=request.getContextPath()%>/assets/imgs/theme/logo_Petting.svg" class="logo" alt="logo" />
-                </a>
-                <div>
-                    <button class="btn btn-icon btn-aside-minimize">
-                        <i class="text-muted material-icons md-menu_open"></i>
-                    </button>
-                </div>
-            </div>
-            <nav>
-                <ul class="menu-aside">
-                    <li class="menu-item"><a class="menu-link" href="index.html">
-                            <i class="icon material-icons md-home"></i> <span class="text">會員中心</span>
-                    </a></li>
-                    <li class="menu-item has-submenu"><a class="menu-link"
-                        href="<%=request.getContextPath()%>/nest-backend/productManage.jsp"> <i
-                            class="icon material-icons md-shopping_bag"></i> <span
-                            class="text">商品管理</span>
-                    </a></li>
-                    <li class="menu-item has-submenu"><a class="menu-link"
-                        href="<%=request.getContextPath()%>/nest-backend/orderManage.jsp"> <i
-                            class="icon material-icons md-shopping_cart"></i> <span
-                            class="text">訂單管理</span>
-                    </a></li>
-                    <li class="menu-item has-submenu"><a class="menu-link"
-                        href="<%=request.getContextPath()%>/nest-backend/addProduct.jsp"> <i
-                            class="icon material-icons md-add_box"></i> <span class="text">商品上架</span>
-                    </a></li>
-                    <li class="menu-item has-submenu"><a class="menu-link" href="#">
-                            <i class="icon material-icons md-person"></i> <span class="text">我的帳戶</span>
-                    </a></li>
-                    <li class="menu-item"><a class="menu-link"
-                        href="page-reviews.html"> <i
-                            class="icon material-icons md-comment"></i> <span class="text">留言評價</span>
-                    </a></li>
-                    <li class="menu-item"><a class="menu-link" href="#"> <i
-                            class="icon material-icons md-pie_chart"></i> <span class="text">數據中心</span>
-                    </a></li>
-                </ul>
-                <hr />
-                <ul class="menu-aside">
-                    <li class="menu-item has-submenu"><a class="menu-link" href="#">
-                            <i class="icon material-icons md-settings"></i> <span class="text">相關設定</span>
-                    </a></li>
-                </ul>
-                <br /> <br />
-            </nav>
-        </aside>
+        <%@ include file="/views/sellerAside.jsp" %>
         <main class="main-wrap">
+        <jsp:include page="/views/sellerHeader_2.jsp"/>	
             <section class="content-main">
                 <div class="content-header">
                     <div>
@@ -91,25 +46,22 @@
                     </div>
                 </div>
                 <div class="card">
-                    <header class="card-header">
-                        <div class="row align-items-center">
-                            <div class="col-lg-6 col-md-6 mb-lg-0 mb-15">
-                            <c:forEach var="orderDetailVO" items="${list}" >
-                                <small class="text-muted">Order ID: ${orderDetailVO.orderId}</small>
-                            </c:forEach>
-                            </div>
-                            <div class="col-lg-6 col-md-6 ms-auto text-md-end">
-                                <select class="form-select d-inline-block mb-lg-0 mr-5 mw-200">
-                                    <option>修改訂單狀態</option>
-                                    <option>處理中</option>
-                                    <option>配送中</option>
-                                    <option>已完成</option>
-                                    <option>已取消</option>
-                                </select>
-                                <a class="btn btn-primary" href="#">儲存</a> <!-- 要寫updateServlet -->
-                            </div>
-                        </div>
-                    </header>
+<!--                     <header class="card-header"> -->
+<!--                         <div class="row align-items-center"> -->
+<!--                             <div class="col-lg-6 col-md-6 mb-lg-0 mb-15"> -->
+<!--                             </div> -->
+<!--                             <div class="col-lg-6 col-md-6 ms-auto text-md-end"> -->
+<!--                                 <select class="form-select d-inline-block mb-lg-0 mr-5 mw-200"> -->
+<!--                                     <option>修改訂單狀態</option> -->
+<!--                                     <option>處理中</option> -->
+<!--                                     <option>配送中</option> -->
+<!--                                     <option>已完成</option> -->
+<!--                                     <option>已取消</option> -->
+<!--                                 </select> -->
+<!--                                 <a class="btn btn-primary" href="#">儲存</a> 要寫updateServlet -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </header> -->
                     <!-- card-header end// -->
                     <div class="card-body">
                         <div class="row mb-50 mt-20 order-info-wrap">
@@ -119,11 +71,12 @@
                                         <i class="text-primary material-icons md-person"></i>
                                     </span>
                                     <div class="text">
+                                     <jsp:useBean id="memberSvc" scope="page" class="com.members.model.MembersService" />
                                         <h6 class="mb-1">顧客資料</h6>
                                         <p class="mb-1">
-                                           姓名: 王曉明 <br />
-                                           Email: alex@example.com <br />
-                                           電話: 0988-123-123
+                                           姓名: ${memberSvc.select(orderVO.memberId).name}<br />
+                                           Email: ${memberSvc.select(orderVO.memberId).email} <br />
+                                           電話: ${memberSvc.select(orderVO.memberId).phone}
                                         </p>
                                     </div>
                                 </article>
@@ -145,6 +98,7 @@
                                 </article>
                             </div>
                             <!-- col// -->
+                            <jsp:useBean id="deliverySvc" scope="page" class="com.shipping.model.ShippingService" />
                             <div class="col-md-4">
                                 <article class="icontext align-items-start">
                                     <span class="icon icon-sm rounded-circle bg-primary-light">
@@ -153,8 +107,8 @@
                                     <div class="text">
                                         <h6 class="mb-1">運送資訊</h6>
                                         <p class="mb-1">
-                                            出貨方式: ${orderVO.shippingId}<br />
-                                            追蹤碼: ${orderVO.tracking}
+                                            出貨方式: ${deliverySvc.getOneShipping(orderVO.shippingId).shippingMethod}<br />
+                                            追蹤碼: Not Available
                                         </p>
                                     </div>
                                 </article>
@@ -178,15 +132,17 @@
                                         </thead>
                                         <tbody>
                                         <c:forEach var="orderDetailVO" items="${list}" >
+                                        <jsp:useBean id="productSvc" scope="page" class="com.product.model.ProductService" />
                                             <tr>
                                                 <td>
                                                     <a class="itemside" href="#"> 
-                                                        <div>${orderDetailVO.merId}</div>
+                                                        <div> ${productSvc.getOneProduct(orderDetailVO.merId).name}</div>
                                                     </a>
                                                 </td>
                                                 <td>${orderDetailVO.unitPrice}</td>
                                                 <td>${orderDetailVO.qty}</td>
-                                                <td class="text-end">${orderDetaulVO.unitPrice*orderDetailVO.qty}</td>
+                                                <td class="text-end">${orderDetailVO.unitPrice*orderDetailVO.qty}</td>
+                                                <td class="text-end">${orderDetailVO.comment}</td>
                                             </tr>
                                             </c:forEach>
                                             <c:forEach var="orderVO" items="${ordList}">
@@ -207,14 +163,15 @@
                                 <!-- table-responsive// -->
                             </div>
                             <!-- col// -->
+                            <jsp:useBean id="paymentSvc" scope="page" class="com.payment.model.PaymentService" />
                             <div class="col-lg-1"></div>
                             <div class="col-lg-4">
                             <c:forEach var="orderVO" items="${ordList}">
                                 <div class="box shadow-sm bg-light">
                                     <h6 class="mb-15">付款資訊</h6>
                                     <p>
-                                        付款方式: ${orderVO.paymentId} <br />
-                                        發票號碼: ${orderVO.invoiceId} <br />
+                                        付款方式: ${paymentSvc.getOnePayment(orderVO.paymentId).paymentmethod} <br />
+                                        發票號碼: Not Available <br />
                                     </p>
                                 </div>
                             </c:forEach>
@@ -227,6 +184,7 @@
                 <!-- card end// -->
             </section>
             <!-- content-main end// -->
+            <jsp:include page="/views/sellerFooter.jsp"/>
         </main>
         <script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-3.6.0.min.js"></script>
         <script src="<%=request.getContextPath()%>/assets/js/vendors/bootstrap.bundle.min.js"></script>
@@ -235,5 +193,6 @@
         <script src="<%=request.getContextPath()%>/assets/js/vendors/jquery.fullscreen.min.js"></script>
         <!-- Main Script -->
         <script src="<%=request.getContextPath()%>/assets/js/main.js?v=1.1" type="text/javascript"></script>
+        <script src="https://kit.fontawesome.com/60002e5c50.js"></script>
     </body>
 </html>

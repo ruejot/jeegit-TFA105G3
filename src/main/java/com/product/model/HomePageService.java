@@ -55,9 +55,9 @@ public class HomePageService {
 
 	public List<ProductVO> getAllByProductId(Integer prodid) {
 		if (prodid != null) {
+			return dao.getAllByProdid(prodid);
 		} else
 			return null;
-			return dao.getAllByProdid(prodid);
 	}
 
 	public List<ProductVO> getAllbyV_MerPro() {

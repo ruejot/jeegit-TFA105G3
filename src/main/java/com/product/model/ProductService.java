@@ -15,7 +15,7 @@ public class ProductService {
 	}
 	
 	public ProductVO addPro(Integer busid, String name, Integer price, Integer stock, Date shelfDate, 
-			Integer status, String description, String shippingMethod, String mainCategory, String subCategory) {
+			Integer status, String description, String shippingMethod, String mainCategory, String subCategory, List<ProductImgVO> list) {
 		
 		ProductVO proVO = new ProductVO();
 		
@@ -29,7 +29,8 @@ public class ProductService {
 		proVO.setShippingMethod(shippingMethod);
 		proVO.setMainCategory(mainCategory);
 		proVO.setSubCategory(subCategory);
-		dao.insert(proVO);
+		
+		dao.insertWithProductImg(proVO, list);
 		
 		return proVO;
 	}
@@ -106,6 +107,10 @@ public class ProductService {
 
 	public List<ProductVO> getSpecialClassByMainCategory(String maincategory){
 		return dao.getAllByMainCategory(maincategory);
+	}
+	
+	public List<ProductVO> getProductsByBusid(Integer busId) {
+		return dao.getProductByBusid(busId);
 	}
 	
 }

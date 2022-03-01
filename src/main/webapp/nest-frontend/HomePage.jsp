@@ -7,8 +7,7 @@
 <!-- [editor,date] wei,2022-02-22 -->
 <%
 ProductService productSvc = new ProductService();
-// ProductVO productbean = productSvc.getOneProduct(8);
-// session.setAttribute("productbean", productbean);
+
 
 List<ProductVO> productlist = productSvc.getAll();
 session.setAttribute("productlist", productlist);
@@ -233,8 +232,6 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 					</div>
 					<div class="slider-arrow hero-slider-1-arrow"></div>
 				</div>
-			</div>
-		</section>
 	<!--尾 滑動廣告頁面-->
 		<!--廣告頁面-->
 		<section class="banners mb-25">
@@ -329,22 +326,26 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 						aria-labelledby="tab-one">
 						<div class="row product-grid-4">
 							<!--頭 熱門十商品-->
-							<c:forEach var="product" items="${productlist}" end="36" step="4" >
+							<c:forEach var="product" items="${productlist}" end="30" step="3" >
 								<div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
 									<div
 										class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn"
 										data-wow-delay=".1s">
 										<div class="product-img-action-wrap">
 											<div class="product-img product-img-zoom">
-												<a href="ShopProductPage.jsp"> <img class="default-img" style="height:266px"
-													src="<%=request.getContextPath()%>/ProdFirstPic?aa=${product.merid}"
-													alt="" />
-												</a>
+												<form action="../product/ProductJump" method="POST">
+													<a href="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+															<input type="hidden" name="action" value="product_jump">
+															<input type="hidden" name="productname" value="${product.merid}">
+														<img class="default-img" style="height:266px" 
+															src="<%=request.getContextPath()%>/ProdFirstPic?aa=${product.merid}"/>
+													</a>
+												</form>
 											</div>
 										</div>
 										<div class="product-content-wrap">
 											<div class="product-category">
-												<a href="shop-grid-left.html">${product.subCategory}</a>
+												<a>${product.subCategory}</a>
 											</div>
 											<h2>
 												<a href="shop-product-right.html">${product.name}</a>
