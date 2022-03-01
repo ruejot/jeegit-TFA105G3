@@ -1,4 +1,4 @@
-package com.member.controller;
+package com.members.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 //import javax.swing.JOptionPane;
 
-import com.member.model.MemberVO;
-import com.member.model.MemberDAO_interface;
-import com.member.model.MemberDAO;
+import com.members.model.MembersDAO;
+import com.members.model.MembersDAO_interface;
+import com.members.model.MembersVO;
 
-@WebServlet("/member/MemberLogin")
-public class MemberLoginServlet extends HttpServlet {
+@WebServlet("/members/MembersLogin")
+public class MembersLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -33,8 +33,8 @@ public class MemberLoginServlet extends HttpServlet {
 
 		// 登入
 		if ("login".equals(action)) { // login.jsp裡的請求
-			MemberDAO_interface memberDAOInterface = new MemberDAO();
-			MemberVO memberbean = memberDAOInterface.selectByEmailAndPassword(email, password);
+			MembersDAO_interface memberDAOInterface = new MembersDAO();
+			MembersVO memberbean = memberDAOInterface.selectByEmailAndPassword(email, password);
 
 			// 若email有get到資料庫中相對應的email跟password，登入成功，否則登入失敗
 			if (memberbean != null) {
@@ -46,7 +46,7 @@ public class MemberLoginServlet extends HttpServlet {
 				//若之後要引用該個人會員的資料，直接在該頁面jsp檔用el取值即可(例如需要該個人會員的名稱就寫${MemberUsing.name})
 				
 ///				req.getRequestDispatcher("memberIndex.jsp").forward(req, res);
-				res.sendRedirect("../views/nest-frontend/HomePage.jsp");
+				res.sendRedirect("../nest-frontend/HomePage.jsp");
 
 //			      try {                                                        
 //			          String location = (String) session.getAttribute("location");
@@ -65,7 +65,7 @@ public class MemberLoginServlet extends HttpServlet {
 							
 				//方法2.彈跳提醒錯誤的視窗
 //				JOptionPane.showMessageDialog(null, "資料有誤，請重新輸入", "Error", JOptionPane.ERROR_MESSAGE);
-//				req.getRequestDispatcher("../views/Memberlogin.jsp").forward(req, res);
+//				req.getRequestDispatcher("../nest-frontend/Login.jsp").forward(req, res);
 			}
 			return;
 		}

@@ -1,4 +1,4 @@
-package com.member.model;
+package com.members.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemberJDBCDAO implements MemberDAO_interface{
+public class MembersJDBCDAO implements MembersDAO_interface{
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/pet_g3db_tfa105?serverTimezone=Asia/Taipei";
 	String userid = "root";
@@ -37,7 +37,7 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 	
 	//新增INSERT_STMT
 	@Override
-	public void insert(MemberVO memberBean) {
+	public void insert(MembersVO memberBean) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -89,7 +89,7 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 	
 	//修改UPDATE
 	@Override
-	public void update(MemberVO memberBean) {
+	public void update(MembersVO memberBean) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -185,9 +185,9 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 	
 	//查詢單個欄位GET_ONE_STMT(此為memberid)
 	@Override
-	public MemberVO select(Integer memberid) {
+	public MembersVO select(Integer memberid) {
 		
-		MemberVO memberBean = null;
+		MembersVO memberBean = null;
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -203,7 +203,7 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				memberBean = new MemberVO();
+				memberBean = new MembersVO();
 				
 				memberBean.setMemberid(rs.getInt("MEMBER_ID"));
 				memberBean.setName(rs.getString("NAME"));
@@ -248,9 +248,9 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 	
 	//查詢二個欄位GET_ONE_STMT(email和密碼)
 	@Override
-	public MemberVO selectByEmailAndPassword(String email, String password) {
+	public MembersVO selectByEmailAndPassword(String email, String password) {
 		
-		MemberVO memberBean = null;
+		MembersVO memberBean = null;
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -267,7 +267,7 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				memberBean = new MemberVO();
+				memberBean = new MembersVO();
 				
 				memberBean.setMemberid(rs.getInt("MEMBER_ID"));
 				memberBean.setName(rs.getString("NAME"));
@@ -312,10 +312,10 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 	
 	//查詢全部欄位GET_ALL_STMT
 	@Override
-	public List<MemberVO> selectAll() {
-		List<MemberVO> list = new ArrayList<MemberVO>();
+	public List<MembersVO> selectAll() {
+		List<MembersVO> list = new ArrayList<MembersVO>();
 		
-		MemberVO memberBean = null;
+		MembersVO memberBean = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -327,7 +327,7 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				memberBean = new MemberVO();
+				memberBean = new MembersVO();
 				
 				memberBean.setMemberid(rs.getInt("MEMBER_ID"));
 				memberBean.setName(rs.getString("NAME"));
