@@ -1,22 +1,24 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <%@ page import="java.util.*" %>
-            <%@ page import="com.memblogart.model.*" %>
-                <%@ page import="java.sql.Timestamp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*" %>
+<%@ page import="com.memblogart.model.*" %>
+<%@ page import="com.members.model.*" %>
+<%@ page import="java.sql.Timestamp" %>
+                                     
+<% 
 
+MembersVO membersVO = (MembersVO) session.getAttribute("MemberUsing");
 
-                    <!-- getAllMyMember的數字到時候記得改成登入的使用者 -->
-                    <% MemBlogArtService artSvc=new MemBlogArtService(); 
-                        List<MemBlogArtVO> list = artSvc.getAllByMember(1);
-                        Collections.reverse(list);
-                        pageContext.setAttribute("list",list);
+MemBlogArtService artSvc=new MemBlogArtService(); 
+//使用session取值再做所有使用者發文的查詢
+List<MemBlogArtVO> list = artSvc.getAllByMember(membersVO.getMemberid());
+Collections.reverse(list);
+pageContext.setAttribute("list",list);
 
-                        // Timestamp ts = new Timestamp(MemBlogArtVO.getPosttime());
-                        // Date date = new Date(ts.getTime());
+// Timestamp ts = new Timestamp(MemBlogArtVO.getPosttime());
+// Date date = new Date(ts.getTime());
 
-
-
-                        %>
+%>
 
                         <!DOCTYPE html>
                         <html lang="en">
@@ -58,7 +60,7 @@
                                         <header class="card-header">
                                             <div class="row align-items-center">
                                                 <div class="col-2 col-check flex-grow-0">
-                                                    <div class="form-check ms-2">
+                                                    <div class="form-check ms-2">　　全選
                                                         <input id="form-check-input" class="form-check-input"
                                                                 type="checkbox" value="" />
                                                     </div>
@@ -215,13 +217,18 @@
                                         $.ajax({
                                             type: "POST",
                                             url: "<%=request.getContextPath()%>/MemBlogArtServlet",
+                                            success: function(){
+                                                window.location.reload();
+                                            },
                                             data: {
                                                 action: "batch_delete",
                                                 artid: $('.checkbox-inner:checked').map((_, event) => event.value).get().join(",")
                                             }
-                                        })
+                                        });
                                     }
                                 }
+
+                    
 
 
                             </script>

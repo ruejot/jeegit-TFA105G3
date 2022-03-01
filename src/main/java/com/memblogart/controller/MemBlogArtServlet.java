@@ -15,9 +15,11 @@ import javax.servlet.http.*;
 
 import com.memartpic.model.MemArtPicService;
 import com.memartpic.model.MemArtPicVO;
+import com.members.model.MembersService;
 import com.memblogart.model.*;
 import com.memreply.model.MemReplyService;
 import com.memreply.model.MemReplyVO;
+import com.mysql.cj.Session;
 
 @WebServlet("/MemBlogArtServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -213,16 +215,14 @@ public class MemBlogArtServlet extends HttpServlet {
 				if (content == null || content.trim().length() == 0) {
 					errorMsgs.add("文章內容: 請勿空白");
 				} else if (content.trim().length() >= 2000) {
-					errorMsgs.add("文章內容: 請勿輸入超過1000個字元");
+					errorMsgs.add("文章內容: 請勿輸入超過2000個字元");
 				}
 
 				Timestamp posttime = new Timestamp(System.currentTimeMillis());
 
 				// TODO 等到整合時用session取得登入者的memberId再塞進去!
-				Integer memberId = 1;
 				
-				
-						
+				Integer memberId = Integer.parseInt(req.getParameter("merberusing"));
 			
 				MemBlogArtVO memBlogArtVO = new MemBlogArtVO();
 				memBlogArtVO.setTitle(title);
@@ -336,6 +336,7 @@ public class MemBlogArtServlet extends HttpServlet {
 					in.close();
 				}
 				
+				
 				MemArtPicVO memArtPicVO = new MemArtPicVO();
 				memArtPicVO.setBlArtId(artid);
 				memArtPicVO.setBlArtPic(blArtPic);
@@ -396,12 +397,10 @@ public class MemBlogArtServlet extends HttpServlet {
 			
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
 
-			System.out.println("重轉~~~");
-			String url = "nest-backend/blog_manage.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
-//			successView.forward(req, res);
-			res.sendRedirect(url);
-			System.out.println("轉送~~~");
+//			String url = "nest-backend/blog_manage.jsp";
+////			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+////			successView.forward(req, res);
+//			res.sendRedirect(url);
 			
 		}
 		

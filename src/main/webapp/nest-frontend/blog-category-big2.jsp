@@ -130,7 +130,7 @@ pageContext.setAttribute("list2",list2);
                             </div>
                             <div class="loop-grid loop-big">
                                 <div class="row">
-                                <%@ include file="page1.file" %>
+                                <%@ include file="/pages/blog_catagory_page.file" %>
                                 
                                 <%-- 之後加在item後面 begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" --%>   
                                 <c:forEach var="memBlogArtVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">

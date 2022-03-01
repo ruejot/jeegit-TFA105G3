@@ -1,6 +1,20 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
+<%@ page import="com.memblogart.model.*" %>
+<%@ page import="com.members.model.*" %>
+
+<% 
+
+// MembersVO membersVO = (MembersVO) session.getAttribute("MemberUsing");
+
+MemBlogArtService artSvc=new MemBlogArtService(); 
+//使用session取值再做所有使用者發文的查詢
+List<MemBlogArtVO> list = artSvc.getAllByMember(1);
+pageContext.setAttribute("list",list);
+
+%>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -92,297 +106,37 @@
                 <!--  card.// -->
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h3 class="card-title">Products by seller</h3>
-                        <div class="row">
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/1.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Product name</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
+                        <h3 class="card-title">部落格文章列表</h3>
+                        <div class="card-body">
+                            <c:forEach var="memBlogArtVO" items="${list}">
+                            <article class="itemlist">
+                                <div class="row align-items-center">
+                                    <div class="col col-check flex-grow-0">
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
+                                        <a class="itemside" href="#">
+                                            <div class="left">
+                                                <img src="<%= request.getContextPath() %>/GetPic?blArtPicId=${memBlogArtVO.artid}" class="img-sm img-thumbnail" alt="Item" />
+                                            </div>
+                                            <div class="info">
+                                                <h6 class="mb-0">${memBlogArtVO.title}</h6>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-2 col-sm-2 col-6 col-price"></div>
+                                    <div class="col-lg-1 col-sm-2 col-6 col-date">
+                                        <span>02.11.2021</span>
+                                    </div>
+                                    <div class="col-lg-2 col-sm-2 col-4 col-action text-end">
+                                        <a href="#" class="btn btn-sm font-sm rounded btn-brand"> <i class="material-icons md-edit"></i> Edit </a>
+                                        <a href="#" class="btn btn-sm font-sm btn-light rounded"> <i class="material-icons md-delete_forever"></i> Delete </a>
                                     </div>
                                 </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/2.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Product name</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/3.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">All Natural Italian-Style</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/4.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Boomchick apop Sweet & Salty</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/5.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Product name</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/6.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Product name</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/7.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Product name</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/8.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Apple Airpods CB-133</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/9.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Product name</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/10.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Product name</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/11.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">All Natural Italian-Style</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/12.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Boomchick apop Sweet & Salty</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/1.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Product name</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/2.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Product name</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/3.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">All Natural Italian-Style</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/4.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Boomchick apop Sweet & Salty</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/5.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Product name</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/6.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Product name</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/7.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Product name</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/8.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Apple Airpods CB-133</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/9.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Product name</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/10.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Product name</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/11.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">All Natural Italian-Style</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
-                            <div class="col-xl-2 col-lg-3 col-md-6">
-                                <div class="card card-product-grid">
-                                    <a href="#" class="img-wrap"> <img src="assets/imgs/items/12.jpg" alt="Product" /> </a>
-                                    <div class="info-wrap">
-                                        <a href="#" class="title">Boomchick apop Sweet & Salty</a>
-                                        <div class="price mt-1">$179.00</div>
-                                        <!-- price-wrap.// -->
-                                    </div>
-                                </div>
-                                <!-- card-product  end// -->
-                            </div>
-                            <!-- col.// -->
+                                <!-- row .// -->
+                            </article>
+                            </c:forEach>
                         </div>
+                            </div>
                         <!-- row.// -->
                     </div>
                     <!--  card-body.// -->

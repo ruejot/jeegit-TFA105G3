@@ -2,8 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.memblogart.model.*"%>
+<%@ page import="com.members.model.*" %>
 
 <%
+MembersVO membersVO = (MembersVO) session.getAttribute("MemberUsing");
+
 MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 %>
 
@@ -42,15 +45,18 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 				<form action="<%=request.getContextPath()%>/MemBlogArtServlet"
 					method="post" enctype="multipart/form-data">
 					<input type="hidden" name="action" value="insert">
+					<input type="hidden" name="merberusing"
+                        value="<%=membersVO.getMemberid()%>">
 
 					<div class="col-lg-6">
 						<div class="card mb-4">
 							<div class="card-body">
 								<div class="mb-4">
-									<label for="product_title" class="form-label">文章標題</label> <input
+									<label for="product_title" class="form-label">文章標題</label> 
+									　　<input
 										type="text" placeholder="Type here" class="form-control"
 										id="product_title" name="title"
-										value="<%=(memBlogArtVO == null) ? "" : memBlogArtVO.getTitle()%>" required />
+										value="<%=(memBlogArtVO == null) ? "" : memBlogArtVO.getTitle()%>"/>
 								</div>
 								<div id="errMsg"/>
 								<c:if test="${not empty errorMsgs}">
@@ -67,10 +73,11 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 						<div class="card mb-4">
 							<div class="card-body">
 								<div>
-									<label class="form-label">文章內容</label>
-									<textarea placeholder="Type here" class="form-control"
+									<label for="article_content" class="form-label">文章內容</label>
+									<textarea id="article_content"　placeholder="Type here" class="form-control"
 										rows="20" name="content" style="height: 300px"><%=(memBlogArtVO == null) ? "" : memBlogArtVO.getContent()%></textarea>
 								</div>
+								<div id="errMsg2"/>
 							</div>
 							<div class="card-body">
 
@@ -110,6 +117,7 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 								class="btn btn-light rounded font-sm mr-5 text-body hover-up">儲存草稿</button>
 							<button type="submit" class="btn btn-md rounded font-sm hover-up">新增文章</button>
 						</div>
+						
 				</form>
 
 
@@ -137,5 +145,39 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 				$("#errMsg").html("")
 		})
 	</script>
+
+<script>
+	$("textarea#article_content").blur(function(){
+		if ($("textarea#article_content").val().trim()=='')
+			$("#errMsg2").html("<div class='text-danger'>文章內容不得空白</div>")
+		else
+			$("#errMsg2").html("")
+	})
+</script>
+
+<script>
+	function verificationPicFile(file) {
+    	var fileSize = 0;
+     	var fileMaxSize = 5*5*1024;//25M
+     	var filePath = file.value;
+     	if(filePath){
+        	fileSize =file.files[0].size;
+        	var size = fileSize / 1024;
+        	if (size > fileMaxSize) {
+            	alert("文件大小不能大於1M！");
+            	file.value = "";
+            return false;
+        }else if (size <= 0) {
+            	alert("請上傳圖片");
+            	file.value = "";
+           return false;
+        }
+     }else{
+         return false;
+     }
+ }
+</script>
+
+
 </body>
 </html>

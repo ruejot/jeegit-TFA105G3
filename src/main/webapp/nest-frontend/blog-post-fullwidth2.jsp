@@ -3,11 +3,22 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.memblogart.model.*"%>
 <%@ page import="com.memreply.model.*"%>
+<%@ page import="com.members.model.*" %>
+
 
 <%
 MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO"); //MemBlogArtServlet.java(Controller), 存入req的empVO物件
-
 MemReplyVO memreplyVO = (MemReplyVO) request.getAttribute("MemReplyVO");
+
+MembersService memSvc = new MembersService();
+
+//找出文章作者名稱
+MembersVO membersVOinfo = memSvc.select(memBlogArtVO.getMemberId());
+
+//找出留言作者名稱
+// MembersVO membersVOReInfo = memSvc.select(memreplyVO.getReMemberId());
+
+MembersVO membersVO = (MembersVO) session.getAttribute("MemberUsing");
 
 
 MemReplyService mrSvc = new MemReplyService();
@@ -106,7 +117,7 @@ pageContext.setAttribute("list2",list2);
                                             <div class="author-image mb-30">
                                                 <a href="author.html"><img src="assets/imgs/blog/author-1.png" alt="" class="avatar"></a>
                                                 <div class="author-infor">
-                                                    <h5 class="mb-5">Barbara Cartland</h5>
+                                                    <h5 class="mb-5"><%=membersVOinfo.getName()%></h5>
                                                     <p class="mb-0 text-muted font-xs">
                                                         <span class="mr-10">306 posts</span>
                                                         <span class="has-dot">Since 2012</span>
@@ -114,7 +125,7 @@ pageContext.setAttribute("list2",list2);
                                                 </div>
                                             </div>
                                             <div class="author-des">
-                                                <p>Hi there, I am a veteran food blogger sharing my daily all kinds of healthy and fresh recipes. I find inspiration in nature, on the streets and almost everywhere. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet id enim, libero sit. Est donec lobortis cursus amet, cras elementum libero</p>
+                                                <p><%=membersVOinfo.getIntro()%></p>
                                             </div>
                                         </div>
                                         <!--Comment form-->
@@ -122,7 +133,7 @@ pageContext.setAttribute("list2",list2);
                                             
                                                 <input type="hidden" name="action" value="insert">
                                         
-                                            <h3 class="mb-15 text-center mb-30">回應文章內容</h3>
+                                            <h3 class="mb-15 text-center mb-30">回應文章</h3>
                                             <div class="row">
                                                 <div class="col-lg-9 col-md-12  m-auto">
                                                     <form class="form-contact comment_form mb-50" action="<%=request.getContextPath() %>/MemReplyServlet" id="commentForm" method="post">                                          
@@ -152,11 +163,11 @@ pageContext.setAttribute("list2",list2);
                                                         </div>
                                                         
                                                         <div class="form-group">
-                                                            <button type="submit" class="button button-contactForm">留言回應</button>
+                                                            <button type="submit" class="button button-contactForm">回應文章</button>
                                                         </div>
                                                     </form>
                                                     <div class="comments-area">
-                                                        <h3 class="mb-30">Comments</h3>
+                                                        <h3 class="mb-30">留言：</h3>
                                                         <div class="comment-list   m-auto"">
                                                         
                                                         <c:forEach var="memReplyVO" items="${list2}">
