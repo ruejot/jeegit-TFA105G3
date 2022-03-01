@@ -111,7 +111,7 @@
 													</a>
 												</div> -->
 												<p class="text-center mb-4">
-													還沒有帳號嗎? <a href="#">按此註冊</a>
+													還沒有帳號嗎? <a href="../nest-frontend/Register.jsp">按此註冊</a>
 												</p>
 											</div>
 										</div>
@@ -149,7 +149,7 @@
 												</form>
 
 												<p class="text-center mb-4">
-													還沒有廠商帳號嗎? <a href="#">由此註冊成為合作店家</a>
+													還沒有廠商帳號嗎? <a href="../nest-frontend/Register.jsp">由此註冊成為合作店家</a>
 												</p>
 											</div>
 										</div>

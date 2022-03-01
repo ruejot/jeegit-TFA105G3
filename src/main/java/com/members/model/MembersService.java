@@ -1,5 +1,6 @@
 package com.members.model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class MembersService {
@@ -9,11 +10,11 @@ public class MembersService {
 		dao = new MembersDAO();
 	}
 	
-//Integer memberid, String name, String mobile, String phone,	String address,	java.sql.Date date,	String email, String password, String nickname, String intro, byte[] photo 
+//Integer memberid, String name, String mobile, String phone,	String address,	Timestamp date,	String email, String password, String nickname, String intro, byte[] photo 
 	
 	//新增
 	public MembersVO insertMember(String name
-			, String mobile, String phone,	String address,	java.sql.Date date
+			, String mobile, String phone,	String address,	Timestamp date
 			, String email, String password, String nickname, String intro, byte[] photo) {
 		
 		MembersVO memberBean = new MembersVO();
@@ -22,7 +23,7 @@ public class MembersService {
 		memberBean.setMobile(mobile);
 		memberBean.setPhone(phone);
 		memberBean.setAddress(address);
-		memberBean.setDate(date);
+		memberBean.setTimestamp(date);
 		memberBean.setEmail(email);
 		memberBean.setPassword(password);
 		memberBean.setNickname(nickname);
@@ -33,9 +34,27 @@ public class MembersService {
 		return memberBean;
 	}
 	
+	//註冊
+	public MembersVO registerMember(String name
+			, String mobile,Timestamp date, String email, String password) {
+		
+		MembersVO memberBean = new MembersVO();
+		
+		memberBean.setName(name);
+		memberBean.setMobile(mobile);
+		memberBean.setTimestamp(date);
+		memberBean.setEmail(email);
+		memberBean.setPassword(password);
+		
+		dao.insert(memberBean);
+		return memberBean;
+	}	
+	
+	
+	
 	//修改
 	public MembersVO updateMember(Integer memberid, String name
-			, String mobile, String phone,	String address,	java.sql.Date date
+			, String mobile, String phone,	String address,	Timestamp date
 			, String email, String password, String nickname, String intro, byte[] photo) {
 		
 		MembersVO memberBean = new MembersVO();
@@ -45,7 +64,7 @@ public class MembersService {
 		memberBean.setMobile(mobile);
 		memberBean.setPhone(phone);
 		memberBean.setAddress(address);
-		memberBean.setDate(date);
+		memberBean.setTimestamp(date);
 		memberBean.setEmail(email);
 		memberBean.setPassword(password);
 		memberBean.setNickname(nickname);

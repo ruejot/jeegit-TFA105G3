@@ -8,6 +8,7 @@ public interface MembersDAO_interface {
 	public abstract void delete(Integer memberid);
 //	select single data By PrimaryKey
 	public abstract MembersVO select(Integer memberid);
+	public abstract MembersVO select(String email);	
 	public abstract MembersVO selectByEmailAndPassword(String email, String password);
 //	select all table data
 	public abstract List<MembersVO> selectAll();

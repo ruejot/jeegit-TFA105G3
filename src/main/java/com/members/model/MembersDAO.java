@@ -39,6 +39,9 @@ public class MembersDAO implements MembersDAO_interface{
 	//查詢by MEMBER_ID
 	private static final String GET_ONE_STMT = 
 		"SELECT MEMBER_ID, NAME, MOBILE, PHONE, ADDRESS, DATE, EMAIL, PASSWORD, NICKNAME, INTRO, PHOTO FROM MEMBERS WHERE MEMBER_ID = ?";
+	//查詢by EMAIL
+	private static final String GET_EMAIL_STMT = 
+			"SELECT MEMBER_ID, NAME, MOBILE, PHONE, ADDRESS, DATE, EMAIL, PASSWORD, NICKNAME, INTRO, PHOTO FROM MEMBERS WHERE EMAIL =?";						
 	//查詢by EMAIL and PASSWORD
 	private static final String GET_TWO_STMT = 
 			"SELECT MEMBER_ID, NAME, MOBILE, PHONE, ADDRESS, DATE, EMAIL, PASSWORD, NICKNAME, INTRO, PHOTO FROM MEMBERS WHERE EMAIL =? and PASSWORD = ?";			
@@ -61,7 +64,7 @@ public class MembersDAO implements MembersDAO_interface{
 			pstmt.setString(2, memberBean.getMobile());
 			pstmt.setString(3, memberBean.getPhone());
 			pstmt.setString(4, memberBean.getAddress());
-			pstmt.setDate(5, memberBean.getDate());
+			pstmt.setTimestamp(5, memberBean.getTimestamp());
 			pstmt.setString(6, memberBean.getEmail());
 			pstmt.setString(7, memberBean.getPassword());
 			pstmt.setString(8, memberBean.getNickname());
@@ -108,7 +111,7 @@ public class MembersDAO implements MembersDAO_interface{
 			pstmt.setString(2, memberBean.getMobile());
 			pstmt.setString(3, memberBean.getPhone());
 			pstmt.setString(4, memberBean.getAddress());
-			pstmt.setDate(5, memberBean.getDate());
+			pstmt.setTimestamp(5, memberBean.getTimestamp());
 			pstmt.setString(6, memberBean.getEmail());
 			pstmt.setString(7, memberBean.getPassword());
 			pstmt.setString(8, memberBean.getNickname());
@@ -206,7 +209,7 @@ public class MembersDAO implements MembersDAO_interface{
 				memberBean.setMobile(rs.getString("MOBILE"));
 				memberBean.setPhone(rs.getString("PHONE"));
 				memberBean.setAddress(rs.getString("ADDRESS"));
-				memberBean.setDate(rs.getDate("DATE"));
+				memberBean.setTimestamp(rs.getTimestamp("DATE"));
 				memberBean.setEmail(rs.getString("EMAIL"));
 				memberBean.setPassword(rs.getString("PASSWORD"));
 				memberBean.setNickname(rs.getString("NICKNAME"));
@@ -238,6 +241,68 @@ public class MembersDAO implements MembersDAO_interface{
 		return memberBean;
 	}
 	
+	//查詢單個欄位GET_EMAIL_STMT(此為email)
+	@Override
+	public MembersVO select(String email) {
+		
+		MembersVO memberBean = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_EMAIL_STMT);
+			
+			pstmt.setString(1, email);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				memberBean = new MembersVO();
+				
+				
+				memberBean.setMemberid(rs.getInt("MEMBER_ID"));
+				memberBean.setName(rs.getString("NAME"));
+				memberBean.setMobile(rs.getString("MOBILE"));
+				memberBean.setPhone(rs.getString("PHONE"));
+				memberBean.setAddress(rs.getString("ADDRESS"));
+				memberBean.setTimestamp(rs.getTimestamp("DATE"));
+				memberBean.setEmail(rs.getString("EMAIL"));
+				memberBean.setPassword(rs.getString("PASSWORD"));
+				memberBean.setNickname(rs.getString("NICKNAME"));
+				memberBean.setIntro(rs.getString("INTRO"));
+				memberBean.setPhoto(rs.getBytes("PHOTO"));
+			}
+			
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return memberBean;
+	}
+	
+	
+	
+	
 	//查詢二個欄位GET_TWO_STMT(email和密碼)
 	@Override
 	public MembersVO selectByEmailAndPassword(String email, String password) {
@@ -265,7 +330,7 @@ public class MembersDAO implements MembersDAO_interface{
 				memberBean.setMobile(rs.getString("MOBILE"));
 				memberBean.setPhone(rs.getString("PHONE"));
 				memberBean.setAddress(rs.getString("ADDRESS"));
-				memberBean.setDate(rs.getDate("DATE"));
+				memberBean.setTimestamp(rs.getTimestamp("DATE"));
 				memberBean.setEmail(rs.getString("EMAIL"));
 				memberBean.setPassword(rs.getString("PASSWORD"));
 				memberBean.setNickname(rs.getString("NICKNAME"));
@@ -320,7 +385,7 @@ public class MembersDAO implements MembersDAO_interface{
 				memberBean.setMobile(rs.getString("MOBILE"));
 				memberBean.setPhone(rs.getString("PHONE"));
 				memberBean.setAddress(rs.getString("ADDRESS"));
-				memberBean.setDate(rs.getDate("DATE"));
+				memberBean.setTimestamp(rs.getTimestamp("DATE"));
 				memberBean.setEmail(rs.getString("EMAIL"));
 				memberBean.setPassword(rs.getString("PASSWORD"));
 				memberBean.setNickname(rs.getString("NICKNAME"));
