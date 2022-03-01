@@ -43,8 +43,11 @@ public class DBGifReader extends HttpServlet {
 				SERVICE = new ProductService();
 				Context ctx =new InitialContext();
 				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TFA105G3TestDB");
-				
+				con = ds.getConnection();
 			} catch (NamingException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
 	}
@@ -59,7 +62,7 @@ public class DBGifReader extends HttpServlet {
 		
 		
 			try {
-				con = ds.getConnection();
+				
 				pstmt = con.prepareStatement(GET_PIC_by_IMGId);
 				pstmt.setInt(1, Integer.parseInt(req.getParameter("aa")));
 				rs = pstmt.executeQuery();
@@ -71,12 +74,14 @@ public class DBGifReader extends HttpServlet {
 					while ((len = in.read(buf)) != -1) {
 						out.write(buf, 0, len);
 					}
+					out.flush();
 					in.close();
 				} else {
 					InputStream in = getServletContext().getResourceAsStream("nest-frontend/assets/imgs/noPic.jpg");
 					byte[] b = new byte[in.available()];
 					in.read(b);
 					out.write(b);
+					out.flush();
 					in.close();
 				}
 				rs.close();
@@ -86,11 +91,12 @@ public class DBGifReader extends HttpServlet {
 			} catch (Exception e) {
 				InputStream in = getServletContext().getResourceAsStream("nest-frontend/assets/imgs/noPic.jpg");
 				byte[] b = new byte[in.available()];
+				System.out.println(e+"look DBG91");
 				in.read(b);
 				out.write(b);
+				out.flush();
 				in.close();
 				e.printStackTrace();
-				System.out.println(e+"haah");
 			}
 		}
 
@@ -99,6 +105,7 @@ public class DBGifReader extends HttpServlet {
 			if (con != null)
 				con.close();
 		} catch (SQLException e) {
+			System.out.println(e+" look DBG105");
 			System.out.println(e);
 		}
 	}

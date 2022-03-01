@@ -33,20 +33,21 @@ import com.product.model.ProductService;
 
 public class ProdFirstPic extends HttpServlet {
 	private ProductService SERVICE;
-	private static DataSource ds = null;
 	Connection con;
 
 	public void init() throws ServletException {
 		try {
 				SERVICE = new ProductService();
 				Context ctx =new InitialContext();
-				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TFA105G3TestDB");
-				
+				DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TFA105G3TestDB");
+				con = ds.getConnection();
 			} catch (NamingException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
 				e.printStackTrace();
 			} 
 	}
-	private static final String GET_1stPIC = "SELECT  MER_PIC FROM pet_g3db_tfa105.v_merimg_mer where MER_ID = ? limit 1 ";
+	private static final String GET_1stPIC = "SELECT  MER_NAME,MER_PIC FROM pet_g3db_tfa105.v_merimg_mer where MER_ID = ? limit 1 ";
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
@@ -57,37 +58,42 @@ public class ProdFirstPic extends HttpServlet {
 		
 		
 			try {
-				con = ds.getConnection();
+				
 				pstmt = con.prepareStatement(GET_1stPIC);
 				pstmt.setInt(1, Integer.parseInt(req.getParameter("aa")));
 				rs = pstmt.executeQuery();
 
 				if (rs.next()) {
-					BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("MER_PIC"));
+					BufferedInputStream bufin = new BufferedInputStream(rs.getBinaryStream("MER_PIC"));
 					byte[] buf = new byte[4 * 1024]; // 4K buffer
 					int len;
-					while ((len = in.read(buf)) != -1) {
+					while ((len = bufin.read(buf)) != -1) {
 						out.write(buf, 0, len);
 					}
-					in.close();
+//					System.out.println(rs.getString("MER_NAME")); 
+					out.flush();
+					bufin.close();
 				} else {
 					InputStream in = getServletContext().getResourceAsStream("nest-frontend/assets/imgs/noPic.jpg");
 					byte[] b = new byte[in.available()];
 					in.read(b);
 					out.write(b);
+					out.flush();
 					in.close();
 				}
-				rs.close();
 				pstmt.close();
+				rs.close();
 			}catch (SQLException e) {
 					throw new UnavailableException("Couldn't get db connection");
-			} catch (Exception e) {
+			} catch (IOException e) {
 				InputStream in = getServletContext().getResourceAsStream("nest-frontend/assets/imgs/noPic.jpg");
 				byte[] b = new byte[in.available()];
+//				System.out.println(e+" look PFP 89");
 				in.read(b);
 				out.write(b);
 				in.close();
-				System.out.println(e);
+			}catch (Exception e) {
+				e.printStackTrace(System.err);
 			}
 		}
 
@@ -96,7 +102,7 @@ public class ProdFirstPic extends HttpServlet {
 			if (con != null)
 				con.close();
 		} catch (SQLException e) {
-			System.out.println(e);
+			System.out.println(e + " look PFP104");
 		}
 	}
 
