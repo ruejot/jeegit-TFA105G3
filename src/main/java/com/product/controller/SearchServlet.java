@@ -20,10 +20,8 @@ import com.product.model.ProductVO;
  */
 @WebServlet("/product/SearchServlet")
 public class SearchServlet extends HttpServlet {
-	{
-		
-	}
 	private HomePageService SERVICE;
+
 	public SearchServlet() {
 		SERVICE = new HomePageService();
 	}
@@ -32,27 +30,43 @@ public class SearchServlet extends HttpServlet {
 		res.setContentType("text/html; charset=UTF-8");
 		String action = req.getParameter("action");
 
-//		=========↓ 來自sellerHeader.jsp的請求↓==============
+//		=========↓ 來自userHeader.jsp的請求↓==============
 		if ("search_from_header".equals(action)) {
 			String usersearch = req.getParameter("usersearch");
 			List<ProductVO> searchlist = SERVICE.getAllByProductName(usersearch);
+			Integer counts = SERVICE.getCountsBySearchBox(usersearch);
 			if (searchlist == null) {
 				req.getRequestDispatcher("../nest-frontend/HomePage.jsp").forward(req, res);
-				
+
 			} else {
-				req.setAttribute("searchlist", searchlist);
+				req.setAttribute("counts", counts);
+				req.getSession().setAttribute("searchlist", searchlist);
 				req.setAttribute("usersearch", usersearch);
 				req.getRequestDispatcher("../nest-frontend/ProductGridlist.jsp").forward(req, res);
 			}
 		}
 
-//        =========↓ 來自HomePage.jsp specialClass的請求↓==============
+//        =========↓ 來自HomePage.jsp HomeTag的請求↓==============
 		if ("HomeTag".equals(action)) {
 			String mainCategory = req.getParameter("mainCategory");
 			List<ProductVO> searchlist = SERVICE.getSpecialClassByMainCategory(mainCategory);
-			if (searchlist != null) {
-				req.setAttribute("searchlist", searchlist);
+			Integer counts = SERVICE.getCountsByMainCategory(mainCategory); 
+			if (searchlist != null)  {
+				req.setAttribute("counts", counts);
+				req.getSession().setAttribute("searchlist", searchlist);
 				req.setAttribute("mainCategory", mainCategory);
+				req.getRequestDispatcher("../nest-frontend/ProductGridlist.jsp").forward(req, res);
+			}
+		}
+//        =========↓ 來自HomePage.jsp 特色子類別subcategory的請求↓==============
+		if ("sub".equals(action)) {
+			String subCategory = req.getParameter("subCategory");
+			List<ProductVO> searchlist = SERVICE.getSubCategoryName(subCategory);
+			Integer counts = SERVICE.getCountsBySubCategory(subCategory); 
+			if (searchlist != null) {
+				req.setAttribute("counts", counts);
+				req.setAttribute("searchlist", searchlist);
+				req.setAttribute("subCategory", subCategory);
 				req.getRequestDispatcher("../nest-frontend/ProductGridlist.jsp").forward(req, res);
 			}
 		}

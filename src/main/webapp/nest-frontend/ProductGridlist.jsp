@@ -7,7 +7,9 @@
 <%  
 String usersearch = (String) request.getAttribute("usersearch");
 String mainCategory = (String) request.getAttribute("mainCategory");
-List<ProductVO> searchlist = (List<ProductVO>) request.getAttribute("searchlist");
+String subCategory = (String) request.getAttribute("subCategory");
+Integer counts = (Integer) request.getAttribute("counts");
+List<ProductVO> searchlist = (List<ProductVO>) session.getAttribute("searchlist");
      request.setAttribute("searchlist", searchlist);
 %>
 <%
@@ -15,8 +17,8 @@ ProductService productSvc = new ProductService();
 ProductVO productbean = productSvc.getOneProduct(5);
 pageContext.setAttribute("productbean", productbean);
 
-List<ProductVO> productlist = productSvc.getAll();
-pageContext.setAttribute("productlist", productlist);
+List<ProductVO> list = productSvc.getAll();
+pageContext.setAttribute("list", list);
 
 
 %>
@@ -51,11 +53,11 @@ pageContext.setAttribute("productlist", productlist);
                     <div class="archive-header">
                         <div class="row align-items-center">
                             <div class="col-xl-3">
-                                <h1 class="mb-15">您想找的商品:${usersearch}${mainCategory}</h1>
+                                <h1 class="mb-15">您想找的商品:${usersearch} ${mainCategory} ${subCategory}</h1>
                             </div>
                             <div class="col-xl-9 text-end d-none d-xl-block">
                                 <ul class="tags-list">
-                                <c:forEach var="hashtag" items="${searchlist}" end="3" step="3" >
+                                <c:forEach var="hashtag" items="${searchlist}" end="8" step="2" >
                                     <li class="hover-up">
                                         <a href="blog-category-grid.html"><i class="fi-rs-cross mr-10"></i>${hashtag.name}</a>
                                     </li>
@@ -65,13 +67,12 @@ pageContext.setAttribute("productlist", productlist);
                         </div>
                     </div>
                 </div>
-            </div>
             <div class="container mb-30">
                 <div class="row flex-row-reverse">
                     <div class="col-lg-4-5">
                         <div class="shop-product-fillter">
                             <div class="totall-product">
-                                <p>We found <strong class="text-brand">29</strong> items for you!</p>
+                                <p>We found <strong class="text-brand"> ${counts} </strong> items for you!</p>
                             </div>
                             <div class="sort-by-product-area">
                                 <div class="sort-by-cover mr-10">
@@ -116,244 +117,107 @@ pageContext.setAttribute("productlist", productlist);
                         </div>
                         <!--start product card-->
                         <div class="row product-grid">
+						<!-- 頭 商品列表 -->                   
+							<%@ include file="/pages/Prod_10_page1.file" %>         
+                            <c:forEach var="product" items="${searchlist}" 
+                            		   begin="<%=pageIndex%>" 
+                            		   end="<%=pageIndex+rowsPerPage-1%>">
+								
+								<div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+									<div
+										class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn"
+										data-wow-delay=".1s">
+										<div class="product-img-action-wrap">
+											<div class="product-img product-img-zoom">
+													<a href="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+														<img class="default-img" style="height:266px" 
+															src="<%=request.getContextPath()%>/ProdFirstPic?aa=${product.merid}"/>
+													</a>
+											</div>
+										</div>
+										<div class="product-content-wrap">
+											<div class="product-category">
+												<a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=${product.subCategory}">
+													${product.subCategory}
+												</a>
+											</div>
+											<h2>
+												<a href="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+													${product.name}
+												</a>
+											</h2>
+<!-- 											<div class="product-rate-cover"> -->
+<!-- 												<div class="product-rate d-inline-block"> -->
+<!-- 													<div class="product-rating" style="width: 20%"></div> -->
+<!-- 												</div> -->
+<!-- 												<span class="font-small ml-5 text-muted"> (4.0)</span> -->
+<!-- 											</div> -->
+											<div class="product-card-bottom">
+												<div class="product-price">
+													<span>$ ${product.price}</span>
+												</div>
+												<div class="add-cart">
+													<i class="fi-rs-shopping-cart mr-5">Add</i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+<!-- 尾 商品列表 -->
                             <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                                <div class="product-cart-wrap mb-30">
-                                    <div class="product-img-action-wrap">
-                                        <div class="product-img product-img-zoom">
-                                            <a href="shop-product-right.html">
-                                                <img class="default-img" src="assets/imgs/shop/product-1-1.jpg" alt="" />
-                                                <img class="hover-img" src="assets/imgs/shop/product-1-2.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="product-action-1">
-                                            <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                            <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                            <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                        </div>
-                                        <div class="product-badges product-badges-position product-badges-mrg">
-                                            <span class="hot">Hot</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap">
-                                        <div class="product-category">
-                                            <a href="shop-grid-right.html">Snack</a>
-                                        </div>
-                                        <h2><a href="shop-product-right.html">Seeds of Change Organic Quinoe</a></h2>
-                                        <div class="product-rate-cover">
-                                            <div class="product-rate d-inline-block">
-                                                <div class="product-rating" style="width: 90%"></div>
-                                            </div>
-                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                        </div>
-                                        <div>
-                                            <span class="font-small text-muted">By <a href="vendor-details-1.html">NestFood</a></span>
-                                        </div>
-                                        <div class="product-card-bottom">
-                                            <div class="product-price">
-                                                <span>$28.85</span>
-                                                <span class="old-price">$32.8</span>
-                                            </div>
-                                            <div class="add-cart">
-                                                <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end product card-->
-                            <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                                <div class="product-cart-wrap mb-30">
-                                    <div class="product-img-action-wrap">
-                                        <div class="product-img product-img-zoom">
-                                            <a href="shop-product-right.html">
-                                                <img class="default-img" src="assets/imgs/shop/product-2-1.jpg" alt="" />
-                                                <img class="hover-img" src="assets/imgs/shop/product-2-2.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="product-action-1">
-                                            <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                            <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                            <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                        </div>
-                                        <div class="product-badges product-badges-position product-badges-mrg">
-                                            <span class="sale">Sale</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap">
-                                        <div class="product-category">
-                                            <a href="shop-grid-right.html">Hodo Foods</a>
-                                        </div>
-                                        <h2><a href="shop-product-right.html">All Natural Italian-Style Chicken Meatballs</a></h2>
-                                        <div class="product-rate-cover">
-                                            <div class="product-rate d-inline-block">
-                                                <div class="product-rating" style="width: 80%"></div>
-                                            </div>
-                                            <span class="font-small ml-5 text-muted"> (3.5)</span>
-                                        </div>
-                                        <div>
-                                            <span class="font-small text-muted">By <a href="vendor-details-1.html">Stouffer</a></span>
-                                        </div>
-                                        <div class="product-card-bottom">
-                                            <div class="product-price">
-                                                <span>$52.85</span>
-                                                <span class="old-price">$55.8</span>
-                                            </div>
-                                            <div class="add-cart">
-                                                <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end product card-->
-                            <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                                <div class="product-cart-wrap mb-30">
-                                    <div class="product-img-action-wrap">
-                                        <div class="product-img product-img-zoom">
-                                            <a href="shop-product-right.html">
-                                                <img class="default-img" src="assets/imgs/shop/product-3-1.jpg" alt="" />
-                                                <img class="hover-img" src="assets/imgs/shop/product-3-2.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="product-action-1">
-                                            <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                            <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                            <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                        </div>
-                                        <div class="product-badges product-badges-position product-badges-mrg">
-                                            <span class="new">New</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap">
-                                        <div class="product-category">
-                                            <a href="shop-grid-right.html">Snack</a>
-                                        </div>
-                                        <h2><a href="shop-product-right.html">Angie’s Boomchickapop Sweet & Salty</a></h2>
-                                        <div class="product-rate-cover">
-                                            <div class="product-rate d-inline-block">
-                                                <div class="product-rating" style="width: 85%"></div>
-                                            </div>
-                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                        </div>
-                                        <div>
-                                            <span class="font-small text-muted">By <a href="vendor-details-1.html">StarKist</a></span>
-                                        </div>
-                                        <div class="product-card-bottom">
-                                            <div class="product-price">
-                                                <span>$48.85</span>
-                                                <span class="old-price">$52.8</span>
-                                            </div>
-                                            <div class="add-cart">
-                                                <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end product card-->
-                            <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                                <div class="product-cart-wrap mb-30">
-                                    <div class="product-img-action-wrap">
-                                        <div class="product-img product-img-zoom">
-                                            <a href="shop-product-right.html">
-                                                <img class="default-img" src="assets/imgs/shop/product-4-1.jpg" alt="" />
-                                                <img class="hover-img" src="assets/imgs/shop/product-4-2.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="product-action-1">
-                                            <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                            <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                            <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap">
-                                        <div class="product-category">
-                                            <a href="shop-grid-right.html">Vegetables</a>
-                                        </div>
-                                        <h2><a href="shop-product-right.html">Foster Farms Takeout Crispy Classic</a></h2>
-                                        <div class="product-rate-cover">
-                                            <div class="product-rate d-inline-block">
-                                                <div class="product-rating" style="width: 90%"></div>
-                                            </div>
-                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                        </div>
-                                        <div>
-                                            <span class="font-small text-muted">By <a href="vendor-details-1.html">NestFood</a></span>
-                                        </div>
-                                        <div class="product-card-bottom">
-                                            <div class="product-price">
-                                                <span>$17.85</span>
-                                                <span class="old-price">$19.8</span>
-                                            </div>
-                                            <div class="add-cart">
-                                                <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end product card-->
-                            <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                                <div class="product-cart-wrap mb-30">
-                                    <div class="product-img-action-wrap">
-                                        <div class="product-img product-img-zoom">
-                                            <a href="shop-product-right.html">
-                                                <img class="default-img" src="assets/imgs/shop/product-5-1.jpg" alt="" />
-                                                <img class="hover-img" src="assets/imgs/shop/product-5-2.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="product-action-1">
-                                            <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                            <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                            <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                        </div>
-                                        <div class="product-badges product-badges-position product-badges-mrg">
-                                            <span class="best">-14%</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap">
-                                        <div class="product-category">
-                                            <a href="shop-grid-right.html">Pet Foods</a>
-                                        </div>
-                                        <h2><a href="shop-product-right.html">Blue Diamond Almonds Lightly</a></h2>
-                                        <div class="product-rate-cover">
-                                            <div class="product-rate d-inline-block">
-                                                <div class="product-rating" style="width: 90%"></div>
-                                            </div>
-                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                        </div>
-                                        <div>
-                                            <span class="font-small text-muted">By <a href="vendor-details-1.html">NestFood</a></span>
-                                        </div>
-                                        <div class="product-card-bottom">
-                                            <div class="product-price">
-                                                <span>$23.85</span>
-                                                <span class="old-price">$25.8</span>
-                                            </div>
-                                            <div class="add-cart">
-                                                <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end product card-->
-                            
                         </div>
                         <!--product grid 分頁標籤-->
                         <div class="pagination-area mt-20 mb-20">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-start">
+                            <nav aria-label="Page navigation example" style="text-align:center;">
+                                <ul class="pagination justify-content-start" >
+<!--                                     第一次載入頁面 -->
+                                    <c:if test="${param.action == ('search_from_header' || 'HomeTag' || 'sub')}" var="condition0" scope="session">
+											<li class="page-item active"><a class="page-link">1</a></li>
+                                    		<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=${param.whichPage+2}">2</a></li>
+                                    		<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=${param.whichPage+3}">3</a></li>
+                                    		<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=${param.whichPage+4}">4</a></li>
+                                    		<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=${param.whichPage+5}">5</a></li>
+                                    </c:if>
+<!--                                   第一頁 -->
+                                    <c:if test="${param.whichPage == '1' }" var="condition1" scope="session" > 
+                                        <li class="page-item active"><a class="page-link">${param.whichPage}</a></li>
+                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=2">2</a></li>
+                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=3">3</a></li>
+                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=4">4</a></li>
+                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=5">5</a></li>
+                                    </c:if>
+<!--                                   第二頁 -->
+                                    <c:if test="${param.whichPage == '2' }" var="condition2" scope="session" > 
+             							<li class="page-item">
+             								<a class="page-link"href="<%=request.getRequestURI()%>?whichPage=<%=whichPage-1%>">
+             									<i class="fi-rs-arrow-small-left"></i>
+             								</a>
+             							</li>
+                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=1">1</a></li>
+             							<li class="page-item active"><a class="page-link">${param.whichPage}</a></li>
+                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=3">3</a></li>
+                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=4">4</a></li>
+                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=5">5</a></li>
+             						</c:if>
+<!--                                   第三頁以上 -->
+                                    <c:if test="${param.whichPage >= '3' }" var="condition2" scope="session" > 
+             							<li class="page-item">
+             								<a class="page-link"href="<%=request.getRequestURI()%>?whichPage=<%=whichPage-1%>">
+             									<i class="fi-rs-arrow-small-left"></i>
+             								</a>
+             							</li>
+                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=${param.whichPage-2}">${param.whichPage-2}</a></li>
+                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=${param.whichPage-1}">${param.whichPage-1}</a></li>
+             							<li class="page-item active"><a class="page-link">${param.whichPage}</a></li>
+                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=${param.whichPage+1}">${param.whichPage+1}</a></li>
+                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=${param.whichPage+2}">${param.whichPage+2}</a></li>
+                                    </c:if>
+<!--                                     向右標籤 -->
                                     <li class="page-item">
-                                        <a class="page-link" href="#"><i class="fi-rs-arrow-small-left"></i></a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#"><i class="fi-rs-arrow-small-right"></i></a>
+	                                    <a class="page-link"href="<%=request.getRequestURI()%>?whichPage=<%=whichPage+1%>">
+	                                    	<i class="fi-rs-arrow-small-right"></i> 
+	                                    </a>
                                     </li>
                                 </ul>
                             </nav>
@@ -361,6 +225,7 @@ pageContext.setAttribute("productlist", productlist);
                     </div>
                 </div>
             </div>
+        </div>
         </main>
 	<jsp:include page="/views/footer.jsp" />
 
