@@ -13,7 +13,7 @@ import com.members.model.MembersDAO;
 import com.members.model.MembersDAO_interface;
 import com.members.model.MembersVO;
 
-@WebServlet("/members/MembersDataUpdate")
+@WebServlet("/members/MembersLogin")
 public class MembersLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
