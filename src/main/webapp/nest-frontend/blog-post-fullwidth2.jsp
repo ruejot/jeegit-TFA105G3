@@ -115,7 +115,7 @@ pageContext.setAttribute("list2",list2);
                                         <!--Author box-->
                                         <div class="author-bio p-30 mt-50 border-radius-15 bg-white">
                                             <div class="author-image mb-30">
-                                                <a href="author.html"><img src="assets/imgs/blog/author-1.png" alt="" class="avatar"></a>
+                                                <a href="<%=request.getContextPath()%>/MemBlogArtServlet?action=getMem_For_Display&memberId=${memBlogArtVO.memberId}"><img src="assets/imgs/blog/author-1.png" alt="" class="avatar"></a>
                                                 <div class="author-infor">
                                                     <h5 class="mb-5"><%=membersVOinfo.getName()%></h5>
                                                     <p class="mb-0 text-muted font-xs">

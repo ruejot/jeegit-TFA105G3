@@ -36,7 +36,7 @@ public class MemReplyServlet extends HttpServlet {
 //		if ("upload".equals(action)) {}
 
 		
-		if ("getOne_For_Display".equals(action)) { // ¨Ó¦Ûblog_category-big2.jspªº½Ğ¨D
+		if ("getOne_For_Display".equals(action)) { // ï¿½Ó¦ï¿½blog_category-big2.jspï¿½ï¿½ï¿½Ğ¨D
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -45,15 +45,15 @@ public class MemReplyServlet extends HttpServlet {
 			
 
 			try {
-				/***************************1.±µ¦¬½Ğ¨D°Ñ¼Æ - ¿é¤J®æ¦¡ªº¿ù»~³B²z**********************/
+				/***************************1.ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¨Dï¿½Ñ¼ï¿½ - ï¿½ï¿½Jï¿½æ¦¡ï¿½ï¿½ï¿½ï¿½ï¿½~ï¿½Bï¿½z**********************/
 				
 				Integer artid = Integer.parseInt(req.getParameter("artid"));
 						
-				/***************************2.¶}©l¬d¸ß¸ê®Æ*****************************************/
+				/***************************2.ï¿½}ï¿½lï¿½dï¿½ß¸ï¿½ï¿½*****************************************/
 				MemBlogArtService mbaSvc = new MemBlogArtService();
 				MemBlogArtVO memBlogArtVO = mbaSvc.findByPrimaryKey(artid);
 				if (memBlogArtVO == null) {
-					errorMsgs.add("¬dµL¸ê®Æ");
+					errorMsgs.add("ï¿½dï¿½Lï¿½ï¿½ï¿½");
 				}
 				
 				
@@ -64,18 +64,18 @@ public class MemReplyServlet extends HttpServlet {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/nest-frontend/blog_category-big2.jsp");
 					failureView.forward(req, res);
-					return;//µ{¦¡¤¤Â_
+					return;//ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½_
 				}
 				
-				/***************************3.¬d¸ß§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view)*************/
-				req.setAttribute("memBlogArtVO", memBlogArtVO); // ¸ê®Æ®w¨ú¥XªºempVOª«¥ó,¦s¤Jreq
+				/***************************3.ï¿½dï¿½ß§ï¿½ï¿½ï¿½,ï¿½Ç³ï¿½ï¿½ï¿½ï¿½(Send the Success view)*************/
+				req.setAttribute("memBlogArtVO", memBlogArtVO); // ï¿½ï¿½Æ®wï¿½ï¿½ï¿½Xï¿½ï¿½empVOï¿½ï¿½ï¿½ï¿½,ï¿½sï¿½Jreq
 				String url = "/nest-frontend/blog-post-fullwidth2.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // ¦¨¥\Âà¥æ listOneEmp.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); // ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ listOneEmp.jsp
 				successView.forward(req, res);
 
-				/***************************¨ä¥L¥i¯àªº¿ù»~³B²z*************************************/
+				/***************************ï¿½ï¿½Lï¿½iï¿½àªºï¿½ï¿½ï¿½~ï¿½Bï¿½z*************************************/
 			} catch (Exception e) {
-				errorMsgs.add("µLªk¨ú±o¸ê®Æ:" + e.getMessage());
+				errorMsgs.add("ï¿½Lï¿½kï¿½ï¿½ï¿½oï¿½ï¿½ï¿½:" + e.getMessage());
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/nest-frontend/blog_category-big2.jsp");
 				failureView.forward(req, res);
@@ -84,7 +84,7 @@ public class MemReplyServlet extends HttpServlet {
 //		
 //		
 //
-//		if ("edit".equals(action)) { // ¨Ó¦Ûblog_manage.jspªº½Ğ¨D
+//		if ("edit".equals(action)) { // ï¿½Ó¦ï¿½blog_manage.jspï¿½ï¿½ï¿½Ğ¨D
 //
 //			List<String> errorMsgs = new LinkedList<String>();
 //			// Store this set in the request scope, in case we need to
@@ -92,30 +92,30 @@ public class MemReplyServlet extends HttpServlet {
 //			req.setAttribute("errorMsgs", errorMsgs);
 //
 //			try {
-//				/*************************** 1.±µ¦¬½Ğ¨D°Ñ¼Æ ****************************************/
+//				/*************************** 1.ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¨Dï¿½Ñ¼ï¿½ ****************************************/
 //				Integer artid = new Integer(req.getParameter("artid"));
-////				System.out.println(artid + "¦w¦w");
+////				System.out.println(artid + "ï¿½wï¿½w");
 //				req.setAttribute("artid", artid);
 //
-//				/*************************** 2.¶}©l¬d¸ß¸ê®Æ ****************************************/
+//				/*************************** 2.ï¿½}ï¿½lï¿½dï¿½ß¸ï¿½ï¿½ ****************************************/
 //				MemBlogArtService mbaSvc = new MemBlogArtService();
 //				MemBlogArtVO memBlogArtVO = mbaSvc.findByPrimaryKey(artid);
 //
-//				/*************************** 3.¬d¸ß§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view) ************/
-//				req.setAttribute("memBlogArtVO", memBlogArtVO); // ¸ê®Æ®w¨ú¥XªºempVOª«¥ó,¦s¤Jreq
+//				/*************************** 3.ï¿½dï¿½ß§ï¿½ï¿½ï¿½,ï¿½Ç³ï¿½ï¿½ï¿½ï¿½(Send the Success view) ************/
+//				req.setAttribute("memBlogArtVO", memBlogArtVO); // ï¿½ï¿½Æ®wï¿½ï¿½ï¿½Xï¿½ï¿½empVOï¿½ï¿½ï¿½ï¿½,ï¿½sï¿½Jreq
 //				String url = "/views/blog_edit-article.jsp";
-//				RequestDispatcher successView = req.getRequestDispatcher(url);// ¦¨¥\Âà¥æ update_emp_input.jsp
+//				RequestDispatcher successView = req.getRequestDispatcher(url);// ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ update_emp_input.jsp
 //				successView.forward(req, res);
 //
-//				/*************************** ¨ä¥L¥i¯àªº¿ù»~³B²z **********************************/
+//				/*************************** ï¿½ï¿½Lï¿½iï¿½àªºï¿½ï¿½ï¿½~ï¿½Bï¿½z **********************************/
 //			} catch (Exception e) {
-//				errorMsgs.add("µLªk¨ú±o­n­×§ïªº¸ê®Æ:" + e.getMessage());
+//				errorMsgs.add("ï¿½Lï¿½kï¿½ï¿½ï¿½oï¿½nï¿½×§ïªºï¿½ï¿½ï¿½:" + e.getMessage());
 //				RequestDispatcher failureView = req.getRequestDispatcher("/views/blog_manage.jsp");
 //				failureView.forward(req, res);
 //			}
 //		}
 //
-//		if ("update".equals(action)) { // ¨Ó¦Ûblog_edit-article.jspªº½Ğ¨D
+//		if ("update".equals(action)) { // ï¿½Ó¦ï¿½blog_edit-article.jspï¿½ï¿½ï¿½Ğ¨D
 //
 //			System.out.println("12345");
 //			List<String> errorMsgs = new LinkedList<String>();
@@ -124,20 +124,20 @@ public class MemReplyServlet extends HttpServlet {
 //			req.setAttribute("errorMsgs", errorMsgs);
 //
 //			try {
-////				/***************************1.±µ¦¬½Ğ¨D°Ñ¼Æ - ¿é¤J®æ¦¡ªº¿ù»~³B²z**********************/
+////				/***************************1.ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¨Dï¿½Ñ¼ï¿½ - ï¿½ï¿½Jï¿½æ¦¡ï¿½ï¿½ï¿½ï¿½ï¿½~ï¿½Bï¿½z**********************/
 //
 //				String title = req.getParameter("title");
 //				if (title == null || title.trim().length() == 0) {
-//					errorMsgs.add("¤å³¹¼ĞÃD: ½Ğ¤ÅªÅ¥Õ");
+//					errorMsgs.add("ï¿½å³¹ï¿½ï¿½ï¿½D: ï¿½Ğ¤ÅªÅ¥ï¿½");
 //				} else if (title.trim().length() >= 100) {
-//					errorMsgs.add("¤å³¹¼ĞÃD: ½Ğ¤Å¿é¤J¶W¹L100­Ó¦r¤¸");
+//					errorMsgs.add("ï¿½å³¹ï¿½ï¿½ï¿½D: ï¿½Ğ¤Å¿ï¿½Jï¿½Wï¿½L100ï¿½Ó¦rï¿½ï¿½");
 //				}
 //
 //				String content = req.getParameter("content");
 //				if (content == null || content.trim().length() == 0) {
-//					errorMsgs.add("¤å³¹¤º®e: ½Ğ¤ÅªÅ¥Õ");
+//					errorMsgs.add("ï¿½å³¹ï¿½ï¿½ï¿½e: ï¿½Ğ¤ÅªÅ¥ï¿½");
 //				} else if (content.trim().length() >= 1000) {
-//					errorMsgs.add("¤å³¹¤º®e: ½Ğ¤Å¿é¤J¶W¹L1000­Ó¦r¤¸");
+//					errorMsgs.add("ï¿½å³¹ï¿½ï¿½ï¿½e: ï¿½Ğ¤Å¿ï¿½Jï¿½Wï¿½L1000ï¿½Ó¦rï¿½ï¿½");
 //				}
 //
 //				Timestamp posttime = new Timestamp(System.currentTimeMillis());
@@ -155,35 +155,35 @@ public class MemReplyServlet extends HttpServlet {
 //							
 //
 //				if (!errorMsgs.isEmpty()) {
-//					req.setAttribute("memBlogArtVO", memBlogArtVO); // §t¦³¿é¤J®æ¦¡¿ù»~ªºmemBlogArtVOª«¥ó,¤]¦s¤Jreq
+//					req.setAttribute("memBlogArtVO", memBlogArtVO); // ï¿½tï¿½ï¿½ï¿½ï¿½Jï¿½æ¦¡ï¿½ï¿½ï¿½~ï¿½ï¿½memBlogArtVOï¿½ï¿½ï¿½ï¿½,ï¿½]ï¿½sï¿½Jreq
 //					RequestDispatcher failureView = req.getRequestDispatcher("/views/blog_edit-article.jsp");
 //					failureView.forward(req, res);
-//					return; // µ{¦¡¤¤Â_
+//					return; // ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½_
 //				}
 //
-////				/***************************2.¶}©l­×§ï¸ê®Æ*****************************************/
+////				/***************************2.ï¿½}ï¿½lï¿½×§ï¿½ï¿½ï¿½*****************************************/
 //
 //				MemBlogArtService mbaSvc = new MemBlogArtService();
 //				memBlogArtVO = mbaSvc.updateBlog(title, posttime, content, artid);
 //
-////				/***************************3.­×§ï§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view)*************/
-//				req.setAttribute("memBlogArtVO", memBlogArtVO); // ¸ê®Æ®wupdate¦¨¥\«á,¥¿½TªºªºempVOª«¥ó,¦s¤Jreq
+////				/***************************3.ï¿½×§ï§¹ï¿½ï¿½,ï¿½Ç³ï¿½ï¿½ï¿½ï¿½(Send the Success view)*************/
+//				req.setAttribute("memBlogArtVO", memBlogArtVO); // ï¿½ï¿½Æ®wupdateï¿½ï¿½ï¿½\ï¿½ï¿½,ï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½ï¿½empVOï¿½ï¿½ï¿½ï¿½,ï¿½sï¿½Jreq
 //				String url = "/views/blog_manage.jsp";
-//				RequestDispatcher successView = req.getRequestDispatcher(url); // ­×§ï¦¨¥\«á,Âà¥ælistOneEmp.jsp
+//				RequestDispatcher successView = req.getRequestDispatcher(url); // ï¿½×§ï¦¨ï¿½\ï¿½ï¿½,ï¿½ï¿½ï¿½listOneEmp.jsp
 //				successView.forward(req, res);
 //
-////				/***************************¨ä¥L¥i¯àªº¿ù»~³B²z*************************************/
+////				/***************************ï¿½ï¿½Lï¿½iï¿½àªºï¿½ï¿½ï¿½~ï¿½Bï¿½z*************************************/
 //			} catch (Exception e) {
-//				errorMsgs.add("­×§ï¸ê®Æ¥¢±Ñ:" + e.getMessage());
+//				errorMsgs.add("ï¿½×§ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½:" + e.getMessage());
 //				RequestDispatcher failureView = req.getRequestDispatcher("/views/blog_edit-article.jsp");
 //				failureView.forward(req, res);
 //				e.printStackTrace();
 //			}
 //		}
 //
-//--------------------------------------·s¼W¯d¨¥--------------------------------------------
+//--------------------------------------ï¿½sï¿½Wï¿½dï¿½ï¿½--------------------------------------------
 
-		if ("insert".equals(action)) { //blog-post-fullwidth2.jspªº½Ğ¨D
+		if ("insert".equals(action)) { //blog-post-fullwidth2.jspï¿½ï¿½ï¿½Ğ¨D
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -191,20 +191,20 @@ public class MemReplyServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 //			try {
-				/*********************** 1.±µ¦¬½Ğ¨D°Ñ¼Æ - ¿é¤J®æ¦¡ªº¿ù»~³B²z *************************/
+				/*********************** 1.ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¨Dï¿½Ñ¼ï¿½ - ï¿½ï¿½Jï¿½æ¦¡ï¿½ï¿½ï¿½ï¿½ï¿½~ï¿½Bï¿½z *************************/
 
 				Integer reArtId = Integer.valueOf(req.getParameter("reArtId"));
 				
-				System.out.println(reArtId+"¦^À³ªºµ{¦¡");
+				System.out.println(reArtId+"ç•™è¨€");
 				
-				// TODO µ¥¨ì¾ã¦X®É¥Îsession¨ú±oµn¤JªÌªºmemberId¦A¶ë¶i¥h!
-				Integer reMemberId = 1;
+				// ç”¨sessionæ‹¿memberID
+				Integer reMemberId = Integer.valueOf(req.getParameter("reMemberId"));
 				
 				String re = req.getParameter("re");
 				if (re == null || re.trim().length() == 0) {
-					errorMsgs.add("¯d¨¥¤º®e: ½Ğ¤ÅªÅ¥Õ");
+					errorMsgs.add("è«‹è¼¸å…¥ç•™è¨€å…§å®¹");
 				} else if (re.trim().length() >= 255) {
-					errorMsgs.add("¯d¨¥¤º®e: ½Ğ¤Å¿é¤J¶W¹L255­Ó¦r¤¸");
+					errorMsgs.add("è«‹å‹¿è¼¸å…¥è¶…é255å€‹å­—å…ƒ");
 				}
 				
 				System.out.println(re);
@@ -224,29 +224,29 @@ public class MemReplyServlet extends HttpServlet {
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("memReplyVO", memReplyVO); // §t¦³¿é¤J®æ¦¡¿ù»~ªºempVOª«¥ó,¤]¦s¤Jreq
+					req.setAttribute("memReplyVO", memReplyVO); // ï¿½tï¿½ï¿½ï¿½ï¿½Jï¿½æ¦¡ï¿½ï¿½ï¿½~ï¿½ï¿½empVOï¿½ï¿½ï¿½ï¿½,ï¿½]ï¿½sï¿½Jreq
 					RequestDispatcher failureView = req.getRequestDispatcher("/nest-frontend/blog-post-fullwidth2.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 
-				/*************************** 2.¶}©l·s¼W¸ê®Æ ***************************************/
+				/*************************** 2.ï¿½}ï¿½lï¿½sï¿½Wï¿½ï¿½ï¿½ ***************************************/
 				MemReplyService mrsSvc = new MemReplyService();
 				memReplyVO = mrsSvc.addRe(reArtId, reMemberId, re, time);
 				
-				/*************************** 3.·s¼W§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view) ***********/
+				/*************************** 3.ï¿½sï¿½Wï¿½ï¿½ï¿½ï¿½,ï¿½Ç³ï¿½ï¿½ï¿½ï¿½(Send the Success view) ***********/
 				MemBlogArtService mbaSvc = new MemBlogArtService();
 				MemBlogArtVO memBlogArtVO = mbaSvc.findByPrimaryKey(reArtId);
 				req.setAttribute("memBlogArtVO", memBlogArtVO);
 				
-				System.out.println(memBlogArtVO+"¦L¥XVO");
+				System.out.println(memBlogArtVO+"ï¿½Lï¿½XVO");
 				
 				String url = "/nest-frontend/blog-post-fullwidth2.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // ·s¼W¦¨¥\«áÂà¥ælistAllEmp.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); // ï¿½sï¿½Wï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½listAllEmp.jsp
 				successView.forward(req, res);
 //				res.sendRedirect(url);
 
-//				/*************************** ¨ä¥L¥i¯àªº¿ù»~³B²z **********************************/
+//				/*************************** ï¿½ï¿½Lï¿½iï¿½àªºï¿½ï¿½ï¿½~ï¿½Bï¿½z **********************************/
 //			} catch (Exception e) {
 //				errorMsgs.add(e.getMessage());
 //				RequestDispatcher failureView = req.getRequestDispatcher("/nest-frontend/blog-post-fullwidth2.jsp");
@@ -254,11 +254,11 @@ public class MemReplyServlet extends HttpServlet {
 //			}
 		}
 
-//--------------------------------------·s¼W¯d¨¥µ²§ô--------------------------------------------        
+//--------------------------------------ï¿½sï¿½Wï¿½dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--------------------------------------------        
 //
-////---------------------------------------§R°£¤å³¹--------------------------------------------        
+////---------------------------------------ï¿½Rï¿½ï¿½ï¿½å³¹--------------------------------------------        
 //
-//		if ("delete".equals(action)) { // ¨Ó¦Ûblog_manage.jsp
+//		if ("delete".equals(action)) { // ï¿½Ó¦ï¿½blog_manage.jsp
 //
 //			List<String> errorMsgs = new LinkedList<String>();
 //			// Store this set in the request scope, in case we need to
@@ -267,28 +267,28 @@ public class MemReplyServlet extends HttpServlet {
 //			System.out.println("yeah");
 //
 //			try {
-//				/*************************** 1.±µ¦¬½Ğ¨D°Ñ¼Æ ***************************************/
+//				/*************************** 1.ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¨Dï¿½Ñ¼ï¿½ ***************************************/
 //				Integer artid = Integer.valueOf(req.getParameter("artid"));
 //
-//				/*************************** 2.¶}©l§R°£¸ê®Æ ***************************************/
+//				/*************************** 2.ï¿½}ï¿½lï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½ ***************************************/
 //				MemBlogArtService mbaSvc = new MemBlogArtService();
 //				mbaSvc.delete(artid);
 //
-//				/*************************** 3.§R°£§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view) ***********/
+//				/*************************** 3.ï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½Ç³ï¿½ï¿½ï¿½ï¿½(Send the Success view) ***********/
 //				String url = "nest-backend/blog_manage.jsp";
-////				RequestDispatcher successView = req.getRequestDispatcher(url);// §R°£¦¨¥\«á,Âà¥æ¦^°e¥X§R°£ªº¨Ó·½ºô­¶
+////				RequestDispatcher successView = req.getRequestDispatcher(url);// ï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½,ï¿½ï¿½ï¿½^ï¿½eï¿½Xï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½Ó·ï¿½ï¿½ï¿½ï¿½ï¿½
 ////				successView.forward(req, res);
 //				res.sendRedirect(url);
 //
-//				/*************************** ¨ä¥L¥i¯àªº¿ù»~³B²z **********************************/
+//				/*************************** ï¿½ï¿½Lï¿½iï¿½àªºï¿½ï¿½ï¿½~ï¿½Bï¿½z **********************************/
 //			} catch (Exception e) {
-//				errorMsgs.add("§R°£¸ê®Æ¥¢±Ñ:" + e.getMessage());
+//				errorMsgs.add("ï¿½Rï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½:" + e.getMessage());
 //				RequestDispatcher failureView = req.getRequestDispatcher("/views/blog_manage.jsp");
 //				failureView.forward(req, res);
 //			}
 //		}
 //
-////--------------------------------------§R°£¤å³¹µ²§ô--------------------------------------------        
+////--------------------------------------ï¿½Rï¿½ï¿½ï¿½å³¹ï¿½ï¿½ï¿½ï¿½--------------------------------------------        
 //
 	}
 

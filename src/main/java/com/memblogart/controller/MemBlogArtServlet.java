@@ -16,6 +16,7 @@ import javax.servlet.http.*;
 import com.memartpic.model.MemArtPicService;
 import com.memartpic.model.MemArtPicVO;
 import com.members.model.MembersService;
+import com.members.model.MembersVO;
 import com.memblogart.model.*;
 import com.memreply.model.MemReplyService;
 import com.memreply.model.MemReplyVO;
@@ -39,6 +40,60 @@ public class MemBlogArtServlet extends HttpServlet {
 
 //		if ("upload".equals(action)) {}
 
+		//查詢blog個人資料
+		if ("getMem_For_Display".equals(action)) { // 來自page-user-detail.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				
+				Integer memberId = Integer.parseInt(req.getParameter("memberId"));
+				
+				
+				/***************************2.開始查詢資料*****************************************/
+				MembersService memSvc = new MembersService();
+				MembersVO membersVO = memSvc.select(memberId);
+//				
+//				MemReplyService mrSvc = new MemReplyService();
+//				List<MemReplyVO> memReplyVO = mrSvc.getAllByArtId(reArtId);
+//				
+				if (membersVO == null) {
+					errorMsgs.add("查無資料");
+				}
+//				
+//				if (memReplyVO == null) {
+//					errorMsgs.add("查無資料");
+//				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/nest-backend/page-user-detail.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("membersVO", membersVO); // 資料庫取出的empVO物件,存入req
+				String url = "/nest-backend/page-user-detail.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 blog-post-fullwidth2.jsp
+				successView.forward(req, res);
+
+				/***************************其他可能的錯誤處理*************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/nest-backend/page-user-detail.jsp");
+				failureView.forward(req, res);
+			}
+		}
+
+		
+		
+		
 		
 		if ("getOne_For_Display".equals(action)) { // 來自blog_category-big2.jsp的請求
 
@@ -61,8 +116,6 @@ public class MemBlogArtServlet extends HttpServlet {
 				
 				MemReplyService mrSvc = new MemReplyService();
 				List<MemReplyVO> memReplyVO = mrSvc.getAllByArtId(reArtId);
-				
-				System.out.println(memReplyVO);	
 				
 				
 				if (memBlogArtVO == null) {

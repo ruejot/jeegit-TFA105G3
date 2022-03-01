@@ -5,13 +5,16 @@
 <%@ page import="com.members.model.*" %>
 
 <% 
-
+MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 // MembersVO membersVO = (MembersVO) session.getAttribute("MemberUsing");
 
 MemBlogArtService artSvc=new MemBlogArtService(); 
 //使用session取值再做所有使用者發文的查詢
 List<MemBlogArtVO> list = artSvc.getAllByMember(1);
 pageContext.setAttribute("list",list);
+
+
+
 
 %>
 
@@ -50,18 +53,18 @@ pageContext.setAttribute("list",list);
                             </div>
                             <!--  col.// -->
                             <div class="col-xl col-lg">
-                                <h3>Noodles Co.</h3>
-                                <p>3891 Ranchview Dr. Richardson, California 62639</p>
+                                <h3>使用者名稱</h3>
+<!--                                 <p>使用者簡介</p> -->
                             </div>
                             <!--  col.// -->
                             <div class="col-xl-4 text-md-end">
-                                <select class="form-select w-auto d-inline-block">
-                                    <option>Actions</option>
-                                    <option>Disable shop</option>
-                                    <option>Analyze</option>
-                                    <option>Something</option>
-                                </select>
-                                <a href="#" class="btn btn-primary"> View live <i class="material-icons md-person_add"></i> </a>
+<!--                                 <select class="form-select w-auto d-inline-block"> -->
+<!--                                     <option>Actions</option> -->
+<!--                                     <option>Disable shop</option> -->
+<!--                                     <option>Analyze</option> -->
+<!--                                     <option>Something</option> -->
+<!--                                 </select> -->
+                                <a href="#" class="btn btn-primary"> 追蹤此用戶 <i class="material-icons md-person_add"></i> </a>
                             </div>
                             <!--  col.// -->
                         </div>
@@ -70,15 +73,15 @@ pageContext.setAttribute("list",list);
                         <div class="row g-4">
                             <div class="col-md-12 col-lg-4 col-xl-2">
                                 <article class="box">
-                                    <p class="mb-0 text-muted">Total sales:</p>
+                                    <p class="mb-0 text-muted">總發文數:</p>
                                     <h5 class="text-success">238</h5>
-                                    <p class="mb-0 text-muted">Revenue:</p>
-                                    <h5 class="text-success mb-0">$2380</h5>
+                                    <p class="mb-0 text-muted">總收到的愛心數:</p>
+                                    <h5 class="text-success mb-0">2380</h5>
                                 </article>
                             </div>
                             <!--  col.// -->
                             <div class="col-sm-6 col-lg-4 col-xl-3">
-                                <h6>Contacts</h6>
+                                <h6>Information</h6>
                                 <p>
                                     貓主子的奴才們歡迎追蹤哦 <br />
                                     FB粉專:__________ <br />
@@ -87,7 +90,7 @@ pageContext.setAttribute("list",list);
                             </div>
                             <!--  col.// -->
                             <div class="col-sm-6 col-lg-4 col-xl-3">
-                                <h6>Address</h6>
+                                <h6>Contacts</h6>
                                 <p>
                                     Country: California <br />
                                     Address: Ranchview Dr. Richardson <br />
@@ -114,7 +117,7 @@ pageContext.setAttribute("list",list);
                                     <div class="col col-check flex-grow-0">
                                     </div>
                                     <div class="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
-                                        <a class="itemside" href="#">
+                                        <a class="itemside" href="<%=request.getContextPath()%>/MemBlogArtServlet?action=getOne_For_Display&artid=${memBlogArtVO.artid}">
                                             <div class="left">
                                                 <img src="<%= request.getContextPath() %>/GetPic?blArtPicId=${memBlogArtVO.artid}" class="img-sm img-thumbnail" alt="Item" />
                                             </div>
