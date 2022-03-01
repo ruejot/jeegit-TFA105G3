@@ -53,10 +53,10 @@ List<OrderVO> list = (List<OrderVO>)session.getAttribute("list");
 						<div class="col-md-2 col-6">
 							<select class="form-select" id="mySelector">
 								<option selected>訂單狀態</option>
-								<option>處理中</option>
-								<option>配送中</option>
-								<option>已完成</option>
-								<option>已取消</option>
+								<option value="1">處理中</option>
+								<option value="2">配送中</option>
+								<option value="3">已完成</option>
+								<option value="4">已取消</option>
 							</select>
 						</div>
 					</div>
@@ -86,7 +86,7 @@ List<OrderVO> list = (List<OrderVO>)session.getAttribute("list");
                                         <td><b>${memberSvc.select(orderVO.memberId).name}</b></td>
                                         <td>${memberSvc.select(orderVO.memberId).email}</td>
                                         <td>$${orderVO.orderSum}</td>              
-                                        <td>
+                                        <td class="col2">
                                         <span class="badge rounded-pill alert-warning"><c:if test="${orderVO.orderStatus == 1}">處理中</c:if></span>
                                         <span class="badge rounded-pill alert-warning"><c:if test="${orderVO.orderStatus == 2}">配送中</c:if></span>
                                         <span class="badge rounded-pill alert-warning"><c:if test="${orderVO.orderStatus == 3}">已完成</c:if></span>
@@ -136,6 +136,10 @@ List<OrderVO> list = (List<OrderVO>)session.getAttribute("list");
 	    
 	});
 	
+	
+
+
+
 	</script>
 </body>
 </html>
