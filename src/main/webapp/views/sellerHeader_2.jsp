@@ -21,7 +21,7 @@
 			<div class="container">
 				<div class="header-wrap">
 					<div class="logo logo-width-1">
-						<a href="index.html"><img
+						<a href="<%=request.getContextPath()%>/nest-frontend/HomePage.jsp"><img
 							src="<%=request.getContextPath()%>/assets/imgs/theme/logo_Petting.svg" alt="logo" /></a>
 					</div>
 					<div class="header-right">
@@ -54,22 +54,18 @@
 									<i class="far fa-folder-open fa-lg mr-10" style="color: black"></i>訂單管理</span></a>
 								</div>
 								<div class="header-action-icon-2">
-									<a href="page-account.html"> 
+									<a>
 									<img class="svgInject" alt="Account" src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-user.svg" />
-									</a> <a href="page-account.html"><span class="lable ml-0">會員中心</span></a>
+									</a> <a><span class="lable ml-0">合作廠商</span></a>
 									<div
 										class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
 										<ul>
-											<li><a href="page-account.html">
-											<i class="fi fi-rs-user mr-10"></i>我的商店</a></li>
-											<li><a href="page-account.html">
-											<i class="fas fa-hotdog mr-10"></i>商品管理</a></li>
-											<li><a href="shop-wishlist.html">
-											<i class="far fa-folder-open mr-10"></i>訂單管理</a></li>
-											<li><a href="page-account.html">
-											<i class="fi fi-rs-settings-sliders mr-10"></i>帳戶設定</a></li>
-											<li><a href="page-login.html">
-											<i class="fi fi-rs-sign-out mr-10"></i>會員登出</a></li>
+											<li><a href="<%=request.getContextPath()%>/nest-frontend/memberCenter.jsp">
+											<i class="fi fi-rs-user mr-10"></i>會員中心</a></li>
+											<li><a href="<%=request.getContextPath()%>/nest-frontend/fendshop_mainpage.jsp">
+											<i class="fi fi-rs-settings-sliders mr-10"></i>我的商店</a></li>
+											<li><a href="<%=request.getContextPath()%>/Bus/BusLogout?action=logout">
+											<i class="fi fi-rs-sign-out mr-10"></i>廠商登出</a></li>
 										</ul>
 									</div>
 								</div>
