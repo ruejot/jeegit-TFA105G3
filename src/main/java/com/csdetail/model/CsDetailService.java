@@ -13,13 +13,15 @@ public class CsDetailService {
 //Integer caseid, Integer memberid, Integer busid, java.sql.Date casetime, String feedback, Integer replystatus, String replycontent, java.sql.Date replytime
 	
 	public CsDetailVO insertCsDetail(Integer memberid
-			, Integer busid, java.sql.Date casetime, String feedback
+			, Integer busid, Integer merid, Integer orderid, java.sql.Date casetime, String feedback
 			, Integer replystatus, String replycontent, java.sql.Date replytime) {
 		
 		CsDetailVO csDetailBean = new CsDetailVO();
 		
 		csDetailBean.setMemberid(memberid);
 		csDetailBean.setBusid(busid);
+		csDetailBean.setMerid(merid);
+		csDetailBean.setOrderid(orderid);
 		csDetailBean.setCasetime(casetime);
 		csDetailBean.setFeedback(feedback);
 		csDetailBean.setReplystatus(replystatus);
@@ -31,7 +33,7 @@ public class CsDetailService {
 	}
 	
 	public CsDetailVO updateCsDetail(Integer caseid, Integer memberid, 
-			Integer busid, java.sql.Date casetime, String feedback, 
+			Integer busid, Integer merid, Integer orderid, java.sql.Date casetime, String feedback, 
 			Integer replystatus, String replycontent, java.sql.Date replytime) {
 		
 		CsDetailVO csDetailBean = new CsDetailVO();
@@ -39,6 +41,8 @@ public class CsDetailService {
 		csDetailBean.setCaseid(caseid);
 		csDetailBean.setMemberid(memberid);
 		csDetailBean.setBusid(busid);
+		csDetailBean.setMerid(merid);
+		csDetailBean.setOrderid(orderid);
 		csDetailBean.setCasetime(casetime);
 		csDetailBean.setFeedback(feedback);
 		csDetailBean.setReplystatus(replystatus);
@@ -56,9 +60,17 @@ public class CsDetailService {
 	public CsDetailVO selectByCaseId(Integer caseid) {
 		return dao.selectByCaseId(caseid);
 	}
-
+	
 	public List<CsDetailVO> selectAll() {
 		return dao.selectAll();
+	}
+
+	public List<CsDetailVO> selectCsDetailListByMemberid(Integer memberid) {
+		return dao.selectCsDetailListByMemberid(memberid);
+	}
+	
+	public List<CsDetailVO> selectCsDetailListByBusid(Integer busid) {
+		return dao.selectCsDetailListByBusid(busid);
 	}
 	
 }
