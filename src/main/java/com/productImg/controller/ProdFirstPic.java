@@ -70,7 +70,7 @@ public class ProdFirstPic extends HttpServlet {
 					while ((len = bufin.read(buf)) != -1) {
 						out.write(buf, 0, len);
 					}
-					System.out.println(rs.getString("MER_NAME")); 
+//					System.out.println(rs.getString("MER_NAME")); 
 					out.flush();
 					bufin.close();
 				} else {
@@ -88,7 +88,7 @@ public class ProdFirstPic extends HttpServlet {
 			} catch (IOException e) {
 				InputStream in = getServletContext().getResourceAsStream("nest-frontend/assets/imgs/noPic.jpg");
 				byte[] b = new byte[in.available()];
-				System.out.println(e+" look PFP 89");
+//				System.out.println(e+" look PFP 89");
 				in.read(b);
 				out.write(b);
 				in.close();

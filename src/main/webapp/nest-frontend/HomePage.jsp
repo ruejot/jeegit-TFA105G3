@@ -72,128 +72,117 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 					class="slider-arrow slider-arrow-2 flex-right carausel-10-columns-arrow"
 					id="carausel-10-columns-arrows"></div>
 			</div>
-			
+	<!--特色子類別 -->
 			<div class="carausel-10-columns-cover position-relative">
 				<div class="carausel-10-columns" id="carausel-10-columns">
 					<div class="card-2 bg-9 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".1s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img
-								src="<%=request.getContextPath()%>/assets/imgs/shop/罐頭.png" alt="" /></a>
+							<a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=貓犬飼料">
+							<img style="height:80px"
+								 src="<%=request.getContextPath()%>/assets/imgs/shop/罐頭.png" alt="" /></a>
 						</figure>
-						<h6>
-                            <a href="shop-grid-left.html">貓犬飼料</a>
-						</h6>
+								<h6>貓犬飼料</h6>
 						<span>${homePageSVC.getCountsBySubCategory('貓犬飼料')} items</span>
 					</div>
 					<div class="card-2 bg-10 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".2s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img style="height:80px"
-								src="<%=request.getContextPath()%>/assets/imgs/shop/魚飼料.png" alt="" /></a>
+							<a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=魚蝦飼料">
+							<img style="height:80px" 
+								 src="<%=request.getContextPath()%>/assets/imgs/shop/魚飼料.png" alt="" /></a>
 						</figure>
-						<h6>
-							<a href="shop-grid-left.html">魚蝦飼料</a>
-						</h6>
+						<h6>魚蝦飼料</h6>
 						<span>${homePageSVC.getCountsBySubCategory('魚蝦飼料')} items</span>
 					</div>
 					<div class="card-2 bg-11 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".3s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img style="height:80px"
-								src="<%=request.getContextPath()%>/assets/imgs/shop/貓抓板.png" alt="" /></a>
+							<a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=貓抓板">
+							<img style="height:80px"
+								 src="<%=request.getContextPath()%>/assets/imgs/shop/貓抓板.png" alt="" /></a>
 						</figure>
-						<h6>
-							<a href="shop-grid-left.html">貓抓板</a>
-						</h6>
+						<h6>貓抓板</h6>
 						<span>${homePageSVC.getCountsBySubCategory('貓抓板')} items</span>
 					</div>
 					<div class="card-2 bg-12 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".4s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img style="height:80px"
-								src="<%=request.getContextPath()%>/assets/imgs/shop/牽繩.png" alt="" /></a>
+							<a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=外出牽繩">
+							<img style="height:80px"
+								 src="<%=request.getContextPath()%>/assets/imgs/shop/牽繩.png" alt="" /></a>
 						</figure>
-						<h6>
-							<a href="shop-grid-left.html">外出牽繩</a>
-						</h6>
+						<h6>外出牽繩</h6>
 						<span>${homePageSVC.getCountsBySubCategory('外出牽繩')} items</span>
 					</div>
 					<div class="card-2 bg-13 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".5s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img style="height:80px"
-								src="<%=request.getContextPath()%>/assets/imgs/shop/狗零食.png" alt="" /></a>
+							<a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=零食點心">
+							<img style="height:80px"
+								 src="<%=request.getContextPath()%>/assets/imgs/shop/狗零食.png" alt="" /></a>
 						</figure>
-						<h6>
-							<a href="shop-grid-left.html">零食點心</a>
-						</h6>
+						<h6>零食點心</h6>
 						<span>${homePageSVC.getCountsBySubCategory('零食點心')} items</span>
 					</div>
 					<div class="card-2 bg-14 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".6s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="ShopProductPage.jsp"><img style="height:80px"
-								src="<%=request.getContextPath()%>/assets/imgs/shop/精靈球.png" alt="" /></a>
+							<a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=精靈球">
+							<img style="height:80px"
+								 src="<%=request.getContextPath()%>/assets/imgs/shop/精靈球.png" alt="" /></a>
 						</figure>
-						<h6>
-							<a href="ShopProductPage.jsp">精靈球</a>
-						</h6>
+						<h6>精靈球</h6>
 						<span>${homePageSVC.getCountsBySubCategory('精靈球')} items</span>
 					</div>
 					<div class="card-2 bg-15 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".7s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img style="height:80px"
-								src="<%=request.getContextPath()%>/assets/imgs/shop/catcloth.png" alt="" /></a>
+							<a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=寵物服裝">
+							<img style="height:80px"
+								 src="<%=request.getContextPath()%>/assets/imgs/shop/catcloth.png" alt="" /></a>
 						</figure>
-						<h6>
-							<a href="shop-grid-left.html">寵物服裝</a>
-						</h6>
+						<h6>寵物服裝</h6>
 						<span>${homePageSVC.getCountsBySubCategory('寵物服裝')} items</span>
 					</div>
 					<div class="card-2 bg-12 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".8s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img style="height:80px"
-								src="<%=request.getContextPath()%>/assets/imgs/shop/過濾器.png" alt="" /></a>
+							<a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=過濾器材">
+							<img style="height:80px"
+								 src="<%=request.getContextPath()%>/assets/imgs/shop/過濾器.png" alt="" /></a>
 						</figure>
-						<h6>
-							<a href="shop-grid-left.html">過濾器材</a>
-						</h6>
+						<h6>過濾器材</h6>
 						<span>${homePageSVC.getCountsBySubCategory('過濾器材')}items</span>
 					</div>
 					<div class="card-2 bg-10 wow animate__animated animate__fadeInUp"
 						data-wow-delay=".9s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img style="height:80px"
-								src="<%=request.getContextPath()%>/assets/imgs/shop/梳子.png" alt="" /></a>
+							<a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=裝飾">
+							<img style="height:80px"
+								 src="<%=request.getContextPath()%>/assets/imgs/shop/梳子.png" alt="" /></a>
 						</figure>
-						<h6>
-                            <a href="shop-grid-left.html">美容、裝飾</a>
-						</h6>
+						<h6>美容、裝飾</h6>
 						<span>${homePageSVC.getCountsBySubCategory('裝飾')} items</span>
 					</div>
 					<div class="card-2 bg-12 wow animate__animated animate__fadeInUp"
 						data-wow-delay="1s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img style="height:80px"
-								src="<%=request.getContextPath()%>/assets/imgs/shop/外出背包.png" alt="" /></a>
+							<a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=寵物背包">
+							<img style="height:80px"
+								 src="<%=request.getContextPath()%>/assets/imgs/shop/外出背包.png" alt="" /></a>
 						</figure>
-						<h6>
-							<a href="shop-grid-left.html">寵物背包</a>
-						</h6>
+						<h6>寵物背包</h6>
 						<span>${homePageSVC.getCountsBySubCategory('寵物背包')} items</span>
 					</div>
 					<div class="card-2 bg-11 wow animate__animated animate__fadeInUp"
 						data-wow-delay="0s">
 						<figure class="img-hover-scale overflow-hidden">
-							<a href="shop-grid-left.html"><img style="height:80px"
-								src="<%=request.getContextPath()%>/assets/imgs/shop/洗澡精.png" alt="" /></a>
+							<a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=清潔">
+							<img style="height:80px"
+								 src="<%=request.getContextPath()%>/assets/imgs/shop/洗澡精.png" alt="" /></a>
 						</figure>
-						<h6>
-							<a href="shop-grid-left.html">清潔用品</a>
-						</h6>
+						<h6>清潔用品</h6>
 						<span>${homePageSVC.getCountsBySubCategory('清潔')} items</span>
 					</div>
 				</div>
@@ -242,7 +231,7 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 					<div class="col-lg-4 col-md-6">
 						<div class="banner-img wow animate__animated animate__fadeInUp"
 							data-wow-delay="0">
-							<img src="assets/imgs/banner/sleepdog.jpg" alt="" height=340px width=512px />
+							<img src="<%=request.getContextPath()%>/assets/imgs/banner/sleepdog.jpg" alt="" height=340px width=512px />
 							<div class="banner-text">
 								<h4>
 									&#129409;阿偉的商店&#129409; <br /> <br /> 寵物百貨
@@ -255,7 +244,7 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 					<div class="col-lg-4 col-md-6">
 						<div class="banner-img wow animate__animated animate__fadeInUp"
 							data-wow-delay=".2s">
-							<img src="assets/imgs/banner/152.jpg" alt="" height=340px width=512px/>
+							<img src="<%=request.getContextPath()%>/assets/imgs/banner/152.jpg" alt="" height=340px width=512px/>
 							<div class="banner-text">
 								<h4>
 									Poké Ball ϞϞ(๑⚈ ․̫ ⚈๑)∩<br /> 寶可夢是種非常可愛的生物
@@ -269,7 +258,7 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 						<div
 							class="banner-img mb-sm-0 wow animate__animated animate__fadeInUp"
 							data-wow-delay=".4s">
-							<img src="assets/imgs/banner/ego.png" alt="" height=340px width=512px/>
+							<img src="<%=request.getContextPath()%>/assets/imgs/banner/ego.png" alt="" height=340px width=512px/>
 							<div class="banner-text">
 								<h4>
 									寵物也要吃好好 <br />有機寵物鮮食
@@ -294,6 +283,7 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 							<button class="nav-link" id="nav-tab-seven" data-bs-toggle="tab"
 								data-bs-target="#tab-seven" type="button" role="tab"
 								aria-controls="tab-seven" aria-selected="false">品牌飼料</button>
+								
 						</li>
 						<li class="nav-item" role="presentation">
 							<button class="nav-link" id="nav-tab-two" data-bs-toggle="tab"
@@ -337,14 +327,10 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 										data-wow-delay=".1s">
 										<div class="product-img-action-wrap">
 											<div class="product-img product-img-zoom">
-<!-- 												<form action="../product/ProductJump" method="POST"> -->
 													<a href="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
-<!-- 															<input type="hidden" name="action" value="product_jump"> -->
-<%-- 															<input type="hidden" name="productname" value="${product.merid}"> --%>
 														<img class="default-img" style="height:266px" 
 															src="<%=request.getContextPath()%>/ProdFirstPic?aa=${product.merid}"/>
 													</a>
-<!-- 												</form> -->
 											</div>
 										</div>
 										<div class="product-content-wrap">
