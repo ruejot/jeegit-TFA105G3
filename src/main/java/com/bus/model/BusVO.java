@@ -1,6 +1,7 @@
 package com.bus.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 public class BusVO implements Serializable{
 
@@ -15,7 +16,7 @@ public class BusVO implements Serializable{
 	private String phone;
 	private String address;
 	private String taxid;
-	private java.sql.Date date;
+	private Timestamp date;
 	private String email;
 	private String password;
 	private String intro;
@@ -73,11 +74,11 @@ public class BusVO implements Serializable{
 		this.taxid = taxid;
 	}
 
-	public java.sql.Date getDate() {
+	public Timestamp getTimestamp() {
 		return date;
 	}
 
-	public void setDate(java.sql.Date date) {
+	public void setTimestamp(Timestamp date) {
 		this.date = date;
 	}
 
@@ -144,5 +145,7 @@ public class BusVO implements Serializable{
 	public void setPaymentprovide(String paymentprovide) {
 		this.paymentprovide = paymentprovide;
 	}
+
+	
 	
 }

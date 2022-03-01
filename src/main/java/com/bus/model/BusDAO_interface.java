@@ -8,7 +8,7 @@ public interface BusDAO_interface {
 	public abstract void delete(Integer busid);
 //	select single data By PrimaryKey
 	public abstract BusVO select(Integer busid);
-//	public abstract BusVO select(String busname);
+	public abstract BusVO select(String email);
 	public abstract BusVO selectByEmailAndPassword(String email, String password);
 //	select all table data
 	public abstract List<BusVO> selectAll();

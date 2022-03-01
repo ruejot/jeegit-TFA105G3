@@ -39,6 +39,9 @@ public class BusDAO implements BusDAO_interface{
 	//查詢by Bus_ID
 	private static final String GET_ONE_STMT = 
 		"SELECT BUS_ID, NAME, PHONE, ADDRESS, TAX_ID, DATE, EMAIL, PASSWORD, INTRO, PHOTO, FB, IG, WEBSITE, PAYMENT_PROVIDE FROM BUS WHERE BUS_ID = ?";
+	//查詢by EMAIL
+	private static final String GET_EMAIL_STMT = 
+			"SELECT BUS_ID, NAME, PHONE, ADDRESS, TAX_ID, DATE, EMAIL, PASSWORD, INTRO, PHOTO, FB, IG, WEBSITE, PAYMENT_PROVIDE FROM BUS WHERE EMAIL =?";
 	//查詢by EMAIL and PASSWORD
 	private static final String GET_TWO_STMT = 
 			"SELECT BUS_ID, NAME, PHONE, ADDRESS, TAX_ID, DATE, EMAIL, PASSWORD, INTRO, PHOTO, FB, IG, WEBSITE, PAYMENT_PROVIDE FROM BUS WHERE EMAIL =? and PASSWORD = ?";	
@@ -61,7 +64,7 @@ public class BusDAO implements BusDAO_interface{
 			pstmt.setString(2, busBean.getPhone());
 			pstmt.setString(3, busBean.getAddress());
 			pstmt.setString(4, busBean.getTaxid());
-			pstmt.setDate(5, busBean.getDate());
+			pstmt.setTimestamp(5, busBean.getTimestamp());
 			pstmt.setString(6, busBean.getEmail());
 			pstmt.setString(7, busBean.getPassword());
 			pstmt.setString(8, busBean.getIntro());
@@ -111,7 +114,7 @@ public class BusDAO implements BusDAO_interface{
 			pstmt.setString(2, busBean.getPhone());
 			pstmt.setString(3, busBean.getAddress());
 			pstmt.setString(4, busBean.getTaxid());
-			pstmt.setDate(5, busBean.getDate());
+			pstmt.setTimestamp(5, busBean.getTimestamp());
 			pstmt.setString(6, busBean.getEmail());
 			pstmt.setString(7, busBean.getPassword());
 			pstmt.setString(8, busBean.getIntro());
@@ -211,7 +214,69 @@ public class BusDAO implements BusDAO_interface{
 				busBean.setPhone(rs.getString("PHONE"));
 				busBean.setAddress(rs.getString("ADDRESS"));
 				busBean.setTaxid(rs.getString("TAX_ID"));
-				busBean.setDate(rs.getDate("DATE"));
+				busBean.setTimestamp(rs.getTimestamp("DATE"));
+				busBean.setEmail(rs.getString("EMAIL"));
+				busBean.setPassword(rs.getString("PASSWORD"));
+				busBean.setIntro(rs.getString("INTRO"));
+				busBean.setPhoto(rs.getBytes("PHOTO"));
+				busBean.setFb(rs.getString("FB"));
+				busBean.setIg(rs.getString("IG"));
+				busBean.setWebsite(rs.getString("WEBSITE"));
+				busBean.setPaymentprovide(rs.getString("PAYMENT_PROVIDE"));
+			}
+			
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return busBean;
+	}
+	
+	//查詢單個欄位GET_EMAIL_STMT(此為email)
+	@Override
+	public BusVO select(String email) {
+		
+		BusVO busBean = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_EMAIL_STMT);
+			
+			pstmt.setString(1, email);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				busBean = new BusVO();
+				
+				busBean.setBusid(rs.getInt("BUS_ID"));
+				busBean.setName(rs.getString("NAME"));
+				busBean.setPhone(rs.getString("PHONE"));
+				busBean.setAddress(rs.getString("ADDRESS"));
+				busBean.setTaxid(rs.getString("TAX_ID"));
+				busBean.setTimestamp(rs.getTimestamp("DATE"));
 				busBean.setEmail(rs.getString("EMAIL"));
 				busBean.setPassword(rs.getString("PASSWORD"));
 				busBean.setIntro(rs.getString("INTRO"));
@@ -274,7 +339,7 @@ public class BusDAO implements BusDAO_interface{
 				busBean.setPhone(rs.getString("PHONE"));
 				busBean.setAddress(rs.getString("ADDRESS"));
 				busBean.setTaxid(rs.getString("TAX_ID"));
-				busBean.setDate(rs.getDate("DATE"));
+				busBean.setTimestamp(rs.getTimestamp("DATE"));
 				busBean.setEmail(rs.getString("EMAIL"));
 				busBean.setPassword(rs.getString("PASSWORD"));
 				busBean.setIntro(rs.getString("INTRO"));
@@ -334,7 +399,7 @@ public class BusDAO implements BusDAO_interface{
 				busBean.setPhone(rs.getString("PHONE"));
 				busBean.setAddress(rs.getString("ADDRESS"));
 				busBean.setTaxid(rs.getString("TAX_ID"));
-				busBean.setDate(rs.getDate("DATE"));
+				busBean.setTimestamp(rs.getTimestamp("DATE"));
 				busBean.setEmail(rs.getString("EMAIL"));
 				busBean.setPassword(rs.getString("PASSWORD"));
 				busBean.setIntro(rs.getString("INTRO"));

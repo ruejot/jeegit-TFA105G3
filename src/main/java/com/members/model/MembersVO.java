@@ -1,8 +1,9 @@
-package com.member.model;
+package com.members.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
-public class MemberVO implements Serializable{
+public class MembersVO implements Serializable{
 
 	/**
 	 * 
@@ -15,7 +16,7 @@ public class MemberVO implements Serializable{
 	private String mobile;
 	private String phone;
 	private String address;
-	private java.sql.Date date;
+	private Timestamp date;
 	private String email;
 	private String password;
 	private String nickname;
@@ -70,11 +71,11 @@ public class MemberVO implements Serializable{
 		this.address = address;
 	}
 
-	public java.sql.Date getDate() {
+	public Timestamp getTimestamp() {
 		return date;
 	}
 
-	public void setDate(java.sql.Date date) {
+	public void setTimestamp(Timestamp date) {
 		this.date = date;
 	}
 
