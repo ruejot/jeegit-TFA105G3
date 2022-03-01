@@ -73,7 +73,7 @@ public class MembersRegisterServlet extends HttpServlet  {
 				
 					//將client端輸入的資料insert進資料庫
 					memberssvc.registerMember(name, mobile,timestamp, email, password);
-
+					
 					// 跳轉顯示註冊成功
 					res.sendRedirect("../nest-frontend/registerSuccessful.jsp");
 				
@@ -81,6 +81,8 @@ public class MembersRegisterServlet extends HttpServlet  {
 
 			}else{
 				req.setAttribute("warningMembersMsg1", "不好意思!您的密碼輸入不一致，請再確認!");
+				req.getRequestDispatcher("../nest-frontend/Register.jsp").forward(req, res);
+
 			}
 
 			

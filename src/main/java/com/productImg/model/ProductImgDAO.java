@@ -27,7 +27,7 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 
 	private static final String INSERT_STMT = "INSERT INTO MER_IMG (MER_ID, MER_PIC, TIME) VALUES (?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT IMG_ID, MER_ID, MER_PIC, TIME FROM MER_IMG ORDER BY IMG_ID";
-	private static final String GET_ONE_STMT = "SELECT IMG_ID, MER_ID, MER_PIC, TIME FROM MER_IMG WHERE IMG_ID = ?";
+	private static final String GET_ONE_STMT = "SELECT IMG_ID, MER_ID, MER_PIC, TIME FROM MER_IMG WHERE MER_ID = ?";
 	private static final String DELETE = "DELETE FROM MER_IMG where IMG_ID = ?";
 	private static final String UPDATE = "UPDATE MER_IMG set MER_ID=?, MER_PIC=?, TIME=? where IMG_ID = ?";
 	private static final String FIND_AllbyProdid = "SELECT * FROM pet_g3db_tfa105.MER_IMG WHERE MER_ID =?";
@@ -151,7 +151,7 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 	}
 
 	@Override
-	public ProductImgVO findByPrimaryKey(Integer imgid) {
+	public ProductImgVO findByPrimaryKey(Integer merid) {
 
 		ProductImgVO productImgVO = null;
 		Connection con = null;
@@ -163,7 +163,7 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, imgid);
+			pstmt.setInt(1, merid);
 
 			rs = pstmt.executeQuery();
 

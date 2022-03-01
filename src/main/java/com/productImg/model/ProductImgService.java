@@ -3,6 +3,7 @@ package com.productImg.model;
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 public class ProductImgService {
 	
@@ -45,13 +46,15 @@ private ProductImgDAO_interface dao;
 			dao.delete(imgid);
 		}
 		
-		public ProductImgVO getOneProductImg(Integer imgid) {
-			return dao.findByPrimaryKey(imgid);
+		public ProductImgVO getOneProductImg(Integer merid) {
+			return dao.findByPrimaryKey(merid);
 		}
 		
 		public List<ProductImgVO> getAll(){
 			return dao.getAll();
 		}
+		
+		
 		
 		
 }
