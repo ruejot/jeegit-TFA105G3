@@ -315,7 +315,7 @@ public class ProductDAO implements ProductDAO_interface {
 	}
 
 	@Override
-	public Set<ProductImgVO> getImgsByImgno(Integer merid) {
+	public Set<ProductImgVO> getImgsByMerid(Integer merid) {
 		Set<ProductImgVO> set = new LinkedHashSet<ProductImgVO>();
 		ProductImgVO productImgVO = null;
 

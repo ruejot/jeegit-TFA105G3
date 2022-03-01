@@ -40,7 +40,7 @@ List<OrderVO> list = (List<OrderVO>)session.getAttribute("list");
 					<h2 class="content-title card-title">訂單管理</h2>
 				</div>
 				<div>
-                    <input type="text" placeholder="查詢訂單編號" class="form-control bg-white" />
+                    <input id="myInput" type="text" placeholder="查詢訂單編號" class="form-control bg-white" />                
                 </div>
 			</div>
 			<div class="card mb-4">
@@ -48,14 +48,10 @@ List<OrderVO> list = (List<OrderVO>)session.getAttribute("list");
 					<div class="row align-items-center">
 						<div class="col col-check flex-grow-0">
 							<div class="form-check ms-2">
-								
 							</div>
 						</div>
 						<div class="col-md-2 col-6">
-							<input type="date" class="form-control" />
-						</div>
-						<div class="col-md-2 col-6">
-							<select class="form-select">
+							<select class="form-select" id="mySelector">
 								<option selected>訂單狀態</option>
 								<option>處理中</option>
 								<option>配送中</option>
@@ -83,10 +79,10 @@ List<OrderVO> list = (List<OrderVO>)session.getAttribute("list");
                                 </thead>
                                 <%@ include file="/pages/Prod_page1.file" %>
                                 <jsp:useBean id="memberSvc" scope="page" class="com.members.model.MembersService" />
-                                <tbody>
+                                <tbody id="myTable">
                   				<c:forEach var="orderVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >
                                     <tr>
-                                        <td>${orderVO.orderId}</td>
+                                        <td class="col1">${orderVO.orderId}</td>
                                         <td><b>${memberSvc.select(orderVO.memberId).name}</b></td>
                                         <td>${memberSvc.select(orderVO.memberId).email}</td>
                                         <td>$${orderVO.orderSum}</td>              
@@ -109,6 +105,7 @@ List<OrderVO> list = (List<OrderVO>)session.getAttribute("list");
 			     							<input type="hidden" name="action" value="get_Ord_Update">
                                           </form>
                                         </td>
+                                       </tr>
                                    </c:forEach>
                         		 </tbody>
                             </table>
@@ -129,5 +126,16 @@ List<OrderVO> list = (List<OrderVO>)session.getAttribute("list");
 	<!-- Main Script -->
 	<script src="<%=request.getContextPath()%>/assets/js/main_backend.js" type="text/javascript"></script>
 	<script src="https://kit.fontawesome.com/60002e5c50.js"></script>
+	<script>
+	
+	$(function() {    
+	    $('#myInput').change(function() { 
+	        $("#myTable td.col1:contains('" + $(this).val() + "')").parent().show();
+	        $("#myTable td.col1:not(:contains('" + $(this).val() + "'))").parent().hide();
+	    });
+	    
+	});
+	
+	</script>
 </body>
 </html>

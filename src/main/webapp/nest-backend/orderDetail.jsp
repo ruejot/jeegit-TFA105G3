@@ -18,6 +18,7 @@
     pageContext.setAttribute("ordList",ordList);
 %>
 
+
 <!-- 這一支nest-backend/orderDetail.java是璟葶的 -->
 <!-- 另nest-frontend 有一隻同名的orderDetail.java是毓珊的 -->
 <!DOCTYPE html>
@@ -74,9 +75,9 @@
                                      <jsp:useBean id="memberSvc" scope="page" class="com.members.model.MembersService" />
                                         <h6 class="mb-1">顧客資料</h6>
                                         <p class="mb-1">
-                                           姓名: ${memberSvc.select(orderVO.memberId).name}<br />
-                                           Email: ${memberSvc.select(orderVO.memberId).email} <br />
-                                           電話: ${memberSvc.select(orderVO.memberId).phone}
+<%--                                            姓名: ${memberSvc.select(orderVO.memberId).name}<br /> --%>
+<%--                                            Email: ${memberSvc.select(orderVO.memberId).email} <br /> --%>
+<%--                                            電話: ${memberSvc.select(orderVO.memberId).phone} --%>
                                         </p>
                                     </div>
                                 </article>
@@ -145,7 +146,7 @@
                                                 <td class="text-end">${orderDetailVO.comment}</td>
                                             </tr>
                                             </c:forEach>
-                                            <c:forEach var="orderVO" items="${ordList}">
+                                           <c:forEach var="orderVO" items="${ordList}">
                                             <tr>
                                                 <td colspan="4">
                                                     <article class="float-end">
@@ -156,7 +157,7 @@
                                                     </article>
                                                 </td>
                                             </tr>
-                                            </c:forEach>
+                                           </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>
@@ -166,7 +167,7 @@
                             <jsp:useBean id="paymentSvc" scope="page" class="com.payment.model.PaymentService" />
                             <div class="col-lg-1"></div>
                             <div class="col-lg-4">
-                            <c:forEach var="orderVO" items="${ordList}">
+                           <c:forEach var="orderVO" items="${ordList}">
                                 <div class="box shadow-sm bg-light">
                                     <h6 class="mb-15">付款資訊</h6>
                                     <p>
