@@ -14,7 +14,7 @@ import com.members.model.MembersDAO_interface;
 import com.members.model.MembersVO;
 
 @WebServlet("/members/MembersDataUpdate")
-public class MembersLoginServlet extends HttpServlet {
+public class MembersDataUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -31,19 +31,14 @@ public class MembersLoginServlet extends HttpServlet {
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 
-		// 登入
-		if ("login".equals(action)) { // login.jsp裡的請求
+		// 修改會員資料
+		if ("membersdataupdate".equals(action)) { // login.jsp裡的請求
 			MembersDAO_interface memberDAOInterface = new MembersDAO();
 			MembersVO memberbean = memberDAOInterface.selectByEmailAndPassword(email, password);
 
-			// 若email有get到資料庫中相對應的email跟password，登入成功，否則登入失敗
+			// 若email有get到資料庫中相對應的email跟password，表示確有其會員
 			if (memberbean != null) {
-				req.changeSessionId();// 為了資安考量，通常會在登入成功後再產製一個新的session
-
-				HttpSession session = req.getSession();
-				session.setAttribute("MemberUsing", memberbean);
-				//將該個人會員的memberbean已經登入過的紀錄存入session，並取key名為MemberUsing
-				//若之後要引用該個人會員的資料，直接在該頁面jsp檔用el取值即可(例如需要該個人會員的名稱就寫${MemberUsing.name})
+				
 				
 ///				req.getRequestDispatcher("memberIndex.jsp").forward(req, res);
 				res.sendRedirect("../nest-frontend/HomePage.jsp");
