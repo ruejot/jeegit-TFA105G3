@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/BusLogout")
+@WebServlet("bus/BusLogout")
 public class BusLogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +35,7 @@ public class BusLogoutServlet extends HttpServlet {
 //			session.invalidate();	
 			req.getSession().invalidate(); //消除session
 			
-//			res.sendRedirect("./views/login.jsp");
+			res.sendRedirect("../nest-frontend/Login.jsp");
 
 
 		}
