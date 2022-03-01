@@ -12,5 +12,6 @@ public interface CsDetailDAO_interface {
 //	select all table data
 	public abstract List<CsDetailVO> selectAll();
 //	plan to selectCsDetailByMemberid
-//	public Set<CsDetailBean> selectCsDetailByMemberid(Integer memberid);
+	public List<CsDetailVO> selectCsDetailListByMemberid(Integer memberid);
+	public List<CsDetailVO> selectCsDetailListByBusid(Integer busid);
 }
