@@ -4,16 +4,16 @@
 <%@ page import="com.memblogart.model.*" %>
 <%@ page import="com.members.model.*" %>
 
+
 <% 
 MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 // MembersVO membersVO = (MembersVO) session.getAttribute("MemberUsing");
 
+MembersVO membersVO = (MembersVO) request.getAttribute("membersVO");
+
 MemBlogArtService artSvc=new MemBlogArtService(); 
-//使用session取值再做所有使用者發文的查詢
-List<MemBlogArtVO> list = artSvc.getAllByMember(1);
+List<MemBlogArtVO> list = artSvc.getAllByMember(membersVO.getMemberid());
 pageContext.setAttribute("list",list);
-
-
 
 
 %>
@@ -38,6 +38,32 @@ pageContext.setAttribute("list",list);
     </head>
     <jsp:include page="userHeader.jsp"></jsp:include>
     <body>
+    <style>
+    .btn-primary {
+		font-size: 14px;
+		font-weight: 500;
+		padding: 10px 40px;
+		color: #ffffff;
+		border: none;
+		background-color: #386641;
+		border-radius: 4px;
+	}
+        
+    .btn-light {
+		font-size: 14px;
+		font-weight: 500;
+		padding: 10px 40px;
+		color: #000000;
+		border: #386641;
+		background-color: #E5E5E5;
+		border-radius: 4px;
+	}
+
+
+
+
+        </style>
+    
         <main>
              <section class="content-main">
                 <div class="content-header">
@@ -48,12 +74,12 @@ pageContext.setAttribute("list",list);
                         <div class="row">
                             <div class="col-xl col-lg flex-grow-0" style="flex-basis: 230px">
                                 <div class="img-thumbnail shadow w-100 bg-white position-relative text-center" style="height: 190px; width: 200px; margin-top: -120px">
-                                    <img src="assets/imgs/people/cat_img_01.png" class="center-xy img-fluid" alt="Logo Brand" />
+                                    <img src="<%=request.getContextPath()%>/nest-backend/assets/imgs/people/cat_img_01.png" class="center-xy img-fluid" alt="Logo Brand" />
                                 </div>
                             </div>
                             <!--  col.// -->
                             <div class="col-xl col-lg">
-                                <h3>使用者名稱</h3>
+                                <h3>${membersVO.nickname}</h3>
 <!--                                 <p>使用者簡介</p> -->
                             </div>
                             <!--  col.// -->
@@ -64,7 +90,7 @@ pageContext.setAttribute("list",list);
 <!--                                     <option>Analyze</option> -->
 <!--                                     <option>Something</option> -->
 <!--                                 </select> -->
-                                <a href="#" class="btn btn-primary"> 追蹤此用戶 <i class="material-icons md-person_add"></i> </a>
+                                <button type="button" class="btn btn-primary"> 追蹤此用戶 <i class="material-icons md-person_add"></i> </button>
                             </div>
                             <!--  col.// -->
                         </div>
@@ -82,19 +108,13 @@ pageContext.setAttribute("list",list);
                             <!--  col.// -->
                             <div class="col-sm-6 col-lg-4 col-xl-3">
                                 <h6>Information</h6>
-                                <p>
-                                    貓主子的奴才們歡迎追蹤哦 <br />
-                                    FB粉專:__________ <br />
-                                    我家主子的IG:__________
+                                <p>${membersVO.intro}
                                 </p>
                             </div>
                             <!--  col.// -->
                             <div class="col-sm-6 col-lg-4 col-xl-3">
                                 <h6>Contacts</h6>
-                                <p>
-                                    Country: California <br />
-                                    Address: Ranchview Dr. Richardson <br />
-                                    Postal code: 62639
+                                <p>${membersVO.email}
                                 </p>
                             </div>
                             <!--  col.// -->
@@ -127,7 +147,7 @@ pageContext.setAttribute("list",list);
                                         </a>
                                     </div>
                                     <div class="col-lg-2 col-sm-2 col-6 col-price"></div>
-                                    <div class="col-lg-1 col-sm-2 col-6 col-date">
+                                    <div class="col-lg-2 col-sm-2 col-6 col-date">
                                         <span>02.11.2021</span>
                                     </div>
                                     <div class="col-lg-2 col-sm-2 col-4 col-action text-end">
@@ -170,6 +190,36 @@ pageContext.setAttribute("list",list);
         <script src="assets/js/vendors/jquery.fullscreen.min.js"></script>
         <!-- Main Script -->
         <script src="assets/js/main.js?v=1.1" type="text/javascript"></script>
+
+        <script>
+            $('button.btn-primary').click(function(){
+                console.log("有執行");
+                $('button.btn-primary').text("已追蹤用戶").toggleClass("follow");
+
+                $.ajax({
+                type: "POST",
+                url: "<%=request.getContextPath()%>/MemFollowServlet",
+                
+                data: {
+                    action: "insert",
+                    memberId:"<%=membersVO.getMemberid()%>",
+                    followee:"7"
+
+                    },
+
+                success: function(data){
+                    console.log("我回來惹")
+                    console.log(data)
+                },
+                
+                });
+
+            })
+
+
+        </script>
+
+
         <jsp:include page="footer.jsp"></jsp:include>
     </body>
 </html>

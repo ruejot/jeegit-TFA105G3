@@ -57,16 +57,15 @@ pageContext.setAttribute("list2",list2);
                             <div class="single-header style-2">
                                 <div class="row">
                                     <div class="col-xl-10 col-lg-12 m-auto">
-                                        <h6 class="mb-10"><a href="#">Recipes</a></h6>
+<!--                                         <h6 class="mb-10"><a href="#">Recipes</a></h6> -->
                                         <h2 class="mb-10">${memBlogArtVO.title}</h2>
                                         <div class="single-header-meta">
                                             <div class="entry-meta meta-1 font-xs mt-15 mb-15">
-                                                <a class="author-avatar" href="#">
+                                                <a class="author-avatar" href="<%=request.getContextPath()%>/MemBlogArtServlet?action=getMem_For_Display&memberId=${memBlogArtVO.memberId}">
                                                     <img class="img-circle" src="assets/imgs/blog/author-1.png" alt="">
                                                 </a>
-                                                <span class="post-by">By <a href="#">Sugar Rosie</a></span>
-                                                <span class="post-on has-dot">2 hours ago</span>
-                                                <span class="time-reading has-dot">8 mins read</span>
+                                                <span class="post-by">By <a href="<%=request.getContextPath()%>/MemBlogArtServlet?action=getMem_For_Display&memberId=${memBlogArtVO.memberId}"><%=membersVOinfo.getName()%></a></span>
+                                                <span class="post-on has-dot">${memBlogArtVO.posttime}</span>
                                             </div>
                                             <div class="social-icons single-share">
                                                 <ul class="text-grey-5 d-inline-block">
@@ -115,6 +114,7 @@ pageContext.setAttribute("list2",list2);
                                         <!--Author box-->
                                         <div class="author-bio p-30 mt-50 border-radius-15 bg-white">
                                             <div class="author-image mb-30">
+                                            
                                                 <a href="<%=request.getContextPath()%>/MemBlogArtServlet?action=getMem_For_Display&memberId=${memBlogArtVO.memberId}"><img src="assets/imgs/blog/author-1.png" alt="" class="avatar"></a>
                                                 <div class="author-infor">
                                                     <h5 class="mb-5"><%=membersVOinfo.getName()%></h5>
@@ -131,7 +131,7 @@ pageContext.setAttribute("list2",list2);
                                         <!--Comment form-->
                                         <div class="comment-form">
                                             
-                                                <input type="hidden" name="action" value="insert">
+<!--                                                 <input type="hidden" name="action" value="insert"> -->
                                         
                                             <h3 class="mb-15 text-center mb-30">回應文章</h3>
                                             <div class="row">

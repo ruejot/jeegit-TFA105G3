@@ -342,4 +342,10 @@ public class MemFollowJDBCDAO implements MemFollowDAO_interface {
 		
 		return list;
 	}
+
+	@Override
+	public MemFollowVO ifFriend(Integer memberId, Integer followee) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

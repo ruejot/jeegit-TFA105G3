@@ -10,4 +10,5 @@ public interface MemFollowDAO_interface {
 	public abstract MemFollowVO findByPrimaryKey(Integer friendshipId);
 	public abstract List<MemFollowVO> getAll();
 	public abstract List<MemFollowVO> getAllByMemberId(Integer memberId);
+	public abstract MemFollowVO ifFriend(Integer memberId, Integer followee);
 }

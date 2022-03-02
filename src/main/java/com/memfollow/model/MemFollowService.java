@@ -42,6 +42,12 @@ public class MemFollowService {
 	public MemFollowVO findByPrimaryKey(Integer friendshipId) {
 		return dao.findByPrimaryKey(friendshipId);
 	}
+	
+	public MemFollowVO ifFriend(Integer memberId, Integer followee) {
+		return dao.ifFriend(memberId,followee);
+	}
+	
+	
 
 	public List<MemFollowVO> getAll() {
 		return dao.getAll();
