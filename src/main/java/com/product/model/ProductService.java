@@ -36,7 +36,7 @@ public class ProductService {
 	}
 	
 	public ProductVO updatePro(Integer merid, Integer busid, String name, Integer price, Integer stock, Date shelfDate, 
-			Integer status, String description, String shippingMethod, String mainCategory, String subCategory) {
+			Integer status, String description, String shippingMethod, String mainCategory, String subCategory, List<ProductImgVO> list) {
 		
 		ProductVO proVO = new ProductVO();
 		

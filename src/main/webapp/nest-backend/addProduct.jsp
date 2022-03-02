@@ -57,7 +57,7 @@ int i = 0;
 								</div>
 								<div class="mb-4">
 									<label for="description" class="form-label">商品資訊</label>
-									<textarea name="description" id="description" placeholder="在此描述商品..." class="form-control" rows="4"></textarea>
+									<textarea name="description" id="description" placeholder="在此描述商品..." class="form-control" rows="4"><%=(productVO==null)? "" : productVO.getDescription()%></textarea>
 									<input type="hidden" name="description" value="<%=(productVO==null)? "" : productVO.getDescription()%>" />
 								</div>
 								<div class="row">
@@ -86,7 +86,7 @@ int i = 0;
                                         <label for="yet">尚未開賣</label>
                                         <input class="form-check-input ml-10" id="onsell" type="radio" name="status" value="<%=(productVO==null)? "2" : productVO.getStatus() %>" />
                                         <label for="onsell">熱賣中</label>
-                                        <input class="form-check-input ml-10" id="off" type="radio" name="status"  value="<%=(productVO==null)? "3" : productVO.getStatus() %>" />
+                                        <input class="form-check-input ml-10" id="off" type="radio" name="status"  value="<%=(productVO==null)? "3" : "checked" %>" />
                                         <label for="off">暫停販售</label>
                                 </div>
                                 <jsp:useBean id="shippingSvc" scope="page" class="com.shipping.model.ShippingService" />
@@ -125,10 +125,10 @@ int i = 0;
 										<option value="寵物保健">寵物保健</option>
 									</optgroup>
 									<optgroup label="生活用品">
-										<option value="寵物飼料">居家用品</option>
-										<option value="寵物罐頭">外出用品</option>
-										<option value="寵物零食">寵物玩具</option>
-										<option value="寵物保健">美容護理</option>
+										<option value="居家用品">居家用品</option>
+										<option value="外出用品">外出用品</option>
+										<option value="寵物玩具">寵物玩具</option>
+										<option value="美容護理">美容護理</option>
 									</optgroup>
 									</select>
 								</div>
@@ -141,7 +141,6 @@ int i = 0;
 						</div>
 					</div>
 					<!-- card end// --> 
-					
 					<div class="card mb-4">
 						<div class="card-header">
 							<h4>新增照片</h4>

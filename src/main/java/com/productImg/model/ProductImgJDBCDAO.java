@@ -19,7 +19,7 @@ public class ProductImgJDBCDAO implements ProductImgDAO_interface {
 	private static final String INSERT_STMT = "INSERT INTO MER_IMG (MER_ID, MER_PIC, TIME) VALUES (?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT IMG_ID, MER_ID, MER_PIC, TIME FROM MER_IMG ORDER BY IMG_ID";
 	private static final String GET_ONE_STMT = "SELECT IMG_ID, MER_ID, MER_PIC, TIME FROM MER_IMG WHERE IMG_ID = ?";
-	private static final String DELETE = "DELETE FROM MER_IMG where IMG_ID = ?";
+	private static final String DELETE = "DELETE FROM MER_IMG where MER_ID = ?";
 	private static final String UPDATE = "UPDATE MER_IMG set MER_ID=?, MER_PIC=?, TIME=? where IMG_ID = ?";
 
 //	@Override
@@ -65,49 +65,49 @@ public class ProductImgJDBCDAO implements ProductImgDAO_interface {
 //
 //	}
 
-	@Override
-	public void update(ProductImgVO productImgVO) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(UPDATE);
-
-			pstmt.setInt(1, productImgVO.getMerid());
-			pstmt.setBytes(2, productImgVO.getMerpic());
-			pstmt.setDate(3, productImgVO.getTime());
-			pstmt.setInt(4, productImgVO.getImgid());
-
-			pstmt.executeUpdate();
-
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-
-	}
+//	@Override
+//	public void update(ProductImgVO productImgVO) {
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//
+//		try {
+//
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			pstmt = con.prepareStatement(UPDATE);
+//
+//			pstmt.setInt(1, productImgVO.getMerid());
+//			pstmt.setBytes(2, productImgVO.getMerpic());
+//			pstmt.setDate(3, productImgVO.getTime());
+//			pstmt.setInt(4, productImgVO.getImgid());
+//
+//			pstmt.executeUpdate();
+//
+//			// Handle any driver errors
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+//			// Handle any SQL errors
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. " + se.getMessage());
+//			// Clean up JDBC resources
+//		} finally {
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//
+//	}
 
 	@Override
 	public void delete(Integer imgid) {
@@ -325,7 +325,7 @@ public class ProductImgJDBCDAO implements ProductImgDAO_interface {
 
 	@Override
 	public void insert(ProductImgVO productImgVO, Connection con) {
-		
+
 		PreparedStatement pstmt = null;
 
 		try {
@@ -357,7 +357,75 @@ public class ProductImgJDBCDAO implements ProductImgDAO_interface {
 				}
 			}
 		}
-		
+
 	}
+
+	@Override
+	public void update(ProductImgVO productImgVO, Connection con) {
+		PreparedStatement pstmt = null;
+
+		try {
+			pstmt = con.prepareStatement(UPDATE);
+
+			pstmt.setInt(1, productImgVO.getMerid());
+			pstmt.setBytes(2, productImgVO.getMerpic());
+			pstmt.setDate(3, productImgVO.getTime());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-ProductImg");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. " + excep.getMessage());
+				}
+			}
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+	}
+
+//	@Override
+//	public void delete(ProductImgVO productImgVO, Connection con) {
+//
+//		PreparedStatement pstmt = null;
+//
+//		try {
+//			pstmt = con.prepareStatement(DELETE);
+//			pstmt.setInt(1, productImgVO.getMerid());
+//
+//			pstmt.executeUpdate();
+//
+//		} catch (SQLException se) {
+//			if (con != null) {
+//				try {
+//					// 設定於當有exception發生時之catch區塊內
+//					System.err.print("Transaction is being ");
+//					System.err.println("rolled back-由-ProductImg");
+//					con.rollback();
+//				} catch (SQLException excep) {
+//					throw new RuntimeException("rollback error occured. " + excep.getMessage());
+//				}
+//			}
+//		} finally {
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace();
+//				}
+//			}
+//		}
+//	}
 
 }

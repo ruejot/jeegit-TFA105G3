@@ -58,15 +58,6 @@ BusVO busVO = (BusVO)session.getAttribute("BusUsing");
 							</div>
 						</div>
 						<div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
-							<select class="form-select">
-								<option selected>類別總覽</option>
-								<option>寵物飼料</option>
-								<option>寵物保健</option>
-								<option>寵物零食</option>
-							</select>
-						</div>
-						<div class="col-md-2 col-6">
-							<input type="date" class="form-control" />
 						</div>
 						<div class="col-md-2 col-6">
 							<select class="form-select">
