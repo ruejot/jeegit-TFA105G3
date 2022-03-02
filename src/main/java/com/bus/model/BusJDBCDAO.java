@@ -51,7 +51,7 @@ public class BusJDBCDAO implements BusDAO_interface{
 			pstmt.setString(2, busBean.getPhone());
 			pstmt.setString(3, busBean.getAddress());
 			pstmt.setString(4, busBean.getTaxid());
-			pstmt.setDate(5, busBean.getDate());
+			pstmt.setTimestamp(5, busBean.getTimestamp());
 			pstmt.setString(6, busBean.getEmail());
 			pstmt.setString(7, busBean.getPassword());
 			pstmt.setString(8, busBean.getIntro());
@@ -106,7 +106,7 @@ public class BusJDBCDAO implements BusDAO_interface{
 			pstmt.setString(2, busBean.getPhone());
 			pstmt.setString(3, busBean.getAddress());
 			pstmt.setString(4, busBean.getTaxid());
-			pstmt.setDate(5, busBean.getDate());
+			pstmt.setTimestamp(5, busBean.getTimestamp());
 			pstmt.setString(6, busBean.getEmail());
 			pstmt.setString(7, busBean.getPassword());
 			pstmt.setString(8, busBean.getIntro());
@@ -216,7 +216,7 @@ public class BusJDBCDAO implements BusDAO_interface{
 				busBean.setPhone(rs.getString("PHONE"));
 				busBean.setAddress(rs.getString("ADDRESS"));
 				busBean.setTaxid(rs.getString("TAX_ID"));
-				busBean.setDate(rs.getDate("DATE"));
+				busBean.setTimestamp(rs.getTimestamp("DATE"));
 				busBean.setEmail(rs.getString("EMAIL"));
 				busBean.setPassword(rs.getString("PASSWORD"));
 				busBean.setIntro(rs.getString("INTRO"));
@@ -280,7 +280,7 @@ public class BusJDBCDAO implements BusDAO_interface{
 				busBean.setPhone(rs.getString("PHONE"));
 				busBean.setAddress(rs.getString("ADDRESS"));
 				busBean.setTaxid(rs.getString("TAX_ID"));
-				busBean.setDate(rs.getDate("DATE"));
+				busBean.setTimestamp(rs.getTimestamp("DATE"));
 				busBean.setEmail(rs.getString("EMAIL"));
 				busBean.setPassword(rs.getString("PASSWORD"));
 				busBean.setIntro(rs.getString("INTRO"));
@@ -357,7 +357,7 @@ public class BusJDBCDAO implements BusDAO_interface{
 				busBean.setPhone(rs.getString("PHONE"));
 				busBean.setAddress(rs.getString("ADDRESS"));
 				busBean.setTaxid(rs.getString("TAX_ID"));
-				busBean.setDate(rs.getDate("DATE"));
+				busBean.setTimestamp(rs.getTimestamp("DATE"));
 				busBean.setEmail(rs.getString("EMAIL"));
 				busBean.setPassword(rs.getString("PASSWORD"));
 				busBean.setIntro(rs.getString("INTRO"));
@@ -395,6 +395,12 @@ public class BusJDBCDAO implements BusDAO_interface{
 		}
 		
 		return busBean;
+	}
+
+	@Override
+	public BusVO select(String email) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
