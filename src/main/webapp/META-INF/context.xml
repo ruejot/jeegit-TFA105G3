@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+    <Resource auth="Container" driverClassName="com.mysql.cj.jdbc.Driver" maxIdle="10" maxTotal="20" maxWaitMillis="-1" name="jdbc/TestDB2" password="password" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/db01?serverTimezone=Asia/Taipei" username="root"/>
+    
+    <Resource auth="Container" driverClassName="com.mysql.cj.jdbc.Driver" maxIdle="10" maxTotal="20" maxWaitMillis="-1" name="jdbc/TFA105G3TestDB" password="password" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/pet_g3db_tfa105?serverTimezone=Asia/Taipei" username="root"/>
+    
+</Context>
