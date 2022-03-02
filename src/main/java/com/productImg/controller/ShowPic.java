@@ -34,8 +34,10 @@ public class ShowPic extends HttpServlet {
 		try {
 			Context ctx = new InitialContext();
 			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TFA105G3TestDB");
-
+			con = ds.getConnection();
 		} catch (NamingException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -50,7 +52,7 @@ public class ShowPic extends HttpServlet {
 		ResultSet rs = null;
 
 		try {
-			con = ds.getConnection();
+			
 			pstmt = con.prepareStatement(GET_PIC_STMT);
 			pstmt.setInt(1, Integer.parseInt(req.getParameter("imgid")));
 			rs = pstmt.executeQuery();
@@ -64,6 +66,7 @@ public class ShowPic extends HttpServlet {
 				}
 				out.flush();
 				in.close();
+				
 			} else {
 //					res.sendError(HttpServletResponse.SC_NOT_FOUND);
 				InputStream in = getServletContext().getResourceAsStream("/nest-frontend/assets/imgs/noPic.jpg");

@@ -29,7 +29,7 @@ public class BusRegisterServlet extends HttpServlet  {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=utf-8");       
         
-		String busaction = req.getParameter("busAction");
+		String busaction = req.getParameter("busaction");
 
 		String email = req.getParameter("busEmail");
         String password = req.getParameter("busPassword");
@@ -83,6 +83,7 @@ public class BusRegisterServlet extends HttpServlet  {
 
 			}else{
 				req.setAttribute("warningBusMsg1", "不好意思!您的密碼輸入不一致，請再確認!");
+				req.getRequestDispatcher("../nest-frontend/Register.jsp").forward(req, res);
 			}
 
 			

@@ -46,6 +46,7 @@
                     </div>
                 </div>
                 <div class="card">
+                <form method="post" action="orderDetail.do" name="form1">
                     <header class="card-header">
                         <div class="row align-items-center">
                             <div class="col-lg-6 col-md-6 mb-lg-0 mb-15">
@@ -53,10 +54,10 @@
                             <div class="col-lg-6 col-md-6 ms-auto text-md-end">
                                 <select class="form-select d-inline-block mb-lg-0 mr-5 mw-200">
                                     <option>修改訂單狀態</option>
-                                    <option value=1>處理中</option>
-                                    <option value=2>配送中</option>
-                                    <option value=3>已完成</option>
-                                    <option value=4>已取消</option>
+                                    <option value=1 ${(orderVO.orderStatus == 1)? 'selected':''}>處理中</option>
+                                    <option value=2 ${(orderVO.orderStatus == 2)? 'selected':''}>配送中</option>
+                                    <option value=3 ${(orderVO.orderStatus == 3)? 'selected':''}>已完成</option>
+                                    <option value=4 ${(orderVO.orderStatus == 4)? 'selected':''}>已取消</option>
                                 </select>
                                 <button class="btn btn-primary" type="submit">儲存</button>
                                 <input type="hidden" name="action" value="update">	
@@ -76,7 +77,7 @@
                                      <jsp:useBean id="memberSvc" scope="page" class="com.members.model.MembersService" />
                                         <h6 class="mb-1">顧客資料</h6>
                                         <p class="mb-1">
-                                           姓名: ${memberSvc.select(orderVO.memberId).name}<br />
+                                           姓名: ${memberSvc.select(orderVO.memberId).name} <br />
                                            Email: ${memberSvc.select(orderVO.memberId).email} <br />
                                            電話: ${memberSvc.select(orderVO.memberId).phone}
                                         </p>
@@ -139,7 +140,7 @@
                                             <tr>
                                                 <td>
                                                     <a class="itemside" href="#"> 
-                                                        <div> ${productSvc.getOneProduct(orderDetailVO.merId).name}</div>
+                                                        <div>${productSvc.getOneProduct(orderDetailVO.merId).name}</div>
                                                     </a>
                                                 </td>
                                                 <td>${orderDetailVO.unitPrice}</td>
@@ -183,6 +184,7 @@
                         </div>
                     </div>
                     <!-- card-body end// -->
+                    </form>
                 </div>
                 <!-- card end// -->
             </section>

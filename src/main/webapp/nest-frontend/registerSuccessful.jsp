@@ -6,7 +6,7 @@
 
 		<head>
 			<meta charset="utf-8" />
-			<title>FrontEnd板模-Petting</title>
+			<title>Petting註冊成功!</title>
 			<meta http-equiv="x-ua-compatible" content="ie=edge" />
 			<meta name="description" content="" />
 			<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -40,10 +40,12 @@
 				<span style="font-size:24px;text-align: center;">
 					<h3>恭喜註冊成功!</h3>
 					<br>
-					<h4><%=session.getAttribute("name")%>，歡迎加入PETTING!</h4>						
+						<h4>歡迎加入PETTING! </h4>
+<%-- 					<h4>${ membersVO.getName(name)}，歡迎加入PETTING! </h4> --%>
+<%-- 					<h4><%=session.getAttribute("name")%>，歡迎加入PETTING!</h4>						 --%>
 						<!-- <meta http-equiv="refresh" content="等待秒數;url=頁面路徑"/>   -->
 						<br>
-						<p>將在5秒後自動跳轉至登入頁!</p>
+						<p>將在5秒後自動跳轉至登入頁!再煩請重新登入!!</p>
 						<meta http-equiv="refresh" content="5;url=/jeeweb-TFA105G3/nest-frontend/Login.jsp">
 				</span>
 				<span style="font-size:24px;">

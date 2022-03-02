@@ -51,7 +51,7 @@ public class MembersJDBCDAO implements MembersDAO_interface{
 			pstmt.setString(2, memberBean.getMobile());
 			pstmt.setString(3, memberBean.getPhone());
 			pstmt.setString(4, memberBean.getAddress());
-			pstmt.setDate(5, memberBean.getDate());
+			pstmt.setTimestamp(5, memberBean.getTimestamp());
 			pstmt.setString(6, memberBean.getEmail());
 			pstmt.setString(7, memberBean.getPassword());
 			pstmt.setString(8, memberBean.getNickname());
@@ -103,7 +103,7 @@ public class MembersJDBCDAO implements MembersDAO_interface{
 			pstmt.setString(2, memberBean.getMobile());
 			pstmt.setString(3, memberBean.getPhone());
 			pstmt.setString(4, memberBean.getAddress());
-			pstmt.setDate(5, memberBean.getDate());
+			pstmt.setTimestamp(5, memberBean.getTimestamp());
 			pstmt.setString(6, memberBean.getEmail());
 			pstmt.setString(7, memberBean.getPassword());
 			pstmt.setString(8, memberBean.getNickname());
@@ -210,7 +210,7 @@ public class MembersJDBCDAO implements MembersDAO_interface{
 				memberBean.setMobile(rs.getString("MOBILE"));
 				memberBean.setPhone(rs.getString("PHONE"));
 				memberBean.setAddress(rs.getString("ADDRESS"));
-				memberBean.setDate(rs.getDate("DATE"));
+				memberBean.setTimestamp(rs.getTimestamp("DATE"));
 				memberBean.setEmail(rs.getString("EMAIL"));
 				memberBean.setPassword(rs.getString("PASSWORD"));
 				memberBean.setNickname(rs.getString("NICKNAME"));
@@ -274,7 +274,7 @@ public class MembersJDBCDAO implements MembersDAO_interface{
 				memberBean.setMobile(rs.getString("MOBILE"));
 				memberBean.setPhone(rs.getString("PHONE"));
 				memberBean.setAddress(rs.getString("ADDRESS"));
-				memberBean.setDate(rs.getDate("DATE"));
+				memberBean.setTimestamp(rs.getTimestamp("DATE"));
 				memberBean.setEmail(rs.getString("EMAIL"));
 				memberBean.setPassword(rs.getString("PASSWORD"));
 				memberBean.setNickname(rs.getString("NICKNAME"));
@@ -334,7 +334,7 @@ public class MembersJDBCDAO implements MembersDAO_interface{
 				memberBean.setMobile(rs.getString("MOBILE"));
 				memberBean.setPhone(rs.getString("PHONE"));
 				memberBean.setAddress(rs.getString("ADDRESS"));
-				memberBean.setDate(rs.getDate("DATE"));
+				memberBean.setTimestamp(rs.getTimestamp("DATE"));
 				memberBean.setEmail(rs.getString("EMAIL"));
 				memberBean.setPassword(rs.getString("PASSWORD"));
 				memberBean.setNickname(rs.getString("NICKNAME"));
@@ -379,6 +379,12 @@ public class MembersJDBCDAO implements MembersDAO_interface{
 		}
 		
 		return list;
+	}
+
+	@Override
+	public MembersVO select(String email) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

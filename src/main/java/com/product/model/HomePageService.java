@@ -1,5 +1,6 @@
 package com.product.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomePageService {
@@ -12,41 +13,37 @@ public class HomePageService {
 
 	public Integer getCountsBySubCategory(String sub) {
 		List<ProductVO> list = dao.getAll();
-		int sublist = 0;
+		int subcounts = 0;
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getSubCategory().equals(sub)) {
-				sublist++;
+				subcounts++;
 //				System.out.print(list.get(i).getName() + ",");
 //				System.out.println(list.get(i).getSubCategory());
 			}
 		}
 //		System.out.println("count="+ sublist);
-		return sublist;
+		return subcounts;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((dao == null) ? 0 : dao.hashCode());
-		return result;
+	public Integer getCountsByMainCategory(String main) {
+		List<ProductVO> list = dao.getAll();
+		int maincounts = 0;
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getMainCategory().equals(main)) {
+				maincounts++;
+//				System.out.print(list.get(i).getName() + ",");
+//				System.out.println(list.get(i).getSubCategory());
+			}
+		}
+//		System.out.println("count="+ sublist);
+		return maincounts;
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		HomePageService other = (HomePageService) obj;
-		if (dao == null) {
-			if (other.dao != null)
-				return false;
-		} else if (!dao.equals(other.dao))
-			return false;
-		return true;
+	public Integer getCountsBySearchBox(String text) {
+		List<ProductVO> list = dao.getAllByProductName(text);
+		int counts = 0;
+		for (int i = 0; i < list.size(); i++) {
+				counts++;
+		}
+		return counts;
 	}
 
 	public List<ProductVO> getAll() {
@@ -73,5 +70,25 @@ public class HomePageService {
 
 	public List<ProductVO> getSpecialClassByMainCategory(String maincategory) {
 		return dao.getAllByMainCategory(maincategory);
+	}
+	
+	public List<ProductVO> getSubCategoryName(String subcategory){
+		List<ProductVO> list = dao.getAll();
+		List<ProductVO> sublist= new ArrayList<ProductVO>();
+		ProductVO productVO = null;
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getSubCategory().equals(subcategory)) {
+				productVO = new ProductVO();
+				productVO.setMerid(list.get(i).getMerid());
+				productVO.setBusid(list.get(i).getBusid());
+				productVO.setName(list.get(i).getName());
+				productVO.setPrice(list.get(i).getPrice());
+				productVO.setStock(list.get(i).getStock());
+				productVO.setMainCategory(list.get(i).getMainCategory());
+				productVO.setSubCategory(list.get(i).getSubCategory());
+				sublist.add(productVO);
+			}
+		}
+		return sublist;
 	}
 }

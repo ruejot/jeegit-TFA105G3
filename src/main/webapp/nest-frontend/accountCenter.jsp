@@ -206,51 +206,68 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <!-- ===============================帳戶資料=============================== -->
                                         <div class="tab-pane fade" id="account-detail" role="tabpanel" aria-labelledby="account-detail-tab">
                                             <div class="card">
                                                 <div class="card-header">
-                                                    <h5>Account Details</h5>
+                                                    <h5>帳戶資料</h5>
                                                 </div>
                                                 <div class="card-body">
-                                                    <p>Already have an account? <a href="page-login.html">Log in instead!</a></p>
-                                                    <form method="post" name="enq">
+                                                    <p>已有帳號嗎? <a href="<%=request.getContextPath()%>/nest-frontend/Login.jsp">由此登入</a></p>
+                                                    <form method="post" name="enq" action="<%=request.getContextPath()%>/members/MembersDataUpdate">
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
-                                                                <label>First Name <span class="required">*</span></label>
+                                                                <label>姓名<span class="required">*</span></label>
                                                                 <input required="" class="form-control" name="name" type="text" />
                                                             </div>
                                                             <div class="form-group col-md-6">
-                                                                <label>Last Name <span class="required">*</span></label>
-                                                                <input required="" class="form-control" name="phone" />
+                                                                <label>暱稱</label>
+                                                                <input class="form-control" name="membersNickname" type="text" />
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label>手機<span class="required">*</span></label>
+                                                                <input required="" class="form-control" name="membersMobile" />
                                                             </div>
                                                             <div class="form-group col-md-12">
-                                                                <label>Display Name <span class="required">*</span></label>
-                                                                <input required="" class="form-control" name="dname" type="text" />
+                                                                <label>電話</label>
+                                                                <input class="form-control" name="membersPhone" type="text" />
                                                             </div>
                                                             <div class="form-group col-md-12">
-                                                                <label>Email Address <span class="required">*</span></label>
+                                                                <label>地址</label>
+                                                                <input class="form-control" name="membersAddress" type="text" />
+                                                            </div>
+                                                            <div class="form-group col-md-12">
+                                                                <label>Email(帳號) <span class="required">*</span></label>
                                                                 <input required="" class="form-control" name="email" type="email" />
                                                             </div>
                                                             <div class="form-group col-md-12">
-                                                                <label>Current Password <span class="required">*</span></label>
+                                                                <label>現在的密碼</label>
                                                                 <input required="" class="form-control" name="password" type="password" />
                                                             </div>
                                                             <div class="form-group col-md-12">
-                                                                <label>New Password <span class="required">*</span></label>
+                                                                <label>新的密碼</label>
                                                                 <input required="" class="form-control" name="npassword" type="password" />
                                                             </div>
                                                             <div class="form-group col-md-12">
-                                                                <label>Confirm Password <span class="required">*</span></label>
+                                                                <label>確認密碼</label>
                                                                 <input required="" class="form-control" name="cpassword" type="password" />
                                                             </div>
-                                                            <div class="col-md-12">
-                                                                <button type="submit" class="btn btn-fill-out submit font-weight-bold" name="submit" value="Submit">Save Change</button>
+                                                            <div class="form-group col-md-6">
+                                                                <label>簡介</label>
+                                                                <input class="form-control" name="membersIntro" type="text" />
                                                             </div>
+                                                            <div class="col-md-12">
+                                                                <button type="submit" class="btn btn-fill-out submit font-weight-bold" name="action" value="membersdataupdate">儲存修改</button>
+                                                            </div>
+
                                                         </div>
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- ===============================帳戶資料=============================== -->
+
                                     </div>
                                 </div>
                             </div>

@@ -13,6 +13,8 @@ public class CsDetailVO implements Serializable{
 	private Integer caseid;
 	private Integer memberid;
 	private Integer busid;
+	private Integer merid;
+	private Integer orderid;
 	private java.sql.Date casetime;
 	private String feedback;
 	private Integer replystatus;
@@ -22,8 +24,8 @@ public class CsDetailVO implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "com.csdetail.model.CsDetailBean ["+ caseid+ ","+ memberid+ ","+ busid+ ","
-				+ casetime+ ","+ feedback+ ","+ replystatus+ ","+ replycontent+ ","+ replytime+ "]";
+		return "com.csdetail.model.CsDetailBean ["+ caseid+ ", "+ memberid+ ", "+ busid+ ", "+ merid+ ", "+ orderid+ ", "
+				+ casetime+ ", "+ feedback+ ", "+ replystatus+ ", "+ replycontent+ ", "+ replytime+ "]";
 	}
 	
 //	@Override
@@ -50,6 +52,18 @@ public class CsDetailVO implements Serializable{
 	}
 	public void setBusid(Integer busid) {
 		this.busid = busid;
+	}
+	public Integer getMerid() {
+		return merid;
+	}
+	public void setMerid(Integer merid) {
+		this.merid = merid;
+	}
+	public Integer getOrderid() {
+		return orderid;
+	}
+	public void setOrderid(Integer orderid) {
+		this.orderid = orderid;
 	}
 	public java.sql.Date getCasetime() {
 		return casetime;
