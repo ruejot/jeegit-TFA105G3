@@ -99,7 +99,7 @@ public class OrderBusServlet extends HttpServlet {
 					List<String> errorMsgs = new LinkedList<String>();
 					// Store this set in the request scope, in case we need to send the ErrorPage views.
 					req.setAttribute("errorMsgs", errorMsgs);
-//					try {
+					try {
 						// 接收請求參數
 						// 取得訂單Id
 						Integer orderId = Integer.parseInt(req.getParameter("orderId"));
@@ -109,7 +109,7 @@ public class OrderBusServlet extends HttpServlet {
 						
 						//取得Tracking
 						Integer tracking = null;
-						String string = req.getParameter("tracking");
+						
 						try {
 							tracking = Integer.parseInt(req.getParameter("tracking"));
 						} catch (Exception e) {
@@ -165,10 +165,10 @@ public class OrderBusServlet extends HttpServlet {
 						successView.forward(req, res);
 
 						// 其他可能錯誤處理
-//					} catch (Exception e) {
-//						RequestDispatcher failureView = req.getRequestDispatcher("/nest-backend/update_pro_input.jsp");
-//						failureView.forward(req, res);
-//					}
+					} catch (Exception e) {
+						RequestDispatcher failureView = req.getRequestDispatcher("/nest-backend/update_pro_input.jsp");
+						failureView.forward(req, res);
+					}
 
 				}
 	}

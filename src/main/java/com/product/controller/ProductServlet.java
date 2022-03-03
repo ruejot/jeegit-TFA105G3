@@ -197,8 +197,10 @@ public class ProductServlet extends HttpServlet {
 				proVO.setMainCategory(mainCategory);
 				proVO.setSubCategory(subCategory);
 				
+				
 				//以下是圖片上傳
-				byte[] productImg = null;
+				byte[] productImg1 = null;
+				byte[] productImg2 = null;
 				
 				req.setCharacterEncoding("UTF-8"); // 處理中文檔名
 				res.setContentType("text/html; charset=UTF-8");
@@ -224,11 +226,19 @@ public class ProductServlet extends HttpServlet {
 						out.println("ContentType: " + ContentType);
 						out.println("size: " + size);
 						
-						InputStream in = part.getInputStream();
-						productImg = new byte[in.available()];
-						in.read(productImg);
-						in.close();
-						out.println("buffer length: " + productImg.length);
+						InputStream in1 = part.getInputStream();
+						productImg1 = new byte[in1.available()];
+						in1.read(productImg1);
+						in1.close();
+						out.println("buffer length: " + productImg1.length);
+						
+						InputStream in2 = part.getInputStream();
+						productImg2 = new byte[in2.available()];
+						in2.read(productImg2);
+						in2.close();
+						out.println("buffer length: " + productImg2.length);
+						
+						
 					}
 				
 				}
@@ -240,15 +250,15 @@ public class ProductServlet extends HttpServlet {
 				List<ProductImgVO> proImgVO = new ArrayList<ProductImgVO>();
 				
 				ProductImgVO productImgVO1 = new ProductImgVO();
-				productImgVO1.setMerpic(productImg);
+				productImgVO1.setMerpic(productImg1);
 				productImgVO1.setTime(timepic);
 				
-//				ProductImgVO productImgVO2 = new ProductImgVO();
-//				productImgVO2.setMerpic(productImg);
-//				productImgVO2.setTime(timepic);
+				ProductImgVO productImgVO2 = new ProductImgVO();
+				productImgVO2.setMerpic(productImg2);
+				productImgVO2.setTime(timepic);
 				
 				proImgVO.add(productImgVO1);
-//				proImgVO.add(productImgVO2);
+				proImgVO.add(productImgVO2);
 
 				// Send the user back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -261,7 +271,7 @@ public class ProductServlet extends HttpServlet {
 				// 開始修改資料
 				ProductService proSvc = new ProductService();
 				proVO = proSvc.updatePro(merid, busid, name, price, stock, shelfDate, status, description, sb.toString(),
-						mainCategory, subCategory, proImgVO);
+						mainCategory, subCategory);
 
 				// 修改完成，準備轉交
 				req.setAttribute("productVO", proVO);// 資料庫update成功後,正確的的proVO物件,存入req
@@ -407,7 +417,8 @@ public class ProductServlet extends HttpServlet {
 				proVO.setSubCategory(subCategory);
 				
 				//以下是圖片上傳
-				byte[] productImg = null;
+				byte[] productImg1 = null;
+				byte[] productImg2 = null;
 				
 				req.setCharacterEncoding("UTF-8"); // 處理中文檔名
 				res.setContentType("text/html; charset=UTF-8");
@@ -433,11 +444,18 @@ public class ProductServlet extends HttpServlet {
 						out.println("ContentType: " + ContentType);
 						out.println("size: " + size);
 						
-						InputStream in = part.getInputStream();
-						productImg = new byte[in.available()];
-						in.read(productImg);
-						in.close();
-						out.println("buffer length: " + productImg.length);
+						InputStream in1 = part.getInputStream();
+						productImg1 = new byte[in1.available()];
+						in1.read(productImg1);
+						in1.close();
+						out.println("buffer length: " + productImg1.length);
+						
+						InputStream in2 = part.getInputStream();
+						productImg2 = new byte[in2.available()];
+						in2.read(productImg2);
+						in2.close();
+						out.println("buffer length: " + productImg2.length);
+						
 					}
 				
 				}
@@ -449,15 +467,15 @@ public class ProductServlet extends HttpServlet {
 				List<ProductImgVO> proImgVO = new ArrayList<ProductImgVO>();
 				
 				ProductImgVO productImgVO1 = new ProductImgVO();
-				productImgVO1.setMerpic(productImg);
+				productImgVO1.setMerpic(productImg1);
 				productImgVO1.setTime(timepic);
 				
-//				ProductImgVO productImgVO2 = new ProductImgVO();
-//				productImgVO2.setMerpic(productImg);
-//				productImgVO2.setTime(timepic);
+				ProductImgVO productImgVO2 = new ProductImgVO();
+				productImgVO2.setMerpic(productImg2);
+				productImgVO2.setTime(timepic);
 				
 				proImgVO.add(productImgVO1);
-//				proImgVO.add(productImgVO2);
+				proImgVO.add(productImgVO2);
 
 				// Send the user back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {

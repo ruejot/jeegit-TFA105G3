@@ -75,7 +75,7 @@ BusVO busVO = (BusVO)session.getAttribute("BusUsing");
 						<div class="row align-items-center">
 							<div class="col col-check flex-grow-0">
 								<div class="">
-								<h6>ID</h6>
+								
 								</div>
 							</div>
 							<div class="col-lg-3 col-sm-4 col-8 flex-grow-1 col-name">
@@ -108,7 +108,7 @@ BusVO busVO = (BusVO)session.getAttribute("BusUsing");
 					<article class="itemlist">
 						<div class="row align-items-center">
 							<div class="col col-check flex-grow-0">				
-									<p>${productVO.merid}.</p>
+									
 							</div>
 							<div class="col-lg-3 col-sm-4 col-8 flex-grow-1 col-name">
 								<a class="itemside" href="#">

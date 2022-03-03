@@ -152,7 +152,7 @@ int i = 0, index = 0;
 							<jsp:useBean id="productImgSvc" scope="page" class="com.productImg.model.ProductImgService" />
 								<img src="<%=request.getContextPath()%>/ShowPic?imgid=${productImgSvc.getOneProductImg(productVO.merid).imgid}"
 											 alt="../assets/imgs/theme/upload.svg" class="img-sm img-thumbnail" /> 
-								<input class="form-control" type="file" name="upfile1">
+								<input class="form-control" type="file" name="upfile2">
 							</div>
 						</div>
 					</div>
@@ -162,7 +162,7 @@ int i = 0, index = 0;
 		</form>
 		</section>
 		<!-- content-main end// -->
-		<jsp:include page="/views/footer.jsp"/>
+		<jsp:include page="/views/sellerFooter.jsp"/>
 	</main>
 	<script src="../assets/js/vendors/jquery-3.6.0.min.js"></script>
 	<script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>

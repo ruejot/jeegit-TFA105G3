@@ -86,7 +86,7 @@ int i = 0;
                                         <label for="yet">尚未開賣</label>
                                         <input class="form-check-input ml-10" id="onsell" type="radio" name="status" value="<%=(productVO==null)? "2" : productVO.getStatus() %>" />
                                         <label for="onsell">熱賣中</label>
-                                        <input class="form-check-input ml-10" id="off" type="radio" name="status"  value="<%=(productVO==null)? "3" : "checked" %>" />
+                                        <input class="form-check-input ml-10" id="off" type="radio" name="status"  value="<%=(productVO==null)? "3" : productVO.getStatus() %>" />
                                         <label for="off">暫停販售</label>
                                 </div>
                                 <jsp:useBean id="shippingSvc" scope="page" class="com.shipping.model.ShippingService" />
@@ -148,7 +148,8 @@ int i = 0;
 						<div class="card-body">
 							<div class="input-upload">
 								<img src="../assets/imgs/theme/upload.svg" alt="" /> 
-								<input class="form-control" type="file" name="upfile1">
+								<input class="form-control" type="file" name="upfile1"> <br/>
+								<input class="form-control" type="file" name="upfile2">
 							</div>
 						</div>
 					</div>

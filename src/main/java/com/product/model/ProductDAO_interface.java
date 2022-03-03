@@ -20,6 +20,6 @@ public interface ProductDAO_interface {
 	public abstract List<ProductVO> getAllbyV_MerPro();
 	public abstract List<ProductVO> getAllBySubCategory(String subcategory);
 	public void insertWithProductImg(ProductVO productVO, List<ProductImgVO> list);
-	public void updateWithProductImg(ProductVO productVO, List<ProductImgVO> list);
+	//public void updateWithProductImg(ProductVO productVO, List<ProductImgVO> list);
 	public abstract List<ProductVO> getProductByBusid(Integer busid);
 }

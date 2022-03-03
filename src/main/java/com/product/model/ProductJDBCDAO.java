@@ -464,53 +464,53 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 
 public static void main(String[] args) throws Exception{
 	
-//  新增商品同時新增照片
-//	ProductJDBCDAO dao = new ProductJDBCDAO();
-//	ProductVO productVO1 = new ProductVO();
-//	productVO1.setBusid(1);
-//	productVO1.setName("HAPPYPUPPY");
-//	productVO1.setPrice(350);
-//	productVO1.setStock(15);
-//	productVO1.setShelfDate(java.sql.Date.valueOf("2022-02-03"));
-//	productVO1.setStatus(1);
-//	productVO1.setDescription("HAPPYPUPPY");
-//	productVO1.setShippingMethod("100");
-//	productVO1.setMainCategory("FOOD");
-//	productVO1.setSubCategory("FOOD");
-//	
-//	String path = "C:/Tibame-Web Project";
-//	File input1 = new File(path + "/1.jpg");
-//	int length1 = (int) input1.length();
-//	byte[] photo1 = new byte[length1];
-//	FileInputStream fis1 = new FileInputStream(input1);
-//	fis1.read(photo1);
-//	fis1.close();
-//	
-//	String path1 = "C:/Tibame-Web Project";
-//	File input2 = new File(path1 + "/2.png");
-//	int length2 = (int) input2.length();
-//	byte[] photo2 = new byte[length2];
-//	FileInputStream fis2 = new FileInputStream(input2);
-//	fis2.read(photo2);
-//	fis2.close();
-//	
-//	
-//	List<ProductImgVO> list = new ArrayList<ProductImgVO>();
-//
-//	ProductImgVO productImgVO1 = new ProductImgVO();
-//	productImgVO1.setMerpic(photo1);
-//	productImgVO1.setTime(java.sql.Date.valueOf("2022-02-03"));
-//	
-//	ProductImgVO productImgVO2 = new ProductImgVO();
-//	productImgVO2.setMerpic(photo2);
-//	productImgVO2.setTime(java.sql.Date.valueOf("2022-02-03"));
-//	
-//	list.add(productImgVO1);
-//	list.add(productImgVO2);
-//	
-//	dao.insertWithProductImg(productVO1, list);
+	//新增商品同時新增照片
+	ProductJDBCDAO dao = new ProductJDBCDAO();
+	ProductVO productVO1 = new ProductVO();
+	productVO1.setBusid(1);
+	productVO1.setName("HAPPYPUPPY");
+	productVO1.setPrice(350);
+	productVO1.setStock(15);
+	productVO1.setShelfDate(java.sql.Date.valueOf("2022-02-03"));
+	productVO1.setStatus(1);
+	productVO1.setDescription("HAPPYPUPPY");
+	productVO1.setShippingMethod("100");
+	productVO1.setMainCategory("FOOD");
+	productVO1.setSubCategory("FOOD");
+	
+	String path = "C:/Tibame-Web Project";
+	File input1 = new File(path + "/1.jpg");
+	int length1 = (int) input1.length();
+	byte[] photo1 = new byte[length1];
+	FileInputStream fis1 = new FileInputStream(input1);
+	fis1.read(photo1);
+	fis1.close();
+	
+	String path1 = "C:/Tibame-Web Project";
+	File input2 = new File(path1 + "/2.png");
+	int length2 = (int) input2.length();
+	byte[] photo2 = new byte[length2];
+	FileInputStream fis2 = new FileInputStream(input2);
+	fis2.read(photo2);
+	fis2.close();
+	
+	
+	List<ProductImgVO> list = new ArrayList<ProductImgVO>();
 
-//	
+	ProductImgVO productImgVO1 = new ProductImgVO();
+	productImgVO1.setMerpic(photo1);
+	productImgVO1.setTime(java.sql.Date.valueOf("2022-02-03"));
+	
+	ProductImgVO productImgVO2 = new ProductImgVO();
+	productImgVO2.setMerpic(photo2);
+	productImgVO2.setTime(java.sql.Date.valueOf("2022-02-03"));
+	
+	list.add(productImgVO1);
+	list.add(productImgVO2);
+	
+	dao.insertWithProductImg(productVO1, list);
+
+	
 //	
 //	ProductVO productVO2 = new ProductVO();
 //	productVO2.setMerid(2);
@@ -683,91 +683,91 @@ public List<ProductVO> getProductByBusid(Integer busid) {
 }
 
 
-@Override
-public void updateWithProductImg(ProductVO productVO, List<ProductImgVO> list) {
-	Connection con = null;
-	PreparedStatement pstmt = null;
-
-	try {
-		
-		Class.forName(driver);
-		con = DriverManager.getConnection(url, userid, passwd);
-		
-		// 設定於pstmt.executeUpdate()之前
-		con.setAutoCommit(false);
-
-		// 先更改商品主檔
-		String cols[] = { "MER_ID" };
-		pstmt = con.prepareStatement(UPDATE, cols);
-
-		pstmt.setInt(1, productVO.getBusid());
-		pstmt.setString(2, productVO.getName());
-		pstmt.setInt(3, productVO.getPrice());
-		pstmt.setInt(4, productVO.getStock());
-		pstmt.setDate(5, productVO.getShelfDate());
-		pstmt.setInt(6, productVO.getStatus());
-		pstmt.setString(7, productVO.getDescription());
-		pstmt.setString(8, productVO.getShippingMethod());
-		pstmt.setString(9, productVO.getMainCategory());
-		pstmt.setString(10, productVO.getSubCategory());
-		pstmt.setInt(11, productVO.getMerid());
-		pstmt.executeUpdate();
-
-		// 獲取對應的修改主鍵值
-		String next_merId = null;
-		ResultSet rs = pstmt.getGeneratedKeys();
-		if (rs.next()) {
-			next_merId = rs.getString(1);
-			System.out.println("自增主鍵值= " + next_merId + "(剛修改成功的商品編號)");
-		} else {
-			System.out.println("未取得自增主鍵值");
-		}
-		rs.close();
-		
-		// 再同時更改照片
-		ProductImgDAO dao1 = new ProductImgDAO();
-		System.out.println("list.size()-for update1=" + list.size());
-		for (ProductImgVO addImg : list) {
-			addImg.setMerid(Integer.parseInt(next_merId));
-			dao1.insert(addImg, con);
-		}
-		// 設定於pstmt.executeUpdate()之後
-		con.commit();
-		con.setAutoCommit(true);
-		System.out.println("list.size()-for update2=" + list.size());
-		System.out.println("更新商品編號" + next_merId + "時,共有" + list.size() + "筆圖片同時被新增");
-
-	} catch (SQLException se) {
-		if (con != null) {
-			try {
-				// 設定於當有exception發生時之catch區塊內
-				System.err.print("Transaction is being ");
-				System.err.println("rolled back-由-product");
-				con.rollback();
-			} catch (SQLException excep) {
-				throw new RuntimeException("rollback error occured. " + excep.getMessage());
-			}
-		}
-		throw new RuntimeException("A database error occured. " + se.getMessage());
-	} catch (ClassNotFoundException e) {
-		e.printStackTrace();
-	} finally {
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace();
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (SQLException se) {
-				se.printStackTrace();
-			}
-		}
-	}
-}
+//@Override
+//public void updateWithProductImg(ProductVO productVO, List<ProductImgVO> list) {
+//	Connection con = null;
+//	PreparedStatement pstmt = null;
+//
+//	try {
+//		
+//		Class.forName(driver);
+//		con = DriverManager.getConnection(url, userid, passwd);
+//		
+//		// 設定於pstmt.executeUpdate()之前
+//		con.setAutoCommit(false);
+//
+//		// 先更改商品主檔
+//		String cols[] = { "MER_ID" };
+//		pstmt = con.prepareStatement(UPDATE, cols);
+//
+//		pstmt.setInt(1, productVO.getBusid());
+//		pstmt.setString(2, productVO.getName());
+//		pstmt.setInt(3, productVO.getPrice());
+//		pstmt.setInt(4, productVO.getStock());
+//		pstmt.setDate(5, productVO.getShelfDate());
+//		pstmt.setInt(6, productVO.getStatus());
+//		pstmt.setString(7, productVO.getDescription());
+//		pstmt.setString(8, productVO.getShippingMethod());
+//		pstmt.setString(9, productVO.getMainCategory());
+//		pstmt.setString(10, productVO.getSubCategory());
+//		pstmt.setInt(11, productVO.getMerid());
+//		pstmt.executeUpdate();
+//
+//		// 獲取對應的修改主鍵值
+//		String next_merId = null;
+//		ResultSet rs = pstmt.getGeneratedKeys();
+//		if (rs.next()) {
+//			next_merId = rs.getString(1);
+//			System.out.println("自增主鍵值= " + next_merId + "(剛修改成功的商品編號)");
+//		} else {
+//			System.out.println("未取得自增主鍵值");
+//		}
+//		rs.close();
+//		
+//		// 再同時更改照片
+//		ProductImgDAO dao1 = new ProductImgDAO();
+//		System.out.println("list.size()-for update1=" + list.size());
+//		for (ProductImgVO addImg : list) {
+//			addImg.setMerid(Integer.parseInt(next_merId));
+//			dao1.insert(addImg, con);
+//		}
+//		// 設定於pstmt.executeUpdate()之後
+//		con.commit();
+//		con.setAutoCommit(true);
+//		System.out.println("list.size()-for update2=" + list.size());
+//		System.out.println("更新商品編號" + next_merId + "時,共有" + list.size() + "筆圖片同時被新增");
+//
+//	} catch (SQLException se) {
+//		if (con != null) {
+//			try {
+//				// 設定於當有exception發生時之catch區塊內
+//				System.err.print("Transaction is being ");
+//				System.err.println("rolled back-由-product");
+//				con.rollback();
+//			} catch (SQLException excep) {
+//				throw new RuntimeException("rollback error occured. " + excep.getMessage());
+//			}
+//		}
+//		throw new RuntimeException("A database error occured. " + se.getMessage());
+//	} catch (ClassNotFoundException e) {
+//		e.printStackTrace();
+//	} finally {
+//		if (pstmt != null) {
+//			try {
+//				pstmt.close();
+//			} catch (SQLException se) {
+//				se.printStackTrace();
+//			}
+//		}
+//		if (con != null) {
+//			try {
+//				con.close();
+//			} catch (SQLException se) {
+//				se.printStackTrace();
+//			}
+//		}
+//	}
+//}
 	
 }
 
