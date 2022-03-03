@@ -93,9 +93,10 @@
                                                     </div>
                                                     <div class="product-extra-link2">
                                                         <button type="submit" class="button button-add-to-cart"><i class="fi-rs-shopping-cart"></i>加入購物車</button>
-                                                        <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                                        <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                                    </div>
+                                                    </div><br>
+                                                        <a class="btn btn-xs" href="<%=request.getContextPath()%>/nest-frontend/ShopMainpage.do?busid=${aProd.get(0).busid}&action=show_Shop_Mainpage" style="background-color:#386641;">
+    													查看商店<i class="fi-rs-arrow-small-right"></i>
+														</a>
                                                 </div>
 
                                             </div>
@@ -172,48 +173,13 @@
                                                         </div>
                                                     </div>
                                                     <!--comment form-->
-                                                    <div class="comment-form">
-                                                        <h4 class="mb-15">Add a review</h4>
-                                                        <div class="product-rate d-inline-block mb-30"></div>
-                                                        <div class="row">
-                                                            <div class="col-lg-8 col-md-12">
-                                                                <form class="form-contact comment_form" action="#" id="commentForm">
-                                                                    <div class="row">
-                                                                        <div class="col-12">
-                                                                            <div class="form-group">
-                                                                                <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9" placeholder="Write Comment"></textarea>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-6">
-                                                                            <div class="form-group">
-                                                                                <input class="form-control" name="name" id="name" type="text" placeholder="Name" />
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-6">
-                                                                            <div class="form-group">
-                                                                                <input class="form-control" name="email" id="email" type="email" placeholder="Email" />
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-12">
-                                                                            <div class="form-group">
-                                                                                <input class="form-control" name="website" id="website" type="text" placeholder="Website" />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <button type="submit" class="button button-contactForm">Submit Review</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row mt-60">
                                         <div class="col-12">
-                                            <h2 class="section-title style-1 mb-30">Related products</h2>
+                                            <h2 class="section-title style-1 mb-30">相關商品</h2>
                                         </div>
                                         <div class="col-12">
                                             <div class="row related-products">
@@ -346,43 +312,18 @@
 
                                 <!-- Fillter By Price -->
                                 <div class="sidebar-widget price_range range mb-30">
-                                    <h5 class="section-title style-1 mb-30">Fill by price</h5>
+                                    <h5 class="section-title style-1 mb-30">價格區間</h5>
                                     <div class="price-filter">
                                         <div class="price-filter-inner">
-                                            <div id="slider-range" class="mb-20"></div>
+<!--                                             <div id="slider-range" class="mb-20"></div> SLIDER BAR -->
                                             <div class="d-flex justify-content-between">
-                                                <div class="caption">From: <strong id="slider-range-value1" class="text-brand"></strong></div>
-                                                <div class="caption">To: <strong id="slider-range-value2" class="text-brand"></strong></div>
-                                            </div>
+                                            <input type="range" min="0" max="10000" value= "1" id="p_price">
+                                                <div class="text-brand">$<strong id="p_price_value" class="detail-qty border radius"></strong>
+                                                </div>
+											</div>
+                                                <button type="submit" class="button button-add-to-cart">查詢</button>
                                         </div>
                                     </div>
-                                    <div class="list-group">
-                                        <div class="list-group-item mb-10 mt-10">
-                                            <label class="fw-900">Color</label>
-                                            <div class="custome-checkbox">
-                                                <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="" />
-                                                <label class="form-check-label" for="exampleCheckbox1"><span>Red (56)</span></label>
-                                                <br />
-                                                <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox2" value="" />
-                                                <label class="form-check-label" for="exampleCheckbox2"><span>Green (78)</span></label>
-                                                <br />
-                                                <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox3" value="" />
-                                                <label class="form-check-label" for="exampleCheckbox3"><span>Blue (54)</span></label>
-                                            </div>
-                                            <label class="fw-900 mt-15">Item Condition</label>
-                                            <div class="custome-checkbox">
-                                                <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox11" value="" />
-                                                <label class="form-check-label" for="exampleCheckbox11"><span>New (1506)</span></label>
-                                                <br />
-                                                <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox21" value="" />
-                                                <label class="form-check-label" for="exampleCheckbox21"><span>Refurbished (27)</span></label>
-                                                <br />
-                                                <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox31" value="" />
-                                                <label class="form-check-label" for="exampleCheckbox31"><span>Used (45)</span></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="shop-grid-right.html" class="btn btn-sm btn-default"><i class="fi-rs-filter mr-5"></i> Fillter</a>
                                 </div>
                             </div>
                         </div>
@@ -392,7 +333,18 @@
 		</div>
 	</main>
 	<jsp:include page="/views/footer.jsp" />
-
+	<script >
+	var p_price = document.querySelector("#p_price");
+    var p_price_value = document.querySelector("#p_price_value");
+	
+	function p_value(){
+		p_price_value.innerHTML = p_price.value;
+		p_price.addEventListener("mousemove",function(){
+			p_price_value.innerHTML = p_price.value;
+		});
+	}
+	p_value();
+	</script>
 	<!-- Preloader Start -->
 	<!-- Vendor JS-->
 	<script src="<%=request.getContextPath()%>/assets/js/vendors/modernizr-3.6.0.min.js"></script>

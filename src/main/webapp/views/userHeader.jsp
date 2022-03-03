@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -27,100 +28,125 @@
 			<div class="container">
 				<div class="header-wrap">
 					<div class="logo logo-width-1">
-						<a href="index.html"><img src="<%=request.getContextPath()%>/assets/imgs/theme/logo_Petting.svg"
+						<a href="<%=request.getContextPath()%>/nest-frontend/HomePage.jsp"><img
+							src="<%=request.getContextPath()%>/assets/imgs/theme/logo_Petting.svg"
 							alt="logo" /></a>
 					</div>
 					<div class="header-right">
 						<div class="search-style-2">
 							<form action="../product/SearchServlet" method="GET">
-								<select class="select-active">
-									<option>所有類別</option>
-									<option>寵物飼料</option>
-									<option>寵物罐頭</option>
-									<option>寵物保健</option>
-									<option>寵物零食</option>
-									<option>寵物玩具</option>
-									<option>居家用品</option>
-									<option>外出用品</option>
-									<option>美容護理</option>
-									<option>人氣商品</option>
-									<option>其他</option>
-								</select> <input type="text" placeholder="請輸入關鍵字...." name="usersearch" /> <input type="hidden" name="action"
-									value="search_from_header">
+<!-- 								<select class="select-active"> -->
+<!-- 									<option>所有類別</option> -->
+<!-- 									<option>寵物飼料</option> -->
+<!-- 									<option>寵物罐頭</option> -->
+<!-- 									<option>寵物保健</option> -->
+<!-- 									<option>寵物零食</option> -->
+<!-- 									<option>寵物玩具</option> -->
+<!-- 									<option>居家用品</option> -->
+<!-- 									<option>外出用品</option> -->
+<!-- 									<option>美容護理</option> -->
+<!-- 									<option>人氣商品</option> -->
+<!-- 									<option>其他</option> -->
+<!-- 								</select>  -->
+								<input type="text" placeholder="請輸入關鍵字...." name="usersearch" />
+								<input type="hidden" name="action" value="search_from_header">
 								<button type="submit" value="搜尋"></button>
 							</form>
 						</div>
-						<div class="header-action-right">
-							<div class="header-action-2">
-								<div class="header-action-icon-2">
-									<a class="mini-cart-icon" href="shop-cart.html"> <img alt="Cart"
-										src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-cart.svg" /> <span
-										class="pro-count blue">2</span>
-									</a> <a href="shop-cart.html"><span class="lable">購物車</span></a>
-									<div class="cart-dropdown-wrap cart-dropdown-hm2">
-										<ul>
-											<li>
-												<div class="shopping-cart-img">
-													<a href="shop-product-right.html"><img alt="Shop"
-														src="<%=request.getContextPath()%>/assets/imgs/shop/thumbnail-3.jpg" /></a>
-												</div>
-												<div class="shopping-cart-title">
-													<h4>
-														<a href="shop-product-right.html">Daisy Casual Bag</a>
-													</h4>
-													<h4>
-														<span>1 × </span>$800.00
-													</h4>
-												</div>
-												<div class="shopping-cart-delete">
-													<a href="#"><i class="fi-rs-cross-small"></i></a>
-												</div>
-											</li>
-											<li>
-												<div class="shopping-cart-img">
-													<a href="shop-product-right.html"><img alt="Nest"
-														src="<%=request.getContextPath()%>/assets/imgs/shop/thumbnail-2.jpg" /></a>
-												</div>
-												<div class="shopping-cart-title">
-													<h4>
-														<a href="shop-product-right.html">Corduroy Shirts</a>
-													</h4>
-													<h4>
-														<span>1 × </span>$3200.00
-													</h4>
-												</div>
-												<div class="shopping-cart-delete">
-													<a href="#"><i class="fi-rs-cross-small"></i></a>
-												</div>
-											</li>
-										</ul>
-										<div class="shopping-cart-footer">
-											<div class="shopping-cart-total">
-												<h4>
-													Total <span>$4000.00</span>
-												</h4>
-											</div>
-											<div class="shopping-cart-button">
-												<a href="shop-cart.html" class="outline">View cart</a> <a href="shop-checkout.html">Checkout</a>
+						<!-- choose -->
+						<!-- 	when，是BUS的情況。test BusUsing != null -->
+						<!-- 	otherwise，其他情況 -->
+						<!-- 		這裡共同區塊，for購物車按鈕的設定 -->
+						<!-- 		if，是Members的情況。test MemberUsing != null -->
+						<!-- 		if，是遊客的情況。test BusUsing == null && MemberUsing == null -->
+						<!-- /choose -->
+						<c:choose>
+							<c:when test="${BusUsing != null}">
+								<div class="header-action-right">
+									<div class="header-action-2">
+										<div class="header-action-icon-2">
+											<a
+												href="<%=request.getContextPath()%>/nest-backend/productManage.jsp"><span
+												class="lable"> <i class="fas fa-hotdog fa-lg mr-10"
+													style="color: black"></i>商品管理
+											</span></a>
+										</div>
+										<div class="header-action-icon-2">
+											<a
+												href="<%=request.getContextPath()%>/nest-backend/orderManage.jsp"><span
+												class="lable"> <i
+													class="far fa-folder-open fa-lg mr-10" style="color: black"></i>訂單管理
+											</span></a>
+										</div>
+										<div class="header-action-icon-2">
+											<a> <img class="svgInject" alt="Account"
+												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-user.svg" />
+											</a> <a><span class="lable ml-0">合作廠商</span></a>
+											<div
+												class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
+												<ul>
+													<li><a
+														href="<%=request.getContextPath()%>/nest-frontend/memberCenter.jsp">
+															<i class="fi fi-rs-user mr-10"></i>會員中心
+													</a></li>
+													<li><a
+														href="<%=request.getContextPath()%>/nest-frontend/fendshop_mainpage.jsp">
+															<i class="fi fi-rs-settings-sliders mr-10"></i>我的商店
+													</a></li>
+													<li><a
+														href="<%=request.getContextPath()%>/bus/BusLogout?action=logout">
+															<i class="fi fi-rs-sign-out mr-10"></i>廠商登出
+													</a></li>
+												</ul>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="header-action-icon-2">
-									<a href="page-account.html"> <img class="svgInject" alt="Account"
-										src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-user.svg" />
-									</a> <a href="page-account.html"><span class="lable ml-0">會員中心</span></a>
-									<div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
-										<ul>
-											<li><a href="page-account.html"><i class="fi fi-rs-user mr-10"></i>會員中心</a></li>
-											<li><a href="page-account.html"><i class="fi fi-rs-location-alt mr-10"></i>訂單管理</a></li>
-											<li><a href="page-account.html"><i class="fi fi-rs-settings-sliders mr-10"></i>帳戶設定</a></li>
-											<li><a href="page-login.html"><i class="fi fi-rs-sign-out mr-10"></i>登出</a></li>
-										</ul>
+							</c:when>
+							<c:otherwise>
+								<div class="header-action-right">
+									<div class="header-action-2">
+										<div class="header-action-icon-2">
+											<a class="mini-cart-icon" href="shop-cart.html"> <img
+												alt="Cart"
+												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-cart.svg" />
+												<span class="pro-count blue">N</span>
+											</a> <a href="shop-cart.html"><span class="lable">購物車</span></a>
+										</div>
+										<c:if test="${MemberUsing != null}">
+											<div class="header-action-icon-2">
+												<a> <img class="svgInject"
+													alt="Account"
+													src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-user.svg" />
+												</a> <a><span class="lable ml-0">歡迎回來</span></a>
+												<div
+													class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
+													<ul>
+														<li><a href="page-account.html"><i
+																class="fi fi-rs-user mr-10"></i>會員中心</a></li>
+														<li><a href="page-account.html"><i
+																class="fi fi-rs-location-alt mr-10"></i>訂單管理</a></li>
+														<li><a href="page-account.html"><i
+																class="fi fi-rs-settings-sliders mr-10"></i>帳戶設定</a></li>
+														<li><a href="<%=request.getContextPath()%>/members/MembersLogout?action=logout"><i
+																class="fi fi-rs-sign-out mr-10"></i>會員登出</a></li>
+													</ul>
+												</div>
+											</div>
+										</c:if>
+										<c:if test="${BusUsing == null && MemberUsing == null}">
+											<div class="header-action-icon-2">
+												<a href="<%=request.getContextPath()%>/nest-frontend/Login.jsp"> <img class="svgInject"
+													alt="Account"
+													src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-user.svg" />
+												</a> <a href="<%=request.getContextPath()%>/nest-frontend/Login.jsp"><span class="lable ml-0">登入</span></a>
+											</div>
+										</c:if>
 									</div>
 								</div>
-							</div>
-						</div>
+							</c:otherwise>
+						</c:choose>
+
 					</div>
 				</div>
 			</div>
@@ -129,62 +155,78 @@
 			<div class="container">
 				<div class="header-wrap header-space-between position-relative">
 					<div class="logo logo-width-1 d-block d-lg-none">
-						<a href="index.html"><img src="<%=request.getContextPath()%>/assets/imgs/theme/logo_Petting.svg"
+						<a href="index.html"><img
+							src="<%=request.getContextPath()%>/assets/imgs/theme/logo_Petting.svg"
 							alt="logo" /></a>
 					</div>
 					<div class="header-nav d-none d-lg-flex">
 						<div class="main-categori-wrap d-none d-lg-block">
-							<a class="categories-button-active" href="#"> <span class="fi-rs-apps"></span> <span class="et">瀏覽所有類別</span>
-								<i class="fi-rs-angle-down"></i>
+							<a class="categories-button-active" href="#"> <span
+								class="fi-rs-apps"></span> <span class="et">瀏覽所有類別</span> <i
+								class="fi-rs-angle-down"></i>
 							</a>
-							<div class="categories-dropdown-wrap categories-dropdown-active-large font-heading">
+							<div
+								class="categories-dropdown-wrap categories-dropdown-active-large font-heading">
 								<div class="d-flex categori-dropdown-inner">
 									<ul>
 										<li><a href="shop-grid-right.html"> <img
-												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-1.svg" alt="" />寵物飼料
+												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-1.svg"
+												alt="" />寵物飼料
 										</a></li>
 										<li><a href="shop-grid-right.html"> <img
-												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-2.svg" alt="" />寵物罐頭
+												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-2.svg"
+												alt="" />寵物罐頭
 										</a></li>
 										<li><a href="shop-grid-right.html"> <img
-												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-3.svg" alt="" />寵物保健
+												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-3.svg"
+												alt="" />寵物保健
 										</a></li>
 										<li><a href="shop-grid-right.html"> <img
-												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-4.svg" alt="" />寵物零食
+												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-4.svg"
+												alt="" />寵物零食
 										</a></li>
 										<li><a href="shop-grid-right.html"> <img
-												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-5.svg" alt="" />寵物玩具
+												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-5.svg"
+												alt="" />寵物玩具
 										</a></li>
 									</ul>
 									<ul class="end">
 										<li><a href="shop-grid-right.html"> <img
-												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-6.svg" alt="" />居家用品
+												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-6.svg"
+												alt="" />居家用品
 										</a></li>
 										<li><a href="shop-grid-right.html"> <img
-												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-7.svg" alt="" />外出用品
+												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-7.svg"
+												alt="" />外出用品
 										</a></li>
 										<li><a href="shop-grid-right.html"> <img
-												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-8.svg" alt="" />美容護理
+												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-8.svg"
+												alt="" />美容護理
 										</a></li>
 										<li><a href="shop-grid-right.html"> <img
-												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-9.svg" alt="" />人氣商品
+												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-9.svg"
+												alt="" />人氣商品
 										</a></li>
 										<li><a href="shop-grid-right.html"> <img
-												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-10.svg" alt="" />其他
+												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-10.svg"
+												alt="" />其他
 										</a></li>
 									</ul>
 								</div>
 							</div>
 						</div>
-						<div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
+						<div
+							class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
 							<nav>
 								<ul>
 									<li class="hot-deals"><img
-										src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-hot.svg" alt="hot deals" /> <a
-										href="shop-grid-right.html">熱門商品</a></li>
-									<li><a style="color: #386641" class="active" href="index.html">商城首頁</a></li>
+										src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-hot.svg"
+										alt="hot deals" /> <a href="shop-grid-right.html">熱門商品</a></li>
+									<li><a style="color: #386641" class="active"
+										href="index.html">商城首頁</a></li>
 									<li><a href="page-about.html">關於我們</a></li>
-									<li><a href="shop-grid-right.html">寵物糧食<i class="fi-rs-angle-down"></i></a>
+									<li><a href="shop-grid-right.html">寵物糧食<i
+											class="fi-rs-angle-down"></i></a>
 										<ul class="sub-menu">
 											<li><a href="shop-grid-right.html">品牌飼料</a></li>
 											<li><a href="shop-grid-left.html">貓狗罐罐</a></li>
@@ -200,28 +242,32 @@
 										</ul></li>
 									<li><a href="#">寵物服務 </a></li>
 									<li><a href="blog-category-grid.html">部落格首頁 </a></li>
-									<li><a href="page-contact.html" style="margin-right: 80px;">聯絡我們</a></li>
+									<li><a href="page-contact.html"
+										style="margin-right: 80px;">聯絡我們</a></li>
 								</ul>
 							</nav>
 						</div>
 					</div>
 					<div class="header-action-icon-2 d-block d-lg-none">
 						<div class="burger-icon burger-icon-white">
-							<span class="burger-icon-top"></span> <span class="burger-icon-mid"></span> <span
-								class="burger-icon-bottom"></span>
+							<span class="burger-icon-top"></span> <span
+								class="burger-icon-mid"></span> <span class="burger-icon-bottom"></span>
 						</div>
 					</div>
+					<!-- 以下是小尺寸視窗時的顯示結果 -->
 					<div class="header-action-right d-block d-lg-none">
 						<div class="header-action-2">
 
 							<div class="header-action-icon-2">
-								<a class="mini-cart-icon" href="shop-cart.html"> <img alt="Account"
-									src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-cart.svg" /> <span
-									class="pro-count white">2</span>
+								<a class="mini-cart-icon" href="shop-cart.html"> <img
+									alt="Account"
+									src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-cart.svg" />
+									<span class="pro-count white">4</span>
 								</a>
 
 								<div class="header-action-icon-2">
-									<a href="page-account.html"> <img class="svgInject" alt="user"
+									<a href="page-account.html"> <img class="svgInject"
+										alt="user"
 										src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-user.svg" />
 									</a> <a href="page-account.html"><span class="lable ml-0">會員中心</span></a>
 
@@ -237,10 +283,12 @@
 		<div class="mobile-header-wrapper-inner">
 			<div class="mobile-header-top">
 				<div class="mobile-header-logo">
-					<a href="index.html"><img src="<%=request.getContextPath()%>/assets/imgs/theme/logo_Petting.svg"
+					<a href="index.html"><img
+						src="<%=request.getContextPath()%>/assets/imgs/theme/logo_Petting.svg"
 						alt="logo" /></a>
 				</div>
-				<div class="mobile-menu-close close-style-wrap close-style-position-inherit">
+				<div
+					class="mobile-menu-close close-style-wrap close-style-position-inherit">
 					<button class="close-style search-close">
 						<i class="icon-top"></i> <i class="icon-bottom"></i>
 					</button>
@@ -260,7 +308,8 @@
 					<nav>
 						<ul class="mobile-menu font-heading">
 							<li class="menu-item-has-children"><a href="index.html">商城首頁</a></li>
-							<li class="menu-item-has-children"><a href="shop-grid-right.html">寵物糧食</a>
+							<li class="menu-item-has-children"><a
+								href="shop-grid-right.html">寵物糧食</a>
 								<ul class="dropdown">
 									<li><a href="shop-grid-right.html">品牌飼料</a></li>
 									<li><a href="shop-grid-left.html">貓狗罐罐</a></li>
@@ -275,15 +324,18 @@
 									<li><a href="vendor-details-2.html">美容護理</a></li>
 								</ul></li>
 							<li class="menu-item-has-children"><a href="#">寵物服務</a></li>
-							<li class="menu-item-has-children"><a href="blog-category-fullwidth.html">部落格首頁</a></li>
-							<li class="menu-item-has-children"><a href="page-contact.html">聯絡我們</a></li>
+							<li class="menu-item-has-children"><a
+								href="blog-category-fullwidth.html">部落格首頁</a></li>
+							<li class="menu-item-has-children"><a
+								href="page-contact.html">聯絡我們</a></li>
 						</ul>
 					</nav>
 					<!-- mobile menu end -->
 				</div>
 				<div class="mobile-header-info-wrap">
 					<div class="single-mobile-header-info">
-						<a href="page-contact.html"><i class="fi-rs-marker"></i>台北市中山區南京東路三段219號5樓 </a>
+						<a href="page-contact.html"><i class="fi-rs-marker"></i>台北市中山區南京東路三段219號5樓
+						</a>
 					</div>
 					<div class="single-mobile-header-info">
 						<a href="page-login.html"><i class="fi-rs-user"></i>登入 / 登出 </a>
@@ -302,7 +354,8 @@
                         <a href="#"><img src="assets/imgs/theme/icons/icon-youtube-white.svg" alt="" /></a>
                     </div>
                     -->
-				<div class="site-copyright">Copyright 2022 © Petting. All rights reserved.</div>
+				<div class="site-copyright">Copyright 2022 © Petting. All
+					rights reserved.</div>
 			</div>
 		</div>
 	</div>
@@ -332,6 +385,7 @@
 	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.vticker-min.js"></script> --%>
 	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.theia.sticky.js"></script> --%>
 	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.elevatezoom.js"></script> --%>
+	<script src="https://kit.fontawesome.com/60002e5c50.js"></script>
 	<!--     Invoice JS, shop-inovice-*.html -->
 	<!--     <script src="assets/js/invoice/jspdf.min.js"></script> -->
 	<!--     <script src="assets/js/invoice/invoice.js"></script> -->

@@ -7,13 +7,13 @@
 <!-- [editor,date] wei,2022-02-22 -->
 <%
 ProductService productSvc = new ProductService();
-
-
 List<ProductVO> productlist = productSvc.getAll();
 session.setAttribute("productlist", productlist);
 
 HomePageService homePageSVC = new HomePageService();
 pageContext.setAttribute("homePageSVC", homePageSVC);
+List<ProductVO> mainlist = (List<ProductVO>) session.getAttribute("mainlist");
+request.setAttribute("mainlist", mainlist);
 %>
 <html lang="zh-Hant-TW">
 <head>
@@ -274,43 +274,38 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 <!--尾 橫三幅 廣告頁面-->
 		<!--End banners-->
 		<section class="product-tabs section-padding position-relative">
-			<div class="container">
-				<div class="section-title style-2 wow animate__animated animate__fadeIn">
-					<h3>熱門商品</h3>
 <!--頭 熱門商品右側 MainCategory -->
-					<ul class="nav nav-tabs links" id="myTab" role="tablist">
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="nav-tab-seven" data-bs-toggle="tab"
-								data-bs-target="#tab-seven" type="button" role="tab"
-								aria-controls="tab-seven" aria-selected="false">品牌飼料</button>
-								
-						</li>
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="nav-tab-two" data-bs-toggle="tab"
-								data-bs-target="#tab-two" type="button" role="tab"
-								aria-controls="tab-two" aria-selected="false">貓狗罐頭</button>
-						</li>
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="nav-tab-three" data-bs-toggle="tab"
-								data-bs-target="#tab-three" type="button" role="tab"
-								aria-controls="tab-three" aria-selected="false">抓板玩具</button>
-						</li>
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="nav-tab-four" data-bs-toggle="tab"
-								data-bs-target="#tab-four" type="button" role="tab"
-								aria-controls="tab-four" aria-selected="false">環境清潔</button>
-						</li>
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="nav-tab-five" data-bs-toggle="tab"
-								data-bs-target="#tab-five" type="button" role="tab"
-								aria-controls="tab-five" aria-selected="false">居家用品</button>
-						</li>
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="nav-tab-six" data-bs-toggle="tab"
-								data-bs-target="#tab-six" type="button" role="tab"
-								aria-controls="tab-six" aria-selected="false">外出用品</button>
-						</li>
-					</ul>
+		<div class="container wow animate__animated animate__fadeIn">
+			<div class="section-title">
+				<div class="title">
+					<h3>熱門商品</h3>
+						<ul class="list-inline nav nav-tabs links" >
+                        <li class="list-inline-item nav-item" style="left:500 px"> <a class="nav-link"
+                            href="<%=request.getContextPath()%>/product/maintitleServlet?action=maintitle&title=寵物食品">寵物飼料</a>
+                        </li>
+                        </ul>
+						<ul class="list-inline nav nav-tabs links" >
+                        <li class="list-inline-item nav-item" style="left:500 px"> <a class="nav-link"
+                            href="<%=request.getContextPath()%>/product/maintitleServlet?action=maintitle&title=生活用品">生活用品</a>
+                        </li>
+                        </ul>
+						<ul class="list-inline nav nav-tabs links" >
+                        <li class="list-inline-item nav-item" style="left:500 px"> <a class="nav-link"
+                            href="<%=request.getContextPath()%>/product/maintitleServlet?action=maintitle&title=寵物玩具">寵物玩具</a>
+                        </li>
+                        </ul>
+						<ul class="list-inline nav nav-tabs links" >
+                        <li class="list-inline-item nav-item" style="left:500 px"> <a class="nav-link"
+                            href="<%=request.getContextPath()%>/product/maintitleServlet?action=maintitle&title=居家清潔">居家清潔</a>
+                        </li>
+                        </ul>
+						<ul class="list-inline nav nav-tabs links" >
+                        <li class="list-inline-item nav-item" style="left:500 px"> <a class="nav-link"
+                            href="<%=request.getContextPath()%>/product/maintitleServlet?action=maintitle&title=美容用具">美容用具</a>
+                        </li>
+                        </ul>
+                        
+					
 <!--尾 熱門商品右側 MainCategory -->
 				</div>
 				</div>
@@ -320,7 +315,7 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 						aria-labelledby="tab-one">
 						<div class="row product-grid-4">
 							<!--頭 熱門十商品-->
-							<c:forEach var="product" items="${productlist}" end="29" step="3" >
+							<c:forEach var="product" items="${mainlist}" end="29" step="2" >
 								<div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
 									<div
 										class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn"
@@ -363,6 +358,7 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 								</div>
 							</c:forEach>
 							<!--頭 熱門十商品-->
+						</div>
 						</div>
 					</div>
 				</div>

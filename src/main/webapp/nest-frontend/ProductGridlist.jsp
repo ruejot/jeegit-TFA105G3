@@ -59,7 +59,7 @@ pageContext.setAttribute("list", list);
                                 <ul class="tags-list">
                                 <c:forEach var="hashtag" items="${searchlist}" end="8" step="2" >
                                     <li class="hover-up">
-                                        <a href="blog-category-grid.html"><i class="fi-rs-cross mr-10"></i>${hashtag.name}</a>
+                                        <a href="<%=request.getContextPath()%>/product/ProductJump?merid=${hashtag.merid}&action=product_jump"><i class="fi-rs-cross mr-10"></i>${hashtag.name}</a>
                                     </li>
                                  </c:forEach> 
                                 </ul>
@@ -86,8 +86,8 @@ pageContext.setAttribute("list", list);
                                     </div>
                                     <div class="sort-by-dropdown">
                                         <ul>
-                                            <li><a class="active" href="#">50</a></li>
-                                            <li><a href="#">100</a></li>
+                                            <li><a  href="#">50</a></li>
+                                            <li><a class="active" href="#">100</a></li>
                                             <li><a href="#">150</a></li>
                                             <li><a href="#">200</a></li>
                                             <li><a href="#">All</a></li>

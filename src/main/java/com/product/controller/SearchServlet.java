@@ -2,17 +2,15 @@ package com.product.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.product.model.HomePageService;
-import com.product.model.ProductDAO_interface;
-import com.product.model.ProductService;
 import com.product.model.ProductVO;
 
 /**
@@ -33,14 +31,14 @@ public class SearchServlet extends HttpServlet {
 //		=========↓ 來自userHeader.jsp的請求↓==============
 		if ("search_from_header".equals(action)) {
 			String usersearch = req.getParameter("usersearch");
-			List<ProductVO> searchlist = SERVICE.getAllByProductName(usersearch);
+			List<ProductVO> searchlistSet = SERVICE.getAllByProductName(usersearch);
 			Integer counts = SERVICE.getCountsBySearchBox(usersearch);
-			if (searchlist == null) {
+			if (searchlistSet == null) {
 				req.getRequestDispatcher("../nest-frontend/HomePage.jsp").forward(req, res);
 
 			} else {
-				req.setAttribute("counts", counts);
-				req.getSession().setAttribute("searchlist", searchlist);
+				req.getSession().setAttribute("counts", counts);
+				req.getSession().setAttribute("searchlist", searchlistSet);
 				req.setAttribute("usersearch", usersearch);
 				req.getRequestDispatcher("../nest-frontend/ProductGridlist.jsp").forward(req, res);
 			}
@@ -52,7 +50,7 @@ public class SearchServlet extends HttpServlet {
 			List<ProductVO> searchlist = SERVICE.getSpecialClassByMainCategory(mainCategory);
 			Integer counts = SERVICE.getCountsByMainCategory(mainCategory); 
 			if (searchlist != null)  {
-				req.setAttribute("counts", counts);
+				req.getSession().setAttribute("counts", counts);
 				req.getSession().setAttribute("searchlist", searchlist);
 				req.setAttribute("mainCategory", mainCategory);
 				req.getRequestDispatcher("../nest-frontend/ProductGridlist.jsp").forward(req, res);
@@ -64,8 +62,8 @@ public class SearchServlet extends HttpServlet {
 			List<ProductVO> searchlist = SERVICE.getSubCategoryName(subCategory);
 			Integer counts = SERVICE.getCountsBySubCategory(subCategory); 
 			if (searchlist != null) {
-				req.setAttribute("counts", counts);
-				req.setAttribute("searchlist", searchlist);
+				req.getSession().setAttribute("counts", counts);
+				req.getSession().setAttribute("searchlist", searchlist);
 				req.setAttribute("subCategory", subCategory);
 				req.getRequestDispatcher("../nest-frontend/ProductGridlist.jsp").forward(req, res);
 			}
