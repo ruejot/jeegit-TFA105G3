@@ -11,7 +11,9 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 
 MembersVO membersVO = (MembersVO) request.getAttribute("membersVO");
 
-MemBlogArtService artSvc=new MemBlogArtService(); 
+MembersVO membersVO2 = (MembersVO) session.getAttribute("MemberUsing");
+
+MemBlogArtService artSvc = new MemBlogArtService(); 
 List<MemBlogArtVO> list = artSvc.getAllByMember(membersVO.getMemberid());
 pageContext.setAttribute("list",list);
 
@@ -23,7 +25,7 @@ pageContext.setAttribute("list",list);
 <html lang="zh-Hant-TW">
 <head>
 <meta charset="utf-8" />
-<title>seller板模-Petting</title>
+<title>FrontEnd板模-Petting</title>
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,13 +34,15 @@ pageContext.setAttribute("list",list);
 <meta property="og:url" content="" />
 <meta property="og:image" content="" />
 <!-- Favicon -->
-<link rel="shortcut icon" type="image/x-icon" href="<%=request.getContextPath()%>/assets/imgs/theme/Petting_logo.png" />
+<link rel="shortcut icon" type="image/x-icon"
+	href="<%=request.getContextPath()%>/assets/imgs/theme/Petting_logo.png" />
 <!-- Template CSS -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" type="text/css" />
-<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" type="text/css" />
-<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/main_backend.css" type="text/css" />
-</head><jsp:include page="/views/userHeader.jsp" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/slider-range.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
+<jsp:include page="/views/userHeader.jsp" />
 </head>
+
 
     <body>
     
@@ -53,13 +57,10 @@ pageContext.setAttribute("list",list);
 		border-radius: 4px;
 	}
         
-    .btn-light {
-		font-size: 14px;
-		font-weight: 500;
-		padding: 10px 40px;
+    .follow{
 		color: #000000;
 		border: #386641;
-		background-color: #E5E5E5;
+		background-color: #FB8500;
 		border-radius: 4px;
 	}
 
@@ -188,15 +189,40 @@ pageContext.setAttribute("list",list);
             <!-- content-main end// -->
 
         </main>
+	<!-- Preloader Start -->
+	<!-- Vendor JS-->
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/modernizr-3.6.0.min.js"></script>
 	<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-3.6.0.min.js"></script>
-    <script src="<%=request.getContextPath()%>/assets/js/vendors/bootstrap.bundle.min.js"></script>
-    <script src="<%=request.getContextPath()%>/assets/js/vendors/select2.min.js"></script>
-    <script src="<%=request.getContextPath()%>/assets/js/vendors/perfect-scrollbar.js"></script>
-    <script src="<%=request.getContextPath()%>/assets/js/vendors/jquery.fullscreen.min.js"></script>
-    <!-- 60002e5c50.js是fontawesome給璟葶這個會員註冊的key碼，如果之後fontawesome有新版，可能會失效，到時請自己去fontawesome註冊拿新的key -->
-    <script src="https://kit.fontawesome.com/60002e5c50.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-migrate-3.3.0.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/slick.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.syotimer.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/wow.js"></script>
+	<!--slider-range.js, jquery-ui.js , never appear at sametime-->
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/slider-range.js"></script>
+	<!-- index-3.html, index-4, shop-*.html，板模的這幾頁有用到jquery-ui.js -->
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery-ui.js"></script>
+	<!-- blog-post-fullwidth.html, shop-*.html，板模的這幾頁有用到perfect-scrollbar.js -->
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/perfect-scrollbar.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/magnific-popup.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/select2.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/waypoints.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/counterup.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.countdown.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/images-loaded.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/isotope.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/scrollup.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.vticker-min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.theia.sticky.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.elevatezoom.js"></script>
+
+	<!-- Invoice page's JS -->
+	<!-- <script src="assets/js/invoice/jspdf.min.js"></script> -->
+	<!-- <script src="assets/js/invoice/invoice.js"></script> -->
+
 	<!-- Template  JS -->
-	<script src="<%=request.getContextPath()%>/assets/js/main_backend.js" type="text/javascript"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/main_frontend.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/shop.js"></script>
 
 
 
@@ -212,7 +238,7 @@ pageContext.setAttribute("list",list);
                     data: {
                         action: "if_friend",
                         memberId:"<%=membersVO.getMemberid()%>",
-                        followee:"<%=memBlogArtVO.getMemberId()%>",
+                        followee:"<%=membersVO2.getMemberid()%>",
                         },
 
                     dataType : 'json',
