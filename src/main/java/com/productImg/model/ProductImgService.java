@@ -3,7 +3,6 @@ package com.productImg.model;
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.List;
-import java.util.Set;
 
 public class ProductImgService {
 	
@@ -31,18 +30,18 @@ private ProductImgDAO_interface dao;
 //			dao.update(productImgVO);
 //		}
 		
-		public ProductImgVO updateProductImg(Integer imgid, Integer merid, byte[] merpic, Date time) {
+		public ProductImgVO updateProductImg(Integer imgid, Integer merid, byte[] merpic, Date time, Connection con) {
 			ProductImgVO proImgVO = new ProductImgVO();
 			proImgVO.setImgid(imgid);
 			proImgVO.setMerid(merid);
 			proImgVO.setMerpic(merpic);
 			proImgVO.setTime(time);
-			dao.update(proImgVO);
+			dao.update(proImgVO, con);
 			
 			return proImgVO;
 		}
 		
-		public void deleteProductImg(Integer imgid) {
+		public void deleteProductImg(Integer imgid) {	
 			dao.delete(imgid);
 		}
 		

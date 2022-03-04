@@ -42,7 +42,7 @@ public class ShowPic extends HttpServlet {
 		}
 	}
 
-	private static final String GET_PIC_STMT = "SELECT * FROM MER_IMG where IMG_ID = ?";
+	private static final String GET_PIC_STMT = "SELECT * FROM MER_IMG where IMG_ID = ? limit 1";
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		

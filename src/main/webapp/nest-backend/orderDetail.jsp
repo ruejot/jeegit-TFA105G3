@@ -5,18 +5,18 @@
 <%@ page import="com.orderDetail.model.*"%>
 <%@ page import="java.util.*"%>
 
+<%
+	OrderVO orderVO = (OrderVO) request.getAttribute("orderVO");
+	
+%>
+
 <% 
 	OrderDetailService ordDetailSvc = new OrderDetailService();
-	List<OrderDetailVO> list = ordDetailSvc.getOrdersByOrderId(1);
+	List<OrderDetailVO> list = ordDetailSvc.getOrdersByOrderId(orderVO.getOrderId());
 	pageContext.setAttribute("list", list);
 
 %>
 
-<%
-	OrderService ordSvc = new OrderService();
-    List<OrderVO> ordList = ordSvc.getOrdersByBusId(1);
-    pageContext.setAttribute("ordList",ordList);
-%>
 
 
 <!-- 這一支nest-backend/orderDetail.java是璟葶的 -->
@@ -75,15 +75,15 @@
                                      <jsp:useBean id="memberSvc" scope="page" class="com.members.model.MembersService" />
                                         <h6 class="mb-1">顧客資料</h6>
                                         <p class="mb-1">
-<%--                                            姓名: ${memberSvc.select(orderVO.memberId).name}<br /> --%>
-<%--                                            Email: ${memberSvc.select(orderVO.memberId).email} <br /> --%>
-<%--                                            電話: ${memberSvc.select(orderVO.memberId).phone} --%>
+                                            姓名: ${memberSvc.select(orderVO.memberId).name}<br /> 
+                                           	Email: ${memberSvc.select(orderVO.memberId).email} <br /> 
+                                            電話: ${memberSvc.select(orderVO.memberId).phone} 
                                         </p>
                                     </div>
                                 </article>
                             </div>
                             <!-- col// -->
-                            <c:forEach var="orderVO" items="${ordList}">
+                            
                             <div class="col-md-4">
                                 <article class="icontext align-items-start">
                                     <span class="icon icon-sm rounded-circle bg-primary-light">
@@ -114,7 +114,7 @@
                                     </div>
                                 </article>
                             </div>
-                            </c:forEach>
+                            
                             <!-- col// -->
                         </div>
                         <!-- row // -->
@@ -146,7 +146,7 @@
                                                 <td class="text-end">${orderDetailVO.comment}</td>
                                             </tr>
                                             </c:forEach>
-                                           <c:forEach var="orderVO" items="${ordList}">
+                                          
                                             <tr>
                                                 <td colspan="4">
                                                     <article class="float-end">
@@ -157,7 +157,7 @@
                                                     </article>
                                                 </td>
                                             </tr>
-                                           </c:forEach>
+                                           
                                         </tbody>
                                     </table>
                                 </div>
@@ -167,7 +167,7 @@
                             <jsp:useBean id="paymentSvc" scope="page" class="com.payment.model.PaymentService" />
                             <div class="col-lg-1"></div>
                             <div class="col-lg-4">
-                           <c:forEach var="orderVO" items="${ordList}">
+                           
                                 <div class="box shadow-sm bg-light">
                                     <h6 class="mb-15">付款資訊</h6>
                                     <p>
@@ -175,7 +175,7 @@
                                         發票號碼: Not Available <br />
                                     </p>
                                 </div>
-                            </c:forEach>
+                           
                             </div>
                             <!-- col// -->
                         </div>

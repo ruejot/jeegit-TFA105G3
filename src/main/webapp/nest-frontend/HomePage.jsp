@@ -291,7 +291,7 @@ request.setAttribute("mainlist5", mainlist5);
                         <ul class="nav nav-tabs links" id="myTab" role="tablist">
                             
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="nav-tab-seven" data-bs-toggle="tab" data-bs-target="#tab-seven" type="button" role="tab" aria-controls="tab-seven" aria-selected="false">寵物食品</button>
+                                <button class="nav-link" id="nav-tab-seven" data-bs-toggle="tab" data-bs-target="#tab-one" type="button" role="tab" aria-controls="tab-one" aria-selected="false">寵物食品</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="nav-tab-two" data-bs-toggle="tab" data-bs-target="#tab-two" type="button" role="tab" aria-controls="tab-two" aria-selected="false">生活用品</button>
