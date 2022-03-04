@@ -98,7 +98,7 @@ public class ProductServlet extends HttpServlet {
 				// 取得商品id & 名稱
 				Integer merid = Integer.parseInt(req.getParameter("merid").trim());
 				String name = req.getParameter("name");
-				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9\\s.)]{2,25}$";
+				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9\\s.)[:punct:]]{2,25}$";
 				if (name == null || name.trim().length() == 0) {
 					errorMsgs.add("請填寫商品名稱!");
 				} else if (!name.trim().matches(nameReg)) {
@@ -162,13 +162,14 @@ public class ProductServlet extends HttpServlet {
 					errorMsgs.add("請選擇出貨方式!");
 				}
 
-				// 到時需從登入頁面getSession取得busid(要改寫)
+				// 到時需從登入頁面getSession取得busid
 				Integer busid = 1; 
-//				try {
-//				busid = new Integer(req.getParameter("busid"));
-//				} catch(NumberFormatException e) {
-//					errorMsgs.add("請填數字");
-//				}
+//				Object account = session.getAttribute("BusUsing");
+//				if(account == null) {
+//				session.setAttribute("location", req.getRequestURI());
+//				res.sendRedirect(req.getContextPath() + "/login.html");
+//				return;
+				
 				
 				// 取得主商品類別
 				String mainCategory = req.getParameter("mainCategory");
@@ -182,7 +183,7 @@ public class ProductServlet extends HttpServlet {
 					errorMsgs.add("請選擇商品子分類!");
 				}
 
-				// 將新物件存入ProductVO
+				// 將更新物件存入ProductVO
 				ProductVO proVO = new ProductVO();
 				proVO.setMerid(merid);
 				proVO.setBusid(busid);
@@ -195,6 +196,69 @@ public class ProductServlet extends HttpServlet {
 				proVO.setShippingMethod(sb.toString());
 				proVO.setMainCategory(mainCategory);
 				proVO.setSubCategory(subCategory);
+				
+				
+				//以下是圖片上傳
+				byte[] productImg1 = null;
+				byte[] productImg2 = null;
+				
+				req.setCharacterEncoding("UTF-8"); // 處理中文檔名
+				res.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = res.getWriter();
+				System.out.println("ContentType=" + req.getContentType()); // 測試用
+				
+//				Part part = req.getPart("upfile1");
+//				System.out.println(part);
+				
+				Collection<Part> parts = req.getParts();
+				out.write("<h2> Total parts : " + parts.size() + "</h2>");
+				
+				for(Part part : parts) {
+					
+					String filename = getFileNameFromPart(part);
+					if (filename != null && part.getContentType() != null) {
+						
+						String picname = part.getName();
+						String ContentType = part.getContentType();
+						long size = part.getSize();
+						out.println("name: " + picname);
+						out.println("filename: " + filename);
+						out.println("ContentType: " + ContentType);
+						out.println("size: " + size);
+						
+						InputStream in1 = part.getInputStream();
+						productImg1 = new byte[in1.available()];
+						in1.read(productImg1);
+						in1.close();
+						out.println("buffer length: " + productImg1.length);
+						
+						InputStream in2 = part.getInputStream();
+						productImg2 = new byte[in2.available()];
+						in2.read(productImg2);
+						in2.close();
+						out.println("buffer length: " + productImg2.length);
+						
+						
+					}
+				
+				}
+						
+				//取得日期
+				java.sql.Date timepic = new java.sql.Date(System.currentTimeMillis());
+
+				//將更新物件存入VO
+				List<ProductImgVO> proImgVO = new ArrayList<ProductImgVO>();
+				
+				ProductImgVO productImgVO1 = new ProductImgVO();
+				productImgVO1.setMerpic(productImg1);
+				productImgVO1.setTime(timepic);
+				
+				ProductImgVO productImgVO2 = new ProductImgVO();
+				productImgVO2.setMerpic(productImg2);
+				productImgVO2.setTime(timepic);
+				
+				proImgVO.add(productImgVO1);
+				proImgVO.add(productImgVO2);
 
 				// Send the user back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -258,7 +322,7 @@ public class ProductServlet extends HttpServlet {
 //			try {
 				// 接收請求參數 & 格式錯誤處理
 				String name = req.getParameter("name");
-				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9\\s.)]{2,25}$";
+				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9\\s.[:punct:])]{2,25}$";
 				if (name == null || name.trim().length() == 0) {
 					errorMsgs.add("請填寫商品名稱!");
 				} else if (!name.trim().matches(nameReg)) {
@@ -320,12 +384,12 @@ public class ProductServlet extends HttpServlet {
 				}
 
 				// 到時需從登入頁面getSession取得busid
-				Integer busid = 1;
-//				try {
-//					busid = new Integer(req.getParameter("busid"));
-//				} catch (NumberFormatException e) {
-//					errorMsgs.add("請填數字!");
-//				}
+				Integer busid = 1; 
+//				Object account = session.getAttribute("BusUsing");
+//				if(account == null) {
+//				session.setAttribute("location", req.getRequestURI());
+//				res.sendRedirect(req.getContextPath() + "/login.html");
+//				return;
 
 				// 取得主商品類別
 				String mainCategory = req.getParameter("mainCategory");
@@ -353,7 +417,8 @@ public class ProductServlet extends HttpServlet {
 				proVO.setSubCategory(subCategory);
 				
 				//以下是圖片上傳
-				byte[] productImg = null;
+				byte[] productImg1 = null;
+				byte[] productImg2 = null;
 				
 				req.setCharacterEncoding("UTF-8"); // 處理中文檔名
 				res.setContentType("text/html; charset=UTF-8");
@@ -379,11 +444,18 @@ public class ProductServlet extends HttpServlet {
 						out.println("ContentType: " + ContentType);
 						out.println("size: " + size);
 						
-						InputStream in = part.getInputStream();
-						productImg = new byte[in.available()];
-						in.read(productImg);
-						in.close();
-						out.println("buffer length: " + productImg.length);
+						InputStream in1 = part.getInputStream();
+						productImg1 = new byte[in1.available()];
+						in1.read(productImg1);
+						in1.close();
+						out.println("buffer length: " + productImg1.length);
+						
+						InputStream in2 = part.getInputStream();
+						productImg2 = new byte[in2.available()];
+						in2.read(productImg2);
+						in2.close();
+						out.println("buffer length: " + productImg2.length);
+						
 					}
 				
 				}
@@ -395,15 +467,15 @@ public class ProductServlet extends HttpServlet {
 				List<ProductImgVO> proImgVO = new ArrayList<ProductImgVO>();
 				
 				ProductImgVO productImgVO1 = new ProductImgVO();
-				productImgVO1.setMerpic(productImg);
+				productImgVO1.setMerpic(productImg1);
 				productImgVO1.setTime(timepic);
 				
-//				ProductImgVO productImgVO2 = new ProductImgVO();
-//				productImgVO2.setMerpic(productImg);
-//				productImgVO2.setTime(timepic);
+				ProductImgVO productImgVO2 = new ProductImgVO();
+				productImgVO2.setMerpic(productImg2);
+				productImgVO2.setTime(timepic);
 				
 				proImgVO.add(productImgVO1);
-//				proImgVO.add(productImgVO2);
+				proImgVO.add(productImgVO2);
 
 				// Send the user back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -422,9 +494,10 @@ public class ProductServlet extends HttpServlet {
 				//proImgVO = proImgSvc.addProductImg(merid, productImg, timepic);
 				
 				// 新增完成，準備轉交
-				String url = "/nest-backend/productManage.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
+				String url = "productManage.jsp";
+				//RequestDispatcher successView = req.getRequestDispatcher(url);
+				//successView.forward(req, res);
+				res.sendRedirect(url);
 
 				// 其他可能的錯誤處理
 //			} catch (Exception e) {

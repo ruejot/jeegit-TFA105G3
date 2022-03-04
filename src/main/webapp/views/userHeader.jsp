@@ -169,48 +169,45 @@
 								class="categories-dropdown-wrap categories-dropdown-active-large font-heading">
 								<div class="d-flex categori-dropdown-inner">
 									<ul>
-										<li><a href="shop-grid-right.html"> <img
+										<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=寵物食品"> <img
 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-1.svg"
 												alt="" />寵物飼料
 										</a></li>
-										<li><a href="shop-grid-right.html"> <img
+										<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=寵物罐頭"> <img
 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-2.svg"
 												alt="" />寵物罐頭
 										</a></li>
-										<li><a href="shop-grid-right.html"> <img
+										<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=居家清潔"> <img
 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-3.svg"
 												alt="" />寵物保健
 										</a></li>
-										<li><a href="shop-grid-right.html"> <img
+										<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=寵物食品"> <img
 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-4.svg"
 												alt="" />寵物零食
 										</a></li>
-										<li><a href="shop-grid-right.html"> <img
+										<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=寵物玩具"> <img
 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-5.svg"
 												alt="" />寵物玩具
 										</a></li>
 									</ul>
 									<ul class="end">
-										<li><a href="shop-grid-right.html"> <img
+										<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=生活用品"> <img
 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-6.svg"
 												alt="" />居家用品
 										</a></li>
-										<li><a href="shop-grid-right.html"> <img
+										<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=外出用品"> <img
 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-7.svg"
 												alt="" />外出用品
 										</a></li>
-										<li><a href="shop-grid-right.html"> <img
+										<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=美容護理"> <img
 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-8.svg"
 												alt="" />美容護理
 										</a></li>
-										<li><a href="shop-grid-right.html"> <img
+										<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=居家清潔"> <img
 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-9.svg"
-												alt="" />人氣商品
+												alt="" />居家清潔
 										</a></li>
-										<li><a href="shop-grid-right.html"> <img
-												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-10.svg"
-												alt="" />其他
-										</a></li>
+										
 									</ul>
 								</div>
 							</div>
@@ -219,30 +216,25 @@
 							class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
 							<nav>
 								<ul>
-									<li class="hot-deals"><img
+									<li><img
 										src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-hot.svg"
-										alt="hot deals" /> <a href="shop-grid-right.html">熱門商品</a></li>
-									<li><a style="color: #386641" class="active"
-										href="index.html">商城首頁</a></li>
-									<li><a href="page-about.html">關於我們</a></li>
+										alt="hot deals" /><a style="color: #386641" class="active"
+										href="<%=request.getContextPath()%>/nest-frontend/HomePage.jsp">商城首頁</a></li>
 									<li><a href="shop-grid-right.html">寵物糧食<i
 											class="fi-rs-angle-down"></i></a>
 										<ul class="sub-menu">
-											<li><a href="shop-grid-right.html">品牌飼料</a></li>
-											<li><a href="shop-grid-left.html">貓狗罐罐</a></li>
-											<li><a href="shop-list-right.html">貓狗零食</a></li>
-											<li><a href="shop-list-left.html">寵物保健</a></li>
+											<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=貓犬飼料">貓犬飼料</a></li>
+											<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=貓抓板">貓抓板</a></li>
+											<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=零食點心">零食點心</a></li>
 										</ul></li>
 									<li><a href="#">生活用品 <i class="fi-rs-angle-down"></i></a>
 										<ul class="sub-menu">
-											<li><a href="vendors-grid.html">居家用品</a></li>
-											<li><a href="vendors-list.html">外出用品</a></li>
-											<li><a href="vendor-details-1.html">寵物玩具</a></li>
-											<li><a href="vendor-details-2.html">美容護理</a></li>
+											<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=清潔">清潔用品</a></li>
+											<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=寵物玩具"">寵物玩具</a></li>
+											<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&mainCategory=美容用具">美容裝飾</a></li>
 										</ul></li>
-									<li><a href="#">寵物服務 </a></li>
-									<li><a href="blog-category-grid.html">部落格首頁 </a></li>
-									<li><a href="page-contact.html"
+									<li><a href="<%=request.getContextPath()%>/nest-frontend/blog-category-big2.jsp">部落格首頁 </a></li>
+									<li><a href="<%=request.getContextPath()%>/nest-frontend/fendcs_reply.jsp"
 										style="margin-right: 80px;">聯絡我們</a></li>
 								</ul>
 							</nav>
@@ -303,35 +295,36 @@
 						</button>
 					</form>
 				</div>
-				<div class="mobile-menu-wrap mobile-header-border">
-					<!-- mobile menu start -->
-					<nav>
-						<ul class="mobile-menu font-heading">
-							<li class="menu-item-has-children"><a href="index.html">商城首頁</a></li>
-							<li class="menu-item-has-children"><a
-								href="shop-grid-right.html">寵物糧食</a>
-								<ul class="dropdown">
-									<li><a href="shop-grid-right.html">品牌飼料</a></li>
-									<li><a href="shop-grid-left.html">貓狗罐罐</a></li>
-									<li><a href="shop-list-right.html">貓狗零食</a></li>
-									<li><a href="shop-list-left.html">寵物保健</a></li>
-								</ul></li>
-							<li class="menu-item-has-children"><a href="#">生活用品</a>
-								<ul class="dropdown">
-									<li><a href="vendors-grid.html">居家用品</a></li>
-									<li><a href="vendors-list.html">外出用品</a></li>
-									<li><a href="vendor-details-1.html">寵物玩具</a></li>
-									<li><a href="vendor-details-2.html">美容護理</a></li>
-								</ul></li>
-							<li class="menu-item-has-children"><a href="#">寵物服務</a></li>
-							<li class="menu-item-has-children"><a
-								href="blog-category-fullwidth.html">部落格首頁</a></li>
-							<li class="menu-item-has-children"><a
-								href="page-contact.html">聯絡我們</a></li>
-						</ul>
-					</nav>
-					<!-- mobile menu end -->
-				</div>
+<!-- 				<div class="mobile-menu-wrap mobile-header-border"> -->
+<!-- 					mobile menu start -->
+<!-- 					<nav> -->
+<!-- 						<ul class="mobile-menu font-heading"> -->
+<!-- 							<li class="menu-item-has-children"><a href="index.html">商城首頁</a></li> -->
+<!-- 							<li class="menu-item-has-children"><a -->
+<!-- 								href="shop-grid-right.html">寵物糧食</a> -->
+<!-- 								<ul class="dropdown"> -->
+<!-- 									<li><a href="shop-grid-right.html">品牌飼料</a></li> -->
+<!-- 									<li><a href="shop-grid-left.html">貓狗罐罐</a></li> -->
+<!-- 									<li><a href="shop-list-right.html">貓狗零食</a></li> -->
+<!-- 									<li><a href="shop-list-left.html">寵物保健</a></li> -->
+<!-- 								</ul></li> -->
+<!-- 							<li class="menu-item-has-children"><a href="#">生活用品</a> -->
+<!-- 								<ul class="dropdown"> -->
+<!-- 									<li><a href="vendors-grid.html">居家用品</a></li> -->
+<!-- 									<li><a href="vendors-list.html">外出用品</a></li> -->
+<!-- 									<li><a href="vendor-details-1.html">寵物玩具</a></li> -->
+<!-- 									<li><a href="vendor-details-2.html">美容護理</a></li> -->
+<!-- 								</ul></li> -->
+<!-- 							<li class="menu-item-has-children"><a href="#">寵物服務</a></li> -->
+<!-- 							<li class="menu-item-has-children"><a -->
+<!-- 								href="blog-category-fullwidth.html">部落格首頁</a></li> -->
+<!-- 							<li class="menu-item-has-children"><a -->
+<!-- 								href="page-contact.html">關於我們</a></li> -->
+<!-- 						</ul> -->
+<!-- 					</nav> -->
+<!-- 					mobile menu end -->
+<!-- 				</div> -->
+				
 				<div class="mobile-header-info-wrap">
 					<div class="single-mobile-header-info">
 						<a href="page-contact.html"><i class="fi-rs-marker"></i>台北市中山區南京東路三段219號5樓

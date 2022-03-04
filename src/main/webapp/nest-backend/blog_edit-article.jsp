@@ -37,8 +37,8 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
                             <h2 class="content-title">編輯文章</h2>
                          </div>
                     </div>
-                    <form method="post" action="/TFA105G3/MemBlogArtServlet">
-                    <input type="hidden" name="action" value="update">
+                    <form method="post" action="<%=request.getContextPath()%>/MemBlogArtServlet">
+
                     <div class="col-lg-6">
                         <div class="card mb-4">
                             <div class="card-body">
@@ -84,7 +84,8 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
                         </div>
                         
                             <div>
-                                <input type="hidden" name="artid" value="<%=request.getAttribute("artid") %>" />
+                                <input type="hidden" name="action" value="update">
+                                <input type="hidden" name="artid" value="<%=memBlogArtVO.getArtid()%>" />
                                 <button class="btn btn-light rounded font-sm mr-5 text-body hover-up">儲存草稿</button>
                                 <button type="submit" class="btn btn-md rounded font-sm hover-up">確認修改</button>
                             </div>
@@ -97,19 +98,6 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
                         <!-- card end// -->
                 </div>
             </section>
-            <footer class="main-footer font-xs">
-                <div class="row pb-30 pt-15">
-                    <div class="col-sm-6">
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script>
-                        &copy; Nest - HTML Ecommerce Template .
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="text-sm-end">All rights reserved</div>
-                    </div>
-                </div>
-            </footer>
         </main>
         <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
         <script src="assets/js/vendors/bootstrap.bundle.min.js"></script>

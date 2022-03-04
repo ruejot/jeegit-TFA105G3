@@ -57,7 +57,7 @@ public class CsDetailDAO implements CsDetailDAO_interface{
 			
 			pstmt.setInt(1, csDetailBean.getMemberid());
 			pstmt.setInt(2, csDetailBean.getBusid());
-			pstmt.setInt(3, csDetailBean.getMemberid());
+			pstmt.setInt(3, csDetailBean.getMerid());
 			pstmt.setInt(4, csDetailBean.getOrderid());
 			pstmt.setDate(5, csDetailBean.getCasetime());
 			pstmt.setString(6, csDetailBean.getFeedback());
@@ -104,7 +104,7 @@ public class CsDetailDAO implements CsDetailDAO_interface{
 			
 			pstmt.setInt(1, csDetailBean.getMemberid());
 			pstmt.setInt(2, csDetailBean.getBusid());
-			pstmt.setInt(3, csDetailBean.getMemberid());
+			pstmt.setInt(3, csDetailBean.getMerid());
 			pstmt.setInt(4, csDetailBean.getOrderid());
 			pstmt.setDate(5, csDetailBean.getCasetime());
 			pstmt.setString(6, csDetailBean.getFeedback());

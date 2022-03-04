@@ -10,7 +10,7 @@ public class MemSavedArtService {
 	private MemSavedArtDAO_interface dao;
 
 	public MemSavedArtService() {
-		dao = new MemSavedArtJDBCDAO();
+		dao = new MemSavedArtDAO();
 	}
 	
 	public List<MemSavedArtVO> getAll() {		

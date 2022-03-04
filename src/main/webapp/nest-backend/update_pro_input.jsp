@@ -26,7 +26,7 @@ int i = 0, index = 0;
 	<main class="main-wrap">	
 	<jsp:include page="/views/sellerHeader_2.jsp"/>	
 		<section class="content-main">
-		<form method="post" action="product.do" name="form1">
+		<form method="post" action="product.do" name="form1" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-9">
 					<div class="content-header">
@@ -104,21 +104,6 @@ int i = 0, index = 0;
 					<!-- card end// -->
 				</div>
 				<div class="col-lg-3">
-				<!--  
-					<div class="card mb-4">
-						<div class="card-header">
-							<h4>新增照片</h4>
-						</div>
-						<div class="card-body">
-							<div class="input-upload">
-								<img src="../assets/imgs/theme/upload.svg" alt="" /> 
-								<input type="hidden" name="action" value="insert">
-								<input class="form-control" type="file" />
-							</div>
-						</div>
-					</div>
-					-->
-					<!-- card end// -->
 					<div class="card mb-4">
 						<div class="card-header">
 							<h4>商品分類</h4>
@@ -142,10 +127,10 @@ int i = 0, index = 0;
 										<option value="寵物保健">寵物保健</option>
 									</optgroup>
 									<optgroup label="生活用品">
-										<option value="寵物飼料">居家用品</option>
-										<option value="寵物罐頭">外出用品</option>
-										<option value="寵物零食">寵物玩具</option>
-										<option value="寵物保健">美容護理</option>
+										<option value="居家用品">居家用品</option>
+										<option value="外出用品">外出用品</option>
+										<option value="寵物玩具">寵物玩具</option>
+										<option value="美容護理">美容護理</option>
 									</optgroup>
 									</select>
 								</div>
@@ -157,13 +142,27 @@ int i = 0, index = 0;
 							<!-- row.// -->
 						</div>
 					</div>
+					<!-- card end// --> 
+					<div class="card mb-4">
+						<div class="card-header">
+							<h4>新增照片</h4>
+						</div>
+						<div class="card-body">
+							<div class="input-upload">
+							<jsp:useBean id="productImgSvc" scope="page" class="com.productImg.model.ProductImgService" />
+								<img src="<%=request.getContextPath()%>/ShowPic?imgid=${productImgSvc.getOneProductImg(productVO.merid).imgid}"
+											 alt="../assets/imgs/theme/upload.svg" class="img-sm img-thumbnail" /> 
+								<input class="form-control" type="file" name="upfile2">
+							</div>
+						</div>
+					</div>
 					<!-- card end// -->
 				</div>
 			</div>
-			</form>
+		</form>
 		</section>
 		<!-- content-main end// -->
-		<jsp:include page="/views/footer.jsp"/>
+		<jsp:include page="/views/sellerFooter.jsp"/>
 	</main>
 	<script src="../assets/js/vendors/jquery-3.6.0.min.js"></script>
 	<script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>

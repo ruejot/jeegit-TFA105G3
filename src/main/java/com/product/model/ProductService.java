@@ -69,6 +69,10 @@ public class ProductService {
 		dao.delete(merid);
 	}
 	
+	public void updateMerStockQty(Integer qty, Integer merid) {
+		dao.updateMerStockQty(qty, merid);
+	}
+	
 	public ProductVO getOneProduct(Integer merid) {
 		return dao.findByPrimaryKey(merid);
 	}
