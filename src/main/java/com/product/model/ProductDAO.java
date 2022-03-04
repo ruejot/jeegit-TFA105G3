@@ -38,7 +38,8 @@ public class ProductDAO implements ProductDAO_interface {
 	private static final String FIND_AllbyMainCategory = "SELECT * FROM pet_g3db_tfa105.MER WHERE Main_Category like ? ";
 	private static final String FIND_AllbySubCategory = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE Sub_Category = ? ";
 	private static final String GET_PRODUCTS_BY_BUSID = "SELECT * FROM pet_g3db_tfa105.MER WHERE BUS_ID = ? ORDER BY MER_ID DESC";
-	
+	private static final String GET_PRODUCT_QTY_BY_MERID = "UPDATE pet_g3db_tfa105.MER SET STOCK = STOCK - ? WHERE MER_ID = ?";
+
 	@Override
 	public void insert(ProductVO productVO) {
 
@@ -96,7 +97,7 @@ public class ProductDAO implements ProductDAO_interface {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
-			
+
 			pstmt.setInt(1, productVO.getBusid());
 			pstmt.setString(2, productVO.getName());
 			pstmt.setInt(3, productVO.getPrice());
@@ -108,7 +109,7 @@ public class ProductDAO implements ProductDAO_interface {
 			pstmt.setString(9, productVO.getMainCategory());
 			pstmt.setString(10, productVO.getSubCategory());
 			pstmt.setInt(11, productVO.getMerid());
-			
+
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -686,29 +687,26 @@ public class ProductDAO implements ProductDAO_interface {
 			}
 		}
 	}
-	
-	
-
 
 	@Override
 	public List<ProductVO> getProductByBusid(Integer busid) {
 		List<ProductVO> list = new ArrayList<ProductVO>();
-		
+
 		ProductVO productVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_PRODUCTS_BY_BUSID);
-			
+
 			pstmt.setInt(1, busid);
-			
+
 			rs = pstmt.executeQuery();
-			
+
 			while (rs.next()) {
-				
+
 				productVO = new ProductVO();
 				productVO.setMerid(rs.getInt("MER_ID"));
 				productVO.setBusid(rs.getInt("BUS_ID"));
@@ -723,7 +721,7 @@ public class ProductDAO implements ProductDAO_interface {
 				productVO.setSubCategory(rs.getString("SUB_CATEGORY"));
 				list.add(productVO); // Store the row in the list
 			}
-			
+
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
@@ -741,7 +739,7 @@ public class ProductDAO implements ProductDAO_interface {
 					se.printStackTrace();
 				}
 			}
-			if (con != null ) {
+			if (con != null) {
 				try {
 					con.close();
 				} catch (SQLException se) {
@@ -750,6 +748,43 @@ public class ProductDAO implements ProductDAO_interface {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public void updateMerStockQty(Integer qty, Integer merid) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_PRODUCT_QTY_BY_MERID);
+
+			pstmt.setInt(1, qty);
+			pstmt.setInt(2, merid);
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
 	}
 
 //	@Override
@@ -837,7 +872,5 @@ public class ProductDAO implements ProductDAO_interface {
 //		}
 //		
 //	}
-	
+
 }
-
-

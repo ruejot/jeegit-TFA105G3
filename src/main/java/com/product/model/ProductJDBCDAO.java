@@ -31,6 +31,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	private static final String GET_Imgs_ByMerid_STMT = "SELECT IMG_ID, MER_PIC, TIME, MER_ID FROM MER_IMG where MER_ID = ? ORDER BY IMG_ID";
 	private static final String FIND_AllbyMerid = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_ID =?";
 	private static final String FIND_AllbyMerName = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_NAME like ? ";
+	private static final String GET_PRODUCT_QTY_BY_MERID = "UPDATE pet_g3db_tfa105.MER SET STOCK = STOCK - ? WHERE MER_ID = ?";
 
 	@Override
 	public void insert(ProductVO productVO) {
@@ -464,51 +465,56 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 
 public static void main(String[] args) throws Exception{
 	
-	//新增商品同時新增照片
+	//扣庫測試
 	ProductJDBCDAO dao = new ProductJDBCDAO();
-	ProductVO productVO1 = new ProductVO();
-	productVO1.setBusid(1);
-	productVO1.setName("HAPPYPUPPY");
-	productVO1.setPrice(350);
-	productVO1.setStock(15);
-	productVO1.setShelfDate(java.sql.Date.valueOf("2022-02-03"));
-	productVO1.setStatus(1);
-	productVO1.setDescription("HAPPYPUPPY");
-	productVO1.setShippingMethod("100");
-	productVO1.setMainCategory("FOOD");
-	productVO1.setSubCategory("FOOD");
+	dao.updateMerStockQty(6, 79);
+	System.out.println("扣庫成功");
 	
-	String path = "C:/Tibame-Web Project";
-	File input1 = new File(path + "/1.jpg");
-	int length1 = (int) input1.length();
-	byte[] photo1 = new byte[length1];
-	FileInputStream fis1 = new FileInputStream(input1);
-	fis1.read(photo1);
-	fis1.close();
-	
-	String path1 = "C:/Tibame-Web Project";
-	File input2 = new File(path1 + "/2.png");
-	int length2 = (int) input2.length();
-	byte[] photo2 = new byte[length2];
-	FileInputStream fis2 = new FileInputStream(input2);
-	fis2.read(photo2);
-	fis2.close();
-	
-	
-	List<ProductImgVO> list = new ArrayList<ProductImgVO>();
-
-	ProductImgVO productImgVO1 = new ProductImgVO();
-	productImgVO1.setMerpic(photo1);
-	productImgVO1.setTime(java.sql.Date.valueOf("2022-02-03"));
-	
-	ProductImgVO productImgVO2 = new ProductImgVO();
-	productImgVO2.setMerpic(photo2);
-	productImgVO2.setTime(java.sql.Date.valueOf("2022-02-03"));
-	
-	list.add(productImgVO1);
-	list.add(productImgVO2);
-	
-	dao.insertWithProductImg(productVO1, list);
+//	//新增商品同時新增照片
+//	ProductJDBCDAO dao = new ProductJDBCDAO();
+//	ProductVO productVO1 = new ProductVO();
+//	productVO1.setBusid(1);
+//	productVO1.setName("HAPPYPUPPY");
+//	productVO1.setPrice(350);
+//	productVO1.setStock(15);
+//	productVO1.setShelfDate(java.sql.Date.valueOf("2022-02-03"));
+//	productVO1.setStatus(1);
+//	productVO1.setDescription("HAPPYPUPPY");
+//	productVO1.setShippingMethod("100");
+//	productVO1.setMainCategory("FOOD");
+//	productVO1.setSubCategory("FOOD");
+//	
+//	String path = "C:/Tibame-Web Project";
+//	File input1 = new File(path + "/1.jpg");
+//	int length1 = (int) input1.length();
+//	byte[] photo1 = new byte[length1];
+//	FileInputStream fis1 = new FileInputStream(input1);
+//	fis1.read(photo1);
+//	fis1.close();
+//	
+//	String path1 = "C:/Tibame-Web Project";
+//	File input2 = new File(path1 + "/2.png");
+//	int length2 = (int) input2.length();
+//	byte[] photo2 = new byte[length2];
+//	FileInputStream fis2 = new FileInputStream(input2);
+//	fis2.read(photo2);
+//	fis2.close();
+//	
+//	
+//	List<ProductImgVO> list = new ArrayList<ProductImgVO>();
+//
+//	ProductImgVO productImgVO1 = new ProductImgVO();
+//	productImgVO1.setMerpic(photo1);
+//	productImgVO1.setTime(java.sql.Date.valueOf("2022-02-03"));
+//	
+//	ProductImgVO productImgVO2 = new ProductImgVO();
+//	productImgVO2.setMerpic(photo2);
+//	productImgVO2.setTime(java.sql.Date.valueOf("2022-02-03"));
+//	
+//	list.add(productImgVO1);
+//	list.add(productImgVO2);
+//	
+//	dao.insertWithProductImg(productVO1, list);
 
 	
 //	
@@ -680,6 +686,48 @@ public void insertWithProductImg(ProductVO productVO, List<ProductImgVO> list) {
 public List<ProductVO> getProductByBusid(Integer busid) {
 	// TODO Auto-generated method stub
 	return null;
+}
+
+
+@Override
+public void updateMerStockQty(Integer qty, Integer merid) {
+	Connection con = null;
+	PreparedStatement pstmt = null;
+
+	try {
+
+		Class.forName(driver);
+		con = DriverManager.getConnection(url, userid, passwd);
+		pstmt = con.prepareStatement(GET_PRODUCT_QTY_BY_MERID);
+
+		pstmt.setInt(1, qty);
+		pstmt.setInt(2, merid);
+		pstmt.executeUpdate();
+
+		// Handle any driver errors
+	} catch (ClassNotFoundException e) {
+		throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		// Handle any SQL errors
+	} catch (SQLException se) {
+		throw new RuntimeException("A database error occured. " + se.getMessage());
+		// Clean up JDBC resources
+	} finally {
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace(System.err);
+			}
+		}
+	}
+	
 }
 
 
