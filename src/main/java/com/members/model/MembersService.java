@@ -53,13 +53,13 @@ public class MembersService {
 	
 	
 	//修改
-	public MembersVO updateMember(Integer memberid, String name
+	public MembersVO updateMember(String name
 			, String mobile, String phone,	String address,	Timestamp date
 			, String email, String password, String nickname, String intro, byte[] photo) {
 		
 		MembersVO memberBean = new MembersVO();
 		
-		memberBean.setMemberid(memberid);
+//		memberBean.setMemberid(memberid);
 		memberBean.setName(name);
 		memberBean.setMobile(mobile);
 		memberBean.setPhone(phone);
@@ -84,6 +84,11 @@ public class MembersService {
 	public MembersVO select(Integer memberid) {
 		return dao.select(memberid);
 	}
+	
+//	//查詢密碼
+//	public MembersVO select(String password) {
+//		return dao.select(password);
+//	}
 	
 	//查詢全部
 	public List<MembersVO> selectAll() {
