@@ -59,21 +59,22 @@ public class CsDetailServlet extends HttpServlet {
 				CsDetailVO csDetailVO = csDetailSvc.selectByCaseId(caseid);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				req.setAttribute("csDetailVO", csDetailVO); // 資料庫取出的csDetailVO物件,存入req
+				req.setAttribute("csDetailVO_z", csDetailVO); // 資料庫取出的csDetailVO物件,存入req
 				String url = "/nest-backend/bendcsdetail_updateone.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
+				System.out.println("無法取得要修改的資料:" + e.getMessage());
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/emp/listAllEmp.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/nest-backend/bendcsdetail_listall.jsp");
 				failureView.forward(req, res);
 			}
 		}
 		
 		// fendshop_mainpage選取目前busid，轉跳到fendcs_reply頁
-		if ("set_Cs_By_Busid".equals(action)) {
+		if ("from_shopmain_to_CsReply_with_Busid".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -90,7 +91,7 @@ public class CsDetailServlet extends HttpServlet {
 				BusVO busVO = busSvc.select(busid);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				req.setAttribute("busVO", busVO); // 資料庫取出的busVO物件,存入req
+				req.setAttribute("busVO_from_ShopMainpage", busVO); // 資料庫取出的busVO物件,存入req
 				String url = "/nest-frontend/fendcs_reply.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
@@ -98,7 +99,7 @@ public class CsDetailServlet extends HttpServlet {
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/emp/listAllEmp.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/nest-frontend/fendshop_mainpage.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -124,32 +125,35 @@ public class CsDetailServlet extends HttpServlet {
 
 			// 會員ID(回報者)
 			Integer memberid = null;
-			memberid = 1;
-//			try {
-//				memberid = new Integer(req.getParameter("memberid"));
-//			} catch (NumberFormatException e) {
-//				errorMsgs.add("CsDetail_memberid是數字形式");
-//			}
+//			memberid = 1; //(測試用)
+			try {
+				memberid = Integer.parseInt(req.getParameter("member_id"));
+			} catch (NumberFormatException e) {
+				errorMsgs.add("CsDetail_memberid是數字形式");
+			}
 
 			// 商家ID
 			Integer busid = null;
-			busid = 5;
-//			try {
-//				memberid = new Integer(req.getParameter("busid"));
-//			} catch (NumberFormatException e) {
-//				errorMsgs.add("CsDetail_busid是數字形式");
-//			}
+//			busid = 5; //(測試用)
+			try {
+//				System.out.println(Integer.parseInt(req.getParameter("bus_id")));
+				busid = Integer.parseInt(req.getParameter("bus_id"));
+			} catch (NumberFormatException e) {
+				errorMsgs.add("CsDetail_busid是數字形式");
+			}
 			
 			// 商品ID
-			Integer merid = null;
+			// 無法為null，先設定到一個大數
+			Integer merid = 1111111;
 			
 			// 訂單ID
-			Integer orderid = null;
-
+			// 無法為null，先設定到一個大數
+			Integer orderid = 1111111;
+			
 			// 立案時間
 			java.sql.Date casetime = null;
 			try {
-				casetime = java.sql.Date.valueOf(req.getParameter("casetime").trim());
+				casetime = java.sql.Date.valueOf(req.getParameter("case_time").trim());
 			} catch (IllegalArgumentException e) {
 				// 設定為NOW()
 				casetime = new java.sql.Date(System.currentTimeMillis());
@@ -159,18 +163,30 @@ public class CsDetailServlet extends HttpServlet {
 			// 取得CS意見內容
 			String feedback = null;
 			feedback = req.getParameter("feedback").trim();
+			if (feedback == null || feedback.trim().length() == 0) {
+				errorMsgs.add("留言內容必填!");
+			}
+			
 			// 可以null，就不需要吧
-//			if (feedback == null || feedback.trim().length() == 0) {
-//				errorMsgs.add("請填意見內容唷!");
+//			try {
+//				feedback = req.getParameter("feedback").trim();
+//				
+//			} catch (Exception e) {
+//				errorMsgs.add("留言內容必須填寫!");
 //			}
 
 			// 取得上架狀態
-			Integer replystatus = null;
-			replystatus = new Integer(req.getParameter("replystatus"));
+			Integer replystatus = 1;
+//			try {
+//				replystatus = Integer.parseInt(req.getParameter("replystatus"));
+//			} catch (Exception e) {
+//				// 預設值，設定為1
+//				replystatus = 1;
+//			}
 
 			// 取得回覆內容
 			String replycontent = null;
-			replycontent = req.getParameter("replycontent").trim();
+//			replycontent = req.getParameter("replycontent").trim();
 			// 可以null，就不需要吧
 //			if (replycontent == null || replycontent.trim().length() == 0) {
 //				errorMsgs.add("請填意見內容唷!");
@@ -178,35 +194,40 @@ public class CsDetailServlet extends HttpServlet {
 
 			// 回覆時間
 			java.sql.Date replytime = null;
-			try {
-				replytime = java.sql.Date.valueOf(req.getParameter("replytime").trim());
-			} catch (IllegalArgumentException e) {
-				// 設定為NOW()
-				replytime = new java.sql.Date(System.currentTimeMillis());
-				errorMsgs.add("這是立案時間唷!");
-			}
+//			try {
+//				replytime = java.sql.Date.valueOf(req.getParameter("replytime").trim());
+//			} catch (IllegalArgumentException e) {
+//				// 設定為NOW()
+//				replytime = new java.sql.Date(System.currentTimeMillis());
+//				errorMsgs.add("這是立案時間唷!");
+//			}
 
 			// 將新物件存入CsDetailVO
 			CsDetailVO csDetailVO = new CsDetailVO();
 			csDetailVO.setMemberid(memberid);
 			csDetailVO.setBusid(busid);
+			csDetailVO.setMerid(merid);
+			csDetailVO.setOrderid(orderid);
 			csDetailVO.setCasetime(casetime);
 			csDetailVO.setFeedback(feedback);
 			csDetailVO.setReplystatus(replystatus);
-			csDetailVO.setReplycontent(replycontent);
-			csDetailVO.setReplytime(replytime);
+//			csDetailVO.setReplycontent(replycontent);
+//			csDetailVO.setReplytime(replytime);
 
 			// 到此接收完成，如果有錯誤訊息，就回傳
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("csDetailVO", csDetailVO);// 含有輸入格式錯誤的proVO物件,也存入req
+				
 				RequestDispatcher failureView = req.getRequestDispatcher("/nest-frontend/fendcs_reply.jsp");
 				failureView.forward(req, res);
 				return;
 			}
 
 			// 開始新增資料
+			// replycontent 為 null
+			// replytime 為 null
 			CsDetailService csDeSvc = new CsDetailService();
-			csDetailVO = csDeSvc.insertCsDetail(memberid, busid, merid, orderid, casetime, feedback, replystatus, replycontent, replytime);
+			csDetailVO = csDeSvc.insertCsDetail(memberid, busid, merid, orderid, casetime, feedback, replystatus, null, null);
 
 			// 填充完成，準備轉跳頁面
 			// 這裡將來可以用，記錄前一頁面，回到前一頁的寫法。
@@ -261,9 +282,26 @@ public class CsDetailServlet extends HttpServlet {
 			
 			// 商品ID
 			Integer merid = Integer.parseInt(req.getParameter("mer_id"));
+			if (merid == 0) { //處理假資料不全，如果是0，改寫成1111111。
+				merid = 1111111;
+			}
+			
 			
 			// 訂單ID
 			Integer orderid = Integer.parseInt(req.getParameter("order_id"));
+			if (orderid == 0) { //處理假資料不全，如果是0，改寫成1111111。
+				orderid = 1111111;
+			}
+//			String testOrder = req.getParameter("order_id");
+//			System.out.println("orderid in String is: " + testOrder);
+//			Integer orderid = null;
+//			if(Integer.parseInt(req.getParameter("order_id")) != 0) {
+//				orderid = Integer.parseInt(req.getParameter("order_id"));
+//			} else {
+//				orderid = null;
+//				System.out.println("orderid is: " + orderid);
+//			}
+			
 			
 			// 立案時間
 			java.sql.Date casetime = java.sql.Date.valueOf(req.getParameter("case_time").trim());
@@ -315,7 +353,7 @@ public class CsDetailServlet extends HttpServlet {
 			csDetailVO.setMemberid(memberid);
 			csDetailVO.setBusid(busid);
 			csDetailVO.setMerid(merid);
-			csDetailVO.setOrderid(orderid);
+			csDetailVO.setOrderid(orderid);				
 			csDetailVO.setCasetime(casetime);
 			csDetailVO.setFeedback(feedback);
 			csDetailVO.setReplystatus(replystatus);
