@@ -34,11 +34,12 @@ public class ProductDAO implements ProductDAO_interface {
 	private static final String GET_Imgs_ByMerid_STMT = "SELECT IMG_ID, MER_PIC, TIME, MER_ID FROM pet_g3db_tfa105.MER_IMG WHERE MER_ID = ?";
 	private static final String GET_ALL_By_vMerPro = "SELECT * FROM pet_g3db_tfa105.v_merimg_mer";
 	private static final String FIND_AllbyMerid = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_ID= ?";
-	private static final String FIND_AllbyMerName = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_NAME like ? ";
-	private static final String FIND_AllbyMainCategory = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE Main_Category like ? ";
+	private static final String FIND_AllbyMerName = "SELECT * FROM pet_g3db_tfa105.MER WHERE MER_NAME like ? ";
+	private static final String FIND_AllbyMainCategory = "SELECT * FROM pet_g3db_tfa105.MER WHERE Main_Category like ? ";
 	private static final String FIND_AllbySubCategory = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE Sub_Category = ? ";
-	private static final String GET_PRODUCTS_BY_BUSID = "SELECT * FROM pet_g3db_tfa105.MER WHERE BUS_ID = ? ORDER BY SHELF_DATE DESC";
-	
+	private static final String GET_PRODUCTS_BY_BUSID = "SELECT * FROM pet_g3db_tfa105.MER WHERE BUS_ID = ? ORDER BY MER_ID DESC";
+	private static final String GET_PRODUCT_QTY_BY_MERID = "UPDATE pet_g3db_tfa105.MER SET STOCK = STOCK - ? WHERE MER_ID = ?";
+
 	@Override
 	public void insert(ProductVO productVO) {
 
@@ -447,11 +448,9 @@ public class ProductDAO implements ProductDAO_interface {
 
 			while (rs.next()) {
 				productVO = new ProductVO();
-				productVO.setImgid(rs.getInt("img_id"));
 				productVO.setMerid(rs.getInt("mer_id"));
 				productVO.setBusid(rs.getInt("bus_id"));
-				productVO.setName(rs.getString("mer_name"));
-				productVO.setMerpic(rs.getBytes("mer_pic"));
+				productVO.setName(rs.getString("name"));
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setStock(rs.getInt("stock"));
 				productVO.setMainCategory(rs.getString("main_category"));
@@ -563,11 +562,9 @@ public class ProductDAO implements ProductDAO_interface {
 
 			while (rs.next()) {
 				productVO = new ProductVO();
-				productVO.setImgid(rs.getInt("img_id"));
 				productVO.setMerid(rs.getInt("mer_id"));
 				productVO.setBusid(rs.getInt("bus_id"));
-				productVO.setName(rs.getString("mer_name"));
-				productVO.setMerpic(rs.getBytes("mer_pic"));
+				productVO.setName(rs.getString("name"));
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setStock(rs.getInt("stock"));
 				productVO.setMainCategory(rs.getString("main_category"));
@@ -691,41 +688,40 @@ public class ProductDAO implements ProductDAO_interface {
 		}
 	}
 
-
 	@Override
 	public List<ProductVO> getProductByBusid(Integer busid) {
 		List<ProductVO> list = new ArrayList<ProductVO>();
-		
+
 		ProductVO productVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_PRODUCTS_BY_BUSID);
-			
+
 			pstmt.setInt(1, busid);
-			
+
 			rs = pstmt.executeQuery();
-			
+
 			while (rs.next()) {
-				
+
 				productVO = new ProductVO();
-				productVO.setMerid(rs.getInt("mer_id"));
-				productVO.setBusid(rs.getInt("bus_id"));
-				productVO.setName(rs.getString("name"));
-				productVO.setPrice(rs.getInt("price"));
-				productVO.setStock(rs.getInt("stock"));
-				productVO.setShelfDate(rs.getDate("shelf_Date"));
-				productVO.setStatus(rs.getInt("status"));
-				productVO.setDescription(rs.getString("description"));
-				productVO.setShippingMethod(rs.getString("shipping_Method"));
-				productVO.setMainCategory(rs.getString("main_Category"));
-				productVO.setSubCategory(rs.getString("sub_Category"));
+				productVO.setMerid(rs.getInt("MER_ID"));
+				productVO.setBusid(rs.getInt("BUS_ID"));
+				productVO.setName(rs.getString("NAME"));
+				productVO.setPrice(rs.getInt("PRICE"));
+				productVO.setStock(rs.getInt("STOCK"));
+				productVO.setShelfDate(rs.getDate("SHELF_DATE"));
+				productVO.setStatus(rs.getInt("STATUS"));
+				productVO.setDescription(rs.getString("DESCRIPTION"));
+				productVO.setShippingMethod(rs.getString("SHIPPING_METHOD"));
+				productVO.setMainCategory(rs.getString("MAIN_CATEGORY"));
+				productVO.setSubCategory(rs.getString("SUB_CATEGORY"));
 				list.add(productVO); // Store the row in the list
 			}
-			
+
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
@@ -743,7 +739,7 @@ public class ProductDAO implements ProductDAO_interface {
 					se.printStackTrace();
 				}
 			}
-			if (con != null ) {
+			if (con != null) {
 				try {
 					con.close();
 				} catch (SQLException se) {
@@ -753,8 +749,128 @@ public class ProductDAO implements ProductDAO_interface {
 		}
 		return list;
 	}
-	
+
+	@Override
+	public void updateMerStockQty(Integer qty, Integer merid) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_PRODUCT_QTY_BY_MERID);
+
+			pstmt.setInt(1, qty);
+			pstmt.setInt(2, merid);
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+
+//	@Override
+//	public void updateWithProductImg(ProductVO productVO, List<ProductImgVO> list) {
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//
+//		try {
+//			con = ds.getConnection();
+//
+//			// 設定於pstmt.executeUpdate()之前
+//			con.setAutoCommit(false);
+//
+//			// 先更新商品主檔
+//			String cols[] = { "MER_ID" };
+//			pstmt = con.prepareStatement(UPDATE, cols);
+//
+//			pstmt.setInt(1, productVO.getBusid());
+//			pstmt.setString(2, productVO.getName());
+//			pstmt.setInt(3, productVO.getPrice());
+//			pstmt.setInt(4, productVO.getStock());
+//			pstmt.setDate(5, productVO.getShelfDate());
+//			pstmt.setInt(6, productVO.getStatus());
+//			pstmt.setString(7, productVO.getDescription());
+//			pstmt.setString(8, productVO.getShippingMethod());
+//			pstmt.setString(9, productVO.getMainCategory());
+//			pstmt.setString(10, productVO.getSubCategory());
+//			pstmt.setInt(11, productVO.getMerid());
+//
+//			pstmt.executeUpdate();
+//
+//			// 獲取對應的新增主鍵值
+//			String next_merId = null;
+//			ResultSet rs = pstmt.getGeneratedKeys();
+//			if (rs.next()) {
+//				next_merId = rs.getString(1);
+//				System.out.println("自增主鍵值= " + next_merId + "(剛更新成功的商品編號)");
+//			} else {
+//				System.out.println("未取得自增主鍵值");
+//			}
+//			rs.close();
+//			
+//			
+//
+//			// 再同時更新照片
+//			ProductImgDAO dao = new ProductImgDAO();
+//			System.out.println("list.size()-A=" + list.size());
+//			for (ProductImgVO addImg : list) {
+//				addImg.setMerid(Integer.parseInt(next_merId));
+//				dao.insert(addImg, con);
+//			}
+//			// 設定於pstmt.executeUpdate()之後
+//			con.commit();
+//			con.setAutoCommit(true);
+//			System.out.println("list.size()-B=" + list.size());
+//			System.out.println("更新商品編號" + next_merId + "時,共有" + list.size() + "筆圖片同時被更新");
+//
+//		} catch (SQLException se) {
+//			if (con != null) {
+//				try {
+//					// 設定於當有exception發生時之catch區塊內
+//					System.err.print("Transaction is being ");
+//					System.err.println("rolled back-由-order");
+//					con.rollback();
+//				} catch (SQLException excep) {
+//					throw new RuntimeException("rollback error occured. " + excep.getMessage());
+//				}
+//			}
+//			throw new RuntimeException("A database error occured. " + se.getMessage());
+//		} finally {
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace();
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace();
+//				}
+//			}
+//		}
+//		
+//	}
 
 }
-
-

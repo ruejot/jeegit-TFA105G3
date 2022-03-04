@@ -10,15 +10,18 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 //ProductServlet.java(Controller), 存入session的list物件
 --%>
 
+<%--
+
+BusVO busVO = (BusVO)session.getAttribute("BusUsing");
+
+ --%>
+
 <%
 	ProductService proSvc = new ProductService();
-    List<ProductVO> list = proSvc.getAll();
+    List<ProductVO> list = proSvc.getProductsByBusid(1); //proSvc.getProductsByBusid(busVO.getBusid());
     pageContext.setAttribute("list",list);
 %>
 
-<%-- 
-<jsp:useBean id="shippingSvc" scope="page" class="com.shipping.model.ShippingService" />
---%>
 
 <!DOCTYPE html>
 <html>
@@ -55,15 +58,6 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 							</div>
 						</div>
 						<div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
-							<select class="form-select">
-								<option selected>類別總覽</option>
-								<option>寵物飼料</option>
-								<option>寵物保健</option>
-								<option>寵物零食</option>
-							</select>
-						</div>
-						<div class="col-md-2 col-6">
-							<input type="date" class="form-control" />
 						</div>
 						<div class="col-md-2 col-6">
 							<select class="form-select">
@@ -81,7 +75,7 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 						<div class="row align-items-center">
 							<div class="col col-check flex-grow-0">
 								<div class="">
-								<h6>ID</h6>
+								
 								</div>
 							</div>
 							<div class="col-lg-3 col-sm-4 col-8 flex-grow-1 col-name">
@@ -114,7 +108,7 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 					<article class="itemlist">
 						<div class="row align-items-center">
 							<div class="col col-check flex-grow-0">				
-									<p>${productVO.merid}.</p>
+									
 							</div>
 							<div class="col-lg-3 col-sm-4 col-8 flex-grow-1 col-name">
 								<a class="itemside" href="#">

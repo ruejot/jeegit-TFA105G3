@@ -49,9 +49,9 @@ public class OrderBusServlet extends HttpServlet {
 						Integer orderId = Integer.parseInt(req.getParameter("orderId"));
 						// 開始查詢資料
 						OrderService ordSvc = new OrderService();
-						OrderVO ordVO = ordSvc.getOneByOrderId(orderId);
+						OrderVO orderVO = ordSvc.getOneByOrderId(orderId);
 						// 查詢完成，準備轉交
-						req.setAttribute("orderVO", ordVO); // 資料庫取出ordVO物件,存入req
+						req.setAttribute("orderVO", orderVO); // 資料庫取出ordVO物件,存入req
 						String url = "/nest-backend/orderDetail.jsp";
 						RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交頁面
 						successView.forward(req, res);
@@ -74,13 +74,13 @@ public class OrderBusServlet extends HttpServlet {
 
 					try {
 						// 接收請求參數
-						// 取得訂單id
+						// 取得訂單Id
 						Integer orderId = Integer.parseInt(req.getParameter("orderId"));
 						// 開始查詢資料
 						OrderService ordSvc = new OrderService();
-						OrderVO ordVO = ordSvc.getOneByOrderId(orderId);
+						OrderVO orderVO = ordSvc.getOneByOrderId(orderId);
 						// 查詢完成，準備轉交
-						req.setAttribute("orderVO", ordVO); // 資料庫取出ordVO物件,存入req
+						req.setAttribute("orderVO", orderVO); // 資料庫取出ordVO物件,存入req
 						String url = "/nest-backend/orderRevise.jsp";
 						RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交頁面
 						successView.forward(req, res);
@@ -99,7 +99,7 @@ public class OrderBusServlet extends HttpServlet {
 					List<String> errorMsgs = new LinkedList<String>();
 					// Store this set in the request scope, in case we need to send the ErrorPage views.
 					req.setAttribute("errorMsgs", errorMsgs);
-//					try {
+					try {
 						// 接收請求參數
 						// 取得訂單Id
 						Integer orderId = Integer.parseInt(req.getParameter("orderId"));
@@ -109,11 +109,13 @@ public class OrderBusServlet extends HttpServlet {
 						
 						//取得Tracking
 						Integer tracking = null;
+						
 						try {
 							tracking = Integer.parseInt(req.getParameter("tracking"));
-						} catch(NumberFormatException e) {
-							errorMsgs.add("請填追蹤碼!");
+						} catch (Exception e) {
+							System.out.println("tracking not number");
 						}
+						
 						
 						//取得發票號碼
 						String invoiceId = req.getParameter("invoiceId");
@@ -135,18 +137,18 @@ public class OrderBusServlet extends HttpServlet {
 						}
 
 						// 將新物件存入OrderVO
-						OrderVO ordVO = new OrderVO();
-						ordVO.setOrderId(orderId);
-						ordVO.setTracking(tracking);
-						ordVO.setOrderStatus(orderStatus);
-						ordVO.setInvoiceId(invoiceId);
-						ordVO.setReceiver(receiver);
-						ordVO.setReceiverAddr(receiverAddr);
-						ordVO.setReceiverPhone(receiverPhone);
+						OrderVO orderVO = new OrderVO();
+						orderVO.setOrderId(orderId);
+						orderVO.setTracking(tracking);
+						orderVO.setOrderStatus(orderStatus);
+						orderVO.setInvoiceId(invoiceId);
+						orderVO.setReceiver(receiver);
+						orderVO.setReceiverAddr(receiverAddr);
+						orderVO.setReceiverPhone(receiverPhone);
 
 						// Send the user back to the form, if there were errors
 						if (!errorMsgs.isEmpty()) {
-							req.setAttribute("ordVO", ordVO);// 含有輸入格式錯誤的proVO物件,也存入req
+							req.setAttribute("ordVO", orderVO);// 含有輸入格式錯誤的proVO物件,也存入req
 							RequestDispatcher failureView = req.getRequestDispatcher("/nest-backend/orderRevise.jsp");
 							failureView.forward(req, res);
 							return;
@@ -154,19 +156,19 @@ public class OrderBusServlet extends HttpServlet {
 
 						// 開始修改資料
 						OrderService ordSvc = new OrderService();
-						ordVO = ordSvc.updateOrder(orderId, tracking, orderStatus, invoiceId, receiver, receiverAddr, receiverPhone);
+						orderVO = ordSvc.updateOrder(orderId, tracking, orderStatus, invoiceId, receiver, receiverAddr, receiverPhone);
 
 						// 修改完成，準備轉交
-						req.setAttribute("ordVO", ordVO);// 資料庫update成功後,正確的的ordVO物件,存入req
+						req.setAttribute("orderVO", orderVO);// 資料庫update成功後,正確的的ordVO物件,存入req
 						String url = "/nest-backend/orderManage.jsp";
 						RequestDispatcher successView = req.getRequestDispatcher(url);
 						successView.forward(req, res);
 
 						// 其他可能錯誤處理
-//					} catch (Exception e) {
-//						RequestDispatcher failureView = req.getRequestDispatcher("/nest-backend/update_pro_input.jsp");
-//						failureView.forward(req, res);
-//					}
+					} catch (Exception e) {
+						RequestDispatcher failureView = req.getRequestDispatcher("/nest-backend/update_pro_input.jsp");
+						failureView.forward(req, res);
+					}
 
 				}
 	}
