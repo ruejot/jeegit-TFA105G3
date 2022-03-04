@@ -35,8 +35,8 @@ public class MemFollowService {
 		return memFollowBean;
 	}
 	
-	public void deleteMemFollow(Integer friendshipId) {
-		dao.delete(friendshipId);
+	public void deleteMemFollow(Integer memberId,Integer followee) {
+		dao.delete(memberId,followee);
 	}
 
 	public MemFollowVO findByPrimaryKey(Integer friendshipId) {

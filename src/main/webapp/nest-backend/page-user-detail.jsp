@@ -197,22 +197,44 @@ pageContext.setAttribute("list",list);
                 $('button.btn-primary').text("已追蹤用戶").toggleClass("follow");
 
                 $.ajax({
-                type: "POST",
-                url: "<%=request.getContextPath()%>/MemFollowServlet",
-                
-                data: {
-                    action: "insert",
-                    memberId:"<%=membersVO.getMemberid()%>",
-                    followee:"7"
+                    method: "POST",
+                    url: "<%=request.getContextPath()%>/MemFollowServlet",
+                    
+                    data: {
+                        action: "insert",
+                        memberId:"<%=membersVO.getMemberid()%>",
+                        followee:"7",
+                        },
 
-                    },
+                    dataType : 'json',
 
-                success: function(data){
-                    console.log("我回來惹")
-                    console.log(data)
-                },
-                
-                });
+                    complete: function(jqXHR){
+                    	console.log(jqXHR.readyState)
+                        if(jqXHR.readyState === 4) {
+                        	console.log(jqXHR.responseText)
+                        	data = jqXHR.responseText
+                        	console.log(JSON.parse(data).success);
+                            console.log(JSON.parse(data).type);
+
+                            if(JSON.parse(data).success && JSON.parse(data).type==="insert"){
+                                $('button.btn-primary').text("已追蹤用戶").toggleClass("follow");
+                            } else {
+                                $('button.btn-primary').text("追蹤此用戶").toggleClass("follow")
+                            }
+
+
+
+                        }
+                    }
+
+
+                    });
+                        
+//                     complete: function(data){
+                        
+//                         console.log(data)
+//                         }
+//                     });
 
             })
 

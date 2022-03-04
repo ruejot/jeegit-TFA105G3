@@ -31,7 +31,7 @@ public class MemFollowDAO implements MemFollowDAO_interface {
 			+ " VALUES (?, ?, ?)";
 	private static final String UPDATE = "UPDATE MEM_FOLLOW  SET MEMBER_ID=?, FOLLOWEE=?, FRIENDSHIP=?"
 			+ " WHERE FRIENDSHIP_ID=?";
-	private static final String DELETE = "DELETE FROM MEM_FOLLOW WHERE FRIENDSHIP_ID=?";
+	private static final String DELETE = "DELETE FROM MEM_FOLLOW WHERE MEMBER_ID = ? and FOLLOWEE = ?;";
 	private static final String GET_ONE_STMT = "SELECT FRIENDSHIP_ID, MEMBER_ID, FOLLOWEE, FRIENDSHIP FROM MEM_FOLLOW WHERE FRIENDSHIP_ID = ?";
 	private static final String GET_ALL_STMT = "SELECT FRIENDSHIP_ID, MEMBER_ID, FOLLOWEE, FRIENDSHIP FROM MEM_FOLLOW ORDER BY FRIENDSHIP_ID";
 	private static final String GET_ALL_BY_MEMBER_ID_STMT = "SELECT FRIENDSHIP_ID, MEMBER_ID, FOLLOWEE, FRIENDSHIP FROM MEM_FOLLOW WHERE MEMBER_ID = ?";
@@ -119,7 +119,7 @@ public class MemFollowDAO implements MemFollowDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer friendshipId) {
+	public void delete(Integer memberId,Integer followee) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -128,7 +128,8 @@ public class MemFollowDAO implements MemFollowDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, friendshipId);
+			pstmt.setInt(1, memberId);
+			pstmt.setInt(2, followee);
 
 			pstmt.executeUpdate();
 
