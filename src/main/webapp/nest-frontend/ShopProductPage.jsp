@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <%-- 取出 Concroller ProductJumpServlet.java存入request的一件商品--%>
 <% List<ProductVO> aProd = (List<ProductVO>) request.getAttribute("aProd");%>
-
+<% List<ProductVO> relatedProd = (List<ProductVO>) request.getAttribute("relatedProd"); %>
 
 <!-- [editor,date] wei,2022-02-22 -->
 
@@ -51,15 +51,15 @@
                                     <!-- MAIN SLIDES 商品圖片大圖 -->
                                                 <div class="product-image-slider">
                                                     <c:forEach var="prodImgVO" items="${aProd}" >
-                                                    <figure class="border-radius-10">
-                                                        <img src="http://localhost:7080/jeeweb-TFA105G3/getproductPic?aa=${prodImgVO.imgid}" alt="product image" />
+                                                    <figure class="border-radius-10" style="align-content: stretch">
+                                                        <img src="<%=request.getContextPath()%>/getproductPic?aa=${prodImgVO.imgid}" alt="product image" />
                                                     </figure>
                                                     </c:forEach>
                                                 </div>
                                     <!-- THUMBNAILS 商品圖片小圖-->
                                                 <div class="slider-nav-thumbnails">
                                                 <c:forEach var="prodImgVO" items="${aProd}" >
-                                                    <div><img src="http://localhost:7080/jeeweb-TFA105G3/getproductPic?aa=${prodImgVO.imgid}" alt="product image" /></div>
+                                                    <div><img src="<%=request.getContextPath()%>/getproductPic?aa=${prodImgVO.imgid}" alt="product image" /></div>
                                                 </c:forEach>
                                                 </div>
                                             </div>
@@ -93,87 +93,11 @@
                                                     </div>
                                                     <div class="product-extra-link2">
                                                         <button type="submit" class="button button-add-to-cart"><i class="fi-rs-shopping-cart"></i>加入購物車</button>
-                                                    </div><br>
+                                                    </div>
+                                                </div>
                                                         <a class="btn btn-xs" href="<%=request.getContextPath()%>/nest-frontend/ShopMainpage.do?busid=${aProd.get(0).busid}&action=show_Shop_Mainpage" style="background-color:#386641;">
     													查看商店<i class="fi-rs-arrow-small-right"></i>
 														</a>
-                                                </div>
-
-                                            </div>
-                                            <!-- Detail Info -->
-                                        </div>
-                                    </div>
-                                                     <div class="product-info">
-                                        <div class="tab-style3">
-                                           <div class="tab-content shop_info_tab entry-main-content">
-                                                <div class="tab-pane fade " id="Description">
-                                                    <div class="">
-                                                        <p>123123</p>
-                                                    </div>
-                                                </div>
-                                               
-                                                <div class="tab-pane fade show active" id="Reviews">
-                                                    <!--Comments-->
-                                                    <div class="comments-area">
-                                                        <div class="row">
-                                                            <div class="col-lg-8">
-                                                                <h4 class="mb-30">Customer questions and answers</h4>
-                                                                <div class="comment-list">
-                                                                    <div class="single-comment justify-content-between d-flex mb-30">
-                                                                        <div class="user justify-content-between d-flex">
-                                                                            <div class="thumb text-center">
-                                                                                <img src="assets/imgs/blog/author-2.png" alt="" />
-                                                                                <a href="#" class="font-heading text-brand">Sienna</a>
-                                                                            </div>
-                                                                            <div class="desc">
-                                                                                <div class="d-flex justify-content-between mb-10">
-                                                                                    <div class="d-flex align-items-center">
-                                                                                        <span class="font-xs text-muted">December 4, 2021 at 3:12 pm </span>
-                                                                                    </div>
-                                                                                    <div class="product-rate d-inline-block">
-                                                                                        <div class="product-rating" style="width: 100%"></div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <p class="mb-10">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, suscipit exercitationem accusantium obcaecati quos voluptate nesciunt facilis itaque modi commodi dignissimos sequi repudiandae minus ab deleniti totam officia id incidunt? <a href="#" class="reply">Reply</a></p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-4">
-                                                                <h4 class="mb-30">Customer reviews</h4>
-                                                                <div class="d-flex mb-30">
-                                                                    <div class="product-rate d-inline-block mr-15">
-                                                                        <div class="product-rating" style="width: 90%"></div>
-                                                                    </div>
-                                                                    <h6>4.8 out of 5</h6>
-                                                                </div>
-                                                                <div class="progress">
-                                                                    <span>5 star</span>
-                                                                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
-                                                                </div>
-                                                                <div class="progress">
-                                                                    <span>4 star</span>
-                                                                    <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                                                                </div>
-                                                                <div class="progress">
-                                                                    <span>3 star</span>
-                                                                    <div class="progress-bar" role="progressbar" style="width: 45%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">45%</div>
-                                                                </div>
-                                                                <div class="progress">
-                                                                    <span>2 star</span>
-                                                                    <div class="progress-bar" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
-                                                                </div>
-                                                                <div class="progress mb-30">
-                                                                    <span>1 star</span>
-                                                                    <div class="progress-bar" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
-                                                                </div>
-                                                                <a href="#" class="font-xs text-muted">How are ratings calculated?</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!--comment form-->
-                                            </div>
                                             </div>
                                         </div>
                                     </div>
@@ -183,126 +107,21 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="row related-products">
-                                                <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                                    <div class="product-cart-wrap hover-up">
-                                                        <div class="product-img-action-wrap">
-                                                            <div class="product-img product-img-zoom">
-                                                                <a href="shop-product-right.html" tabindex="0">
-                                                                    <img class="default-img" src="assets/imgs/shop/product-2-1.jpg" alt="" />
-                                                                    <img class="hover-img" src="assets/imgs/shop/product-2-2.jpg" alt="" />
-                                                                </a>
-                                                            </div>
-                                                            <div class="product-action-1">
-                                                                <a aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
-                                                                <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="fi-rs-heart"></i></a>
-                                                                <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="fi-rs-shuffle"></i></a>
-                                                            </div>
-                                                            <div class="product-badges product-badges-position product-badges-mrg">
-                                                                <span class="hot">Hot</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-content-wrap">
-                                                            <h2><a href="shop-product-right.html" tabindex="0">Ulstra Bass Headphone</a></h2>
-                                                            <div class="rating-result" title="90%">
-                                                                <span> </span>
-                                                            </div>
-                                                            <div class="product-price">
-                                                                <span>$238.85 </span>
-                                                                <span class="old-price">$245.8</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                                    <div class="product-cart-wrap hover-up">
-                                                        <div class="product-img-action-wrap">
-                                                            <div class="product-img product-img-zoom">
-                                                                <a href="shop-product-right.html" tabindex="0">
-                                                                    <img class="default-img" src="assets/imgs/shop/product-3-1.jpg" alt="" />
-                                                                    <img class="hover-img" src="assets/imgs/shop/product-4-2.jpg" alt="" />
-                                                                </a>
-                                                            </div>
-                                                            <div class="product-action-1">
-                                                                <a aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
-                                                                <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="fi-rs-heart"></i></a>
-                                                                <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="fi-rs-shuffle"></i></a>
-                                                            </div>
-                                                            <div class="product-badges product-badges-position product-badges-mrg">
-                                                                <span class="sale">-12%</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-content-wrap">
-                                                            <h2><a href="shop-product-right.html" tabindex="0">Smart Bluetooth Speaker</a></h2>
-                                                            <div class="rating-result" title="90%">
-                                                                <span> </span>
-                                                            </div>
-                                                            <div class="product-price">
-                                                                <span>$138.85 </span>
-                                                                <span class="old-price">$145.8</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                                    <div class="product-cart-wrap hover-up">
-                                                        <div class="product-img-action-wrap">
-                                                            <div class="product-img product-img-zoom">
-                                                                <a href="shop-product-right.html" tabindex="0">
-                                                                    <img class="default-img" src="assets/imgs/shop/product-4-1.jpg" alt="" />
-                                                                    <img class="hover-img" src="assets/imgs/shop/product-4-2.jpg" alt="" />
-                                                                </a>
-                                                            </div>
-                                                            <div class="product-action-1">
-                                                                <a aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
-                                                                <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="fi-rs-heart"></i></a>
-                                                                <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="fi-rs-shuffle"></i></a>
-                                                            </div>
-                                                            <div class="product-badges product-badges-position product-badges-mrg">
-                                                                <span class="new">New</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-content-wrap">
-                                                            <h2><a href="shop-product-right.html" tabindex="0">HomeSpeak 12UEA Goole</a></h2>
-                                                            <div class="rating-result" title="90%">
-                                                                <span> </span>
-                                                            </div>
-                                                            <div class="product-price">
-                                                                <span>$738.85 </span>
-                                                                <span class="old-price">$1245.8</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 col-md-4 col-12 col-sm-6 d-lg-block d-none">
-                                                    <div class="product-cart-wrap hover-up mb-0">
-                                                        <div class="product-img-action-wrap">
-                                                            <div class="product-img product-img-zoom">
-                                                                <a href="shop-product-right.html" tabindex="0">
-                                                                    <img class="default-img" src="assets/imgs/shop/product-5-1.jpg" alt="" />
-                                                                    <img class="hover-img" src="assets/imgs/shop/product-3-2.jpg" alt="" />
-                                                                </a>
-                                                            </div>
-                                                            <div class="product-action-1">
-                                                                <a aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
-                                                                <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="fi-rs-heart"></i></a>
-                                                                <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="fi-rs-shuffle"></i></a>
-                                                            </div>
-                                                            <div class="product-badges product-badges-position product-badges-mrg">
-                                                                <span class="hot">Hot</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-content-wrap">
-                                                            <h2><a href="shop-product-right.html" tabindex="0">Dadua Camera 4K 2021EF</a></h2>
-                                                            <div class="rating-result" title="90%">
-                                                                <span> </span>
-                                                            </div>
-                                                            <div class="product-price">
-                                                                <span>$89.8 </span>
-                                                                <span class="old-price">$98.8</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+	                                            <c:forEach var="relatedProd" items="${relatedProd}" end="9" >
+	                                                <div class="col-lg-3 col-md-4 col-12 col-sm-6">
+	                                                    <div class="product-cart-wrap hover-up">
+	                                                        <a href="<%=request.getContextPath()%>/product/ProductJump?merid=${relatedProd.merid}&action=product_jump" tabindex="0">
+	                                                        <div class="product-content-wrap">
+	                                                            <div class="product-price">
+	                                                            <h2>${relatedProd.name}</h2>
+	                                                                <span>$ ${relatedProd.price} </span>
+	                                                            </div>
+	                                                                <img style="height:150px ;width:150px " src="<%=request.getContextPath()%>/ProdFirstPic?aa=${relatedProd.merid}">
+	                                                        </div>
+	                                                        </a>
+	                                                    </div>
+	                                                </div>
+                                                </c:forEach>
                                             </div>
                                         </div>
                                     </div>
@@ -318,7 +137,7 @@
 <!--                                             <div id="slider-range" class="mb-20"></div> SLIDER BAR -->
                                             <div class="d-flex justify-content-between">
                                             <input type="range" min="0" max="10000" value= "1" id="p_price">
-                                                <div class="text-brand">$<strong id="p_price_value" class="detail-qty border radius"></strong>
+                                                <div class="text-brand">$<strong id="p_price_value" ></strong>
                                                 </div>
 											</div>
                                                 <button type="submit" class="button button-add-to-cart">查詢</button>
