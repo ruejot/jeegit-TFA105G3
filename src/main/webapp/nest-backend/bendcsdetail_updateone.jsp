@@ -4,7 +4,7 @@
 <%@ page import="java.util.List"%>
 
 <%
-CsDetailVO csDetailVO = (CsDetailVO) request.getAttribute("csDetailVO"); //CsDetailServlet.java (Concroller) 存入req的csDetailBean物件 (包括幫忙取出的csDetailBean, 也包括輸入資料錯誤時的csDetailBean物件)
+CsDetailVO csDetailVO = (CsDetailVO) request.getAttribute("csDetailVO_z"); //CsDetailServlet.java (Concroller) 存入req的csDetailBean物件 (包括幫忙取出的csDetailBean, 也包括輸入資料錯誤時的csDetailBean物件)
 %>
 
 <jsp:useBean id="membersSvc" scope="page" class="com.members.model.MembersService" />
@@ -42,9 +42,7 @@ CsDetailVO csDetailVO = (CsDetailVO) request.getAttribute("csDetailVO"); //CsDet
 				<div class="col-9">
 					<div class="content-header">
 						<h2 class="content-title">
-							會員編號
-							<%=csDetailVO.getMemberid()%>
-							的客服單
+							會員【${membersSvc.select(csDetailVO_z.memberid).name}】的客服單
 						</h2>
 					</div>
 				</div>
@@ -60,7 +58,7 @@ CsDetailVO csDetailVO = (CsDetailVO) request.getAttribute("csDetailVO"); //CsDet
 								</aside>
 								<div class="col-lg-9">
 									<section class="content-body p-xl-4">
-										<form>
+										<form METHOD="post" ACTION="<%=request.getContextPath()%>/nest-backend/CsDetail.do">
 											<div class="row mb-4">
 												<label class="col-lg-3 col-form-label">客服單編號</label>
 												<div class="col-lg-9">
@@ -91,16 +89,48 @@ CsDetailVO csDetailVO = (CsDetailVO) request.getAttribute("csDetailVO"); //CsDet
 											<div class="row mb-4">
 												<label class="col-lg-3 col-form-label">回覆狀態</label>
 												<div class="col-lg-9">
-													<label class="mb-2 form-check form-check-inline" style="width: 45%;"> <input
-														class="form-check-input" name="mycategory" type="radio"> <span class="col-form-label">
-															1_待處理 </span>
-													</label> <label class="mb-2 form-check form-check-inline" style="width: 45%;"> <input
-														class="form-check-input" checked="" name="mycategory" type="radio"> <span
-														class="col-form-label"> 2_處理中 </span>
-													</label> <label class="mb-2 form-check form-check-inline" style="width: 45%;"> <input
-														class="form-check-input" name="mycategory" type="radio"> <span class="col-form-label">
-															3_已完成 </span>
+													<label class="mb-2 form-check form-check-inline" style="width: 45%;"> 
+													<input class="form-check-input" name="reply_status" type="radio"
+														value="1" <%=csDetailVO.getReplystatus() == 1 ? "checked" : ""  %>/> 
+													<span class="col-form-label"> 1_待處理 </span></label>
+													<label class="mb-2 form-check form-check-inline" style="width: 45%;">
+													<input class="form-check-input" name="reply_status" type="radio"
+														value="2" <%=csDetailVO.getReplystatus() == 2 ? "checked" : ""  %>/>
+													<span class="col-form-label"> 2_處理中 </span></label>
+													<label class="mb-2 form-check form-check-inline" style="width: 45%;">
+													<input class="form-check-input" name="reply_status" type="radio"
+														value="3" <%=csDetailVO.getReplystatus() == 3 ? "checked" : ""  %>/>
+													<span class="col-form-label"> 3_已完成 </span></label>
+												</div>
+												<!-- col.// -->
+											</div>
+											<!-- row.// -->
+											<div class="row mb-4">
+												<label class="col-lg-3 col-form-label">詢問-商品編號</label>
+												<div class="col-lg-9">
+												
+													<label class="col-form-label">
+													<c:choose>
+														<c:when test="${csDetailVO_z.merid != 1111111 && csDetailVO_z.merid != 0}">
+															<a href="<%=request.getContextPath()%>/product/ProductJump?merid=${csDetailVO_z.merid}&action=product_jump">
+															商品編號 ${csDetailVO_z.merid}
+															</a>
+														</c:when>
+														<c:otherwise>
+															此筆沒有詢問
+														</c:otherwise>
+													</c:choose>
 													</label>
+													<!-- <input type="text" class="form-control" placeholder="Type here" /> -->
+												</div>
+												<!-- col.// -->
+											</div>
+											<!-- row.// -->
+											<div class="row mb-4">
+												<label class="col-lg-3 col-form-label">詢問-訂單編號</label>
+												<div class="col-lg-9">
+													<label class="col-form-label"><%=(csDetailVO.getOrderid() != 1111111 && csDetailVO.getOrderid() != 0)?csDetailVO.getOrderid():"此筆沒有詢問"%></label>
+													<!-- <input type="text" class="form-control" placeholder="Type here" /> -->
 												</div>
 												<!-- col.// -->
 											</div>
@@ -108,7 +138,8 @@ CsDetailVO csDetailVO = (CsDetailVO) request.getAttribute("csDetailVO"); //CsDet
 											<div class="row mb-4">
 												<label class="col-lg-3 col-form-label">回覆內容</label>
 												<div class="col-lg-9">
-													<textarea class="form-control" placeholder="輸入回應..." rows="3">幫您確認，晚點回覆您，請稍等!</textarea>
+													<textarea name="reply_content" class="form-control" placeholder="輸入回應..." rows="3"><%=(csDetailVO.getReplycontent()==null)? "幫您確認，晚點回覆您，請稍等!" : csDetailVO.getReplycontent()%></textarea>
+													<%-- <input type="hidden" name="reply_content_q" value="<%=(csDetailVO==null)? "幫您確認，晚點回覆您，請稍等!~" : csDetailVO.getReplycontent()%>"/> --%>
 												</div>
 												<!-- col.// -->
 											</div>
@@ -116,7 +147,7 @@ CsDetailVO csDetailVO = (CsDetailVO) request.getAttribute("csDetailVO"); //CsDet
 											<div class="row mb-4">
 												<label class="col-lg-3 col-form-label">回覆時間</label>
 												<div class="col-lg-4">
-													<input type="text" class="form-control" placeholder="YYY-MM-DD" value="2022-02-17" />
+													<input type="text" name="reply_time" class="form-control" id="today" placeholder="YYYY-MM-DD" value="" />
 												</div>
 												<!-- col.// -->
 											</div>
@@ -124,6 +155,14 @@ CsDetailVO csDetailVO = (CsDetailVO) request.getAttribute("csDetailVO"); //CsDet
 											<!-- row.// -->
 											<br />
 											<button class="btn btn-primary" type="submit">完成回應更新</button>
+											<input type="hidden" name="action" value="update">
+											<input type="hidden" name="case_id" value="<%=csDetailVO.getCaseid()%>">
+											<input type="hidden" name="member_id" value="<%=csDetailVO.getMemberid()%>">
+											<input type="hidden" name="bus_id" value="<%=csDetailVO.getBusid()%>">
+											<input type="hidden" name="mer_id" value="<%=csDetailVO.getMerid()%>">
+											<input type="hidden" name="order_id" value="<%=csDetailVO.getOrderid()%>">
+											<input type="hidden" name="case_time" value="<%=csDetailVO.getCasetime()%>">
+											<input type="hidden" name="feedback" value="<%=csDetailVO.getFeedback()%>">
 										</form>
 									</section>
 									<!-- content-body .// -->
@@ -151,4 +190,43 @@ CsDetailVO csDetailVO = (CsDetailVO) request.getAttribute("csDetailVO"); //CsDet
 	<!-- Main Script -->
 	<script src="<%=request.getContextPath()%>/assets/js/main_backend.js?v=1.1" type="text/javascript"></script>
 </body>
+
+	<!-- 以下為日期設定 -->
+<%-- <%
+//   java.sql.Date replyTime = null;
+//   try {
+// 	  replyTime = csDetailVO.getReplytime();
+//    } catch (Exception e) {
+// 	  replyTime = new java.sql.Date(System.currentTimeMillis());
+//    }
+%> --%>
+
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+
+<style>
+  .xdsoft_datetimepicker .xdsoft_datepicker {
+           width:  300px;   /* width:  300px; */
+  }
+  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+           height: 151px;   /* height:  151px; */
+  }
+</style>
+
+<script>
+        $.datetimepicker.setLocale('zh');
+        $('#today').datetimepicker({
+	       theme: '',              //theme: 'dark',
+	       timepicker:false,       //timepicker:true,
+	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
+		   value: '<%=csDetailVO.getReplytime()%>', // value:   new Date(),
+           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+           //startDate:	            '2017/07/10',  // 起始日
+           //minDate:               '-1970-01-01', // 去除今日(不含)之前
+           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+        });
+        
+</script>
 </html>
