@@ -463,13 +463,13 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		return null;
 	}
 
-public static void main(String[] args) throws Exception{
-	
-	//扣庫測試
-	ProductJDBCDAO dao = new ProductJDBCDAO();
-	dao.updateMerStockQty(6, 79);
-	System.out.println("扣庫成功");
-	
+	public static void main(String[] args) throws Exception {
+
+		// 扣庫測試
+		ProductJDBCDAO dao = new ProductJDBCDAO();
+		dao.updateMerStockQty(6, 79);
+		System.out.println("扣庫成功");
+
 //	//新增商品同時新增照片
 //	ProductJDBCDAO dao = new ProductJDBCDAO();
 //	ProductVO productVO1 = new ProductVO();
@@ -516,7 +516,6 @@ public static void main(String[] args) throws Exception{
 //	
 //	dao.insertWithProductImg(productVO1, list);
 
-	
 //	
 //	ProductVO productVO2 = new ProductVO();
 //	productVO2.setMerid(2);
@@ -549,7 +548,7 @@ public static void main(String[] args) throws Exception{
 //	System.out.println(productVO3.getMainCategory() + ",");
 //	System.out.println(productVO3.getSubCategory() +",");
 //	System.out.println("---------------------");
-	
+
 //	List<ProductVO> list = dao.getAll();
 //	int count = 0;
 //	for (int i = 0; i < list.size(); i++) {
@@ -571,7 +570,7 @@ public static void main(String[] args) throws Exception{
 //		System.out.println(aPro.getShippingMethod() + ",");
 //		System.out.println(aPro.getMainCategory() + ",");
 //		System.out.println(aPro.getSubCategory() +",");
-	
+
 //	Set<ProductImgVO> set = dao.getImgsByImgno(1);
 //	for (ProductImgVO aImg : set) {
 //		System.out.print(aImg.getImgid() + ",");
@@ -581,158 +580,156 @@ public static void main(String[] args) throws Exception{
 //		System.out.println();
 	}
 
-@Override
-public List<ProductVO> getAllByMainCategory(String maincategory) {
-	// TODO Auto-generated method stub
-	return null;
-}
+	@Override
+	public List<ProductVO> getAllByMainCategory(String maincategory) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-@Override
-public List<ProductVO> getAllBySubCategory(String subcategory) {
-	// TODO Auto-generated method stub
-	return null;
-}
+	@Override
+	public List<ProductVO> getAllBySubCategory(String subcategory) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-@Override
-public void insertWithProductImg(ProductVO productVO, List<ProductImgVO> list) {
-	
-	Connection con = null;
-	PreparedStatement pstmt = null;
+	@Override
+	public void insertWithProductImg(ProductVO productVO, List<ProductImgVO> list) {
 
-	try {
-		
-		Class.forName(driver);
-		con = DriverManager.getConnection(url, userid, passwd);
-		
-		// 設定於pstmt.executeUpdate()之前
-		con.setAutoCommit(false);
+		Connection con = null;
+		PreparedStatement pstmt = null;
 
-		// 先新增商品主檔
-		String cols[] = { "MER_ID" };
-		pstmt = con.prepareStatement(INSERT_STMT, cols);
+		try {
 
-		pstmt.setInt(1, productVO.getBusid());
-		pstmt.setString(2, productVO.getName());
-		pstmt.setInt(3, productVO.getPrice());
-		pstmt.setInt(4, productVO.getStock());
-		pstmt.setDate(5, productVO.getShelfDate());
-		pstmt.setInt(6, productVO.getStatus());
-		pstmt.setString(7, productVO.getDescription());
-		pstmt.setString(8, productVO.getShippingMethod());
-		pstmt.setString(9, productVO.getMainCategory());
-		pstmt.setString(10, productVO.getSubCategory());
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
 
-		pstmt.executeUpdate();
+			// 設定於pstmt.executeUpdate()之前
+			con.setAutoCommit(false);
 
-		// 獲取對應的新增主鍵值
-		String next_merId = null;
-		ResultSet rs = pstmt.getGeneratedKeys();
-		if (rs.next()) {
-			next_merId = rs.getString(1);
-			System.out.println("自增主鍵值= " + next_merId + "(剛新增成功的商品編號)");
-		} else {
-			System.out.println("未取得自增主鍵值");
-		}
-		rs.close();
-		
-		//先
+			// 先新增商品主檔
+			String cols[] = { "MER_ID" };
+			pstmt = con.prepareStatement(INSERT_STMT, cols);
 
-		// 再同時新增照片
-		ProductImgDAO dao = new ProductImgDAO();
-		System.out.println("list.size()-A=" + list.size());
-		for (ProductImgVO addImg : list) {
-			addImg.setMerid(Integer.parseInt(next_merId));
-			dao.insert(addImg, con);
-		}
-		// 設定於pstmt.executeUpdate()之後
-		con.commit();
-		con.setAutoCommit(true);
-		System.out.println("list.size()-B=" + list.size());
-		System.out.println("新增商品編號" + next_merId + "時,共有" + list.size() + "筆圖片同時被新增");
+			pstmt.setInt(1, productVO.getBusid());
+			pstmt.setString(2, productVO.getName());
+			pstmt.setInt(3, productVO.getPrice());
+			pstmt.setInt(4, productVO.getStock());
+			pstmt.setDate(5, productVO.getShelfDate());
+			pstmt.setInt(6, productVO.getStatus());
+			pstmt.setString(7, productVO.getDescription());
+			pstmt.setString(8, productVO.getShippingMethod());
+			pstmt.setString(9, productVO.getMainCategory());
+			pstmt.setString(10, productVO.getSubCategory());
 
-	} catch (SQLException se) {
-		if (con != null) {
-			try {
-				// 設定於當有exception發生時之catch區塊內
-				System.err.print("Transaction is being ");
-				System.err.println("rolled back-由-order");
-				con.rollback();
-			} catch (SQLException excep) {
-				throw new RuntimeException("rollback error occured. " + excep.getMessage());
+			pstmt.executeUpdate();
+
+			// 獲取對應的新增主鍵值
+			String next_merId = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+				next_merId = rs.getString(1);
+				System.out.println("自增主鍵值= " + next_merId + "(剛新增成功的商品編號)");
+			} else {
+				System.out.println("未取得自增主鍵值");
 			}
-		}
-		throw new RuntimeException("A database error occured. " + se.getMessage());
-	} catch (ClassNotFoundException e) {
-		e.printStackTrace();
-	} finally {
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace();
+			rs.close();
+
+			// 先
+
+			// 再同時新增照片
+			ProductImgDAO dao = new ProductImgDAO();
+			System.out.println("list.size()-A=" + list.size());
+			for (ProductImgVO addImg : list) {
+				addImg.setMerid(Integer.parseInt(next_merId));
+				dao.insert(addImg, con);
 			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (SQLException se) {
-				se.printStackTrace();
+			// 設定於pstmt.executeUpdate()之後
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println("list.size()-B=" + list.size());
+			System.out.println("新增商品編號" + next_merId + "時,共有" + list.size() + "筆圖片同時被新增");
+
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-order");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. " + excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
 			}
 		}
 	}
-}
 
-@Override
-public List<ProductVO> getProductByBusid(Integer busid) {
-	// TODO Auto-generated method stub
-	return null;
-}
-
-
-@Override
-public void updateMerStockQty(Integer qty, Integer merid) {
-	Connection con = null;
-	PreparedStatement pstmt = null;
-
-	try {
-
-		Class.forName(driver);
-		con = DriverManager.getConnection(url, userid, passwd);
-		pstmt = con.prepareStatement(GET_PRODUCT_QTY_BY_MERID);
-
-		pstmt.setInt(1, qty);
-		pstmt.setInt(2, merid);
-		pstmt.executeUpdate();
-
-		// Handle any driver errors
-	} catch (ClassNotFoundException e) {
-		throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-		// Handle any SQL errors
-	} catch (SQLException se) {
-		throw new RuntimeException("A database error occured. " + se.getMessage());
-		// Clean up JDBC resources
-	} finally {
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace(System.err);
-			}
-		}
+	@Override
+	public List<ProductVO> getProductByBusid(Integer busid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-}
 
+	@Override
+	public void updateMerStockQty(Integer qty, Integer merid) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_PRODUCT_QTY_BY_MERID);
+
+			pstmt.setInt(1, qty);
+			pstmt.setInt(2, merid);
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
 
 //@Override
-//public void updateWithProductImg(ProductVO productVO, List<ProductImgVO> list) {
+//public void updateWithProductImg(ProductVO productVO, ProductImgVO proImgVO) {
 //	Connection con = null;
 //	PreparedStatement pstmt = null;
 //
@@ -774,16 +771,17 @@ public void updateMerStockQty(Integer qty, Integer merid) {
 //		
 //		// 再同時更改照片
 //		ProductImgDAO dao1 = new ProductImgDAO();
-//		System.out.println("list.size()-for update1=" + list.size());
-//		for (ProductImgVO addImg : list) {
-//			addImg.setMerid(Integer.parseInt(next_merId));
-//			dao1.insert(addImg, con);
-//		}
+//		dao1.insert(proImgVO, con);
+////		System.out.println("list.size()-for update1=" + list.size());
+////		for (ProductImgVO addImg : list) {
+////			addImg.setMerid(Integer.parseInt(next_merId));
+////			dao1.insert(addImg, con);
+////		}
 //		// 設定於pstmt.executeUpdate()之後
 //		con.commit();
 //		con.setAutoCommit(true);
-//		System.out.println("list.size()-for update2=" + list.size());
-//		System.out.println("更新商品編號" + next_merId + "時,共有" + list.size() + "筆圖片同時被新增");
+////		System.out.println("list.size()-for update2=" + list.size());
+////		System.out.println("更新商品編號" + next_merId + "時,共有" + list.size() + "筆圖片同時被新增");
 //
 //	} catch (SQLException se) {
 //		if (con != null) {
@@ -816,6 +814,5 @@ public void updateMerStockQty(Integer qty, Integer merid) {
 //		}
 //	}
 //}
-	
-}
 
+}
