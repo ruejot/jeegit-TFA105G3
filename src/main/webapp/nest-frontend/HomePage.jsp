@@ -49,7 +49,7 @@ request.setAttribute("mainlist5", mainlist5);
 
 	<!--End userHeader-->
 	<main class="main pages">
-		<jsp:include page="/views/userMainPage-header.jsp" />
+<%-- 		<jsp:include page="/views/userMainPage-header.jsp" /> --%>
 			<!-- 頭 上排十大類 -->
 	<section class="popular-categories section-padding">
 		<div class="container wow animate__animated animate__fadeIn">

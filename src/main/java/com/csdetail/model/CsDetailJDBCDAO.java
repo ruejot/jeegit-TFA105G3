@@ -44,7 +44,7 @@ public class CsDetailJDBCDAO implements CsDetailDAO_interface{
 			
 			pstmt.setInt(1, csDetailBean.getMemberid());
 			pstmt.setInt(2, csDetailBean.getBusid());
-			pstmt.setInt(3, csDetailBean.getMemberid());
+			pstmt.setInt(3, csDetailBean.getMerid());
 			pstmt.setInt(4, csDetailBean.getOrderid());
 			pstmt.setDate(5, csDetailBean.getCasetime());
 			pstmt.setString(6, csDetailBean.getFeedback());
@@ -94,7 +94,7 @@ public class CsDetailJDBCDAO implements CsDetailDAO_interface{
 			
 			pstmt.setInt(1, csDetailBean.getMemberid());
 			pstmt.setInt(2, csDetailBean.getBusid());
-			pstmt.setInt(3, csDetailBean.getMemberid());
+			pstmt.setInt(3, csDetailBean.getMerid());
 			pstmt.setInt(4, csDetailBean.getOrderid());
 			pstmt.setDate(5, csDetailBean.getCasetime());
 			pstmt.setString(6, csDetailBean.getFeedback());
@@ -202,6 +202,8 @@ public class CsDetailJDBCDAO implements CsDetailDAO_interface{
 				csDetailBean.setCaseid(rs.getInt("CASE_ID"));
 				csDetailBean.setMemberid(rs.getInt("MEMBER_ID"));
 				csDetailBean.setBusid(rs.getInt("BUS_ID"));
+				csDetailBean.setMerid(rs.getInt("MER_ID"));
+				csDetailBean.setOrderid(rs.getInt("ORDER_ID"));
 				csDetailBean.setCasetime(rs.getDate("CASE_TIME"));
 				csDetailBean.setFeedback(rs.getString("FEEDBACK"));
 				csDetailBean.setReplystatus(rs.getInt("REPLY_STATUS"));
@@ -266,6 +268,8 @@ public class CsDetailJDBCDAO implements CsDetailDAO_interface{
 				csDetailBean.setCaseid(rs.getInt("CASE_ID"));
 				csDetailBean.setMemberid(rs.getInt("MEMBER_ID"));
 				csDetailBean.setBusid(rs.getInt("BUS_ID"));
+				csDetailBean.setMerid(rs.getInt("MER_ID"));
+				csDetailBean.setOrderid(rs.getInt("ORDER_ID"));
 				csDetailBean.setCasetime(rs.getDate("CASE_TIME"));
 				csDetailBean.setFeedback(rs.getString("FEEDBACK"));
 				csDetailBean.setReplystatus(rs.getInt("REPLY_STATUS"));
