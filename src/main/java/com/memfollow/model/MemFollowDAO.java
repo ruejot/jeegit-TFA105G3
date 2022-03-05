@@ -36,8 +36,10 @@ public class MemFollowDAO implements MemFollowDAO_interface {
 	private static final String GET_ALL_STMT = "SELECT FRIENDSHIP_ID, MEMBER_ID, FOLLOWEE, FRIENDSHIP FROM MEM_FOLLOW ORDER BY FRIENDSHIP_ID";
 	private static final String GET_ALL_BY_MEMBER_ID_STMT = "SELECT FRIENDSHIP_ID, MEMBER_ID, FOLLOWEE, FRIENDSHIP FROM MEM_FOLLOW WHERE MEMBER_ID = ?";
 
+	private static final String GET_ALL_BY_FOLLOWEE = "SELECT * FROM MEM_FOLLOW WHERE FOLLOWEE = ?";
 	private static final String IF_FRIEND = "SELECT * FROM MEM_FOLLOW where MEMBER_ID = ? and FOLLOWEE = ?";
 
+	
 	
 	
 	@Override
@@ -332,7 +334,7 @@ public class MemFollowDAO implements MemFollowDAO_interface {
 	}
 
 	@Override
-	public List<MemFollowVO> getAllByMemberId(Integer memberId) {
+	public List<MemFollowVO> getAllByFollowee(Integer followee) {
 		List<MemFollowVO> list = new ArrayList<MemFollowVO>();
 		MemFollowVO memFollowBean = null;
 		
@@ -343,8 +345,8 @@ public class MemFollowDAO implements MemFollowDAO_interface {
 		try {
 			con = ds.getConnection();
 			
-			pstmt = con.prepareStatement(GET_ALL_BY_MEMBER_ID_STMT);
-			pstmt.setInt(1, memberId);
+			pstmt = con.prepareStatement(GET_ALL_BY_FOLLOWEE);
+			pstmt.setInt(1, followee);
 			
 			rs = pstmt.executeQuery();
 			
@@ -355,6 +357,7 @@ public class MemFollowDAO implements MemFollowDAO_interface {
 				memFollowBean.setMemberId(rs.getInt("MEMBER_ID"));
 				memFollowBean.setFollowee(rs.getInt("FOLLOWEE"));
 				memFollowBean.setFriendship(rs.getString("FRIENDSHIP"));
+				
 				// 讀取完一筆Bean就存到list，若rs.next()還有再讀取下一個
 				list.add(memFollowBean);
 			}

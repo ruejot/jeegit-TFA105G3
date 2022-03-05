@@ -43,7 +43,7 @@ pageContext.setAttribute("list",list);
                         <jsp:include page="userHeader.jsp"></jsp:include>
 
                         <body>
-                            <main class="main-wrap">
+                            <main class="main-wrap"z>
 
                                 <section class="content-main">
                                     <div class="content-header">

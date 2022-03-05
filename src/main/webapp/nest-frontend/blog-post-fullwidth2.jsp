@@ -16,7 +16,8 @@ MembersService memSvc = new MembersService();
 MembersVO membersVOinfo = memSvc.select(memBlogArtVO.getMemberId());
 
 //找出留言作者名稱
-// MembersVO membersVOReInfo = memSvc.select(memreplyVO.getReMemberId());
+List<MembersVO> list3 = memSvc.selectAll();
+pageContext.setAttribute("list3",list3);
 
 MembersVO membersVO = (MembersVO) session.getAttribute("MemberUsing");
 
@@ -27,6 +28,8 @@ pageContext.setAttribute("list2",list2);
 
 
 %>
+
+<jsp:useBean id="memberSvc" scope="page" class="com.members.model.MembersService" />
 
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
@@ -180,7 +183,15 @@ pageContext.setAttribute("list2",list2);
                                                                 <div class="thumb text-center">
                                                                     <img src="assets/imgs/blog/author-2.png" alt="">
 <!--                                                                     TODO:member名稱要用id進資料庫找出來 -->
-                                                                    <a href="#" class="font-heading text-brand">Sienna</a>
+                                                                    <c:forEach var="membersVOinfo" items="${list3}">
+                                                                        
+                                                                    <a href="#" class="font-heading text-brand">
+                                                                    <c:if test="${memReplyVO.reMemberId==membersVOinfo.memberid}">
+                                                                    ${membersVOinfo.nickname}
+                                                                    </c:if>
+                                                                    </a>
+                                                                        
+                                                                    </c:forEach>
                                                                 </div>
                                                                 <div class="desc">
                                                                     <div class="d-flex justify-content-between mb-10">

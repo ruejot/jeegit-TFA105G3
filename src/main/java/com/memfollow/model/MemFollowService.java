@@ -52,8 +52,12 @@ public class MemFollowService {
 	public List<MemFollowVO> getAll() {
 		return dao.getAll();
 	}
+//	
+//	public List<MemFollowVO> getAllByMemberId(Integer memberId) {
+//		return dao.getAllByMemberId(memberId);
+//	}
 	
-	public List<MemFollowVO> getAllByMemberId(Integer memberId) {
-		return dao.getAllByMemberId(memberId);
+	public List<MemFollowVO> getAllByFollowee(Integer followee) {
+		return dao.getAllByFollowee(followee);
 	}
 }
