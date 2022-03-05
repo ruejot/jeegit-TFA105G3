@@ -85,17 +85,25 @@
                                                 <div class="short-desc mb-30">
                                                     <p class="font-lg">${aProd.get(0).description}</p>
                                                 </div>
+ 											<form action="../CartServlet" method="GET">
                                                 <div class="detail-extralink mb-50">
                                                     <div class="detail-qty border radius">
-                                                        <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
-                                                        <span class="qty-val">1</span>
-                                                        <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
+                                                        <a class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
+															<span class="qty-val" id="s_qty" >1</span>
+                                                        <a class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
                                                     </div>
-                                                    <div class="product-extra-link2">
-                                                        <button type="submit" class="button button-add-to-cart"><i class="fi-rs-shopping-cart"></i>加入購物車</button>
-                                                    </div>
-                                                </div>
-                                                        <a class="btn btn-xs" href="<%=request.getContextPath()%>/nest-frontend/ShopMainpage.do?busid=${aProd.get(0).busid}&action=show_Shop_Mainpage" style="background-color:#386641;">
+	                                                    <div class="product-extra-link2">
+	                                                        <button type="submit" class="button button-add-to-cart" id="btn_submit" ><i class="fi-rs-shopping-cart"></i>加入購物車</button>
+															<input type="hidden" name="action" value="add">                                                    
+	                                                        <input type="hidden" name="qty"  id="i_qty" value="1">   
+															<input type="hidden" name="merId" value="${aProd.get(0).merid}">                                                    
+															<input type="hidden" name="busId" value="${aProd.get(0).busid}">                                                    
+															<input type="hidden" name="price" value="${aProd.get(0).price}">                                                    
+															<input type="hidden" name="name" value="${aProd.get(0).name}">                                                    
+	                                                    </div>
+                                                	</div>
+                                          	</form>
+                                                        <a class="btn btn-xs" href="<%=request.getContextPath()%>/nest-frontend/ShopMainpage.do?busid=${aProd.get(0).busid}&action=show_Shop_Mainpage" >
     													查看商店<i class="fi-rs-arrow-small-right"></i>
 														</a>
                                             </div>
@@ -130,20 +138,21 @@
                             <div class="col-xl-3 primary-sidebar sticky-sidebar mt-30">
 
                                 <!-- Fillter By Price -->
-                                <div class="sidebar-widget price_range range mb-30">
-                                    <h5 class="section-title style-1 mb-30">價格區間</h5>
-                                    <div class="price-filter">
-                                        <div class="price-filter-inner">
-<!--                                             <div id="slider-range" class="mb-20"></div> SLIDER BAR -->
-                                            <div class="d-flex justify-content-between">
-                                            <input type="range" min="0" max="10000" value= "1" id="p_price">
-                                                <div class="text-brand">$<strong id="p_price_value" ></strong>
-                                                </div>
-											</div>
-                                                <button type="submit" class="button button-add-to-cart">查詢</button>
-                                        </div>
-                                    </div>
-                                </div>
+<!--                                 <div class="sidebar-widget price_range range mb-30"> -->
+<!--                                     <h5 class="section-title style-1 mb-30">價格區間</h5> -->
+<!--                                     <div class="price-filter"> -->
+<!--                                         <div class="price-filter-inner"> -->
+<!-- <!--                                             <div id="slider-range" class="mb-20"></div> SLIDER BAR -->
+<!--                                             <div class="d-flex justify-content-between"> -->
+<!--                                             <input type="range" min="0" max="10000" value= "1" id="p_price"> -->
+<!--                                                 <div class="text-brand">$<strong id="p_price_value" ></strong> -->
+<!--                                                 </div> -->
+<!-- 											</div> -->
+<!--                                                 <button type="submit" class="button button-add-to-cart">查詢</button> -->
+<!--                                         </div> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+                            
                             </div>
                         </div>
                     </div>
@@ -152,18 +161,7 @@
 		</div>
 	</main>
 	<jsp:include page="/views/footer.jsp" />
-	<script >
-	var p_price = document.querySelector("#p_price");
-    var p_price_value = document.querySelector("#p_price_value");
 	
-	function p_value(){
-		p_price_value.innerHTML = p_price.value;
-		p_price.addEventListener("mousemove",function(){
-			p_price_value.innerHTML = p_price.value;
-		});
-	}
-	p_value();
-	</script>
 	<!-- Preloader Start -->
 	<!-- Vendor JS-->
 	<script src="<%=request.getContextPath()%>/assets/js/vendors/modernizr-3.6.0.min.js"></script>
@@ -198,6 +196,32 @@
 	<!-- Template  JS -->
 	<script src="<%=request.getContextPath()%>/assets/js/main_frontend.js"></script>
 	<script src="<%=request.getContextPath()%>/assets/js/shop.js"></script>
+	
+	<script >
+	
+	
+	var s_qty = document.querySelector("#s_qty");
+	var i_qty = document.querySelector("#i_qty");
+
+		$("#btn_submit").click(function(){
+			var qty = s_qty.textContent;
+			$("#i_qty").val(qty);
+		});
+
+	
+	
+	
+	var p_price = document.querySelector("#p_price");
+    var p_price_value = document.querySelector("#p_price_value");
+	
+	function p_value(){
+		p_price_value.innerHTML = p_price.value;
+		p_price.addEventListener("mousemove",function(){
+			p_price_value.innerHTML = p_price.value;
+		});
+	}
+	p_value();
+	</script>
 </body>
 </html>
 
