@@ -5,6 +5,7 @@ import java.util.List;
 
 public class MembersService {
 	private MembersDAO_interface dao;
+	public Object updateMember;
 	
 	public MembersService() {
 		dao = new MembersDAO();
@@ -48,11 +49,12 @@ public class MembersService {
 		
 		dao.insert(memberBean);
 		return memberBean;
-	}	
+	}
+	
+
 	
 	
-	
-	//修改
+	//修改                        //Integer memberid,
 	public MembersVO updateMember(String name
 			, String mobile, String phone,	String address,	Timestamp date
 			, String email, String password, String nickname, String intro, byte[] photo) {

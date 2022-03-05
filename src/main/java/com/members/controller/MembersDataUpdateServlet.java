@@ -1,6 +1,8 @@
 package com.members.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,9 +35,11 @@ public class MembersDataUpdateServlet extends HttpServlet {
 		String newmobile = req.getParameter("membersMobile");
 		String newphone = req.getParameter("membersPhone");
 		String password = req.getParameter("membersPassword");			//現在的密碼
+		String newintro = req.getParameter("membersIntro");
 		String newaddress = req.getParameter("membersAddress");			//新的密碼
 		String newpassword = req.getParameter("newnMembersPassword");
 		String newpasswordrp = req.getParameter("newMembersPasswordRp");
+		
 
 		// 按出修改會員資料的鈕
 		if ("membersdataupdate".equals(action)) { // accountCenter.jsp裡的請求
@@ -45,13 +49,13 @@ public class MembersDataUpdateServlet extends HttpServlet {
 //			MembersVO membersbean = membersDAOInterface.select(id);
 //			
 			//手機號碼的格式
-			String mobileReg = "^([0-9]{3}-?[0-9]{8}|[0-9]{4}-?[0-9]{7})$"; 
+//			String mobileReg = "^([0-9]{3}-?[0-9]{8}|[0-9]{4}-?[0-9]{7})$"; 
 
 			// 先檢查必填欄位(姓名跟手機)是否有被確實輸入
 			//若二欄均非null
 			if(!"newname".equals(null) && !"newmobile".equals(null)) {
-				//再檢查被輸入的mobile是否符合規定的格式
-				 if(newmobile.matches(mobileReg)) {
+//				//再檢查被輸入的mobile是否符合規定的格式
+//				 if(newmobile.matches(mobileReg)) {
 					
 					//必填輸入欄的資料有符合格式的話，client端所填之內容可進入DB更新
 					MembersService memberssvc = new MembersService();// 修改方法放在service所以用service
@@ -66,20 +70,22 @@ public class MembersDataUpdateServlet extends HttpServlet {
 					membersVO.setEmail(email);
 					
 					//修改完成，存入
-					memberssvc.updateMember(newname, newmobile, newphone, newaddress, null, email, password,
-							newnickname, newpasswordrp, null);
+					//updateMember(String name, String mobile, String phone,String address,	Timestamp date
+//					, String email, String password, String nickname, String intro, byte[] photo)
+					//String, String, String, String, Timestamp, String, String, String, String, byte[]
+					memberssvc.updateMember(newname,newmobile,newmobile,newaddress,null, email,password,newnickname,newintro,null);
 					
 					// 跳轉顯示修改成功	
 					req.setAttribute("DataupdateSuccessMembersMsg1", "會員資料修改成功!!");
-					req.getRequestDispatcher("../nest-frontend/accounSetting.jsp").forward(req, res);
+					req.getRequestDispatcher("../nest-frontend/accountSetting.jsp").forward(req, res);
 								
 					
-				}else {
-
-						req.setAttribute("warningDataMembersMsg1", "不好意思!這不是個合格的手機號碼格式，請確實填寫，謝謝!!");
-						req.getRequestDispatcher("../nest-frontend/accounSetting.jsp").forward(req, res);
+//				}else {
+//
+//						req.setAttribute("warningDataMembersMsg1", "不好意思!這不是個合格的手機號碼格式，請確實填寫，謝謝!!");
+//						req.getRequestDispatcher("../nest-frontend/accountSetting.jsp").forward(req, res);
 				
-				}
+//				}
 				 
 			}else{
 				// 必填欄位(姓名跟手機)有未填寫者
@@ -117,10 +123,10 @@ public class MembersDataUpdateServlet extends HttpServlet {
 						//並將client端輸入的資料set進去MembersVO()
 						membersVO.setPassword(newpassword);
 						
-						memberssvc.updateMember(newname, newmobile, newphone, newaddress, null, email, newpassword, newnickname, newpassword, null);
+						memberssvc.updateMember(null, newname, newmobile, newphone, newaddress, null, email, newpassword, newnickname, newpassword, null);
 						
 						req.setAttribute("MembersPWupdateMsg", "密碼修改成功!!");
-						req.getRequestDispatcher("../nest-frontend/accounSetting.jsp").forward(req, res);
+						req.getRequestDispatcher("../nest-frontend/accountSetting.jsp").forward(req, res);
 						
 						
 					}

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.order.model.*"%>
 <%@ page import="java.util.*"%>
-
+<%@page buffer="8192kb" autoFlush="true" %>
 
 <!DOCTYPE html>
 <html class="no-js" lang="zh-Hant">
@@ -96,7 +96,7 @@
 												<form method="post" name="enq"
 													action="<%=request.getContextPath()%>/members/MembersDataUpdate">
 													<div class="form-group col-md-6">
-														<label>使用者ID：<span name="membersID">${MemberUsing.membersID}</span></label>
+														<label>使用者ID：</label><span>${MemberUsing.memberid}</span>
 													</div>
 													<div class="row">
 
@@ -104,31 +104,31 @@
 															<label>姓名<span class="required">*</span></label>
 															<!-- <input required="" class="form-control" name="name" type="text" /> -->
 															<input class="form-control" name="membersName"
-																type="text">${MemberUsing.name}</input>
+																type="text" value="${MemberUsing.name}">
 														</div>
 														<div class="form-group col-md-6">
 															<label>暱稱</label> <input class="form-control"
-																name="membersNickname" type="text">${MemberUsing.nickname}</input>
+																name="membersNickname" type="text" value="${MemberUsing.nickname}"></input>
 														</div>
 														<div class="form-group col-md-12">
 															<label>Email(帳號)*(本欄位不可更改)</label>
 															<!-- input標籤設為disabled="disabled"為不可編輯的意思 -->
 															<input required="" class="form-control"
-																name="membersEmail" type="email" disabled="disabled">${MemberUsing.email}</input>
+																name="membersEmail" type="email" disabled="disabled" value="${MemberUsing.email}"></input>
 														</div>
 														<div class="form-group col-md-6">
 															<label>手機<span class="required">*</span></label> <input
-																required="" class="form-control" name="membersMobile">${MemberUsing.mobile}</input>
+																required="" class="form-control" name="membersMobile" value="${MemberUsing.mobile}"></input>
 															<!-- 當手機號碼格式不合格時↓ -->
 															<span style="color: red;">${warningDataMembersMsg1}</span>
 														</div>
 														<div class="form-group col-md-6">
 															<label>電話</label> <input class="form-control"
-																name="membersPhone" type="text">${MemberUsing.phone}</input>
+																name="membersPhone" type="text" value="${MemberUsing.phone}"></input>
 														</div>
 														<div class="form-group col-md-12">
 															<label>地址</label> <input class="form-control"
-																name="membersAddress" type="text">${MemberUsing.mobile}</input>
+																name="membersAddress" type="text"></input>
 														</div>
 														<div class="form-group col-md-6">
 															<label>簡介</label> <input class="form-control"
