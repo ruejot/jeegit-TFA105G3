@@ -12,7 +12,7 @@
 
 <!-- Template CSS -->
 <%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" /> --%>
-<%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" /> --%>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
 </head>
 <body>
 	<!-- Quick view -->
@@ -65,6 +65,7 @@
 											<li><a href="<%=request.getContextPath()%>/nest-frontend/fendshop_mainpage.jsp">
 											<i class="fi fi-rs-settings-sliders mr-10"></i>我的商店</a></li>
 											<li><a href="<%=request.getContextPath()%>/bus/BusLogout?action=logout">
+												<input type="hidden" name="action" value="logout">
 											<i class="fi fi-rs-sign-out mr-10"></i>廠商登出</a></li>
 										</ul>
 									</div>
@@ -101,7 +102,7 @@
                             <a href="page-contact.html"><i class="fi-rs-marker"></i>台北市中山區南京東路三段219號5樓 </a>
                         </div>
                         <div class="single-mobile-header-info">
-                            <a href="page-login.html"><i class="fi-rs-user"></i>登入 / 登出 </a>
+                            <a href="<%=request.getContextPath()%>/nest-frontend/Login.jsp"><i class="fi-rs-user"></i>登入 / 登出 </a>
                         </div>
                         <div class="single-mobile-header-info">
                             <a href="#"><i class="fi-rs-headphones"></i>02-2712-0589 </a>
