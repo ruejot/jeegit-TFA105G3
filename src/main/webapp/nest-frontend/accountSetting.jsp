@@ -119,6 +119,7 @@
 														<div class="form-group col-md-6">
 															<label>手機<span class="required">*</span></label> <input
 																required="" class="form-control" name="membersMobile">${MemberUsing.mobile}</input>
+															<!-- 當手機號碼格式不合格時↓ -->
 															<span style="color: red;">${warningDataMembersMsg1}</span>
 														</div>
 														<div class="form-group col-md-6">
@@ -154,7 +155,9 @@
 															<button type="submit"
 																class="btn btn-fill-out submit font-weight-bold"
 																name="action" value="membersdataupdate">儲存修改</button>
+															<!-- 必填欄位尚未被填寫時↓ -->
 															<span style="color: red;">${warningDataMembersMsg}</span>
+															<!-- 會員資料設定修改成功時↓ -->
 															<span style="color: red;">${DataupdateSuccessMembersMsg1}</span>
 														</div>
 
@@ -167,7 +170,7 @@
 																<article class="box mb-3 bg-light">
 																	<a
 																		class="btn float-end btn-light btn-sm rounded font-md"
-																		href="<%=request.getContextPath()%>/members/MembersChangePassword.jsp"
+																		href="<%=request.getContextPath()%>/nest-frontend/membersChangePassword.jsp"
 																		name="action" vlaue="changepw">變更密碼</a>
 																	<h5>變更密碼</h5>
 																	<small class="text-muted d-block" style="width: 70%">更改密碼</small>

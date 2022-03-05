@@ -1,18 +1,11 @@
 package com.members.controller;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-//import javax.swing.JOptionPane;
-
 import com.members.model.MembersDAO;
 import com.members.model.MembersDAO_interface;
 import com.members.model.MembersService;
@@ -46,25 +39,21 @@ public class MembersDataUpdateServlet extends HttpServlet {
 
 		// 按出修改會員資料的鈕
 		if ("membersdataupdate".equals(action)) { // accountCenter.jsp裡的請求
-			// 撈DB的資料，查詢該會員的所有資料
-			MembersDAO_interface membersDAOInterface = new MembersDAO();
-			
-			// 找出該會員的所有資料by id↓
-			MembersVO membersbean = membersDAOInterface.select(id);
-			
+//			// 撈DB的資料，查詢該會員的所有資料
+//			MembersDAO_interface membersDAOInterface = new MembersDAO();			
+//			// 找出該會員的所有資料by id↓
+//			MembersVO membersbean = membersDAOInterface.select(id);
+//			
 			//手機號碼的格式
 			String mobileReg = "^([0-9]{3}-?[0-9]{8}|[0-9]{4}-?[0-9]{7})$"; 
-			
-			// 先檢查必填欄位們是否有被確實輸入
-			if("newname".equals(null) || "newmobile".equals(null)) {
-				
-				req.setAttribute("warningDataMembersMsg", "不好意思!尚有必填欄位未填，請確實填寫，謝謝!!");
-				req.getRequestDispatcher("../nest-frontend/accounSetting.jsp").forward(req, res);
-				
+
+			// 先檢查必填欄位(姓名跟手機)是否有被確實輸入
+			//若二欄均非null
+			if(!"newname".equals(null) && !"newmobile".equals(null)) {
 				//再檢查被輸入的mobile是否符合規定的格式
-				}else if(newmobile.matches(mobileReg)) {
+				 if(newmobile.matches(mobileReg)) {
 					
-					//符合格式者，client端所填之內容可進入DS更新
+					//必填輸入欄的資料有符合格式的話，client端所填之內容可進入DB更新
 					MembersService memberssvc = new MembersService();// 修改方法放在service所以用service
 //					先成立新物件MembersVO()
 					MembersVO membersVO = new MembersVO();
@@ -85,44 +74,62 @@ public class MembersDataUpdateServlet extends HttpServlet {
 					req.getRequestDispatcher("../nest-frontend/accounSetting.jsp").forward(req, res);
 								
 					
-					}else {
+				}else {
+
 						req.setAttribute("warningDataMembersMsg1", "不好意思!這不是個合格的手機號碼格式，請確實填寫，謝謝!!");
 						req.getRequestDispatcher("../nest-frontend/accounSetting.jsp").forward(req, res);
 				
 				}
-				
-				
-				return;
-				
-				
-				
+				 
+			}else{
+				// 必填欄位(姓名跟手機)有未填寫者
+					req.setAttribute("warningDataMembersMsg", "不好意思!尚有必填欄位未填，請確實填寫，謝謝!!");
+					req.getRequestDispatcher("../nest-frontend/accountSetting.jsp").forward(req, res);
+
 			}
+				
+		
+						
+		}
 			
 		// 修改密碼
 		if ("changepw".equals(action)) {
 			//檢查三欄是否都有填寫
 			if(!"password".equals(null) && !"newpassword".equals(null) && !"newpasswordrp".equals(null)) {
 				
-				//檢查新密碼是否輸入兩次都一致
-				if(!"newpassword".equals(newpasswordrp)) {
-					req.setAttribute("warningMembersPWMsg", "兩次密碼輸入不一致，請重新填寫，謝謝!!");
-					req.getRequestDispatcher("../nest-frontend/membersChangePassword.jsp").forward(req, res);
+				MembersDAO_interface memberDAOInterface = new MembersDAO();// 查帳號密碼方法放在DAO所以用DAO
+//				
+				MembersVO memberbean = memberDAOInterface.selectByEmailAndPassword(email, password);
+				
+				// 若email有get到資料庫中相對應的email跟password，表示client端的email跟password有match到
+				if (memberbean != null) {
+					//檢查新密碼是否輸入兩次都一致
+					if(!"newpassword".equals(newpasswordrp)) {
+						req.setAttribute("warningMembersPWMsg", "兩次密碼輸入不一致，請重新填寫，謝謝!!");
+						req.getRequestDispatcher("../nest-frontend/membersChangePassword.jsp").forward(req, res);
+						
+					}else {
+						
+						MembersService memberssvc = new MembersService();// 修改方法放在service所以用service
+//						先成立新物件MembersVO()
+						MembersVO membersVO = new MembersVO();
+						
+						//並將client端輸入的資料set進去MembersVO()
+						membersVO.setPassword(newpassword);
+						
+						memberssvc.updateMember(newname, newmobile, newphone, newaddress, null, email, newpassword, newnickname, newpassword, null);
+						
+						req.setAttribute("MembersPWupdateMsg", "密碼修改成功!!");
+						req.getRequestDispatcher("../nest-frontend/accounSetting.jsp").forward(req, res);
+						
+						
+					}
 					
-				}else {
-					MembersService memberssvc = new MembersService();// 修改方法放在service所以用service
-//					先成立新物件MembersVO()
-					MembersVO membersVO = new MembersVO();
-					
-					//並將client端輸入的資料set進去MembersVO()
-					membersVO.setPassword(newpassword);
-					
-					memberssvc.updateMember(newname, newmobile, newphone, newaddress, null, email, newpassword, newnickname, newpassword, null);
-					
-					req.setAttribute("MembersPWupdateMsg", "密碼修改成功!!");
-					req.getRequestDispatcher("../nest-frontend/accounSetting.jsp").forward(req, res);
-					
+				}else{
 					
 				}
+				
+				
 				
 				
 				

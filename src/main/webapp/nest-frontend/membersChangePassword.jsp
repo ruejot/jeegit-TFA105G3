@@ -95,7 +95,7 @@
 											</div>
 											<div class="card-body">
 												<form method="post" name="enq"
-													action="<%=request.getContextPath()%>/members/MembersDataUpdate">
+													action="<%=request.getContextPath()%>/nest-fronted/MembersDataUpdate">
 													<div class="form-group col-md-6">
 														<label>使用者ID：<span name="membersID">${MemberUsing.membersID}</span></label>
 													</div>
