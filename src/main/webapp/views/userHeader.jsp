@@ -15,7 +15,7 @@
 <%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/slider-range.css" /> --%>
 <!-- Manually open animate.min.css if you need. -->
 <!-- <link rel="stylesheet" href="assets/css/plugins/animate.min.css" /> -->
-<%-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" /> --%>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
 </head>
 <body>
 	<header class="header-area header-style-1 header-height-2">
@@ -95,6 +95,7 @@
 													</a></li>
 													<li><a
 														href="<%=request.getContextPath()%>/bus/BusLogout?action=logout">
+														<input type="hidden" name="action" value="logout">
 															<i class="fi fi-rs-sign-out mr-10"></i>廠商登出
 													</a></li>
 												</ul>
@@ -122,14 +123,15 @@
 												<div
 													class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
 													<ul>
-														<li><a href="page-account.html"><i
+														<li><a href="<%=request.getContextPath()%>/nest-frontend/accountCenter.jsp"><i
 																class="fi fi-rs-user mr-10"></i>會員中心</a></li>
 														<li><a href="page-account.html"><i
 																class="fi fi-rs-location-alt mr-10"></i>訂單管理</a></li>
-														<li><a href="page-account.html"><i
+														<li><a href="<%=request.getContextPath()%>/nest-frontend/accountSetting.jsp"><i
 																class="fi fi-rs-settings-sliders mr-10"></i>帳戶設定</a></li>
 														<li><a href="<%=request.getContextPath()%>/members/MembersLogout?action=logout"><i
-																class="fi fi-rs-sign-out mr-10"></i>會員登出</a></li>
+																class="fi fi-rs-sign-out mr-10"></i>會員登出</a>
+																<input type="hidden" name="action" value="logout"> </li>
 													</ul>
 												</div>
 											</div>
@@ -261,7 +263,7 @@
 									<a href="page-account.html"> <img class="svgInject"
 										alt="user"
 										src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-user.svg" />
-									</a> <a href="page-account.html"><span class="lable ml-0">會員中心</span></a>
+									</a> <a href="<%=request.getContextPath()%>/nest-frontend/memberCenter.jsp"><span class="lable ml-0">會員中心</span></a>
 
 								</div>
 							</div>
@@ -331,7 +333,7 @@
 						</a>
 					</div>
 					<div class="single-mobile-header-info">
-						<a href="page-login.html"><i class="fi-rs-user"></i>登入 / 登出 </a>
+						<a href="<%=request.getContextPath()%>/nest-frontend/Login.jsp"><i class="fi-rs-user"></i>登入 / 登出 </a>
 					</div>
 					<div class="single-mobile-header-info">
 						<a href="#"><i class="fi-rs-headphones"></i>02-2712-0589 </a>

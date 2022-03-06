@@ -12,4 +12,5 @@ public interface MembersDAO_interface {
 	public abstract MembersVO selectByEmailAndPassword(String email, String password);
 //	select all table data
 	public abstract List<MembersVO> selectAll();
+	public abstract MembersVO selectMemberID(String email);
 }

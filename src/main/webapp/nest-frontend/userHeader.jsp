@@ -98,10 +98,10 @@
 										<a href="page-account.html"><span class="lable ml-0">會員中心</span></a>
 										<div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
 											<ul>
-												<li><a href="page-account.html"><i class="fi fi-rs-user mr-10"></i>會員中心</a></li>
+												<li><a href="<%=request.getContextPath()%>/nest-frontend/accounSetting.jsp"><i class="fi fi-rs-user mr-10"></i>會員中心</a></li>
 												<li><a href="page-account.html"><i class="fi fi-rs-location-alt mr-10"></i>訂單管理</a></li>
 												<li><a href="page-account.html"><i class="fi fi-rs-settings-sliders mr-10"></i>帳戶設定</a></li>
-												<li><a href="page-login.html"><i class="fi fi-rs-sign-out mr-10"></i>登出</a></li>
+												<li><a href="<%=request.getContextPath()%>/nest-frontend/Login.jsp"><i class="fi fi-rs-sign-out mr-10"></i>登出</a></li>
 											</ul>											
 										</div>
 									</div>

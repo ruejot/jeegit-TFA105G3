@@ -36,9 +36,15 @@ public class MembersDAO implements MembersDAO_interface{
 	//刪除
 	private static final String DELETE = 
 		"DELETE FROM MEMBERS WHERE MEMBER_ID=?";
-	//查詢by MEMBER_ID
+//	//查詢by MEMBER_ID
 	private static final String GET_ONE_STMT = 
 		"SELECT MEMBER_ID, NAME, MOBILE, PHONE, ADDRESS, DATE, EMAIL, PASSWORD, NICKNAME, INTRO, PHOTO FROM MEMBERS WHERE MEMBER_ID = ?";
+//	//查詢密碼by MEMBER_ID
+//	private static final String GET_PASSWORD = 
+//		"SELECT MEMBER_ID, NAME, MOBILE, PHONE, ADDRESS, DATE, EMAIL, PASSWORD, NICKNAME, INTRO, PHOTO FROM MEMBERS WHERE MEMBER_ID = ?";
+	//查詢MEMBER_ID BY EMAIL
+	private static final String GET_MEMBERID = 
+			"SELECT MEMBER_ID FROM MEMBERS WHERE EMAIL =?";						
 	//查詢by EMAIL
 	private static final String GET_EMAIL_STMT = 
 			"SELECT MEMBER_ID, NAME, MOBILE, PHONE, ADDRESS, DATE, EMAIL, PASSWORD, NICKNAME, INTRO, PHOTO FROM MEMBERS WHERE EMAIL =?";						
@@ -107,6 +113,17 @@ public class MembersDAO implements MembersDAO_interface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 			
+//			pstmt.setInt(1, memberBean.getMemberid());
+//			pstmt.setString(2, memberBean.getName());
+//			pstmt.setString(3, memberBean.getMobile());
+//			pstmt.setString(4, memberBean.getPhone());
+//			pstmt.setString(5, memberBean.getAddress());
+//			pstmt.setTimestamp(6, memberBean.getTimestamp());
+//			pstmt.setString(7, memberBean.getEmail());
+//			pstmt.setString(8, memberBean.getPassword());
+//			pstmt.setString(9, memberBean.getNickname());
+//			pstmt.setString(10, memberBean.getIntro());
+//			pstmt.setBytes(11, memberBean.getPhoto());
 			pstmt.setString(1, memberBean.getName());
 			pstmt.setString(2, memberBean.getMobile());
 			pstmt.setString(3, memberBean.getPhone());
@@ -181,6 +198,126 @@ public class MembersDAO implements MembersDAO_interface{
 			}
 		}
 	}
+	
+//	//查詢密碼GET_PASSWORD (by memberid)
+//	@Override
+//	public MembersVO select(Integer memberid) {
+//		
+//		MembersVO memberBean = null;
+//		
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		
+//		try {
+//			con = ds.getConnection();
+//			pstmt = con.prepareStatement(GET_PASSWORD);
+//			
+//			pstmt.setInt(1, memberid);
+//			
+//			rs = pstmt.executeQuery();
+//			
+//			while(rs.next()) {
+//				memberBean = new MembersVO();
+//				
+//				
+//				memberBean.setMemberid(rs.getInt("MEMBER_ID"));
+//				memberBean.setName(rs.getString("NAME"));
+//				memberBean.setMobile(rs.getString("MOBILE"));
+//				memberBean.setPhone(rs.getString("PHONE"));
+//				memberBean.setAddress(rs.getString("ADDRESS"));
+//				memberBean.setTimestamp(rs.getTimestamp("DATE"));
+////				memberBean.setEmail(rs.getString("EMAIL"));
+//				memberBean.setPassword(rs.getString("PASSWORD"));
+////				memberBean.setNickname(rs.getString("NICKNAME"));
+////				memberBean.setIntro(rs.getString("INTRO"));
+////				memberBean.setPhoto(rs.getBytes("PHOTO"));
+//			}
+//			
+//			// Handle any driver errors
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//			// Clean up JDBC resources
+//		} finally {
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//		return memberBean;
+//	}
+	
+	//查詢MEMBER_ID BY EMAIL
+	@Override
+	public MembersVO selectMemberID(String email) {
+		
+		MembersVO memberBean = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_MEMBERID);
+			
+			pstmt.setString(1, email);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				memberBean = new MembersVO();
+								
+				memberBean.setMemberid(rs.getInt("MEMBER_ID"));
+//				memberBean.setName(rs.getString("NAME"));
+//				memberBean.setMobile(rs.getString("MOBILE"));
+//				memberBean.setPhone(rs.getString("PHONE"));
+//				memberBean.setAddress(rs.getString("ADDRESS"));
+//				memberBean.setTimestamp(rs.getTimestamp("DATE"));
+//				memberBean.setEmail(rs.getString("EMAIL"));
+//				memberBean.setPassword(rs.getString("PASSWORD"));
+//				memberBean.setNickname(rs.getString("NICKNAME"));
+//				memberBean.setIntro(rs.getString("INTRO"));
+//				memberBean.setPhoto(rs.getBytes("PHOTO"));
+			}
+			
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return memberBean;
+	}
+	
+	
+	
 	
 	//查詢單個欄位GET_ONE_STMT(此為memberid)
 	@Override
