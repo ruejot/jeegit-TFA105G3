@@ -66,7 +66,7 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 										<li class="nav-item"><a class="nav-link active"
 											id="orders-tab" data-bs-toggle="tab" href="#orders"
 											role="tab" aria-controls="orders" aria-selected="false"><i
-												class="fi-rs-shopping-bag mr-10"></i>文章管理</a></li>
+												class="fi-rs-settings mr-10"></i>文章管理</a></li>
 										<!--
                                             <li class="nav-item">
                                                 <a class="nav-link" id="track-orders-tab" data-bs-toggle="tab" href="#track-orders" role="tab" aria-controls="track-orders" aria-selected="false"><i class="fi-rs-shopping-cart-check mr-10"></i>Track Your Order</a>
@@ -75,18 +75,18 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 										<li class="nav-item"><a class="nav-link"
 											id="dashboard-tab" data-bs-toggle="tab" href="#dashboard"
 											role="tab" aria-controls="dashboard" aria-selected="false"><i
-												class="fi-rs-settings-sliders mr-10"></i>發表新文</a></li>
+												class="fi-rs-pencil mr-10"></i>發表新文</a></li>
 
 										<li class="nav-item"><a class="nav-link" id="address-tab"
 											data-bs-toggle="tab" href="#address" role="tab"
 											aria-controls="address" aria-selected="true"><i
-												class="fi-rs-marker mr-10"></i>收藏文章</a></li>
+												class="fi-rs-heart mr-10"></i>收藏文章</a></li>
 
 										<li class="nav-item"><a class="nav-link"
 											id="account-detail-tab" data-bs-toggle="tab"
 											href="#account-detail" role="tab"
 											aria-controls="account-detail" aria-selected="true"><i
-												class="fi-rs-user mr-10"></i>關注中</a></li>
+												class="fi-rs-following mr-10"></i>關注中</a></li>
 									</ul>
 								</div>
 							</div>
@@ -351,38 +351,32 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 																style="width: 125px;">
 																<span>${memBlogArtVO.posttime}</span>
 															</div>
-															<div class="col-lg-2 col-sm-2 col-4 col-action text-end">
-
-																<FORM METHOD="post"
-																	ACTION="<%=request.getContextPath()%>/MemBlogArtServlet"
-																	style="margin-bottom: 0px;">
-																	<input type="hidden" name="artid"
-																		value="${memBlogArtVO.artid}"> <input
-																		type="hidden" name="action" value="edit">
-																	<button type="submit"
-																		class="btn btn-sm font-sm rounded btn-brand">
-																		<i class="material-icons md-edit"></i>編輯
-																	</button>
-
-																</FORM>
-
-
-																<FORM METHOD="post"
-																	ACTION="<%=request.getContextPath()%>/MemBlogArtServlet"
-																	style="margin-bottom: 0px;">
-																	<input type="hidden" name="artid"
-																		value="${memBlogArtVO.artid}"> <input
-																		type="hidden" name="action" value="delete">
-																	<button type="submit"
-																		class="btn btn-sm font-sm btn-light rounded">
-																		<i class="material-icons md-delete_forever"></i>刪除
-																	</button>
-																</FORM>
-															</div>
+														<div class="col">
 														</div>
 														<!-- row .// -->
 													</article>
 												</c:forEach>
+												
+												<div class="pagination-area mt-30 mb-50">
+													<nav aria-label="Page navigation example">
+														<ul class="pagination justify-content-start">
+															<%if (pageNumber>1) {%>
+																<%for (int i=1; i<=pageNumber; i++){%>
+																	<li class="page-item"><a class="page-link dot"
+																			href="<%=request.getRequestURI()%>?whichPage=<%=whichPage=i%>">
+																			<%=i%>
+																		</a></li>
+																	<%}%>
+																		<%}%>
+																			<li class="page-item">
+																				<a class="page-link"
+																					href="<%=request.getRequestURI()%>?whichPage=<%=whichPage+1%>"><i
+																						class="material-icons md-chevron_right"></i></a>
+																			</li>
+														</ul>
+													</nav>
+												
+												</div>
 											</div>
 										</div>
 									</div>
@@ -390,101 +384,180 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 									<!-- ===============================追蹤的用戶=============================== -->
 									<div class="tab-pane fade" id="account-detail" role="tabpanel"
 										aria-labelledby="account-detail-tab">
-										<div class="card">
-											<div class="content-header">
-												<div class="col-md-10">
-													<h2 class="content-title card-title">關注中</h2>
-													<p>Lorem ipsum dolor sit amet.</p>
-												</div>
-											</div>
-											<header class="card-header">
-												<div class="row align-items-center">
-													<div class="col-2 col-check flex-grow-0">
-														<div class="form-check ms-2">
-															全選 <input id="form-check-input" class="form-check-input"
-																type="checkbox" value="" />
-														</div>
-													</div>
-													<div class="col-4"">
-														<span id="batch_delete_btn" />
-													</div>
-													<div class="col-3"">
-														<input type="date" value="02.05.2021" class="form-control" />
-													</div>
-													<div class="col-3">
-														<select class="form-select">
-															<option selected>文章狀態</option>
-															<option>已發佈</option>
-															<option>草稿</option>
-															<option>全部狀態</option>
-														</select>
-													</div>
-												</div>
-											</header>
-											<div class="card-body">
-												<%-- 												<%@ include file="../nest-backend/blog_manage_page.file"%> --%>
-												<c:forEach var="memBlogArtVO" items="${list}"
-													begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-													<article class="itemlist">
-														<div class="row align-items-center">
-															<div class="col col-check flex-grow-0">
-																<div class="form-check">
-																	<input class="form-check-input checkbox-inner"
-																		type="checkbox" name="artid[]"
-																		value="${memBlogArtVO.artid}" />
-																</div>
-															</div>
-															<div class="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
-																<a class="itemside"
-																	href="<%=request.getContextPath()%>/MemBlogArtServlet?action=getOne_For_Display&artid=${memBlogArtVO.artid}">
-																	<div class="left">
-																		<img
-																			src="<%= request.getContextPath() %>/GetPic?blArtPicId=${memBlogArtVO.artid}"
-																			class="img-sm img-thumbnail" alt="Item" />
-																	</div>
-																	<div class="info">
-																		<h6 class="mb-0">${memBlogArtVO.title}</h6>
-																	</div>
-																</a>
-															</div>
-															<div class="col-lg-1 col-sm-2 col-4 col-date"
-																style="width: 125px;">
-																<span>${memBlogArtVO.posttime}</span>
-															</div>
-															<div class="col-lg-2 col-sm-2 col-4 col-action text-end">
-
-																<FORM METHOD="post"
-																	ACTION="<%=request.getContextPath()%>/MemBlogArtServlet"
-																	style="margin-bottom: 0px;">
-																	<input type="hidden" name="artid"
-																		value="${memBlogArtVO.artid}"> <input
-																		type="hidden" name="action" value="edit">
-																	<button type="submit"
-																		class="btn btn-sm font-sm rounded btn-brand">
-																		<i class="material-icons md-edit"></i>編輯
-																	</button>
-
-																</FORM>
-
-
-																<FORM METHOD="post"
-																	ACTION="<%=request.getContextPath()%>/MemBlogArtServlet"
-																	style="margin-bottom: 0px;">
-																	<input type="hidden" name="artid"
-																		value="${memBlogArtVO.artid}"> <input
-																		type="hidden" name="action" value="delete">
-																	<button type="submit"
-																		class="btn btn-sm font-sm btn-light rounded">
-																		<i class="material-icons md-delete_forever"></i>刪除
-																	</button>
-																</FORM>
-															</div>
-														</div>
-														<!-- row .// -->
-													</article>
-												</c:forEach>
-											</div>
-										</div>
+										<jsp:useBean id="memberSvc" scope="page" class="com.members.model.MembersService" />
+                                        
+                <div class="content-header">
+                    <h2 class="content-title">我追蹤的用戶</h2>
+                    <div>
+                        <a href="#" class="btn btn-primary"><i class="material-icons md-plus"></i> Create new</a>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <header class="card-header">
+                        <div class="row gx-3">
+                            <div class="col-lg-4 col-md-6 me-auto">
+                                <input type="text" placeholder="Search..." class="form-control" />
+                            </div>
+                            <div class="col-lg-2 col-6 col-md-3">
+                                <select class="form-select">
+                                    <option>Show 8</option>
+                                    <option>Show 10</option>
+                                    <option>Show 15</option>
+                                    <option>Show all</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2 col-6 col-md-3">
+                                <select class="form-select">
+                                    <option>Status: all</option>
+                                    <option>Active only</option>
+                                    <option>Disabled</option>
+                                </select>
+                            </div>
+                        </div>
+                    </header>
+                    <!-- card-header end// -->
+                    <div class="card-body">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-3">
+                            <!-- col.// -->
+                            <c:forEach var="memFollowVO" items="${list}">
+                            <div class="col">
+                                <div class="card card-user">
+                                    <div class="card-header">
+                                        <img class="img-md img-avatar" src="assets/imgs/people/avatar-2.png" alt="User pic" />
+                                    </div>
+                                    <div class="card-body">
+                                        <c:forEach var="membersVO" items="${list2}">
+                                            <c:if test="${memFollowVO.memberId==membersVO.memberid}">
+                                                <h5 class="card-title mt-50">${membersVO.nickname}</h5>
+                                            </c:if>
+                                        </c:forEach>
+                                        <div class="card-text text-muted" style="margin-top:50px;">
+                                            <p class="m-0">Seller ID: #${memFollowVO.memberId}</p>
+<!--                                             <p>leslie@example.com</p> -->
+                                            <a href="<%=request.getContextPath()%>/MemBlogArtServlet?action=getMem_For_Display&memberId=${memFollowVO.memberId}" class="btn btn-sm btn-brand rounded font-sm mt-15">View details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </c:forEach>
+                            
+<!--                             col.// -->
+<!--                             <div class="col"> -->
+<!--                                 <div class="card card-user"> -->
+<!--                                     <div class="card-header"> -->
+<!--                                         <img class="img-md img-avatar" src="assets/imgs/people/avatar-3.png" alt="User pic" /> -->
+<!--                                     </div> -->
+<!--                                     <div class="card-body"> -->
+<!--                                         <h5 class="card-title mt-50">Leslie Alexander</h5> -->
+<!--                                         <div class="card-text text-muted"> -->
+<!--                                             <p class="m-0">Seller ID: #478</p> -->
+<!--                                             <p>leslie@example.com</p> -->
+<!--                                             <a href="#" class="btn btn-sm btn-brand rounded font-sm mt-15">View details</a> -->
+<!--                                         </div> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             col.// -->
+<!--                             <div class="col"> -->
+<!--                                 <div class="card card-user"> -->
+<!--                                     <div class="card-header"> -->
+<!--                                         <img class="img-md img-avatar" src="assets/imgs/people/avatar-4.png" alt="User pic" /> -->
+<!--                                     </div> -->
+<!--                                     <div class="card-body"> -->
+<!--                                         <h5 class="card-title mt-50">Floyd Miles</h5> -->
+<!--                                         <div class="card-text text-muted"> -->
+<!--                                             <p class="m-0">Seller ID: #171</p> -->
+<!--                                             <p>fedor12@example.com</p> -->
+<!--                                             <a href="#" class="btn btn-sm btn-brand rounded font-sm mt-15">View details</a> -->
+<!--                                         </div> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             col.// -->
+<!--                             <div class="col"> -->
+<!--                                 <div class="card card-user"> -->
+<!--                                     <div class="card-header"> -->
+<!--                                         <img class="img-md img-avatar" src="assets/imgs/people/avatar-1.png" alt="User pic" /> -->
+<!--                                     </div> -->
+<!--                                     <div class="card-body"> -->
+<!--                                         <h5 class="card-title mt-50">John Alexander</h5> -->
+<!--                                         <div class="card-text text-muted"> -->
+<!--                                             <p class="m-0">Seller ID: #987</p> -->
+<!--                                             <p>john@mymail.com</p> -->
+<!--                                             <a href="#" class="btn btn-sm btn-brand rounded font-sm mt-15">View details</a> -->
+<!--                                         </div> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             col.// -->
+<!--                             <div class="col"> -->
+<!--                                 <div class="card card-user"> -->
+<!--                                     <div class="card-header"> -->
+<!--                                         <img class="img-md img-avatar" src="assets/imgs/people/avatar-3.png" alt="User pic" /> -->
+<!--                                     </div> -->
+<!--                                     <div class="card-body"> -->
+<!--                                         <h5 class="card-title mt-50">Albert Flores</h5> -->
+<!--                                         <div class="card-text text-muted"> -->
+<!--                                             <p class="m-0">Seller ID: #478</p> -->
+<!--                                             <p>leslie@example.com</p> -->
+<!--                                             <a href="#" class="btn btn-sm btn-brand rounded font-sm mt-15">View details</a> -->
+<!--                                         </div> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                             col.// -->
+<!--                             <div class="col"> -->
+<!--                                 <div class="card card-user"> -->
+<!--                                     <div class="card-header"> -->
+<!--                                         <img class="img-md img-avatar" src="assets/imgs/people/avatar-4.png" alt="User pic" /> -->
+<!--                                     </div> -->
+<!--                                     <div class="card-body"> -->
+<!--                                         <h5 class="card-title mt-50">Leslie Alexander</h5> -->
+<!--                                         <div class="card-text text-muted"> -->
+<!--                                             <p class="m-0">Seller ID: #478</p> -->
+<!--                                             <p>leslie@example.com</p> -->
+<!--                                             <a href="#" class="btn btn-sm btn-brand rounded font-sm mt-15">View details</a> -->
+<!--                                         </div> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!-- <!--                             </div> --> -->
+<!--                             col.// -->
+<!--                             <div class="col"> -->
+<!--                                 <div class="card card-user"> -->
+<!--                                     <div class="card-header"> -->
+<!--                                         <img class="img-md img-avatar" src="assets/imgs/people/avatar-1.png" alt="User pic" /> -->
+<!--                                     </div> -->
+<!--                                     <div class="card-body"> -->
+<!--                                         <h5 class="card-title mt-50">Marx Alberto</h5> -->
+<!--                                         <div class="card-text text-muted"> -->
+<!--                                             <p class="m-0">Seller ID: #478</p> -->
+<!--                                             <p>leslie@example.com</p> -->
+<!--                                             <a href="#" class="btn btn-sm btn-brand rounded font-sm mt-15">View details</a> -->
+<!--                                         </div> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+                            <!-- col.// -->
+                        </div>
+                        <!-- row.// -->
+                    </div>
+                    <!-- card-body end// -->
+                </div>
+                <!-- card end// -->
+                <div class="pagination-area mt-15 mb-50">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-start">
+                            <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                            <li class="page-item"><a class="page-link" href="#">02</a></li>
+                            <li class="page-item"><a class="page-link" href="#">03</a></li>
+                            <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#">16</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
 									</div>
 									<!-- ===============================帳戶資料=============================== -->
 
