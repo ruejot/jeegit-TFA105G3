@@ -6,12 +6,15 @@
 <%@ page import="com.members.model.*"%>
 <%@page buffer="8192kb" autoFlush="true" %>
 <%	
-	Integer memberId = 22;
+	MembersVO membersVO = (MembersVO) session.getAttribute("MemberUsing");	
+	Integer memberId = membersVO.getMemberid();
+	System.out.println(memberId);
     OrderService ordSvc = new OrderService();
     List<OrderVO> list = ordSvc.getOrdersByMemberId(memberId);
+    System.out.println(list);
     pageContext.setAttribute("list",list);
     
-    MembersVO membersVO = (MembersVO) session.getAttribute("MemberUsing");
+    
 %>
 <!-- <% out.println("<p>bufferSize: " + out.getBufferSize() + " remaining: " + out.getRemaining() + " used: " + (out.getBufferSize() - out.getRemaining()) + " autoFlush: " + out.isAutoFlush() + "</p><br>"); %> -->
 <!-- <%@ page buffer="8192kb" %> -->

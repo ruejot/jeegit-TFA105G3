@@ -115,12 +115,12 @@
                                     	<td class="image product-thumbnail pt-40"><img src="<%=request.getContextPath()%>/ShowPic?imgid=<%=prdImgSvc.getOneProductImg(prdVO.getMerid()).getImgid() %>"></td>
                                    		<td class="product-des product-name">
                                        		<h6 class="mb-5"><a class="product-name mb-10 text-heading" href="shop-product-right.html"><%=prdVO.getName() %></a></h6>
-                                        	<div class="product-rate-cover">
-                                            	<div class="product-rate d-inline-block">
-                                                	<div class="product-rating" style="width:90%"></div>
-                                            	</div>
-                                            <span class="font-small ml-5 text-muted"> orderDetailVO.ranking average</span>
-                                        	</div>
+<!--                                         	<div class="product-rate-cover"> -->
+<!--                                             	<div class="product-rate d-inline-block"> -->
+<!--                                                 	<div class="product-rating" style="width:90%"></div> -->
+<!--                                             	</div> -->
+<!--                                             <span class="font-small ml-5 text-muted"> orderDetailVO.ranking average</span> -->
+<!--                                         	</div> -->
                                     	</td>
                                    		<td class="price" data-title="Price">
                                         	<h4 class="text-body">$ <%=prdVO.getPrice() %></h4>
@@ -160,8 +160,8 @@
                                 	</tbody>
                             	</table>
                             	<div class="cart-action d-flex justify-content-between">
-<!--                                 	<a class="btn "><i class="fi-rs-arrow-left mr-10"></i>繼續購物</a> -->
-                                	<button type="submit"><i class="fi-rs-arrow-left mr-10"></i>繼續購物</button>
+                                	<a href="<%=request.getContextPath()%>/nest-frontend/HomePage.jsp" class="btn" ><i class="fi-rs-arrow-left mr-10"></i>繼續購物</a>
+<!--                                 	<button type="submit"><i class="fi-rs-arrow-left mr-10"></i>繼續購物</button> -->
                                 	<form method= "POST" ACTION= "cartServlet.do">
                                 		<button type="submit">前往結帳<i class="fi-rs-sign-out ml-15"></i></button>
 <!--                                 		<a class="btn  mr-10 mb-sm-15">前往結帳<i class="fi-rs-sign-out ml-15"></i></a> -->

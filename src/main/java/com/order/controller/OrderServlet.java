@@ -188,7 +188,6 @@ public class OrderServlet extends HttpServlet {
 					orderVO.setReceiverAddr("");
 				}
 				
-				// 要記得改成連線池寫法
 				OrderDAO dao = new OrderDAO();
 				String new_orderId = dao.insertWithOrderDetail(orderVO, orderList);
 				session.removeAttribute("list");
