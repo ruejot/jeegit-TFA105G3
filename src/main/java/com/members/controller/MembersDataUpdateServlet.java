@@ -84,7 +84,7 @@ public class MembersDataUpdateServlet extends HttpServlet {
 
 					// 跳轉顯示修改成功
 					req.setAttribute("DataupdateSuccessMembersMsg1", "會員資料修改成功!!");
-					req.getRequestDispatcher("../nest-frontend/aaccountSetting.jsp").forward(req, res);
+					req.getRequestDispatcher("../nest-frontend/accountSetting.jsp").forward(req, res);
 
 				} else {
 					// 必填欄位(姓名跟手機)有未填寫者
