@@ -3,29 +3,37 @@
 <%@ page import="com.bus.model.*"%>
 <%@ page import="com.product.model.*"%>
 <%@ page import="com.productImg.model.*"%>
-<%@ page import="java.util.List"%>
+<%@ page import="java.util.*"%>
 <!-- [writer] wei -->
 
 <%
 BusService busSvc = new BusService();
 BusVO busVO = null;
+Integer busidFromBackend = null;
+
 ProductService productSvc = new ProductService();
 List<ProductVO> productlist_shopMp = null;
 
+String action = request.getParameter("action");
+
 // 正常來說，一定是從某頁面連到shop_mainpage，必定會攜帶轉跳資訊(預計顯示商家的busid)
 
+if (request.getAttribute("busVO_From_ShopProductPage") != null) {
 // 如果是從ShopProductPage.jsp連過來的，顯示該商家主頁。
-if(request.getAttribute("busVO_From_ShopProductPage") != null){
 	busVO = (BusVO) request.getAttribute("busVO_From_ShopProductPage");
 	productlist_shopMp = productSvc.getProductsByBusid(busVO.getBusid());
+} else if ("fromBackendSelf".equals(action)) {
+// 如果是從後端連過來看自己商家首頁的
+	busVO = (BusVO) session.getAttribute("BusUsing");
+	productlist_shopMp = productSvc.getProductsByBusid(busVO.getBusid());
 } else {
-// 如果不是，就顯示預設的商家。(測試用，e.g.直接點開fendshop_maimpage.jsp)
+// 如果不是，就顯示預設的商家id_4。(測試用，e.g.直接點開fendshop_maimpage.jsp)
 	busVO = busSvc.select(4); // 預設顯示bus_id=4的商店
 	productlist_shopMp = productSvc.getProductsByBusid(4);
 }
 
-pageContext.setAttribute("busVO", busVO);
-pageContext.setAttribute("productlist_shopMp", productlist_shopMp);
+session.setAttribute("busVO_shopMpage", busVO);
+request.setAttribute("productlist_shopMp", productlist_shopMp);
 %>
 
 <%
@@ -104,7 +112,7 @@ pageContext.setAttribute("productlist_shopMp", productlist_shopMp);
 		<!-- 開始寫此jsp頁內容，重點，從<div class="page-header..."> 的{同層下一區塊}開始寫內容 -->
 		<div class="container mb-30">
 			<div class="archive-header-2 text-center pt-70 pb-30">
-				<h1 class="display-2 mb-50">${busVO.name}</h1>
+				<h1 class="display-2 mb-50">${busVO_shopMpage.name}</h1>
 				<!-- remove search, <div class="row"> -->
 			</div>
 			<div class="row flex-row-reverse">
@@ -115,26 +123,6 @@ pageContext.setAttribute("productlist_shopMp", productlist_shopMp);
 								我們這裡有 <strong class="text-brand"><%=productlist_shopMp.size()%></strong> 項商品等著您來挑選！
 							</p>
 						</div>
-<!-- 						<div class="sort-by-product-area"> -->
-<!-- 							<div class="sort-by-cover mr-10"> -->
-<!-- 								<div class="sort-by-product-wrap"> -->
-<!-- 									<div class="sort-by"> -->
-<!-- 										<span><i class="fi-rs-apps"></i>顯示:</span> -->
-<!-- 									</div> -->
-<!-- 									<div class="sort-by-dropdown-wrap"> -->
-<!-- 										<span> 全部 <i class="fi-rs-angle-small-down"></i></span> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="sort-by-dropdown"> -->
-<!-- 									<ul> -->
-<!-- 										<li><a class="active" href="#">10</a></li> -->
-<!-- 										<li><a href="#">20</a></li> -->
-<!-- 										<li><a href="#">30</a></li> -->
-<!-- 										<li><a href="#">全部</a></li> -->
-<!-- 									</ul> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
 					</div>
                         <div class="product-list mb-50">
                         	<!--開始single product開頭-->
@@ -168,7 +156,7 @@ pageContext.setAttribute("productlist_shopMp", productlist_shopMp);
                                     </div>
 
                                     <div class="mt-30">
-                                        <a aria-label="Buy now" class="btn" href="<%=request.getContextPath()%>/nest-frontend/shopCart.jsp"><i class="fi-rs-shopping-cart mr-5"></i>加到購物車, 要改寫,目前是開頁面</a>
+<%--                                         <a aria-label="Buy now" class="btn" href="<%=request.getContextPath()%>/nest-frontend/shopCart.jsp"><i class="fi-rs-shopping-cart mr-5"></i>加到購物車, 要改寫,目前是開頁面</a> --%>
                                     </div>
                                 </div>
                             </div>
@@ -177,20 +165,7 @@ pageContext.setAttribute("productlist_shopMp", productlist_shopMp);
                         </div>
                         <!--product grid-->
 					<div class="pagination-area mt-20 mb-20">
-<!-- 						<nav aria-label="Page navigation example"> -->
-<!-- 							<ul class="pagination justify-content-start"> -->
-<!-- 								<li class="page-item"><a class="page-link" href="#"><i class="fa-solid fa-arrow-left" style="line-height: 2.5"></i></a></li> -->
-<!-- 								<li class="page-item"><a class="page-link" href="#">1</a></li> -->
-<!-- 								<li class="page-item active"><a class="page-link" href="#">2</a></li> -->
-<!-- 								<li class="page-item"><a class="page-link" href="#">3</a></li> -->
-<!-- 								<li class="page-item"><a class="page-link dot" href="#">...</a></li> -->
-<!-- 								<li class="page-item"><a class="page-link" href="#">6</a></li> -->
-<!-- 								<li class="page-item"><a class="page-link" href="#"><i class="fa-solid fa-arrow-right" style="line-height: 2.5"></i></a></li> -->
-<!-- 							</ul> -->
-<!-- 						</nav> -->
 					</div>
-					<!-- <section class="section-padding pb-5"> Deals Of The Day, block to n/a -->
-					<!--End Deals-->
 				</div>
 				<div class="col-lg-1-5 primary-sidebar sticky-sidebar">
 					<div class="sidebar-widget widget-store-info mb-30 bg-3 border-0">
@@ -202,11 +177,11 @@ pageContext.setAttribute("productlist_shopMp", productlist_shopMp);
 								<span class="text-muted">關於我們</span>
 							</div>
 							<h4 class="mb-10">
-								<a class="text-heading text-align-center">${busVO.name}</a>
+								<a class="text-heading text-align-center">${busVO_shopMpage.name}</a>
 							</h4>
 
 							<div class="vendor-des mb-30">
-								<p class="font-sm text-heading">${empty busVO.intro?"您好，歡迎來到我的商店，這裡各式各樣的商品都是由我們親手精心挑選，來逛逛吧!":busVO.intro}</p>
+								<p class="font-sm text-heading">${empty busVO_shopMpage.intro?"您好，歡迎來到我的商店，這裡各式各樣的商品都是由我們親手精心挑選，來逛逛吧!":busVO_shopMpage.intro}</p>
 							</div>
 							<div class="follow-social mb-20">
 								<h6 class="mb-15">聯絡我們</h6>
@@ -223,16 +198,20 @@ pageContext.setAttribute("productlist_shopMp", productlist_shopMp);
 							<div class="vendor-info">
 								<ul class="font-sm mb-20">
 									<li><img class="mr-5" src="assets/imgs/theme/icons/icon-location.svg" alt="" /><strong>地址：
-									</strong> <br><span>${busVO.address}</span></li>
+									</strong> <br><span>${busVO_shopMpage.address}</span></li>
 									<li>　</li>
 									<li><img class="mr-5" src="assets/imgs/theme/icons/icon-contact.svg" alt="" /><strong>電話：
-									</strong> <span>${busVO.phone}</span></li>
+									</strong> <span>${busVO_shopMpage.phone}</span></li>
 								</ul>
 								<form method="get" action="<%=request.getContextPath()%>/nest-backend/CsDetail.do">
 									<button type="submit" class="btn btn-xs">立即表達您的需求給店家 <i
 									class="fi-rs-arrow-small-right"></i></button>
-									<input type="hidden" name="busid" value="${busVO.busid}">
+									<input type="hidden" name="busid" value="${busVO_shopMpage.busid}">
 									<input type="hidden" name="action" value="from_shopmain_to_CsReply_with_Busid">
+<%-- 									<% request.getSession().setAttribute("sourcePage", request.getRequestURI()); %> --%>
+<%-- 									<input type="hidden" name="sourcePage" value="<%=request.getServletPath()%>"> --%>
+<%-- 									<% System.out.println(request.getRequestURI()); %> --%>
+<%-- 									<% System.out.println(request.getServletPath()); %> --%>
 								</form>
 <%-- 									<a class="btn btn-xs" href="<%=request.getContextPath()%>/nest-frontend/fendshop_mainpage.jsp"> --%>
 <!-- 									關於我<i class="fi-rs-arrow-small-right"></i> -->
@@ -275,7 +254,6 @@ pageContext.setAttribute("productlist_shopMp", productlist_shopMp);
 	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.vticker-min.js"></script>
 	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.theia.sticky.js"></script>
 	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.elevatezoom.js"></script>
-	<script src="https://kit.fontawesome.com/e49c2cb1c5.js"></script>
 	<!-- Invoice JS, shop-inovice-*.html -->
 	<!-- <script src="assets/js/invoice/jspdf.min.js"></script> -->
 	<!-- <script src="assets/js/invoice/invoice.js"></script> -->

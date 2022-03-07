@@ -2,9 +2,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.csdetail.model.*"%>
 <%@ page import="java.util.List"%>
+<%-- <%@ page import="java.util.*"%> --%>
 
 <%
-CsDetailVO csDetailVO = (CsDetailVO) request.getAttribute("csDetailVO_z"); //CsDetailServlet.java (Concroller) 存入req的csDetailBean物件 (包括幫忙取出的csDetailBean, 也包括輸入資料錯誤時的csDetailBean物件)
+System.out.println(request.getAttribute("csDetailVO_z"));
+Object obj = request.getAttribute("csDetailVO_z");
+CsDetailVO csDetailVO = null;
+if (obj != null) {
+	csDetailVO = (CsDetailVO) obj; //CsDetailServlet.java (Concroller) 存入req的csDetailBean物件 (包括幫忙取出的csDetailBean, 也包括輸入資料錯誤時的csDetailBean物件)
+}else {
+	//only測試用，直接開bendcsdetail_updateone.jsp的情況。
+// 	csDetailVO = new CsDetailVO();
+// 	csDetailVO.setCaseid(7575);
+// 	csDetailVO.setMemberid(567);
+// 	csDetailVO.setBusid(84);
+// 	csDetailVO.setMerid(1111111);
+// 	csDetailVO.setOrderid(1111111);
+// 	csDetailVO.setCasetime(java.sql.Date.valueOf("2022-03-04"));
+// 	csDetailVO.setFeedback("測試用留言_測試用留言_測試用留言_測試用留言_測試用留言");
+// 	csDetailVO.setReplystatus(1);
+}
+
+
 %>
 
 <jsp:useBean id="membersSvc" scope="page" class="com.members.model.MembersService" />
@@ -58,7 +77,7 @@ CsDetailVO csDetailVO = (CsDetailVO) request.getAttribute("csDetailVO_z"); //CsD
 								</aside>
 								<div class="col-lg-9">
 									<section class="content-body p-xl-4">
-										<form METHOD="post" ACTION="<%=request.getContextPath()%>/nest-backend/CsDetail.do">
+										<form METHOD="post" ACTION="<%=request.getContextPath()%>/nest-backend/CsServletOnlyBus.do">
 											<div class="row mb-4">
 												<label class="col-lg-3 col-form-label">客服單編號</label>
 												<div class="col-lg-9">
