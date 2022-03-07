@@ -25,15 +25,18 @@ public class MemSavedArtDAO implements MemSavedArtDAO_interface {
 	private static final String INSERT_STMT = "INSERT INTO MEM_SAVED_ART (SAV_MEMBER_ID,SAV_ART_ID,TIME) VALUES (?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT SAV_ID,SAV_MEMBER_ID,SAV_ART_ID,TIME FROM MEM_SAVED_ART";
 	private static final String GET_ONE_STMT = "SELECT SAV_ID,SAV_MEMBER_ID,SAV_ART_ID,TIME FROM MEM_SAVED_ART where SAV_ID = ?";
-	private static final String GET_art_BySavedMemberId_STMT = "SAV_ID,SAV_MEMBER_ID,SAV_ART_ID,TIME FROM MEM_BLOG_ART FROM MEM_SAVED_ART where MEMBER_ID = ? order by POSTTIME";
+	private static final String GET_art_BySavedMemberId_STMT = "SELECT SAV_ID,SAV_MEMBER_ID,SAV_ART_ID,TIME FROM MEM_SAVED_ART where SAV_MEMBER_ID = ? order by TIME desc";
 	
-	private static final String DELETE = "DELETE FROM MEM_SAVED_ART where SAV_ID = ?";
+	private static final String DELETE = "DELETE FROM MEM_SAVED_ART where SAV_MEMBER_ID = ? and SAV_ART_ID = ?";
 	
 	//private static final String DELETE_EMPs = "DELETE FROM emp2 where deptno = ?";
 	//private static final String DELETE_DEPT = "DELETE FROM dept2 where deptno = ?";	
 	
 	private static final String UPDATE = "UPDATE MEM_SAVED_ART set SAV_MEMBER_ID=? , SAV_ART_ID=? , TIME=? where SAV_ID = ?";
 
+	private static final String IF_SAVED = "SELECT * FROM MEM_SAVED_ART where SAV_MEMBER_ID = ? and SAV_ART_ID = ?";
+
+	
 	@Override
 	public void insert(MemSavedArtVO memSavedArtVO) {
 
@@ -120,7 +123,7 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 	}
 
 	@Override
-	public void delete(Integer savId) {
+	public void delete(Integer savMemberId,Integer savArtId) {
 		int updateCount_EMPs = 0;
 
 		Connection con = null;
@@ -134,7 +137,9 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 			con.setAutoCommit(false);
 			
 			pstmt = con.prepareStatement(DELETE);
-			pstmt.setInt(1, savId);
+			pstmt.setInt(1, savMemberId);
+			pstmt.setInt(2, savArtId);
+			
 			
 			updateCount_EMPs = pstmt.executeUpdate();
 
@@ -232,6 +237,65 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 		}
 		return artVO;
 	}
+	
+	
+	@Override
+	public MemSavedArtVO ifSaved(Integer savMemberId,Integer savArtId) {
+		MemSavedArtVO artVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(IF_SAVED);
+
+			pstmt.setInt(1, savMemberId);
+			pstmt.setInt(2, savArtId);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// deptVO 也稱為 Domain objects
+				artVO = new MemSavedArtVO();
+				artVO.setSavId(rs.getInt("SAV_ID"));
+				artVO.setSavMemberId(rs.getInt("SAV_MEMBER_ID"));
+				artVO.setSavArtId(rs.getInt("SAV_ART_ID"));
+				artVO.setTime(rs.getTimestamp("TIME"));
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return artVO;
+	}
+	
 
 	@Override
 	public List<MemSavedArtVO> getAll() {
@@ -288,35 +352,94 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 		return list;
 	}
 
+//	@Override
+//	public Set<MemSavedArtVO> getArtByMemberId(Integer savMemberId) {
+//		Set<MemSavedArtVO> set = new LinkedHashSet<MemSavedArtVO>();
+//		MemSavedArtVO memberVO = null;
+//	
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//	
+//		try {
+//	
+//			con = ds.getConnection();
+//			pstmt = con.prepareStatement(GET_art_BySavedMemberId_STMT);
+//			pstmt.setInt(1, savMemberId);
+//			rs = pstmt.executeQuery();
+//	
+//			while (rs.next()) {
+//				memberVO = new MemSavedArtVO();
+//				memberVO.setSavId(rs.getInt("SAV_ID"));
+//				memberVO.setSavMemberId(rs.getInt("SAV_MEMBER_ID"));
+//				memberVO.setSavArtId(rs.getInt("SAV_ART_ID"));
+//				memberVO.setTime(rs.getTimestamp("TIME"));
+//				set.add(memberVO); // Store the row in the vector
+//			}
+//	
+//			// Handle any driver errors
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//		} finally {
+//			if (rs != null) {
+//				try {
+//					rs.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//		return set;
+//	}
+
 	@Override
-	public Set<MemSavedArtVO> getArtByMemberId(Integer savMemberId) {
-		Set<MemSavedArtVO> set = new LinkedHashSet<MemSavedArtVO>();
-		MemSavedArtVO memberVO = null;
-	
+	public List<MemSavedArtVO> getArtBySavMem(Integer savMemberId) {
+
+		List<MemSavedArtVO> list = new ArrayList<MemSavedArtVO>();
+		MemSavedArtVO artVO = null;
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-	
+
 		try {
-	
+
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_art_BySavedMemberId_STMT);
+
 			pstmt.setInt(1, savMemberId);
+
 			rs = pstmt.executeQuery();
-	
+
 			while (rs.next()) {
-				memberVO = new MemSavedArtVO();
-				memberVO.setSavId(rs.getInt("SAV_ID"));
-				memberVO.setSavMemberId(rs.getInt("SAV_MEMBER_ID"));
-				memberVO.setSavArtId(rs.getInt("SAV_ART_ID"));
-				memberVO.setTime(rs.getTimestamp("TIME"));
-				set.add(memberVO); // Store the row in the vector
+				// deptVO 也稱為 Domain objects
+				artVO = new MemSavedArtVO();
+				artVO.setSavId(rs.getInt("SAV_ID"));
+				artVO.setSavMemberId(rs.getInt("SAV_MEMBER_ID"));
+				artVO.setSavArtId(rs.getInt("SAV_ART_ID"));
+				artVO.setTime(rs.getTimestamp("TIME"));
 			}
-	
+
 			// Handle any driver errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
+			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
 				try {
@@ -340,39 +463,43 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 				}
 			}
 		}
-		return set;
+		return list;
 	}
 
+	
+	
+	
+	
 	public static void main(String[] args) {
 
 		
-		MemSavedArtService service = new MemSavedArtService();
-		
-		service.addSaved(3, 20, new Timestamp(System.currentTimeMillis()));
-		
-		service.updateSaved(3, 20, new Timestamp(System.currentTimeMillis()) , 8);
-		
-		service.delete(9);
-		
-		
-		
-		MemSavedArtVO memsavedartVO3 = service.findByPrimaryKey(3);
-		System.out.print(memsavedartVO3.getSavId() + ",");
-		System.out.print(memsavedartVO3.getSavMemberId() + ",");
-		System.out.print(memsavedartVO3.getSavArtId() + ",");
-		System.out.println(memsavedartVO3.getTime());
-		System.out.println("---------------------");
-		
-
-		List<MemSavedArtVO> list = service.getAll();
-		for (MemSavedArtVO memsavedartVO4 : list) {
-			System.out.print(memsavedartVO4.getSavId() + ",");
-			System.out.print(memsavedartVO4.getSavMemberId() + ",");
-			System.out.print(memsavedartVO4.getSavArtId() + ",");
-			System.out.println(memsavedartVO4.getTime());
-			System.out.println();
-		}
-		
+//		MemSavedArtService service = new MemSavedArtService();
+//		
+//		service.addSaved(3, 20, new Timestamp(System.currentTimeMillis()));
+//		
+//		service.updateSaved(3, 20, new Timestamp(System.currentTimeMillis()) , 8);
+//		
+//		service.delete(9);
+//		
+//		
+//		
+//		MemSavedArtVO memsavedartVO3 = service.findByPrimaryKey(3);
+//		System.out.print(memsavedartVO3.getSavId() + ",");
+//		System.out.print(memsavedartVO3.getSavMemberId() + ",");
+//		System.out.print(memsavedartVO3.getSavArtId() + ",");
+//		System.out.println(memsavedartVO3.getTime());
+//		System.out.println("---------------------");
+//		
+//
+//		List<MemSavedArtVO> list = service.getAll();
+//		for (MemSavedArtVO memsavedartVO4 : list) {
+//			System.out.print(memsavedartVO4.getSavId() + ",");
+//			System.out.print(memsavedartVO4.getSavMemberId() + ",");
+//			System.out.print(memsavedartVO4.getSavArtId() + ",");
+//			System.out.println(memsavedartVO4.getTime());
+//			System.out.println();
+//		}
+//		
 //		MemSavedArtJDBCDAO dao = new MemSavedArtJDBCDAO();
 		
 		// 新增
