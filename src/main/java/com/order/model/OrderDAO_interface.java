@@ -13,5 +13,5 @@ public interface OrderDAO_interface {
 	public List<OrderVO> findByBusId(Integer busId);
 	public List<OrderVO> findByMemberId(Integer memberId);
 	public List<OrderVO> getAll();
-	public void insertWithOrderDetail(OrderVO orderVO , List<OrderDetailVO> list);
+	public String insertWithOrderDetail(OrderVO orderVO , List<OrderDetailVO> list);
 }
