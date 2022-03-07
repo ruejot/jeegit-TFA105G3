@@ -80,8 +80,8 @@
 												class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
 												<ul>
 													<li><a
-														href="<%=request.getContextPath()%>/nest-backend/xxx.jsp">
-															<i class="fi fi-rs-user mr-10"></i>會員中心(改link後台)
+														href="<%=request.getContextPath()%>/nest-backend/busAccountCenter.jsp">
+															<i class="fi fi-rs-user mr-10"></i>廠商資料
 													</a></li>
 													<li><a
 														href="<%=request.getContextPath()%>/nest-frontend/fendshop_mainpage.jsp">

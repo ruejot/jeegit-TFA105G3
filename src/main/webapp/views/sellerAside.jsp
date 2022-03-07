@@ -31,8 +31,8 @@
 						class="icon material-icons md-add_box"></i> <span class="text">商品上架</span>
 				</a></li>
 				<li class="menu-item"><a class="menu-link" 
-					href="<%=request.getContextPath()%>/nest-backend/xxxx.jsp">
-						<i class="icon material-icons md-person"></i> <span class="text">會員中心(須改link)</span>
+					href="<%=request.getContextPath()%>/nest-backend/busAccountCenter.jsp">
+						<i class="icon material-icons md-person"></i> <span class="text">廠商資料</span>
 				</a></li>
 				<li class="menu-item"><a class="menu-link" 
 					href="<%=request.getContextPath()%>/nest-frontend/fendshop_mainpage.jsp">
