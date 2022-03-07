@@ -33,78 +33,86 @@
 					<h1 class="heading-2 mb-10">結帳</h1>
 					<div class="d-flex justify-content-between">
 						<h6 class="text-body">
-							目前有 <span class="text-brand">3</span> 項商品在您的購車
+							目前有 <span class="text-brand">${amount }</span> 項商品在您的購物車
+							<input type="hidden" name="amount" value="${amount }">
 						</h6>
 					</div>
 				</div>
 			</div>
+			<%-- 錯誤表列 --%>
+			<c:if test="${not empty errorMsgs}">
+				<font style="color:red">請修正以下錯誤:</font>
+				<ul>
+	    			<c:forEach var="message" items="${errorMsgs}">
+						<li style="color:red">${message}</li>
+					</c:forEach>
+				</ul>
+			</c:if>
+			<form  method= "POST" ACTION= "order.do">		
 			<div class="row">
 				<div class="col-lg-1"></div>
 				<div class="col-lg-7">
 					<div class="row">
 						<h4 class="mb-30">收件人資訊</h4>
-						<form method="post">
 							<div class="row">
 								<div class="form-group col-lg-6">
-									<input type="text" required="" name="receiver" value="預設MemberUsing.name的EL" placeholder="收件人">
+									<input type="text" required="" name="receiver" value="${name }" placeholder="收件人">
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-group col-lg-6">
-									<input required="" type="text" name="email" readonly value="readonly強制MemberUsing.email"
-										placeholder="強制MemberUsing.email的EL">
+									<input required="" type="text" name="email" readonly value="${email }"
+										placeholder="email">
 								</div>
 							</div>
-							<div class="row">
-								<div class="form-group col-lg-6">
-									<input type="text" name="zipcode" placeholder="郵遞區號 (例: 105)">
-								</div>
-							</div>
+<!-- 							<div class="row"> -->
+<!-- 								<div class="form-group col-lg-6"> -->
+<!-- 									<input type="text" name="zipcode" placeholder="郵遞區號 (例: 105)"> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 							<div class="row">
 								<div id="twzipcode_ADV"></div>
 								<!-- <div class="form-group col-lg-6"> -->
-								<!-- <input type="text" name="zipcode" placeholder="郵遞區號 (例: 105)"> -->
+<!-- 								<input type="text" name="zipcode" placeholder="郵遞區號 (例: 105)"> -->
 								<!-- </div> -->
 							</div>
 							<div class="row">
 								<div class="form-group col-lg-10">
-									<input type="text" name="billing_address" value="" required=""
-										placeholder="縣市地址 (例: 台北市中山區南京東路三段219號) *">
+									<input type="text" name="road" value="${road }" placeholder="地址 (例: 南京東路三段219號) *">
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-group col-lg-6">
-									<input type="text" required="" name="phone" value="可以預設MemberUsing.mobile" placeholder="手機號碼 *">
+									<input type="text" required="" name="mobile" value="${mobile } " placeholder="聯絡電話 *">
 								</div>
 							</div>
 							<!-- <div class="form-group mb-30"> -->
 							<!-- <textarea rows="5" placeholder="Additional information"></textarea> -->
-							<!-- </div> -->
-						</form>
+							<!-- </div> -->		
 					</div>
 				</div>
 				<div class="col-lg-4">
 					<div class="payment ml-30 mb-50">
-						<h4 class="mb-20">出貨方式</h4>
+						<h4 class="mb-20">付款方式</h4>
 						<div class="payment_option">
 							<div class="custome-radio">
-								<input class="form-check-input" required="" type="radio" name="group_1" id="exampleRadios3"> <label
-									class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse" data-target="#bankTranfer"
+								<input class="form-check-input" required="" type="radio" name="payment" id="exampleRadios3" value="1">
+								<label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse" data-target="#bankTranfer"
 									aria-controls="bankTranfer">信用卡付款</label>
 							</div>
 							<div class="custome-radio">
-								<input class="form-check-input" required="" type="radio" name="group_1" id="exampleRadios4" checked="">
+								<input class="form-check-input" required="" type="radio" name="payment" id="exampleRadios4" checked="" value="2">
 								<label class="form-check-label" for="exampleRadios4" data-bs-toggle="collapse"
 									data-target="#checkPayment" aria-controls="checkPayment">貨到付款</label>
 							</div>
 							<div class="custome-radio">
-								<input class="form-check-input" required="" type="radio" name="group_1" id="exampleRadios5"> <label
-									class="form-check-label" for="exampleRadios5" data-bs-toggle="collapse" data-target="#paypal"
+								<input class="form-check-input" required="" type="radio" name="payment" id="exampleRadios5" value="3">
+								<label class="form-check-label" for="exampleRadios5" data-bs-toggle="collapse" data-target="#paypal"
 									aria-controls="paypal">ATM轉帳</label>
 							</div>
 							<div class="custome-radio">
-								<input class="form-check-input" required="" type="radio" name="group_1" id="exampleRadios6"> <label
-									class="form-check-label" for="exampleRadios6" data-bs-toggle="collapse" data-target="#bankTranfer"
+								<input class="form-check-input" required="" type="radio" name="payment" id="exampleRadios6" value="4">
+								<label class="form-check-label" for="exampleRadios6" data-bs-toggle="collapse" data-target="#bankTranfer"
 									aria-controls="bankTranfer">超商付款</label>
 							</div>
 						</div>
@@ -116,28 +124,38 @@
 						</div>
 					</div>
 					<div class="payment ml-30">
-						<h4 class="mb-20">付款方式</h4>
+						<h4 class="mb-20">出貨方式</h4>
 						<div class="payment_option">
 							<div class="custome-radio">
-								<input class="form-check-input" required="" type="radio" name="group_2" id="exampleRadios7"> <label
-									class="form-check-label" for="exampleRadios7" data-bs-toggle="collapse" data-target="#bankTranfer"
+								<input class="form-check-input" required="" type="radio" name="shipping" id="exampleRadios7" value="1">
+								<label class="form-check-label" for="exampleRadios7" data-bs-toggle="collapse" data-target="#bankTranfer"
 									aria-controls="bankTranfer">宅配到府</label>
 							</div>
 							<div class="custome-radio">
-								<input class="form-check-input" required="" type="radio" name="group_2" id="exampleRadios8"> <label
-									class="form-check-label" for="exampleRadios8" data-bs-toggle="collapse" data-target="#checkPayment"
+								<input class="form-check-input" required="" type="radio" name="shipping" id="exampleRadios8" value="2">
+								<label class="form-check-label" for="exampleRadios8" data-bs-toggle="collapse" data-target="#checkPayment"
 									aria-controls="checkPayment">超商取貨</label>
 							</div>
 							<div class="custome-radio">
-								<input class="form-check-input" required="" type="radio" name="group_2" id="exampleRadios9" checked="">
+								<input class="form-check-input" required="" type="radio" name="shipping" id="exampleRadios9" checked="" value="3">
 								<label class="form-check-label" for="exampleRadios9" data-bs-toggle="collapse" data-target="#paypal"
-									aria-controls="paypal">面交到店取貨</label>
+									aria-controls="paypal">面交</label>
+							</div>
+							<div class="custome-radio">
+								<input class="form-check-input" required="" type="radio" name="shipping" id="exampleRadios10" value="4">
+								<label class="form-check-label" for="exampleRadios10" data-bs-toggle="collapse" data-target="#store"
+									aria-controls="store">到店取貨</label>
 							</div>
 						</div>
-						<a href="#" class="btn btn-fill-out btn-block mt-30">確認訂購<i class="fi-rs-sign-out ml-15"></i></a>
+<!-- 						<a href="#" class="btn btn-fill-out btn-block mt-30">確認訂購<i class="fi-rs-sign-out ml-15"></i></a> -->
+							<button type="submit" class="btn btn-fill-out btn-block mt-30">確認訂購<i class="fi-rs-sign-out ml-15"></i></button>
+<%-- 							<input type="hidden" name="checkoutList" value="${list }"> --%>
+<%-- 							<input type="hidden" name="total" value="${total }"> --%>
+							<input type="hidden" name="action" value="confirmOrder">
 					</div>
 				</div>
 			</div>
+			</form>
 		</div>
 		<div></div>
 		<!-- 注意，有全形空白拉排版 -->

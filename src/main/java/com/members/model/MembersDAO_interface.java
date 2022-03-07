@@ -12,4 +12,7 @@ public interface MembersDAO_interface {
 	public abstract MembersVO selectByEmailAndPassword(String email, String password);
 //	select all table data
 	public abstract List<MembersVO> selectAll();
+	public abstract MembersVO selectMemberID(String email);
+	public abstract MembersVO selectPassword(Integer memberid);
+//	public abstract void updateMemberPW(Integer memberid,String password,String email,String name,String mobile);
 }

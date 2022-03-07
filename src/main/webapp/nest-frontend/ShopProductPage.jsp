@@ -85,7 +85,11 @@
                                                 <div class="short-desc mb-30">
                                                     <p class="font-lg">${aProd.get(0).description}</p>
                                                 </div>
+<<<<<<< HEAD
  											<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
+=======
+ 											<form ACTION="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
+>>>>>>> 7897791888b9935517525cb6e93e9cda6c4dce6f
                                                 <div class="detail-extralink mb-50">
                                                     <div class="detail-qty border radius">
                                                         <a class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
@@ -99,7 +103,11 @@
 															<input type="hidden" name="merId" value="${aProd.get(0).merid}">                                                    
 															<input type="hidden" name="busId" value="${aProd.get(0).busid}">                                                    
 															<input type="hidden" name="price" value="${aProd.get(0).price}">  
+<<<<<<< HEAD
 															<input type="hidden" name="location" value="<%=request.getContextPath()%>/product/ProductJump?merid=${aProd.get(0).merid}&action=product_jump">  
+=======
+															<input type="text" name="location" value="<%=request.getContextPath()%>/product/ProductJump?merid=${aProd.get(0).merid}&action=product_jump">  
+>>>>>>> 7897791888b9935517525cb6e93e9cda6c4dce6f
 															                                                  
 	                                                    </div>
                                                 	</div>

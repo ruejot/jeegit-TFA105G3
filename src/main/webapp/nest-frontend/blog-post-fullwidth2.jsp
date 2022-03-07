@@ -16,7 +16,8 @@ MembersService memSvc = new MembersService();
 MembersVO membersVOinfo = memSvc.select(memBlogArtVO.getMemberId());
 
 //找出留言作者名稱
-// MembersVO membersVOReInfo = memSvc.select(memreplyVO.getReMemberId());
+List<MembersVO> list3 = memSvc.selectAll();
+pageContext.setAttribute("list3",list3);
 
 MembersVO membersVO = (MembersVO) session.getAttribute("MemberUsing");
 
@@ -28,25 +29,31 @@ pageContext.setAttribute("list2",list2);
 
 %>
 
+<jsp:useBean id="memberSvc" scope="page" class="com.members.model.MembersService" />
+
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html lang="zh-Hant-TW">
 
 <head>
-    <meta charset="utf-8">
-    <title>Nest - Multipurpose eCommerce HTML Template</title>
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:title" content="">
-    <meta property="og:type" content="">
-    <meta property="og:url" content="">
-    <meta property="og:image" content="">
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg">
-    <!-- Template CSS -->
-    <link rel="stylesheet" href="assets/css/main.css?v=4.0">
+<meta charset="utf-8" />
+<title>FrontEnd板模-Petting</title>
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="" />
+<meta property="og:type" content="" />
+<meta property="og:url" content="" />
+<meta property="og:image" content="" />
+<!-- Favicon -->
+<link rel="shortcut icon" type="image/x-icon"
+	href="<%=request.getContextPath()%>/assets/imgs/theme/Petting_logo.png" />
+<!-- Template CSS -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/slider-range.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
+<jsp:include page="/views/userHeader.jsp"></jsp:include>
 </head>
-    <jsp:include page="userHeader.jsp"></jsp:include>
+
 <body>
     <main class="main">
         <div class="page-content mb-50">
@@ -69,7 +76,7 @@ pageContext.setAttribute("list2",list2);
                                             </div>
                                             <div class="social-icons single-share">
                                                 <ul class="text-grey-5 d-inline-block">
-                                                    <li class="mr-5"><a href="#"><img src="assets/imgs/theme/icons/icon-bookmark.svg" alt=""></a></li>
+                                                    <li class="mr-5"><img class="bookmark" src="assets/imgs/theme/icons/icon-bookmark.svg" alt=""><a class="saved" href="#" >收藏此文章</a></li>
                                                     <li><a href="#"><img src="assets/imgs/theme/icons/icon-heart-2.svg" alt=""></a></li>
                                                 </ul>
                                             </div>
@@ -173,10 +180,18 @@ pageContext.setAttribute("list2",list2);
                                                         <c:forEach var="memReplyVO" items="${list2}">
                                                             <div class=" single-comment justify-content-between d-flex mb-30">
                                                             <div class="user justify-content-between d-flex">
-                                                                <div class="thumb text-center">
+                                                                <div class="thumb text-center" style="width:150px;">
                                                                     <img src="assets/imgs/blog/author-2.png" alt="">
 <!--                                                                     TODO:member名稱要用id進資料庫找出來 -->
-                                                                    <a href="#" class="font-heading text-brand">Sienna</a>
+                                                                    <c:forEach var="membersVOinfo" items="${list3}">
+                                                                        
+                                                                    <a href="#" class="font-heading text-brand">
+                                                                    <c:if test="${memReplyVO.reMemberId==membersVOinfo.memberid}">
+                                                                    ${membersVOinfo.nickname}
+                                                                    </c:if>
+                                                                    </a>
+                                                                        
+                                                                    </c:forEach>
                                                                 </div>
                                                                 <div class="desc">
                                                                     <div class="d-flex justify-content-between mb-10">
@@ -210,31 +225,91 @@ pageContext.setAttribute("list2",list2);
         </div>
     </main>
 
-    <!-- Vendor JS-->
-    <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-    <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/plugins/slick.js"></script>
-    <script src="assets/js/plugins/jquery.syotimer.min.js"></script>
-    <script src="assets/js/plugins/wow.js"></script>
-    <script src="assets/js/plugins/jquery-ui.js"></script>
-    <script src="assets/js/plugins/perfect-scrollbar.js"></script>
-    <script src="assets/js/plugins/magnific-popup.js"></script>
-    <script src="assets/js/plugins/select2.min.js"></script>
-    <script src="assets/js/plugins/waypoints.js"></script>
-    <script src="assets/js/plugins/counterup.js"></script>
-    <script src="assets/js/plugins/jquery.countdown.min.js"></script>
-    <script src="assets/js/plugins/images-loaded.js"></script>
-    <script src="assets/js/plugins/isotope.js"></script>
-    <script src="assets/js/plugins/scrollup.js"></script>
-    <script src="assets/js/plugins/jquery.vticker-min.js"></script>
-    <script src="assets/js/plugins/jquery.theia.sticky.js"></script>
-    <script src="assets/js/plugins/jquery.elevatezoom.js"></script>
-    <!-- Template  JS -->
-    <script src="./assets/js/main.js?v=4.0"></script>
-    <script src="./assets/js/shop.js?v=4.0"></script>
-            <jsp:include page="footer.jsp"></jsp:include>
+	<jsp:include page="/views/footer.jsp" />
+
+	<!-- Preloader Start -->
+	<!-- Vendor JS-->
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/modernizr-3.6.0.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-3.6.0.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-migrate-3.3.0.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/vendors/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/slick.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.syotimer.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/wow.js"></script>
+	<!--slider-range.js, jquery-ui.js , never appear at sametime-->
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/slider-range.js"></script>
+	<!-- index-3.html, index-4, shop-*.html，板模的這幾頁有用到jquery-ui.js -->
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery-ui.js"></script>
+	<!-- blog-post-fullwidth.html, shop-*.html，板模的這幾頁有用到perfect-scrollbar.js -->
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/perfect-scrollbar.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/magnific-popup.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/select2.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/waypoints.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/counterup.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.countdown.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/images-loaded.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/isotope.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/scrollup.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.vticker-min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.theia.sticky.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.elevatezoom.js"></script>
+
+	<!-- Invoice page's JS -->
+	<!-- <script src="assets/js/invoice/jspdf.min.js"></script> -->
+	<!-- <script src="assets/js/invoice/invoice.js"></script> -->
+
+	<!-- Template  JS -->
+	<script src="<%=request.getContextPath()%>/assets/js/main_frontend.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/shop.js"></script>
+
+
+    <script>
+        $('li.mr-5').click(function(){
+            console.log("有執行");
+            $('li.mr-5').toggleClass("saved");
+//             $('img.bookmark').attr("src", "assets/imgs/theme/icons/bookmark_black_24dp.svg");
+
+            $.ajax({
+                method: "POST",
+                url: "<%=request.getContextPath()%>/MemSavedArtServlet",
+                
+                data: {
+                    action: "if_saved",
+                    savMemberId:"<%=membersVO.getMemberid()%>",
+                    savArtId:"<%=memBlogArtVO.getArtid()%>",
+                    },
+
+                dataType : 'json',
+
+                complete: function(jqXHR){
+                    console.log(jqXHR.readyState)
+                    if(jqXHR.readyState === 4) {
+                        console.log(jqXHR.responseText)
+                        data = jqXHR.responseText
+                        console.log(JSON.parse(data).success);
+                        console.log(JSON.parse(data).type);
+
+                        if(JSON.parse(data).success && JSON.parse(data).type==="insert"){
+                            $('li.mr-5').toggleClass("saved");
+                            $('a.saved').text("已收藏文章");
+                            
+                        } else {
+                            $('li.mr-5').toggleClass("saved")
+                            $('a.saved').text("收藏此文章");
+                        }
+
+
+
+                    }
+                }
+
+
+                });
+        })
+    </script>
+
+
+
 </body>
 
 </html>

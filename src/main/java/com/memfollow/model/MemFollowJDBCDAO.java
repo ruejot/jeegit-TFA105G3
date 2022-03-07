@@ -277,71 +277,71 @@ public class MemFollowJDBCDAO implements MemFollowDAO_interface {
 		
 		return list;
 	}
-
-	@Override
-	public List<MemFollowVO> getAllByMemberId(Integer memberId) {
-		List<MemFollowVO> list = new ArrayList<MemFollowVO>();
-		MemFollowVO memFollowBean = null;
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			
-			pstmt = con.prepareStatement(GET_ALL_BY_MEMBER_ID_STMT);
-			pstmt.setInt(1, memberId);
-			
-			rs = pstmt.executeQuery();
-			
-			while (rs.next()) {
-				memFollowBean = new MemFollowVO();
-				
-				memFollowBean.setFriendshipId(rs.getInt("FRIENDSHIP_ID"));
-				memFollowBean.setMemberId(rs.getInt("MEMBER_ID"));
-				memFollowBean.setFollowee(rs.getInt("FOLLOWEE"));
-				memFollowBean.setFriendship(rs.getString("FRIENDSHIP"));
-				// 讀取完一筆Bean就存到list，若rs.next()還有再讀取下一個
-				list.add(memFollowBean);
-			}
-			
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		
-		return list;
-	}
+//
+//	@Override
+//	public List<MemFollowVO> getAllByMemberId(Integer memberId) {
+//		List<MemFollowVO> list = new ArrayList<MemFollowVO>();
+//		MemFollowVO memFollowBean = null;
+//		
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		
+//		try {
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			
+//			pstmt = con.prepareStatement(GET_ALL_BY_MEMBER_ID_STMT);
+//			pstmt.setInt(1, memberId);
+//			
+//			rs = pstmt.executeQuery();
+//			
+//			while (rs.next()) {
+//				memFollowBean = new MemFollowVO();
+//				
+//				memFollowBean.setFriendshipId(rs.getInt("FRIENDSHIP_ID"));
+//				memFollowBean.setMemberId(rs.getInt("MEMBER_ID"));
+//				memFollowBean.setFollowee(rs.getInt("FOLLOWEE"));
+//				memFollowBean.setFriendship(rs.getString("FRIENDSHIP"));
+//				// 讀取完一筆Bean就存到list，若rs.next()還有再讀取下一個
+//				list.add(memFollowBean);
+//			}
+//			
+//			// Handle any driver errors
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. "
+//					+ e.getMessage());
+//			// Handle any SQL errors
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//			// Clean up JDBC resources
+//		} finally {
+//			if (rs != null) {
+//				try {
+//					rs.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//		
+//		return list;
+//	}
 
 	@Override
 	public MemFollowVO ifFriend(Integer memberId, Integer followee) {
@@ -353,6 +353,12 @@ public class MemFollowJDBCDAO implements MemFollowDAO_interface {
 	public void delete(Integer memberId, Integer followee) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<MemFollowVO> getAllByFollowee(Integer followee) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

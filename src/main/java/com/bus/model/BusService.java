@@ -23,7 +23,7 @@ public class BusService {
 		busBean.setPhone(phone);
 		busBean.setAddress(address);
 		busBean.setTaxid(taxid);
-		busBean.setTimestamp(date);
+		busBean.setDate(date);
 		busBean.setEmail(email);
 		busBean.setPassword(password);
 		busBean.setIntro(intro);
@@ -45,7 +45,7 @@ public class BusService {
 		
 		busBean.setName(name);
 		busBean.setPhone(phone);
-		busBean.setTimestamp(date);
+		busBean.setDate(date);
 		busBean.setAddress(address);
 		busBean.setEmail(email);
 		busBean.setPassword(password);
@@ -66,7 +66,7 @@ public class BusService {
 		busBean.setPhone(phone);
 		busBean.setAddress(address);
 		busBean.setTaxid(taxid);
-		busBean.setTimestamp(date);
+		busBean.setDate(date);
 		busBean.setEmail(email);
 		busBean.setPassword(password);
 		busBean.setIntro(intro);

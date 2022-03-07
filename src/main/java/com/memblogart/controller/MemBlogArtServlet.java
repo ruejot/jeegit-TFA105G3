@@ -71,14 +71,14 @@ public class MemBlogArtServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/nest-backend/page-user-detail.jsp");
+							.getRequestDispatcher("/nest-frontend/page-user-detail.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("membersVO", membersVO); // 資料庫取出的empVO物件,存入req
-				String url = "/nest-backend/page-user-detail.jsp";
+				String url = "/nest-frontend/page-user-detail.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 blog-post-fullwidth2.jsp
 				successView.forward(req, res);
 
@@ -86,7 +86,7 @@ public class MemBlogArtServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/nest-backend/page-user-detail.jsp");
+						.getRequestDispatcher("/nest-frontend/page-user-detail.jsp");
 				failureView.forward(req, res);
 			}
 		}
