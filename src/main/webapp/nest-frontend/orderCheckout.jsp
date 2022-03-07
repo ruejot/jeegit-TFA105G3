@@ -78,7 +78,7 @@
 							</div>
 							<div class="row">
 								<div class="form-group col-lg-10">
-									<input type="text" name="road" required="" value="${road }" placeholder="地址 (例: 南京東路三段219號) *">
+									<input type="text" name="road" value="${road }" placeholder="地址 (例: 南京東路三段219號) *">
 								</div>
 							</div>
 							<div class="row">
@@ -142,9 +142,9 @@
 									aria-controls="paypal">面交</label>
 							</div>
 							<div class="custome-radio">
-								<input class="form-check-input" required="" type="radio" name="shipping" id="exampleRadios9" value="4">
-								<label class="form-check-label" for="exampleRadios9" data-bs-toggle="collapse" data-target="#paypal"
-									aria-controls="paypal">到店取貨</label>
+								<input class="form-check-input" required="" type="radio" name="shipping" id="exampleRadios10" value="4">
+								<label class="form-check-label" for="exampleRadios10" data-bs-toggle="collapse" data-target="#store"
+									aria-controls="store">到店取貨</label>
 							</div>
 						</div>
 <!-- 						<a href="#" class="btn btn-fill-out btn-block mt-30">確認訂購<i class="fi-rs-sign-out ml-15"></i></a> -->
