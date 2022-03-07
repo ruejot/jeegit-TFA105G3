@@ -79,25 +79,25 @@ public class OrderServlet extends HttpServlet {
 				if (name == null || (name.trim()).length() == 0) {
 					errorMsgs.add("請輸入收件人姓名");
 				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("orderCheckout.jsp");
-					failureView.forward(req, res);
-					return;//程式中斷
-				}
+//				// Send the use back to the form, if there were errors
+//				if (!errorMsgs.isEmpty()) {
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("orderCheckout.jsp");
+//					failureView.forward(req, res);
+//					return;//程式中斷
+//				}
 				
 				String email = req.getParameter("email");
 				if (email == null || (email.trim()).length() == 0) {
 					errorMsgs.add("請輸入email");
 				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("orderCheckout.jsp");
-					failureView.forward(req, res);
-					return;//程式中斷
-				}
+//				// Send the use back to the form, if there were errors
+//				if (!errorMsgs.isEmpty()) {
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("orderCheckout.jsp");
+//					failureView.forward(req, res);
+//					return;//程式中斷
+//				}
 				
 				String county = req.getParameter("county");
 				String district = req.getParameter("district");
@@ -110,13 +110,13 @@ public class OrderServlet extends HttpServlet {
 						errorMsgs.add("選擇宅配到府，請務必輸入完整收件地址");
 					}
 				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("orderCheckout.jsp");
-					failureView.forward(req, res);
-					return;//程式中斷
-				}
+//				// Send the use back to the form, if there were errors
+//				if (!errorMsgs.isEmpty()) {
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("orderCheckout.jsp");
+//					failureView.forward(req, res);
+//					return;//程式中斷
+//				}
 				
 				String mobile = req.getParameter("email");
 //				String mobileReg = "^[0-9]$"; 
@@ -128,6 +128,13 @@ public class OrderServlet extends HttpServlet {
 //				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("name", name);
+					req.setAttribute("email", email);
+					req.setAttribute("county", county);
+					req.setAttribute("district", district);
+					req.setAttribute("zipcode", zipcode);
+					req.setAttribute("road", road);
+					req.setAttribute("mobile", mobile);
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("orderCheckout.jsp");
 					failureView.forward(req, res);
@@ -181,7 +188,6 @@ public class OrderServlet extends HttpServlet {
 					orderVO.setReceiverAddr("");
 				}
 				
-				// 要記得改成連線池寫法
 				OrderDAO dao = new OrderDAO();
 				String new_orderId = dao.insertWithOrderDetail(orderVO, orderList);
 				session.removeAttribute("list");

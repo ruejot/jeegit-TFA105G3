@@ -85,7 +85,7 @@
                                                 <div class="short-desc mb-30">
                                                     <p class="font-lg">${aProd.get(0).description}</p>
                                                 </div>
- 											<form action="../CartServlet" method="GET">
+ 											<form ACTION="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
                                                 <div class="detail-extralink mb-50">
                                                     <div class="detail-qty border radius">
                                                         <a class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
@@ -98,8 +98,9 @@
 	                                                        <input type="hidden" name="qty"  id="i_qty" value="1">   
 															<input type="hidden" name="merId" value="${aProd.get(0).merid}">                                                    
 															<input type="hidden" name="busId" value="${aProd.get(0).busid}">                                                    
-															<input type="hidden" name="price" value="${aProd.get(0).price}">                                                    
-															<input type="hidden" name="name" value="${aProd.get(0).name}">                                                    
+															<input type="hidden" name="price" value="${aProd.get(0).price}">  
+															<input type="text" name="location" value="<%=request.getContextPath()%>/product/ProductJump?merid=${aProd.get(0).merid}&action=product_jump">  
+															                                                  
 	                                                    </div>
                                                 	</div>
                                           	</form>

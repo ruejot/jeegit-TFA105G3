@@ -1,8 +1,10 @@
 package com.cart.controller;
 
 import java.io.IOException;
-import java.lang.invoke.StringConcatFactory;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,10 +17,11 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.bus.model.*;
-import com.cart.model.*;
-import com.members.model.*;
-import com.product.model.*;
+import com.cart.model.JedisCartListService;
+import com.members.model.MembersService;
+import com.members.model.MembersVO;
+import com.product.model.ProductService;
+import com.product.model.ProductVO;
 
 
 
@@ -35,70 +38,14 @@ public class CartServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		
 		HttpSession session = req.getSession();
-//		String memberId = (String) session.getAttribute("MemberUsing");
-//		List<String> cartlist = JedisCartListService.getCartList(memberId);
-		String memberId = "22";
+		MembersVO membersVO = (MembersVO)session.getAttribute("MemberUsing");
+		String memberId = membersVO.getMemberid().toString();
+		
 		List<String> cartlist = JedisCartListService.getCartList(memberId);
 		Map<String, List<ProductVO>> map = new LinkedHashMap<>();
 	    Map<Integer, Integer> qtyMap = new LinkedHashMap<>();
 		String action = req.getParameter("action");
 		
-		if (action.equals("showcart")) { 
-			// 待測試
-			if (cartlist != null && cartlist.size() != 0) {
-				 for (int index = 0; index < cartlist.size(); index++){
-		         	JSONObject jsonProduct;
-		         	Integer merid=0;
-		         	Integer qty=0;
-		         	Integer busid=0;
-		         	String busidString = null;
-					try {
-						jsonProduct = new JSONObject(cartlist.get(index));
-						merid = Integer.valueOf(jsonProduct.getString("merId"));
-			         	qty = Integer.valueOf(jsonProduct.getString("qty"));
-			         	busid = Integer.valueOf(jsonProduct.getString("busId"));
-			         	busidString = jsonProduct.getString("busId");
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-		         	
-		         			
-		         	ProductService proSvc = new ProductService();
-		         	ProductVO product = proSvc.getOneProduct(merid);
-		         	qtyMap.put(merid, qty);
-//		         	BusService busSvc = new BusService();
-//		        	BusVO bus = busSvc.select(busid);
-//		        	String busName = bus.getName();
-		         			        	
-//		        	if (map.containsKey(busName)) {
-//		        		List<ProductVO> list = map.get(busName);
-//		        		list.add(product);
-//		        	} else {
-//		        		List<ProductVO> list = new ArrayList<>();
-//		        		list.add(product);
-//		        		map.put(busName, list);
-//		        	}
-		         	
-		         	if (map.containsKey(busidString)) {
-		        		List<ProductVO> list = map.get(busidString);
-		        		list.add(product);
-		        	} else {
-		        		List<ProductVO> list = new ArrayList<>();
-		        		list.add(product);
-		        		map.put(busidString, list);
-		        	}
-		         	
-				 }
-			}
-			List<String> savelist = JedisCartListService.getCartList(memberId);
-			session.setAttribute("cart", savelist);
-			session.setAttribute("qtymap", qtyMap);
-			session.setAttribute("map", map);
-			String url = "shopCart.jsp";
-			RequestDispatcher rd = req.getRequestDispatcher(url);
-			rd.forward(req, res);
-		}
 		
 		if (!action.equals("checkout")) {
 			
@@ -130,8 +77,10 @@ public class CartServlet extends HttpServlet {
 				if(cartlist == null) {
 					try {
 						JedisCartListService.addCartList(memberId, addProducts);
+						System.out.println("CS 81 ");
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
+						System.out.println("CS 84 ");
 						e.printStackTrace();
 					}
 				} else {
@@ -147,6 +96,7 @@ public class CartServlet extends HttpServlet {
 					
 					// 假如新增商品購物車裡沒有(回傳的 match 沒有變 true)
 					if (!match) {
+						System.out.println("CS 100 ");
 						try {
 							JedisCartListService.addCartList(memberId, addProducts);
 						} catch (JSONException e) {
@@ -158,7 +108,7 @@ public class CartServlet extends HttpServlet {
 			}
 			List<String> savelist = JedisCartListService.getCartList(memberId);
 			session.setAttribute("cart", savelist);
-			String url = req.getRequestURI();
+			String url = req.getParameter("location");
 			res.sendRedirect(url);
 		}		
 		// 結帳
@@ -213,7 +163,8 @@ public class CartServlet extends HttpServlet {
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
 			
-		}
+		} 
+		
 	}
 	
 	private JSONObject getProducts(HttpServletRequest req) throws JSONException {
