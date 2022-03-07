@@ -90,19 +90,19 @@ public class BusPwChangeServlet extends HttpServlet {
 						req.setAttribute("busVO", busVO);
 						
 						req.setAttribute("BusPWupdateMsg", "密碼修改成功!!");
-						req.getRequestDispatcher("../nest-frontend/busPWChanged.jsp").forward(req, res);
+						req.getRequestDispatcher("../nest-backend/busPWChanged.jsp").forward(req, res);
 						
 
 					} else {
 
 						req.setAttribute("warningBusPWDismatchMsg", "兩次密碼輸入不一致，請重新填寫，謝謝!!");
-						req.getRequestDispatcher("../nest-frontend/busChangePassword.jsp").forward(req, res);
+						req.getRequestDispatcher("../nest-backend/busChangePassword.jsp").forward(req, res);
 
 					}
 
 				} else {
 					req.setAttribute("busPWErrMsg", "密碼輸入錯誤!!請再重新輸入謝謝");
-					req.getRequestDispatcher("../nest-frontend/busChangePassword.jsp").forward(req, res);
+					req.getRequestDispatcher("../nest-backend/busChangePassword.jsp").forward(req, res);
 
 				}
 
