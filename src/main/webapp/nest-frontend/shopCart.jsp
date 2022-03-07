@@ -30,17 +30,27 @@
          	ProductService proSvc = new ProductService();
          	ProductVO product = proSvc.getOneProduct(merid);
          	qtyMap.put(merid, qty);
-         	BusService busSvc = new BusService();
-        	BusVO bus = busSvc.select(busid);
-        	String busName = bus.getName();
+//          BusService busSvc = new BusService();
+//         	BusVO bus = busSvc.select(busid);
+//         	String busName = bus.getName();
+			String busidString = jsonProduct.getString("busId");
         	
-        	if (map.containsKey(busName)) {
-        		List<ProductVO> list = map.get(busName);
+//         	if (map.containsKey(busName)) {
+//         		List<ProductVO> list = map.get(busName);
+//         		list.add(product);
+//         	} else {
+//         		List<ProductVO> list = new ArrayList<>();
+//         		list.add(product);
+//         		map.put(busName, list);
+//         	}
+
+			if (map.containsKey(busidString)) {
+        		List<ProductVO> list = map.get(busidString);
         		list.add(product);
         	} else {
         		List<ProductVO> list = new ArrayList<>();
         		list.add(product);
-        		map.put(busName, list);
+        		map.put(busidString, list);
         	}
 		 }
 	
@@ -101,7 +111,7 @@
                     	<%if (cartlist!=null && (cartlist.size() > 0)) { %>
                     	<div class="d-flex justify-content-between">
                         	<h6 class="text-body">目前您購物車的內容如下：</h6>
-                        	<h6 class="text-body"><a href="#" class="text-muted"><i class="fi-rs-trash mr-5"></i>清空</a></h6>
+<!--                         	<h6 class="text-body"><a href="#" class="text-muted"><i class="fi-rs-trash mr-5"></i>清空</a></h6> -->
                    	    </div>
                 	</div>
             	</div>
@@ -110,7 +120,12 @@
             	<div class="row">
               	  <div class="col-lg-8">
                   	  <div class="table-responsive shopping-summery">
-                         <h6 class="text-body">商家名稱：<%=str %></h6>
+<%--                          <h6 class="text-body">商家名稱：<%=str %></h6> --%>
+						<% Integer busid = Integer.valueOf(str); %>
+						<% BusService busSvc = new BusService(); %>
+			         	<% BusVO bus = busSvc.select(busid); %>
+		         	    <% String busName = bus.getName(); %>
+                         <h6 class="text-body">商家名稱：<%=busName %></h6>
                    	     <table class="table table-wishlist">
                     	        <thead>
                               		<tr class="main-heading">
@@ -123,6 +138,8 @@
                                    	 	<th scope="col">數量</th>
                                   	 	<th scope="col">小計</th>
                                    	 	<th scope="col" class="end" width="40px">移除</th>
+                                   	 		
+                                   	 	
                                 	</tr>
                             	</thead>
                             	<% List<ProductVO> pList = map.get(str); %>
@@ -141,9 +158,8 @@
                                        		<h6 class="mb-5"><a class="product-name mb-10 text-heading" href="shop-product-right.html"><%=prdVO.getName() %></a></h6>
                                         	<div class="product-rate-cover">
                                             	<div class="product-rate d-inline-block">
-                                                	<div class="product-rating" style="width:90%">
-                                                </div>
-                                            </div>
+                                                	<div class="product-rating" style="width:90%"></div>
+                                            	</div>
                                             <span class="font-small ml-5 text-muted"> orderDetailVO.ranking average</span>
                                         	</div>
                                     	</td>
@@ -154,7 +170,7 @@
                                         	<div class="detail-extralink mr-15">
                                             	<div class="detail-qty border radius">
                                                 	<a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
-                                                	<span class="qty-val"><%=qtyMap.get(prdVO.getMerid())%></span>
+                                                	<span class="qty-val"><%=qtyMap.get(prdVO.getMerid()) %></span>
                                                 	<a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
                                             	</div>
                                         	</div>
@@ -162,7 +178,13 @@
                                     	<td class="price" data-title="Price">
                                         	<h4 class="text-brand">$ <%=qtyMap.get(prdVO.getMerid()) * prdVO.getPrice() %></h4>
                                     	</td>
-                                    	<td class="action text-center" data-title="Remove"><a href="#" class="text-body"><i class="fi-rs-trash"></i></a></td>
+                                    	<td class="action text-center" data-title="Remove">
+                                    		<a href="#" class="text-body"><i class="fi-rs-trash"></i></a>
+                                    		<form method= "POST" ACTION= "/CartServlet">
+                                   	 			<input type="hidden" name="del" value="<%=prdVO.getMerid() %>">
+												<input type="hidden" name="action" value="delete">
+                                   	 		</form>
+                                    	</td>
                                 	</tr>
                             	</tbody>
                             	<%} %>
@@ -185,8 +207,14 @@
                                 	</tbody>
                             	</table>
                             	<div class="cart-action d-flex justify-content-between">
-                                	<a class="btn "><i class="fi-rs-arrow-left mr-10"></i>繼續購物</a>
-                                	<a class="btn  mr-10 mb-sm-15">前往結帳<i class="fi-rs-sign-out ml-15"></i></a>
+<!--                                 	<a class="btn "><i class="fi-rs-arrow-left mr-10"></i>繼續購物</a> -->
+                                	<button type="submit"><i class="fi-rs-arrow-left mr-10"></i>繼續購物</button>
+                                	<form method= "POST" ACTION= "cartServlet.do">
+                                		<button type="submit">前往結帳<i class="fi-rs-sign-out ml-15"></i></button>
+<!--                                 		<a class="btn  mr-10 mb-sm-15">前往結帳<i class="fi-rs-sign-out ml-15"></i></a> -->
+                                   	 	<input type="hidden" name="busIdtoCheckout" value="<%=busid %>">
+										<input type="hidden" name="action" value="checkout">
+                                   	</form>
                             	</div>
                             	<br>
                             	<br>
@@ -196,7 +224,6 @@
                     <%} %>
                     <%} %>
             </div>
-        	
         </main>
 		<jsp:include page="footer.jsp"/>
         <!--
