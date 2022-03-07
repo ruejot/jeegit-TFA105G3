@@ -36,11 +36,7 @@
 									<div class="col-md-3">
 										<div class="dashboard-menu">
 											<ul class="nav flex-column" role="tablist">
-												<li class="nav-item"><a class="nav-link active" id="memberlogin-tab"
-														data-bs-toggle="tab" href="#memberlogin" role="tab"
-														aria-controls="memberlogin" aria-selected="false" style="background-color:#FFD05E"><i
-															class="fi-rs-settings-sliders mr-10"></i>個人會員註冊</a></li>
-												<li class="nav-item"><a class="nav-link" id="buglogin-tab"
+												<li class="nav-item"><a class="nav-link  active" id="buglogin-tab"
 														data-bs-toggle="tab" href="#buglogin" role="tab"
 														aria-controls="buglogin" aria-selected="false" style="background-color:#FFD05E"><i
 															class="fi-rs-shopping-bag mr-10"></i>廠商註冊</a></li>
@@ -50,91 +46,13 @@
 									<div class="col-md-9">
 										<div class="tab-content account dashboard-content pl-50">
 
-											<div class="tab-pane fade active show" id="memberlogin" role="tabpanel"
-												aria-labelledby="memberlogin-tab">
-												<div class="card card-login mx-auto col-md-8">
-													<!--mx-auto-->
-													<div class="card-body">
-
-														<h4 class="card-title mb-4 text-center rounded"
-															style="background-color:#C9FED1">個人會員註冊</h4>
-														<p class="text-center mb-4">
-															已有帳號嗎? <a
-																href="<%=request.getContextPath()%>/nest-frontend/Login.jsp">由此登入</a>
-														</p>
-														<!-- 用form綁定，這樣才可對應到MemberRegisterServlet的@WebServlet("/members/MembersRegister") -->
-														<form method="POST"
-															action="<%=request.getContextPath()%>/members/MembersRegister">
-															<!-- 或可以這樣寫：<form action="../members/MembersRegister" method="POST"> -->
-															<div class="mb-3">
-																<input required="" class="form-control" name="membersEmail"
-																	placeholder="個人會員 E-mail" type="email" />
-															</div>
-															<!-- form-group// -->
-															<div class="mb-3">
-																<input required="" class="form-control" name="membersPassword"
-																	placeholder="密碼" type="password" />
-															</div>
-															<div class="mb-3">
-																<input required="" class="form-control" name="membersPasswordRp"
-																	placeholder="確認密碼" type="password" />
-															</div>
-															<!-- 密碼跟確認密碼不一致時，會出警告訊息在這 -->
-															<span style ="color: red;">${warningMembersMsg1}</span>
-															<div class="mb-3">
-																<input required="" class="form-control" name="membersName"
-																	placeholder="姓名" type="text" />
-															</div>
-															<div class="mb-3">
-																<input required="" class="form-control" name="membersMobile"
-																	placeholder="手機(09xxxxxxxx)" type="text" />
-															</div>
-															<!-- form-group// -->
-
-															<!-- 帳號已被註冊時會出警告訊息在這 -->
-															<span style="color: red;">${warningMembersMsg2}</span>
-															<div class="login_footer form-group mb-50">
-																<div class="chek-form">
-																	<div class="custome-checkbox">
-																		<input class="form-check-input" type="checkbox"
-																			name="checkbox" id="exampleCheckbox12"
-																			value="" />
-																		<label class="form-check-label"
-																			for="exampleCheckbox12"><span>我同意隱私權政策</span></label>
-																	</div>
-																</div>
-																<a href="page-privacy-policy.html"><i
-																		class="fi-rs-book-alt mr-5 text-muted"></i>由此了解更多隱私權政策</a>
-															</div>
-															<!-- 輸入之帳號已被註冊時出警告訊息在這 -->
-															<span style ="color: red;">${waringMemMsg2}</span>
-															<!-- form-group form-check .// -->
-															<div class="mb-4">
-																<!-- membersLoginservlet的login的if判斷式是找到action=login↓ -->
-																<button type="submit" class="btn btn-primary w-100"
-																	name="action" value="register">送出並註冊</button>
-																<!-- <input type="hidden" name="action" value="login"> -->
-															</div>
-															<!-- form-group// -->
-														</form>
-
-
-													</div>
-												</div>
-											</div>
-
-
-
-
-
-
-											<div class="tab-pane fade" id="buglogin" role="tabpanel"
+											<div class="tab-pane fade active show" id="buglogin" role="tabpanel"
 												aria-labelledby="buglogin-tab">
 												<div class="card card-login mx-auto col-md-8">
 													<!--mx-auto-->
 													<div class="card-body">
-														<h4 class="card-title mb-4 text-center rounded"
-															style="background-color:#FFD05E">廠商註冊</h4>
+														<h3 class="card-title mb-4 text-center rounded"
+															style="background-color:#FFD05E">廠商註冊</h3>
 															<p class="text-center mb-4">
 																已有帳號嗎? <a
 																	href="<%=request.getContextPath()%>/nest-frontend/Login.jsp">由此登入</a>

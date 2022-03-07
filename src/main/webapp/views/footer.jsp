@@ -25,7 +25,7 @@
 						<div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0 wow animate__animated animate__fadeInUp"
 							data-wow-delay="0">
 							<div class="logo ">
-								<a href="index.html" class=""><img
+								<a href="<%=request.getContextPath()%>/nest-frontend/HomePage.jsp" class=""><img
 									src="<%=request.getContextPath()%>/assets/imgs/theme/logo_Petting.svg" width="100px" alt="logo" /></a>
 
 							</div>

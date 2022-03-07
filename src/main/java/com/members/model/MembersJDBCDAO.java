@@ -20,8 +20,9 @@ public class MembersJDBCDAO implements MembersDAO_interface{
 		+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	//修改
 	private static final String UPDATE = 
-		"UPDATE MEMBERS SET NAME=?, MOBILE=?, PHONE=?, ADDRESS=?, DATE=?, EMAIL=?, PASSWORD=?, NICKNAME=?, INTRO=?, PHOTO=?"
-		+ " WHERE MEMBER_ID=?";
+		"UPDATE MEMBERS SET NAME=?, MOBILE=?, PHONE=?, ADDRESS=?, DATE=?, EMAIL=?, PASSWORD=?, NICKNAME=?, INTRO=? WHERE MEMBER_ID=?";
+//	"UPDATE MEMBERS SET NAME=?, MOBILE=?, PHONE=?, ADDRESS=?, DATE=?, EMAIL=?, PASSWORD=?, NICKNAME=?, INTRO=?, PHOTO=?"
+//	+ " WHERE MEMBER_ID=?";
 	//刪除
 	private static final String DELETE = 
 		"DELETE FROM MEMBERS WHERE MEMBER_ID=?";
@@ -51,7 +52,7 @@ public class MembersJDBCDAO implements MembersDAO_interface{
 			pstmt.setString(2, memberBean.getMobile());
 			pstmt.setString(3, memberBean.getPhone());
 			pstmt.setString(4, memberBean.getAddress());
-			pstmt.setTimestamp(5, memberBean.getTimestamp());
+			pstmt.setTimestamp(5, memberBean.getDate());
 			pstmt.setString(6, memberBean.getEmail());
 			pstmt.setString(7, memberBean.getPassword());
 			pstmt.setString(8, memberBean.getNickname());
@@ -103,13 +104,13 @@ public class MembersJDBCDAO implements MembersDAO_interface{
 			pstmt.setString(2, memberBean.getMobile());
 			pstmt.setString(3, memberBean.getPhone());
 			pstmt.setString(4, memberBean.getAddress());
-			pstmt.setTimestamp(5, memberBean.getTimestamp());
+			pstmt.setTimestamp(5, memberBean.getDate());
 			pstmt.setString(6, memberBean.getEmail());
 			pstmt.setString(7, memberBean.getPassword());
 			pstmt.setString(8, memberBean.getNickname());
 			pstmt.setString(9, memberBean.getIntro());
-			pstmt.setBytes(10, memberBean.getPhoto());
-			pstmt.setInt(11, memberBean.getMemberid());
+//			pstmt.setBytes(10, memberBean.getPhoto());
+			pstmt.setInt(10, memberBean.getMemberid());
 			
 			pstmt.executeUpdate();
 			
@@ -210,7 +211,7 @@ public class MembersJDBCDAO implements MembersDAO_interface{
 				memberBean.setMobile(rs.getString("MOBILE"));
 				memberBean.setPhone(rs.getString("PHONE"));
 				memberBean.setAddress(rs.getString("ADDRESS"));
-				memberBean.setTimestamp(rs.getTimestamp("DATE"));
+				memberBean.setDate(rs.getTimestamp("DATE"));
 				memberBean.setEmail(rs.getString("EMAIL"));
 				memberBean.setPassword(rs.getString("PASSWORD"));
 				memberBean.setNickname(rs.getString("NICKNAME"));
@@ -274,7 +275,7 @@ public class MembersJDBCDAO implements MembersDAO_interface{
 				memberBean.setMobile(rs.getString("MOBILE"));
 				memberBean.setPhone(rs.getString("PHONE"));
 				memberBean.setAddress(rs.getString("ADDRESS"));
-				memberBean.setTimestamp(rs.getTimestamp("DATE"));
+				memberBean.setDate(rs.getTimestamp("DATE"));
 				memberBean.setEmail(rs.getString("EMAIL"));
 				memberBean.setPassword(rs.getString("PASSWORD"));
 				memberBean.setNickname(rs.getString("NICKNAME"));
@@ -334,7 +335,7 @@ public class MembersJDBCDAO implements MembersDAO_interface{
 				memberBean.setMobile(rs.getString("MOBILE"));
 				memberBean.setPhone(rs.getString("PHONE"));
 				memberBean.setAddress(rs.getString("ADDRESS"));
-				memberBean.setTimestamp(rs.getTimestamp("DATE"));
+				memberBean.setDate(rs.getTimestamp("DATE"));
 				memberBean.setEmail(rs.getString("EMAIL"));
 				memberBean.setPassword(rs.getString("PASSWORD"));
 				memberBean.setNickname(rs.getString("NICKNAME"));
@@ -383,6 +384,12 @@ public class MembersJDBCDAO implements MembersDAO_interface{
 
 	@Override
 	public MembersVO select(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MembersVO selectMemberID(String email) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 
 public class MembersService {
 	private MembersDAO_interface dao;
+	public Object updateMember;
 	
 	public MembersService() {
 		dao = new MembersDAO();
@@ -23,7 +24,7 @@ public class MembersService {
 		memberBean.setMobile(mobile);
 		memberBean.setPhone(phone);
 		memberBean.setAddress(address);
-		memberBean.setTimestamp(date);
+		memberBean.setDate(date);
 		memberBean.setEmail(email);
 		memberBean.setPassword(password);
 		memberBean.setNickname(nickname);
@@ -42,17 +43,18 @@ public class MembersService {
 		
 		memberBean.setName(name);
 		memberBean.setMobile(mobile);
-		memberBean.setTimestamp(date);
+		memberBean.setDate(date);
 		memberBean.setEmail(email);
 		memberBean.setPassword(password);
 		
 		dao.insert(memberBean);
 		return memberBean;
-	}	
+	}
+	
+
 	
 	
-	
-	//修改
+	//修改                        //Integer memberid,
 	public MembersVO updateMember(Integer memberid, String name
 			, String mobile, String phone,	String address,	Timestamp date
 			, String email, String password, String nickname, String intro, byte[] photo) {
@@ -64,7 +66,7 @@ public class MembersService {
 		memberBean.setMobile(mobile);
 		memberBean.setPhone(phone);
 		memberBean.setAddress(address);
-		memberBean.setTimestamp(date);
+		memberBean.setDate(date);
 		memberBean.setEmail(email);
 		memberBean.setPassword(password);
 		memberBean.setNickname(nickname);
@@ -74,6 +76,22 @@ public class MembersService {
 		dao.update(memberBean);
 		return memberBean;
 	}
+	
+//	//修改密碼
+//	public MembersVO updateMemberPW(Integer memberid,String password,String email,String name,String mobile) {
+//		
+//		MembersVO memberBean = new MembersVO();
+//		
+//		memberBean.setMemberid(memberid);
+//		memberBean.setName(name);
+//		memberBean.setMobile(mobile);
+//		memberBean.setEmail(email);
+//		memberBean.setPassword(password);
+//		
+//		dao.update(memberBean);
+//		return memberBean;
+//		
+//	}
 	
 	//刪除
 	public void deleteMember(Integer memberid) {
@@ -89,5 +107,7 @@ public class MembersService {
 	public List<MembersVO> selectAll() {
 		return dao.selectAll();
 	}
+
+
 	
 }
