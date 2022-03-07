@@ -38,16 +38,14 @@ public class ShowCartServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		MembersVO membersVO = (MembersVO)session.getAttribute("MemberUsing");
 		String memberId = membersVO.getMemberid().toString();
-		System.out.println(memberId);
+
 		List<String> cartlist = JedisCartListService.getCartList(memberId);
-		System.out.println(cartlist);
 		Map<String, List<ProductVO>> map = new LinkedHashMap<>();
 	    Map<Integer, Integer> qtyMap = new LinkedHashMap<>();
 		String action = req.getParameter("action");
 		
-		if (action.equals("showcart")) { 
-			System.out.println("1234567");
-			// 待測試
+		if (action.equals("showcart")) {
+			
 			if (cartlist != null && cartlist.size() != 0) {
 				 for (int index = 0; index < cartlist.size(); index++){
 		         	JSONObject jsonProduct;
@@ -70,18 +68,6 @@ public class ShowCartServlet extends HttpServlet {
 		         	ProductService proSvc = new ProductService();
 		         	ProductVO product = proSvc.getOneProduct(merid);
 		         	qtyMap.put(merid, qty);
-//		         	BusService busSvc = new BusService();
-//		        	BusVO bus = busSvc.select(busid);
-//		        	String busName = bus.getName();
-		         			        	
-//		        	if (map.containsKey(busName)) {
-//		        		List<ProductVO> list = map.get(busName);
-//		        		list.add(product);
-//		        	} else {
-//		        		List<ProductVO> list = new ArrayList<>();
-//		        		list.add(product);
-//		        		map.put(busName, list);
-//		        	}
 		         	
 		         	if (map.containsKey(busidString)) {
 		        		List<ProductVO> list = map.get(busidString);
@@ -91,7 +77,6 @@ public class ShowCartServlet extends HttpServlet {
 		        		list.add(product);
 		        		map.put(busidString, list);
 		        	}
-		         	
 				 }
 			}
 			List<String> savelist = JedisCartListService.getCartList(memberId);
@@ -101,6 +86,7 @@ public class ShowCartServlet extends HttpServlet {
 			String url = "shopCart.jsp";
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
+			
 		}
 	}
 

@@ -40,15 +40,12 @@ public class CartServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		MembersVO membersVO = (MembersVO)session.getAttribute("MemberUsing");
 		String memberId = membersVO.getMemberid().toString();
-		System.out.println(memberId);
+		
 		List<String> cartlist = JedisCartListService.getCartList(memberId);
-		System.out.println(cartlist);
 		Map<String, List<ProductVO>> map = new LinkedHashMap<>();
 	    Map<Integer, Integer> qtyMap = new LinkedHashMap<>();
 		String action = req.getParameter("action");
 		
-		
-
 		
 		if (!action.equals("checkout")) {
 			
@@ -111,9 +108,7 @@ public class CartServlet extends HttpServlet {
 			}
 			List<String> savelist = JedisCartListService.getCartList(memberId);
 			session.setAttribute("cart", savelist);
-			System.out.println("CS 112 "+savelist);
 			String url = req.getParameter("location");
-			System.out.println("url "+url);
 			res.sendRedirect(url);
 		}		
 		// 結帳

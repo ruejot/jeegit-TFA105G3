@@ -65,7 +65,9 @@
                     			<br>
                     		</div>
                     		<div class="cart-action d-flex justify-content-between">
-                                <a class="btn "><i class="fi-rs-arrow-left mr-10"></i>繼續購物</a>
+                                <a class="btn " href="<%=request.getContextPath()%>/nest-frontend/HomePage.jsp">
+                                	<i class="fi-rs-arrow-left mr-10"></i>繼續購物
+                                </a>
                             </div>
                         <%} %>
                     	<%if (cartlist!=null && (cartlist.size() > 0)) { %>
@@ -112,9 +114,17 @@
                                         	
                                     	</td>
                                     	<% ProductImgService prdImgSvc = new ProductImgService(); %>
-                                    	<td class="image product-thumbnail pt-40"><img src="<%=request.getContextPath()%>/ShowPic?imgid=<%=prdImgSvc.getOneProductImg(prdVO.getMerid()).getImgid() %>"></td>
+                                    	<td class="image product-thumbnail pt-40">
+                                    		<a href="<%=request.getContextPath()%>/product/ProductJump?merid=<%=prdVO.getMerid() %>&action=product_jump">
+                                    			<img src="<%=request.getContextPath()%>/ShowPic?imgid=<%=prdImgSvc.getOneProductImg(prdVO.getMerid()).getImgid() %>">
+                                    		</a>
+                                    	</td>
                                    		<td class="product-des product-name">
-                                       		<h6 class="mb-5"><a class="product-name mb-10 text-heading" href="shop-product-right.html"><%=prdVO.getName() %></a></h6>
+                                       		<h6 class="mb-5">
+                                       			<a class="product-name mb-10 text-heading" href="<%=request.getContextPath()%>/product/ProductJump?merid=<%=prdVO.getMerid() %>&action=product_jump">
+                                       				<%=prdVO.getName() %>
+                                       			</a>
+                                       		</h6>
 <!--                                         	<div class="product-rate-cover"> -->
 <!--                                             	<div class="product-rate d-inline-block"> -->
 <!--                                                 	<div class="product-rating" style="width:90%"></div> -->
@@ -132,9 +142,11 @@
                                         	<h4 class="text-brand">$ <%=qtyMap.get(prdVO.getMerid()) * prdVO.getPrice() %></h4>
                                     	</td>
                                     	<td class="action text-center" data-title="Remove">
-                                    		<a href="#" class="text-body"><i class="fi-rs-trash"></i></a>
-                                    		<form method= "POST" ACTION= "/CartServlet">
+<!--                                     		<a href="#" class="text-body"><i class="fi-rs-trash"></i></a> -->
+                                    		<form method= "POST" ACTION= "cartServlet.do">
+                                    			<button type="submit"><i class="fi-rs-trash"></i></button>
                                    	 			<input type="hidden" name="del" value="<%=prdVO.getMerid() %>">
+                                   	 			<input type="hidden" name="location" value="<%=request.getContextPath()%>/nest-frontend/showCartServlet.do?action=showcart">
 												<input type="hidden" name="action" value="delete">
                                    	 		</form>
                                     	</td>
@@ -145,20 +157,20 @@
                        	
                     	</div>
                     	<div class="divider-2 mb-30"></div>
-                            	<table class="table no-border">
-                                	<tbody>
-                                    	<tr>
-                                        	<td class="cart_total_label">
-                                            	<h6 class="text-brand">總計</h6>
-                                        	</td>
-                                        	<td class="cart_total_amount">
-                                            	<h4 class="text-brand text-end">$ <%=pList.stream()
-                                            	                                          .mapToInt(p -> qtyMap.get(p.getMerid()) * p.getPrice())
-                                            	                                          .sum()%></h4>
-                                        	</td>
-                                    	</tr>
-                                	</tbody>
-                            	</table>
+<!--                             	<table class="table no-border"> -->
+<!--                                 	<tbody> -->
+<!--                                     	<tr> -->
+<!--                                         	<td class="cart_total_label"> -->
+<!--                                             	<h6 class="text-brand">總計</h6> -->
+<!--                                         	</td> -->
+<!--                                         	<td class="cart_total_amount"> -->
+<%--                                             	<h4 class="text-brand text-end">$ <%=pList.stream() --%>
+<!--                                             	                                          .mapToInt(p -> qtyMap.get(p.getMerid()) * p.getPrice()) -->
+<%--                                             	                                          .sum()%></h4> --%>
+<!--                                         	</td> -->
+<!--                                     	</tr> -->
+<!--                                 	</tbody> -->
+<!--                             	</table> -->
                             	<div class="cart-action d-flex justify-content-between">
                                 	<a href="<%=request.getContextPath()%>/nest-frontend/HomePage.jsp" class="btn" ><i class="fi-rs-arrow-left mr-10"></i>繼續購物</a>
 <!--                                 	<button type="submit"><i class="fi-rs-arrow-left mr-10"></i>繼續購物</button> -->
