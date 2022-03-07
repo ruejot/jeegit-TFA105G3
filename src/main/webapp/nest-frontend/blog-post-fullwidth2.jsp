@@ -76,7 +76,7 @@ pageContext.setAttribute("list2",list2);
                                             </div>
                                             <div class="social-icons single-share">
                                                 <ul class="text-grey-5 d-inline-block">
-                                                    <li class="mr-5"><a href="#"><img src="assets/imgs/theme/icons/icon-bookmark.svg" alt=""></a></li>
+                                                    <li class="mr-5"><img class="bookmark" src="assets/imgs/theme/icons/icon-bookmark.svg" alt=""><a class="saved" href="#" >收藏此文章</a></li>
                                                     <li><a href="#"><img src="assets/imgs/theme/icons/icon-heart-2.svg" alt=""></a></li>
                                                 </ul>
                                             </div>
@@ -180,7 +180,7 @@ pageContext.setAttribute("list2",list2);
                                                         <c:forEach var="memReplyVO" items="${list2}">
                                                             <div class=" single-comment justify-content-between d-flex mb-30">
                                                             <div class="user justify-content-between d-flex">
-                                                                <div class="thumb text-center">
+                                                                <div class="thumb text-center" style="width:150px;">
                                                                     <img src="assets/imgs/blog/author-2.png" alt="">
 <!--                                                                     TODO:member名稱要用id進資料庫找出來 -->
                                                                     <c:forEach var="membersVOinfo" items="${list3}">
@@ -261,6 +261,54 @@ pageContext.setAttribute("list2",list2);
 	<!-- Template  JS -->
 	<script src="<%=request.getContextPath()%>/assets/js/main_frontend.js"></script>
 	<script src="<%=request.getContextPath()%>/assets/js/shop.js"></script>
+
+
+    <script>
+        $('li.mr-5').click(function(){
+            console.log("有執行");
+            $('li.mr-5').toggleClass("saved");
+//             $('img.bookmark').attr("src", "assets/imgs/theme/icons/bookmark_black_24dp.svg");
+
+            $.ajax({
+                method: "POST",
+                url: "<%=request.getContextPath()%>/MemSavedArtServlet",
+                
+                data: {
+                    action: "if_saved",
+                    savMemberId:"<%=membersVO.getMemberid()%>",
+                    savArtId:"<%=memBlogArtVO.getArtid()%>",
+                    },
+
+                dataType : 'json',
+
+                complete: function(jqXHR){
+                    console.log(jqXHR.readyState)
+                    if(jqXHR.readyState === 4) {
+                        console.log(jqXHR.responseText)
+                        data = jqXHR.responseText
+                        console.log(JSON.parse(data).success);
+                        console.log(JSON.parse(data).type);
+
+                        if(JSON.parse(data).success && JSON.parse(data).type==="insert"){
+                            $('li.mr-5').toggleClass("saved");
+                            $('a.saved').text("已收藏文章");
+                            
+                        } else {
+                            $('li.mr-5').toggleClass("saved")
+                            $('a.saved').text("收藏此文章");
+                        }
+
+
+
+                    }
+                }
+
+
+                });
+        })
+    </script>
+
+
 
 </body>
 

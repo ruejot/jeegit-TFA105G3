@@ -7,8 +7,10 @@
 
 <%
 
+MembersVO membersVO = (MembersVO) session.getAttribute("MemberUsing");
+
 MemFollowService mfSvc = new MemFollowService();
-List<MemFollowVO> list = mfSvc.getAllByFollowee(1);
+List<MemFollowVO> list = mfSvc.getAllByFollowee(membersVO.getMemberid());
 pageContext.setAttribute("list",list);
 
 MembersService memSvc = new MembersService();

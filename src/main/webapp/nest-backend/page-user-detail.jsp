@@ -238,16 +238,53 @@ pageContext.setAttribute("list",list);
 
 
                     });
-                        
-//                     complete: function(data){
-                        
-//                         console.log(data)
-//                         }
-//                     });
-
             })
+        </script>
+        
+        
+        <script>
+            $('li.mr-5').click(function(){
+                console.log("有執行");
+                $('li.mr-5').toggleClass("saved");
+//             $('img.bookmark').attr("src", "assets/imgs/theme/icons/bookmark_black_24dp.svg");
+
+                $.ajax({
+                    method: "POST",
+                    url: "<%=request.getContextPath()%>/MemSavedArtServlet",
+                
+                    data: {
+                        action: "if_saved",
+                        savMemberId:"<%=membersVO.getMemberid()%>",
+                        savArtId:"<%=memBlogArtVO.getArtid()%>",
+                        },
+
+                    dataType : 'json',
+
+                    complete: function(jqXHR){
+                        console.log(jqXHR.readyState)
+                        if(jqXHR.readyState === 4) {
+                            console.log(jqXHR.responseText)
+                            data = jqXHR.responseText
+                            console.log(JSON.parse(data).success);
+                            console.log(JSON.parse(data).type);
+
+                            if(JSON.parse(data).success && JSON.parse(data).type==="insert"){
+                                $('li.mr-5').toggleClass("saved");
+                                $('a.saved').text("已收藏文章");
+                            
+                        } else {
+                            $('li.mr-5').toggleClass("saved")
+                            $('a.saved').text("收藏此文章");
+                        }
 
 
+
+                        }
+                    }
+
+
+                    });
+            })
         </script>
 
 
