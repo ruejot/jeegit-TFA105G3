@@ -48,7 +48,6 @@ pageContext.setAttribute("list", list);
 	<jsp:include page="/views/userHeader.jsp" />
 	<!--End userHeader-->
 	<main class="main pages">
-		<jsp:include page="/views/userMainPage-header.jsp" />
 		 <div class="container">
                     <div class="archive-header">
                         <div class="row align-items-center">
@@ -73,46 +72,6 @@ pageContext.setAttribute("list", list);
                         <div class="shop-product-fillter">
                             <div class="totall-product">
                                 <p>We found <strong class="text-brand"> ${counts} </strong> items for you!</p>
-                            </div>
-                            <div class="sort-by-product-area">
-                                <div class="sort-by-cover mr-10">
-                                    <div class="sort-by-product-wrap">
-                                        <div class="sort-by">
-                                            <span><i class="fi-rs-apps"></i>Show:</span>
-                                        </div>
-                                        <div class="sort-by-dropdown-wrap">
-                                            <span> 50 <i class="fi-rs-angle-small-down"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="sort-by-dropdown">
-                                        <ul>
-                                            <li><a  href="#">50</a></li>
-                                            <li><a class="active" href="#">100</a></li>
-                                            <li><a href="#">150</a></li>
-                                            <li><a href="#">200</a></li>
-                                            <li><a href="#">All</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="sort-by-cover">
-                                    <div class="sort-by-product-wrap">
-                                        <div class="sort-by">
-                                            <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
-                                        </div>
-                                        <div class="sort-by-dropdown-wrap">
-                                            <span> Featured <i class="fi-rs-angle-small-down"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="sort-by-dropdown">
-                                        <ul>
-                                            <li><a class="active" href="#">Featured</a></li>
-                                            <li><a href="#">Price: Low to High</a></li>
-                                            <li><a href="#">Price: High to Low</a></li>
-                                            <li><a href="#">Release Date</a></li>
-                                            <li><a href="#">Avg. Rating</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <!--start product card-->
@@ -157,7 +116,16 @@ pageContext.setAttribute("list", list);
 													<span>$ ${product.price}</span>
 												</div>
 												<div class="add-cart">
-													<i class="fi-rs-shopping-cart mr-5">Add</i>
+													<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
+														<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+															<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
+															<input type="hidden" name="action" value="add">                                                    
+			                                                <input type="hidden" name="qty"  id="i_qty" value="1">   
+															<input type="hidden" name="merId" value="${product.merid}">                                                    
+															<input type="hidden" name="busId" value="${product.busid}">                                                    
+															<input type="hidden" name="price" value="${product.price}">
+															<input type="text" name="location" value="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=${product.subCategory}">
+													</form>
 												</div>
 											</div>
 										</div>
@@ -176,16 +144,11 @@ pageContext.setAttribute("list", list);
 											<li class="page-item active"><a class="page-link">1</a></li>
                                     		<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=${param.whichPage+2}">2</a></li>
                                     		<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=${param.whichPage+3}">3</a></li>
-                                    		<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=${param.whichPage+4}">4</a></li>
-                                    		<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=${param.whichPage+5}">5</a></li>
                                     </c:if>
 <!--                                   第一頁 -->
                                     <c:if test="${param.whichPage == '1' }" var="condition1" scope="session" > 
                                         <li class="page-item active"><a class="page-link">${param.whichPage}</a></li>
                                     	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=2">2</a></li>
-                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=3">3</a></li>
-                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=4">4</a></li>
-                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=5">5</a></li>
                                     </c:if>
 <!--                                   第二頁 -->
                                     <c:if test="${param.whichPage == '2' }" var="condition2" scope="session" > 
@@ -196,9 +159,6 @@ pageContext.setAttribute("list", list);
              							</li>
                                     	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=1">1</a></li>
              							<li class="page-item active"><a class="page-link">${param.whichPage}</a></li>
-                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=3">3</a></li>
-                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=4">4</a></li>
-                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=5">5</a></li>
              						</c:if>
 <!--                                   第三頁以上 -->
                                     <c:if test="${param.whichPage >= '3' }" var="condition2" scope="session" > 
@@ -207,11 +167,9 @@ pageContext.setAttribute("list", list);
              									<i class="fi-rs-arrow-small-left"></i>
              								</a>
              							</li>
-                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=${param.whichPage-2}">${param.whichPage-2}</a></li>
                                     	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=${param.whichPage-1}">${param.whichPage-1}</a></li>
              							<li class="page-item active"><a class="page-link">${param.whichPage}</a></li>
                                     	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=${param.whichPage+1}">${param.whichPage+1}</a></li>
-                                    	<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=${param.whichPage+2}">${param.whichPage+2}</a></li>
                                     </c:if>
 <!--                                     向右標籤 -->
                                     <li class="page-item">

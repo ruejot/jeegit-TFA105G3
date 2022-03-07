@@ -98,7 +98,9 @@
 	                                                        <input type="hidden" name="qty"  id="i_qty" value="1">   
 															<input type="hidden" name="merId" value="${aProd.get(0).merid}">                                                    
 															<input type="hidden" name="busId" value="${aProd.get(0).busid}">                                                    
-															<input type="hidden" name="price" value="${aProd.get(0).price}">                                                    
+															<input type="hidden" name="price" value="${aProd.get(0).price}">  
+															<input type="hidden" name="location" value="<%=request.getContextPath()%>/product/ProductJump?merid=${aProd.get(0).merid}&action=product_jump">  
+															                                                  
 	                                                    </div>
                                                 	</div>
                                           	</form>
@@ -141,7 +143,7 @@
 <!--                                     <h5 class="section-title style-1 mb-30">價格區間</h5> -->
 <!--                                     <div class="price-filter"> -->
 <!--                                         <div class="price-filter-inner"> -->
-<!-- <!--                                             <div id="slider-range" class="mb-20"></div> SLIDER BAR -->
+<!--                                           <div id="slider-range" class="mb-20"></div> SLIDER BAR -->
 <!--                                             <div class="d-flex justify-content-between"> -->
 <!--                                             <input type="range" min="0" max="10000" value= "1" id="p_price"> -->
 <!--                                                 <div class="text-brand">$<strong id="p_price_value" ></strong> -->

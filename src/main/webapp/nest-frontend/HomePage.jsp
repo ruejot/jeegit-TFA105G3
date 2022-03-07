@@ -349,7 +349,17 @@ request.setAttribute("mainlist5", mainlist5);
 													<span>$ ${product.price}</span>
 												</div>
 												<div class="add-cart">
-													<i class="fi-rs-shopping-cart mr-5">Add</i>
+                            				<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
+												<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+													<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
+													<input type="hidden" name="action" value="add">                                                    
+	                                                <input type="hidden" name="qty"  id="i_qty" value="1">   
+													<input type="hidden" name="merId" value="${product.merid}">                                                    
+													<input type="hidden" name="busId" value="${product.busid}">                                                    
+													<input type="hidden" name="price" value="${product.price}">
+													<input type="hidden" name="location" value="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+													
+											</form>
 												</div>
 											</div>
 										</div>
@@ -401,7 +411,17 @@ request.setAttribute("mainlist5", mainlist5);
 													<span>$ ${product.price}</span>
 												</div>
 												<div class="add-cart">
-													<i class="fi-rs-shopping-cart mr-5">Add</i>
+											<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
+												<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+													<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
+													<input type="hidden" name="action" value="add">                                                    
+	                                                <input type="hidden" name="qty"  id="i_qty" value="1">   
+													<input type="hidden" name="merId" value="${product.merid}">                                                    
+													<input type="hidden" name="busId" value="${product.busid}">                                                    
+													<input type="hidden" name="price" value="${product.price}">
+													<input type="hidden" name="location" value="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+													
+											</form>
 												</div>
 											</div>
 										</div>
@@ -453,7 +473,16 @@ request.setAttribute("mainlist5", mainlist5);
 													<span>$ ${product.price}</span>
 												</div>
 												<div class="add-cart">
-													<i class="fi-rs-shopping-cart mr-5">Add</i>
+													<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
+														<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+															<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
+															<input type="hidden" name="action" value="add">                                                    
+			                                                <input type="hidden" name="qty"  id="i_qty" value="1">   
+															<input type="hidden" name="merId" value="${product.merid}">                                                    
+															<input type="hidden" name="busId" value="${product.busid}">                                                    
+															<input type="hidden" name="price" value="${product.price}">
+															<input type="hidden" name="location" value="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+													</form>
 												</div>
 											</div>
 										</div>
@@ -505,7 +534,16 @@ request.setAttribute("mainlist5", mainlist5);
 													<span>$ ${product.price}</span>
 												</div>
 												<div class="add-cart">
-													<i class="fi-rs-shopping-cart mr-5">Add</i>
+													<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
+														<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+															<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
+															<input type="hidden" name="action" value="add">                                                    
+			                                                <input type="hidden" name="qty"  id="i_qty" value="1">   
+															<input type="hidden" name="merId" value="${product.merid}">                                                    
+															<input type="hidden" name="busId" value="${product.busid}">                                                    
+															<input type="hidden" name="price" value="${product.price}">
+															<input type="hidden" name="location" value="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+													</form>
 												</div>
 											</div>
 										</div>
@@ -557,7 +595,16 @@ request.setAttribute("mainlist5", mainlist5);
 													<span>$ ${product.price}</span>
 												</div>
 												<div class="add-cart">
-													<i class="fi-rs-shopping-cart mr-5">Add</i>
+													<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
+														<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+															<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
+															<input type="hidden" name="action" value="add">                                                    
+			                                                <input type="hidden" name="qty"  id="i_qty" value="1">   
+															<input type="hidden" name="merId" value="${product.merid}">                                                    
+															<input type="hidden" name="busId" value="${product.busid}">                                                    
+															<input type="hidden" name="price" value="${product.price}">
+															<input type="hidden" name="location" value="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+													</form>
 												</div>
 											</div>
 										</div>
@@ -631,7 +678,16 @@ request.setAttribute("mainlist5", mainlist5);
 													<span>$ ${product.price}</span>
 												</div>
 												<div class="add-cart">
-													<i class="fi-rs-shopping-cart mr-5">Add</i>
+													<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
+														<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+															<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
+															<input type="hidden" name="action" value="add">                                                    
+			                                                <input type="hidden" name="qty"  id="i_qty" value="1">   
+															<input type="hidden" name="merId" value="${product.merid}">                                                    
+															<input type="hidden" name="busId" value="${product.busid}">                                                    
+															<input type="hidden" name="price" value="${product.price}">
+															<input type="hidden" name="location" value="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+													</form>
 												</div>
 											</div>
 										</div>
