@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.order.model.*"%>
+<%@page import="java.text.*" %>
 
 <jsp:useBean id="productSvc" scope="page" class="com.product.model.ProductService" />
 
@@ -26,7 +27,7 @@
 </head>
 
 <body>
-	<jsp:include page="userHeader.jsp" />
+	<jsp:include page="/views/userHeader.jsp" />
 	<!--End userHeader-->
 	<div class="invoice invoice-content invoice-6">
             
@@ -69,7 +70,9 @@
                                            <strong class="text-brand"> 訂單編號：</strong> ${new_orderId }
                                         </div>
                                          <div class="col-lg-4">
-                                           <strong class="text-brand"> 成立日期：</strong> ${orderVO.orderTime }
+                                           <% DateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd"); %>
+                                           <strong class="text-brand"> 成立日期：</strong>
+                                           <%= dateformat.format(((OrderVO)request.getAttribute("orderVO")).getOrderTime()) %>
                                         </div>
                                         <div class="col-lg-3">
                                            <strong class="text-brand"> 付款方式：</strong>

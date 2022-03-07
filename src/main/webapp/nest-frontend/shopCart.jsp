@@ -13,53 +13,13 @@
 
 
 <%
-	//List<String> cartlist = (List<String>) session.getAttribute("cart");
-	String memberId = "22";
-	JedisCartListService jCartListSvc = new JedisCartListService();
-	List<String> cartlist = jCartListSvc.getCartList(memberId);
-    Map<String, List<ProductVO>> map = new LinkedHashMap<>();
-    Map<Integer, Integer> qtyMap = new LinkedHashMap<>();
-	if (cartlist != null && cartlist.size() != 0) {
-		 
-		 for (int index = 0; index < cartlist.size(); index++){
-         	JSONObject jsonProduct = new JSONObject(cartlist.get(index));
-         	Integer merid = Integer.valueOf(jsonProduct.getString("merId"));
-         	Integer qty = Integer.valueOf(jsonProduct.getString("qty"));
-         	Integer busid = Integer.valueOf(jsonProduct.getString("busId"));
-         			
-         	ProductService proSvc = new ProductService();
-         	ProductVO product = proSvc.getOneProduct(merid);
-         	qtyMap.put(merid, qty);
-//          BusService busSvc = new BusService();
-//         	BusVO bus = busSvc.select(busid);
-//         	String busName = bus.getName();
-			String busidString = jsonProduct.getString("busId");
-        	
-//         	if (map.containsKey(busName)) {
-//         		List<ProductVO> list = map.get(busName);
-//         		list.add(product);
-//         	} else {
-//         		List<ProductVO> list = new ArrayList<>();
-//         		list.add(product);
-//         		map.put(busName, list);
-//         	}
-
-			if (map.containsKey(busidString)) {
-        		List<ProductVO> list = map.get(busidString);
-        		list.add(product);
-        	} else {
-        		List<ProductVO> list = new ArrayList<>();
-        		list.add(product);
-        		map.put(busidString, list);
-        	}
-		 }
 	
-	}
-	
-// 	System.out.println(cartlist);
+	List<String> cartlist = (List<String>) session.getAttribute("list");
+	Map<String, List<ProductVO>> map = (Map<String, List<ProductVO>>) session.getAttribute("map");
+	Map<Integer, Integer> qtyMap = (Map<Integer, Integer>) session.getAttribute("qtymap");
 	pageContext.setAttribute("list", cartlist);
-	pageContext.setAttribute("qtymap", qtyMap);
-	pageContext.setAttribute("map", map);
+	pageContext.setAttribute("qtymap", map);
+	pageContext.setAttribute("map", request.getAttribute("map"));
 %>
 
 <!DOCTYPE html>
@@ -130,8 +90,8 @@
                     	        <thead>
                               		<tr class="main-heading">
                               	        <th class="custome-checkbox start pl-30">
-                                       	   <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox11" value="">
-                                        	  <label class="form-check-label" for="exampleCheckbox11"></label>
+                                       	   
+                                        	  
                                    	 	</th>
                                    	 	<th scope="col" colspan="2">商品名稱</th>
                                    	 	<th scope="col">單價</th>
@@ -149,8 +109,7 @@
                             	<tbody>
                                		 <tr class="pt-30">
                                    		<td class="custome-checkbox pl-30">
-                                        	<input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
-                                        	<label class="form-check-label" for="exampleCheckbox1"></label>
+                                        	
                                     	</td>
                                     	<% ProductImgService prdImgSvc = new ProductImgService(); %>
                                     	<td class="image product-thumbnail pt-40"><img src="<%=request.getContextPath()%>/ShowPic?imgid=<%=prdImgSvc.getOneProductImg(prdVO.getMerid()).getImgid() %>"></td>
@@ -167,13 +126,7 @@
                                         	<h4 class="text-body">$ <%=prdVO.getPrice() %></h4>
                                     	</td>
                                     	<td class="text-center detail-info" data-title="Stock">
-                                        	<div class="detail-extralink mr-15">
-                                            	<div class="detail-qty border radius">
-                                                	<a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
-                                                	<span class="qty-val"><%=qtyMap.get(prdVO.getMerid()) %></span>
-                                                	<a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
-                                            	</div>
-                                        	</div>
+                                                	<h4 class="text-body"><%=qtyMap.get(prdVO.getMerid()) %></h4>
                                     	</td>
                                     	<td class="price" data-title="Price">
                                         	<h4 class="text-brand">$ <%=qtyMap.get(prdVO.getMerid()) * prdVO.getPrice() %></h4>

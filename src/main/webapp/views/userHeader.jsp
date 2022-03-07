@@ -102,7 +102,7 @@
 								<div class="header-action-right">
 									<div class="header-action-2">
 										<div class="header-action-icon-2">
-											<a class="mini-cart-icon" href="<%=request.getContextPath()%>/nest-frontend/shopCart.jsp"> 
+											<a class="mini-cart-icon" href="<%=request.getContextPath()%>/nest-frontend/showCartServlet.do?action=showcart"> 
 <!-- 											<img -->
 <!-- 												alt="Cart" -->
 <%-- 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-cart.svg" /> --%>
