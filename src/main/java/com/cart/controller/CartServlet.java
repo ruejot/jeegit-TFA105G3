@@ -53,7 +53,7 @@ public class CartServlet extends HttpServlet {
 			if (action.equals("delete")) {
 				String merId = (String) req.getParameter("del");
 				try {
-					JedisCartListService.deleteCartList(memberId, cartlist, merId);
+					JedisCartListService.deleteCartListbyMerId(memberId, cartlist, merId);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
