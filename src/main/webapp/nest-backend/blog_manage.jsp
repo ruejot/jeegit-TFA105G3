@@ -1,9 +1,13 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.memblogart.model.*"%>
 <%@ page import="com.members.model.*"%>
 <%@ page import="java.sql.Timestamp"%>
+<%@ page import="com.memfollow.model.*"%>
+<%@ page import="java.text.*"%>
+<%@ page import="com.memsavedart.model.*"%>
 
 <%
 MembersVO membersVO = (MembersVO) session.getAttribute("MemberUsing");
@@ -14,8 +18,20 @@ List<MemBlogArtVO> list = artSvc.getAllByMember(membersVO.getMemberid());
 Collections.reverse(list);
 pageContext.setAttribute("list", list);
 
-// Timestamp ts = new Timestamp(MemBlogArtVO.getPosttime());
-// Date date = new Date(ts.getTime());
+MemFollowService mfSvc = new MemFollowService();
+List<MemFollowVO> list2 = mfSvc.getAllByFollowee(membersVO.getMemberid());
+pageContext.setAttribute("list2",list2);
+
+MembersService memSvc = new MembersService();
+List<MembersVO> list3 = memSvc.selectAll();
+pageContext.setAttribute("list3",list3);
+
+MemSavedArtService msaSvc = new MemSavedArtService();
+List<MemSavedArtVO> list4 = msaSvc.getArtBySavMem(membersVO.getMemberid());
+pageContext.setAttribute("list4",list4);
+
+
+
 %>
 
 <%
@@ -40,6 +56,7 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 	href="<%=request.getContextPath()%>/assets/css/plugins/slider-range.css" />
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" />
+	<jsp:include page="/views/userHeader.jsp" />
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
 <link
@@ -48,7 +65,6 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 </head>
 
 <body>
-	<jsp:include page="/views/userHeader.jsp" />
 	<main class="main pages">
 		<div class="page-content pt-100 pb-100">
 			<div class="container">
@@ -98,7 +114,6 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 											<div class="content-header">
 												<div class="col-md-9">
 													<h2 class="content-title card-title">文章管理</h2>
-													<p>Lorem ipsum dolor sit amet.</p>
 												</div>
 												<!-- 												<div class="col-md-2"> -->
 												<!-- 													<a -->
@@ -114,19 +129,8 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 																type="checkbox" value="" />
 														</div>
 													</div>
-													<div class="col-4"">
+													<div class="col-6"">
 														<span id="batch_delete_btn" />
-													</div>
-													<div class="col-3"">
-														<input type="date" value="02.05.2021" class="form-control" />
-													</div>
-													<div class="col-3">
-														<select class="form-select">
-															<option selected>文章狀態</option>
-															<option>已發佈</option>
-															<option>草稿</option>
-															<option>全部狀態</option>
-														</select>
 													</div>
 												</div>
 											</header>
@@ -158,7 +162,7 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 															</div>
 															<div class="col-lg-1 col-sm-2 col-4 col-date"
 																style="width: 125px;">
-																<span>${memBlogArtVO.posttime}</span>
+																<span>${memBlogArtVO.posttimeDate}</span>
 															</div>
 															<div class="col-lg-2 col-sm-2 col-4 col-action text-end">
 
@@ -308,22 +312,11 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 													<div class="col-4"">
 														<span id="batch_delete_btn" />
 													</div>
-													<div class="col-3"">
-														<input type="date" value="02.05.2021" class="form-control" />
-													</div>
-													<div class="col-3">
-														<select class="form-select">
-															<option selected>文章狀態</option>
-															<option>已發佈</option>
-															<option>草稿</option>
-															<option>全部狀態</option>
-														</select>
-													</div>
 												</div>
 											</header>
 											<div class="card-body">
 												<%-- 												<%@ include file="../nest-backend/blog_manage_page.file"%> --%>
-												<c:forEach var="memBlogArtVO" items="${list}"
+												<c:forEach var="memSavedArtVO" items="${list4}"
 													begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 													<article class="itemlist">
 														<div class="row align-items-center">
@@ -331,15 +324,15 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 																<div class="form-check">
 																	<input class="form-check-input checkbox-inner"
 																		type="checkbox" name="artid[]"
-																		value="${memBlogArtVO.artid}" />
+																		value="${memSavedArtVO.savArtId}" />
 																</div>
 															</div>
-															<div class="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
+															<div class="col-lg-4 col-sm-4 col-6 flex-grow-1 col-name">
 																<a class="itemside"
-																	href="<%=request.getContextPath()%>/MemBlogArtServlet?action=getOne_For_Display&artid=${memBlogArtVO.artid}">
+																	href="<%=request.getContextPath()%>/MemBlogArtServlet?action=getOne_For_Display&artid=${memSavedArtVO.savArtId}">
 																	<div class="left">
 																		<img
-																			src="<%= request.getContextPath() %>/GetPic?blArtPicId=${memBlogArtVO.artid}"
+																			src="<%= request.getContextPath() %>/GetPic?blArtPicId=${memSavedArtVO.savArtId}"
 																			class="img-sm img-thumbnail" alt="Item" />
 																	</div>
 																	<div class="info">
@@ -347,7 +340,7 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 																	</div>
 																</a>
 															</div>
-															<div class="col-lg-1 col-sm-2 col-4 col-date"
+															<div class="col-lg-1 col-sm-2 col-6 col-date"
 																style="width: 125px;">
 																<span>${memBlogArtVO.posttime}</span>
 															</div>
@@ -419,14 +412,14 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
                     <div class="card-body">
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-3">
                             <!-- col.// -->
-                            <c:forEach var="memFollowVO" items="${list}">
+                            <c:forEach var="memFollowVO" items="${list2}">
                             <div class="col">
                                 <div class="card card-user">
                                     <div class="card-header">
                                         <img class="img-md img-avatar" src="assets/imgs/people/avatar-2.png" alt="User pic" />
                                     </div>
                                     <div class="card-body">
-                                        <c:forEach var="membersVO" items="${list2}">
+                                        <c:forEach var="membersVO" items="${list3}">
                                             <c:if test="${memFollowVO.memberId==membersVO.memberid}">
                                                 <h5 class="card-title mt-50">${membersVO.nickname}</h5>
                                             </c:if>
@@ -653,4 +646,44 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 			$("#errMsg2").html("")
 	})
 </script>
+                            <script>
+                                $('#form-check-input').change(function () {
+                                    if ($('#form-check-input').is(':checked')) {
+                                        $('.checkbox-inner').attr("checked", "checked")
+                                        $('#batch_delete_btn').html("<button class='btn btn-danger' type='button' onclick='batch_delete()'>刪除所選文章</button>")
+                                    }
+                                    else {
+                                        $('.checkbox-inner').removeAttr("checked")
+                                        $('#batch_delete_btn').html("")
+                                    }
+                                })
+
+                                $('.checkbox-inner').each((_, element) => {
+                                    $(element).change(function () {
+                                        if ($(element).is(':checked')) {
+                                            $('#batch_delete_btn').html("<button class='btn btn-danger' type='button' onclick='batch_delete()'>刪除所選文章</button>")
+                                        }
+                                        else {
+                                            $('#batch_delete_btn').html("")
+                                        }
+                                    })
+                                });
+                                function batch_delete() {
+                                    if(confirm("確定要刪除所選取的文章嗎?")){
+                                        console.log()
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "<%=request.getContextPath()%>/MemBlogArtServlet",
+                                            success: function(){
+                                                window.location.reload();
+                                            },
+                                            data: {
+                                                action: "batch_delete",
+                                                artid: $('.checkbox-inner:checked').map((_, event) => event.value).get().join(",")
+                                            }
+                                        });
+                                    }
+                                }
+
+                            </script>
 </html>
