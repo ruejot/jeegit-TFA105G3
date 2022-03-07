@@ -119,7 +119,7 @@
 													<ul>
 														<li><a href="<%=request.getContextPath()%>/nest-frontend/accountCenter.jsp"><i
 																class="fi fi-rs-user mr-10"></i>會員中心</a></li>
-														<li><a href="<%=request.getContextPath()%>/nest-backend/blog_manage_4tag.jsp"><i
+														<li><a href="<%=request.getContextPath()%>/nest-backend/blog_manage.jsp"><i
 																class="fi fi-rs-settings-sliders mr-10"></i>部落格管理</a></li>
 														<li><a href="<%=request.getContextPath()%>/members/MembersLogout?action=logout"><i
 																class="fi fi-rs-sign-out mr-10"></i>會員登出</a>
