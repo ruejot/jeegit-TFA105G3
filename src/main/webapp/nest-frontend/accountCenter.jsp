@@ -3,12 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.order.model.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="com.members.model.*"%>
 <%@page buffer="8192kb" autoFlush="true" %>
 <%	
 	Integer memberId = 22;
     OrderService ordSvc = new OrderService();
     List<OrderVO> list = ordSvc.getOrdersByMemberId(memberId);
     pageContext.setAttribute("list",list);
+    
+    MembersVO membersVO = (MembersVO) session.getAttribute("MemberUsing");
 %>
 <!-- <% out.println("<p>bufferSize: " + out.getBufferSize() + " remaining: " + out.getRemaining() + " used: " + (out.getBufferSize() - out.getRemaining()) + " autoFlush: " + out.isAutoFlush() + "</p><br>"); %> -->
 <!-- <%@ page buffer="8192kb" %> -->
@@ -219,42 +222,52 @@
                                                         action="<%=request.getContextPath()%>/members/MembersDataUpdate">
                                                         <div class="form-group col-md-6">
                                                             <label>使用者ID：</label><span>${MemberUsing.memberid}</span>
+                                                            <input type="hidden" name="membersMemberid" value="${MemberUsing.memberid}">
+                                                            <input type="hidden" name="membersDate" value="<%=membersVO.getDate()%>">
                                                         </div>
                                                         <div class="row">
     
                                                             <div class="form-group col-md-6">
-                                                                <label>姓名<span class="required">*</span></label>
+                                                                <label>姓名 *<span class="required"></span></label>
                                                                 <!-- <input required="" class="form-control" name="name" type="text" /> -->
-                                                                <input class="form-control" name="membersName"
+                                                                <input class="form-control" name="membersName" required="required"
                                                                     type="text" value="${MemberUsing.name}">
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label>暱稱</label> <input class="form-control"
                                                                     name="membersNickname" type="text" value="${MemberUsing.nickname}"></input>
                                                             </div>
+                                                            <!-- <div class="form-group col-md-6">
+                                                                <label>新密碼 *</label> <input class="form-control"
+                                                                    required name="NEWmembersPassword" type="password" placeholder="若新密碼不須修改，請輸入舊密碼"></input>
+                                                            </div> -->
                                                             <div class="form-group col-md-12">
-                                                                <label>Email(帳號)*(本欄位不可更改)</label>
+                                                                <label>Email *(本欄位不可更改)</label>
                                                                 <!-- input標籤設為disabled="disabled"為不可編輯的意思 -->
-                                                                <input required="" class="form-control"
-                                                                    name="membersEmail" type="email" disabled="disabled" value="${MemberUsing.email}"></input>
+                                                                <input required="required" class="form-control" readonly="readonly"
+                                                                name="membersEmail" type="email" value="${MemberUsing.email}" style="background-color: #e9ecef;"></input>
                                                             </div>
                                                             <div class="form-group col-md-6">
-                                                                <label>手機<span class="required">*</span></label> <input
-                                                                    required="" class="form-control" name="membersMobile" value="${MemberUsing.mobile}"></input>
+                                                                <label>手機 *<span class="required"></span></label> <input
+                                                                required="required" class="form-control" name="membersMobile" value="${MemberUsing.mobile}"></input>
                                                                 <!-- 當手機號碼格式不合格時↓ -->
                                                                 <span style="color: red;">${warningDataMembersMsg1}</span>
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label>電話</label> <input class="form-control"
-                                                                    name="membersPhone" type="text" value="${MemberUsing.phone}"></input>
+                                                                name="membersPhone" type="text" value="${MemberUsing.phone}"></input>
                                                             </div>
                                                             <div class="form-group col-md-12">
                                                                 <label>地址</label> <input class="form-control"
-                                                                    name="membersAddress" type="text"></input>
+                                                                name="membersAddress" type="text" value="${MemberUsing.address}"></input>
                                                             </div>
                                                             <div class="form-group col-md-6">
-                                                                <label>簡介</label> <input class="form-control"
-                                                                    name="membersIntro" type="textarea" />
+                                                                <label>簡介</label> <textarea class="form-control"
+                                                                name="membersIntro" placeholder="想說什麼呢~~" style="height: 130px;" rows="3">${MemberUsing.intro}</textarea>
+                                                            </div>
+                                                            <div class="form-group col-md-12">
+                                                                <label>現在的密碼*(如需修改任何資料，需輸入現在的密碼，以做確認)</label> <input class="form-control"
+                                                                    name="old_MembersPwd" type="password"></input>
                                                             </div>
                                                             <!-- <div class="form-group col-md-12">
                                                                     <label>現在的密碼*(如需修改資料，需輸入現在的密碼，以做確認)</label> <input
@@ -272,13 +285,17 @@
                                                                 <div class="form-group col-md-12">
                                                                     <label>確認密碼</label> <input class="form-control"
                                                                         name="newMembersPasswordRp" type="password" />
-                                                                </div> -->
+                                                                </div> ${MemberUsing.date}-->
+                                                            
+                                                            
                                                             <div class="col-md-12">
                                                                 <button type="submit"
                                                                     class="btn btn-fill-out submit font-weight-bold"
                                                                     name="action" value="membersdataupdate">儲存修改</button>
                                                                 <!-- 必填欄位尚未被填寫時↓ -->
                                                                 <span style="color: red;">${warningDataMembersMsg}</span>
+                                                                <!-- 密碼寫錯時↓ -->
+                                                                <span style="color: red;">${errMembersPWMsg}</span>
                                                                 <!-- 會員資料設定修改成功時↓ -->
                                                                 <span style="color: red;">${DataupdateSuccessMembersMsg1}</span>
                                                             </div>
@@ -304,15 +321,16 @@
     
                                                                 <!-- ===============================刪除帳號=============================== -->
     
-                                                                <!-- <div class="col-md">
+                                                                <div class="col-md">
                                                                     <article class="box mb-3 bg-light">
-                                                                        <a class="btn float-end btn-light rounded btn-sm font-md" href="#" name="action" vlaue="deleteaccount">刪除帳號</a>
+                                                                        <a class="btn float-end btn-light rounded btn-sm font-md" href="<%=request.getContextPath()%>/nest-frontend/membersAccountDelete.jsp">刪除帳號</a>
                                                                         <h5>刪除帳號</h5>
                                                                         <small class="text-muted d-block" style="width: 70%">請注意!一旦您選擇刪除帳號後，將無法再回復帳號!</small>
                                                                     </article>
-                                                                </div> -->
+                                                                </div>
                                                                 <!-- ===============================刪除帳號=============================== -->
                                                             </div>
+                                                        </div>
                                                     </form>
     
     

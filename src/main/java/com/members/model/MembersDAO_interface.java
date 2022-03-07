@@ -13,4 +13,6 @@ public interface MembersDAO_interface {
 //	select all table data
 	public abstract List<MembersVO> selectAll();
 	public abstract MembersVO selectMemberID(String email);
+	public abstract MembersVO selectPassword(Integer memberid);
+//	public abstract void updateMemberPW(Integer memberid,String password,String email,String name,String mobile);
 }

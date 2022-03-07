@@ -57,7 +57,7 @@ public class BusRegisterServlet extends HttpServlet  {
 				if (busbean != null) {
 					//則跳提醒說此帳號已被註冊
 					req.setAttribute("warningBusMsg2", "很抱歉!此帳號已被註冊!!");				
-					req.getRequestDispatcher("../nest-frontend/Register.jsp").forward(req, res);
+					req.getRequestDispatcher("../nest-frontend/BusRegister.jsp").forward(req, res);
 //					req.getRequestDispatcher(req.getContextPath() +"/nest-frontend/Register.jsp").forward(req, res);						
 				}else {
 					//表示目前資料庫無相同之email，則新增1個busVO
@@ -68,7 +68,7 @@ public class BusRegisterServlet extends HttpServlet  {
 					//將client端輸入的資料set進去
 					busVO.setName(name);
 					busVO.setPhone(phone);
-					busVO.setTimestamp(timestamp);
+					busVO.setDate(timestamp);
 					busVO.setAddress(address);
 					busVO.setEmail(email);
 					busVO.setPassword(password);
@@ -83,7 +83,7 @@ public class BusRegisterServlet extends HttpServlet  {
 
 			}else{
 				req.setAttribute("warningBusMsg1", "不好意思!您的密碼輸入不一致，請再確認!");
-				req.getRequestDispatcher("../nest-frontend/Register.jsp").forward(req, res);
+				req.getRequestDispatcher("../nest-frontend/BusRegister.jsp").forward(req, res);
 			}
 
 			

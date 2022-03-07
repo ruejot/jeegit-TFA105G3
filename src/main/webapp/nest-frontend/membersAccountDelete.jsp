@@ -90,11 +90,11 @@
 
 										<div class="card">
 											<div class="card-header">
-												<h5>修改密碼</h5>
+												<h5>刪除帳號</h5>
 											</div>
 											<div class="card-body">
 												<form method="post" name="enq"
-													action="<%=request.getContextPath()%>/members/MembersPasswordChange">
+													action="<%=request.getContextPath()%>/members/MembersAccountDelete">
 													<div class="form-group col-md-6">
 														<label>使用者ID：</label><span>${MemberUsing.memberid}</span><span>；</span>
 														<label name="membersEmail" type="email">Email(帳號)：<span>${MemberUsing.email}</label>
@@ -111,35 +111,39 @@
 													<div class="row">
 
 														<div class="form-group col-md-12">
-															<h6 style="color:red;">注意!${MemberUsing.name}您現在正在進行密碼變更作業!!</h6>
+															<h6 style="color:red;">注意!!${MemberUsing.name}您現在正在進行密碼變更作業!!</h6>
 															<input type="hidden" name="membersName" value="${MemberUsing.name}"></input>
 														</div>
 
 														<div class="form-group col-md-12">
-															<label>現在的密碼*(如需修改資料，需輸入現在的密碼，以做確認)</label>
-															<input required="" class="form-control" name="membersPassword" type="password" placeholder="請輸入目前的密碼" />
+															<h6 style="color:red;">請留意!!一旦您選擇刪除帳號後，將無法再回復帳號!!</h6>
+														</div>
+														
+														<div class="form-group col-md-12">
+															<label>※若您確認要刪除帳號，再煩請輸入密碼以玆確認</label>
+														</div>
+
+														<div class="form-group col-md-12">
+															<label>現在的密碼</label>
+															<input required="" class="form-control" name="membersPassword" type="password" />
 															<!-- 現在密碼填錯時↓ -->
 															<span style="color: red;">${memberPWErrMsg}</span>
 														</div>
 
 														<div class="form-group col-md-12">
-															<label>新的密碼*</label>
-															<input required="" class="form-control"	name="newMembersPassword" type="password" placeholder="請輸入新密碼" />
-														</div>
-														<div class="form-group col-md-12">
 															<label>確認密碼*</label>
-															<input required="" class="form-control" name="newMembersPasswordRp" type="password" placeholder="請再輸入一次新密碼" />
-															<!-- 新密碼兩欄填寫不一致時↓ -->
+															<input required="" class="form-control" name="membersPasswordRp" type="password" />
+															<!-- 密碼兩欄填寫不一致時↓ -->
 															<span style="color: red;">${warningMemberPWDismatchMsg}</span>
 														</div>
 														<div class="col-md-12">
 															<button type="submit"
 																class="btn btn-fill-out submit font-weight-bold"
-																name="action" value="changepw" >確認修改密碼</button>
+																name="action" value="deleteMember">確認刪除帳號</button>
 															<!-- 必填欄位尚未被填寫時↓ -->
-															<span style="color: red;">${warningMembersPWMsg}</span>
-															<!-- 會員資料設定修改成功時↓ -->
-															<span style="color: red;">${MembersPWupdateMsg}</span>
+															<span style="color: red;">${warningMembersDeleteMsg}</span>
+															<!-- 會員帳號成功時↓ -->
+															<span style="color: red;">${MembersDeleteMsg}</span>
 														</div>
 
 

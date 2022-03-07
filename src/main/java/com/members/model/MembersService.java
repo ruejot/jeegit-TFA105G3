@@ -24,7 +24,7 @@ public class MembersService {
 		memberBean.setMobile(mobile);
 		memberBean.setPhone(phone);
 		memberBean.setAddress(address);
-		memberBean.setTimestamp(date);
+		memberBean.setDate(date);
 		memberBean.setEmail(email);
 		memberBean.setPassword(password);
 		memberBean.setNickname(nickname);
@@ -43,7 +43,7 @@ public class MembersService {
 		
 		memberBean.setName(name);
 		memberBean.setMobile(mobile);
-		memberBean.setTimestamp(date);
+		memberBean.setDate(date);
 		memberBean.setEmail(email);
 		memberBean.setPassword(password);
 		
@@ -55,18 +55,18 @@ public class MembersService {
 	
 	
 	//修改                        //Integer memberid,
-	public MembersVO updateMember(String name
+	public MembersVO updateMember(Integer memberid, String name
 			, String mobile, String phone,	String address,	Timestamp date
 			, String email, String password, String nickname, String intro, byte[] photo) {
 		
 		MembersVO memberBean = new MembersVO();
 		
-//		memberBean.setMemberid(memberid);
+		memberBean.setMemberid(memberid);
 		memberBean.setName(name);
 		memberBean.setMobile(mobile);
 		memberBean.setPhone(phone);
 		memberBean.setAddress(address);
-		memberBean.setTimestamp(date);
+		memberBean.setDate(date);
 		memberBean.setEmail(email);
 		memberBean.setPassword(password);
 		memberBean.setNickname(nickname);
@@ -76,6 +76,22 @@ public class MembersService {
 		dao.update(memberBean);
 		return memberBean;
 	}
+	
+//	//修改密碼
+//	public MembersVO updateMemberPW(Integer memberid,String password,String email,String name,String mobile) {
+//		
+//		MembersVO memberBean = new MembersVO();
+//		
+//		memberBean.setMemberid(memberid);
+//		memberBean.setName(name);
+//		memberBean.setMobile(mobile);
+//		memberBean.setEmail(email);
+//		memberBean.setPassword(password);
+//		
+//		dao.update(memberBean);
+//		return memberBean;
+//		
+//	}
 	
 	//刪除
 	public void deleteMember(Integer memberid) {
@@ -87,14 +103,11 @@ public class MembersService {
 		return dao.select(memberid);
 	}
 	
-//	//查詢密碼
-//	public MembersVO select(String password) {
-//		return dao.select(password);
-//	}
-	
 	//查詢全部
 	public List<MembersVO> selectAll() {
 		return dao.selectAll();
 	}
+
+
 	
 }
