@@ -56,7 +56,7 @@ public class MembersRegisterServlet extends HttpServlet  {
 				if (membersbean != null) {
 					//則跳提醒說此帳號已被註冊
 					req.setAttribute("warningMembersMsg2", "很抱歉!此帳號已被註冊!!");				
-					req.getRequestDispatcher("../nest-frontend/Register.jsp").forward(req, res);
+					req.getRequestDispatcher("../nest-frontend/MembersRegister.jsp").forward(req, res);
 //					req.getRequestDispatcher(req.getContextPath() +"/nest-frontend/Register.jsp").forward(req, res);						
 				}else {
 					//表示目前資料庫無相同之email，則可繼續進行註冊→則新增1個membersVO
@@ -67,7 +67,7 @@ public class MembersRegisterServlet extends HttpServlet  {
 					//將client端輸入的資料set進去
 					membersVO.setName(name);
 					membersVO.setMobile(mobile);
-					membersVO.setTimestamp(timestamp);
+					membersVO.setDate(timestamp);
 					membersVO.setEmail(email);
 					membersVO.setPassword(password);
 				

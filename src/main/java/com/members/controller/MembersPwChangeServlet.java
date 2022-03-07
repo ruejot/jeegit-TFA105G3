@@ -1,0 +1,138 @@
+package com.members.controller;
+
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import com.members.model.MembersDAO;
+import com.members.model.MembersDAO_interface;
+import com.members.model.MembersService;
+import com.members.model.MembersVO;
+
+@WebServlet("/members/MembersPasswordChange")
+public class MembersPwChangeServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		doPost(req, res);
+	}
+
+	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html;charset=utf-8");
+
+		String action = req.getParameter("action");
+
+		Integer id = Integer.parseInt(req.getParameter("membersMemberid"));
+		
+		String password = req.getParameter("membersPassword"); 		// 現在(使用者輸入的)密碼
+		String newpassword = req.getParameter("newMembersPassword");// 新的密碼(確認密碼)
+		String newpasswordRp = req.getParameter("newMembersPasswordRp");
+		
+//		沒有要改，直接在hidden的input上get到值↓
+		String name = req.getParameter("membersName");
+		String mobile = req.getParameter("membersMobile");
+		String phone = req.getParameter("membersPhone");
+		String address = req.getParameter("membersAddress");
+		Timestamp date = Timestamp.valueOf(req.getParameter("membersDate"));	
+		
+		String email = req.getParameter("membersEmail");
+		String nickname = req.getParameter("membersNickname");
+		String intro = req.getParameter("membersIntro");
+		
+
+		// 修改密碼		
+		if ("changepw".equals(action)) {
+			// 檢查三欄是否都有填寫
+			if (!"password".equals(null) && !"newpassword".equals(null) && !"newpasswordrp".equals(null)) {
+
+				MembersDAO_interface memberDAOInterface = new MembersDAO();// 查帳號密碼方法放在DAO所以用DAO
+				MembersVO memberbean = memberDAOInterface.selectByEmailAndPassword(email, password);
+
+				// 若email有get到資料庫中相對應的email跟password，表示client端的email跟password有match到
+				if (memberbean != null) {
+
+					// 檢查新密碼是否輸入兩次都一致，若一致，則可存入DB
+					if (newpassword.equals(newpasswordRp)) {
+											
+						MembersService memberssvc = new MembersService();// 修改密碼方法放在service所以用service
+						MembersVO membersVO = new MembersVO();			//	先成立新物件MembersVO()
+
+						// 並將client端輸入的資料set進去MembersVO()										
+						membersVO.setMemberid(id);
+						membersVO.setName(name);
+						membersVO.setMobile(mobile);
+						membersVO.setPhone(phone);
+						membersVO.setAddress(address);
+						membersVO.setEmail(email);
+						membersVO.setPassword(newpassword);
+						membersVO.setNickname(nickname);
+						membersVO.setIntro(intro);
+
+						membersVO=memberssvc.updateMember(id, name, mobile, phone, address, date, email,
+								newpassword, nickname, intro, null);
+						
+						// 資料庫update成功後,正確的的membersVO物件,存入req
+						req.setAttribute("membersVO", membersVO);
+						
+						req.setAttribute("MembersPWupdateMsg", "密碼修改成功!!");
+						req.getRequestDispatcher("../nest-frontend/membersPWChanged.jsp").forward(req, res);
+						
+
+					} else {
+
+						req.setAttribute("warningMemberPWDismatchMsg", "兩次密碼輸入不一致，請重新填寫，謝謝!!");
+						req.getRequestDispatcher("../nest-frontend/membersChangePassword.jsp").forward(req, res);
+
+					}
+
+				} else {
+					req.setAttribute("memberPWErrMsg", "密碼輸入錯誤!!請再重新輸入謝謝");
+					req.getRequestDispatcher("../nest-frontend/membersChangePassword.jsp").forward(req, res);
+
+				}
+
+			} else {
+				req.setAttribute("warningMembersPWMsg", "不好意思!尚有必填欄位未填，請確實填寫，謝謝!!");
+				req.getRequestDispatcher("../nest-frontend/membersChangePassword.jsp").forward(req, res);
+			}
+			return;
+		}
+
+	}
+
+}
+
+//
+//			try {
+//				//取得membersID及其資料
+//				Integer merid = Integer.parseInt(req.getParameter("merid").trim());
+//				String name = req.getParameter("name");
+//				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9\\s.)]{2,25}$";
+//				if (name == null || name.trim().length() == 0) {
+//						errorMsgs.add("請填寫商品名稱!");
+//				} else if (!name.trim().matches(nameReg)) {
+//						errorMsgs.add("商品名稱必須是中英文，且長度需在2-25之間!");
+//				}
+//
+//				// 取得商品描述
+//				String description = req.getParameter("description").trim();
+//				if (description == null || description.trim().length() == 0) {
+//						errorMsgs.add("請填寫商品描述!");
+//				
+//				
+//				}catch{
+//
+//
+//			}
+//
+//
+//					
+

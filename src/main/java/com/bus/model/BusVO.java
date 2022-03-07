@@ -74,11 +74,11 @@ public class BusVO implements Serializable{
 		this.taxid = taxid;
 	}
 
-	public Timestamp getTimestamp() {
+	public Timestamp getDate() {
 		return date;
 	}
 
-	public void setTimestamp(Timestamp date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 

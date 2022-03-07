@@ -60,7 +60,7 @@
 									<div
 										class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
 										<ul>
-											<li><a href="<%=request.getContextPath()%>/nest-frontend/memberCenter.jsp">
+											<li><a href="<%=request.getContextPath()%>/back-frontend/busAccountCenter.jsp">
 											<i class="fi fi-rs-user mr-10"></i>會員中心</a></li>
 											<li><a href="<%=request.getContextPath()%>/nest-frontend/fendshop_mainpage.jsp">
 											<i class="fi fi-rs-settings-sliders mr-10"></i>我的商店</a></li>

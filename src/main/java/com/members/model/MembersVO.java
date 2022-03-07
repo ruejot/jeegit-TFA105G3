@@ -71,11 +71,19 @@ public class MembersVO implements Serializable{
 		this.address = address;
 	}
 
-	public Timestamp getTimestamp() {
+//	public Timestamp getTimestamp() {
+//		return date;
+//	}
+//
+//	public void setTimestamp(Timestamp date) {
+//		this.date = date;
+//	}
+
+	public Timestamp getDate() {
 		return date;
 	}
 
-	public void setTimestamp(Timestamp date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 

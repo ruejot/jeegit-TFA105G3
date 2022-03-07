@@ -9,7 +9,7 @@
 <html class="no-js" lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<title>Petting 會員設定</title>
+<title>Petting 刪除帳號作業完成 </title>
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -90,72 +90,26 @@
 
 										<div class="card">
 											<div class="card-header">
-												<h5>修改密碼</h5>
+												<h5>您的帳號已刪除，並且無法恢復!!</h5>
 											</div>
 											<div class="card-body">
-												<form method="post" name="enq"
-													action="<%=request.getContextPath()%>/members/MembersPasswordChange">
-													<div class="form-group col-md-6">
-														<label>使用者ID：</label><span>${MemberUsing.memberid}</span><span>；</span>
-														<label name="membersEmail" type="email">Email(帳號)：<span>${MemberUsing.email}</label>
-														<input type="hidden" name="membersMemberid" value="${MemberUsing.memberid}"></input>
-														<input type="hidden" name="membersEmail" value="${MemberUsing.email}"></input>
-														<input type="hidden" name="membersPhone" value="${MemberUsing.phone}"></input>
-														<input type="hidden" name="membersAddress" value="${MemberUsing.address}"></input>
-														<input type="hidden" name="membersDate" value="${MemberUsing.date}"></input>
-														<input type="hidden" name="membersMobile" value="${MemberUsing.mobile}"></input>
-														<input type="hidden" name="membersNickname" value="${MemberUsing.nickname}"></input>
-														<input type="hidden" name="membersIntro" value="${MemberUsing.intro}"></input>			
-													</div>
+												
 													
 													<div class="row">
 
 														<div class="form-group col-md-12">
-															<h6 style="color:red;">注意!${MemberUsing.name}您現在正在進行密碼變更作業!!</h6>
-															<input type="hidden" name="membersName" value="${MemberUsing.name}"></input>
+															<h6>很高興與您這段時間的緣分，希望未來還能有緣相聚~</h6>
 														</div>
 
 														<div class="form-group col-md-12">
-															<label>現在的密碼*(如需修改資料，需輸入現在的密碼，以做確認)</label>
-															<input required="" class="form-control" name="membersPassword" type="password" placeholder="請輸入目前的密碼" />
-															<!-- 現在密碼填錯時↓ -->
-															<span style="color: red;">${memberPWErrMsg}</span>
+															<label>將在<img src="http://unicatolicaquixada.edu.br/wp-content/uploads/2019/08/contagem-regressiva-gif-6.gif" class="n3VNCb" style="width: 17px; height: 27px; margin: 0px;">秒後自動跳轉至首頁!</label>
+															
+															
 														</div>
 
-														<div class="form-group col-md-12">
-															<label>新的密碼*</label>
-															<input required="" class="form-control"	name="newMembersPassword" type="password" placeholder="請輸入新密碼" />
-														</div>
-														<div class="form-group col-md-12">
-															<label>確認密碼*</label>
-															<input required="" class="form-control" name="newMembersPasswordRp" type="password" placeholder="請再輸入一次新密碼" />
-															<!-- 新密碼兩欄填寫不一致時↓ -->
-															<span style="color: red;">${warningMemberPWDismatchMsg}</span>
-														</div>
-														<div class="col-md-12">
-															<button type="submit"
-																class="btn btn-fill-out submit font-weight-bold"
-																name="action" value="changepw" >確認修改密碼</button>
-															<!-- 必填欄位尚未被填寫時↓ -->
-															<span style="color: red;">${warningMembersPWMsg}</span>
-															<!-- 會員資料設定修改成功時↓ -->
-															<span style="color: red;">${MembersPWupdateMsg}</span>
-														</div>
-
-
-
-														<!-- ===============================刪除帳號=============================== -->
-
-														<!-- <div class="col-md">
-																<article class="box mb-3 bg-light">
-																	<a class="btn float-end btn-light rounded btn-sm font-md" href="#" name="action" vlaue="deleteaccount">刪除帳號</a>
-																	<h5>刪除帳號</h5>
-																	<small class="text-muted d-block" style="width: 70%">請注意!一旦您選擇刪除帳號後，將無法再回復帳號!</small>
-																</article>
-															</div> -->
-														<!-- ===============================刪除帳號=============================== -->
-													</div>
-												</form>
+														<meta http-equiv="refresh" content="5;url=/jeeweb-TFA105G3/nest-frontend/HomePage.jsp">
+														
+												
 
 
 											</div>
