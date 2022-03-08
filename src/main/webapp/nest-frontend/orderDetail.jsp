@@ -112,7 +112,8 @@
 																<tr>
 <%-- 																	<td>${orderDetailVO.orderId}</td> --%>
 <%-- 																	<td>${orderDetailVO.merId}</td> --%>
-																	<td>${productSvc.getOneProduct(orderDetailVO.merId).name}</td>
+																	<td><a href="<%=request.getContextPath()%>/product/ProductJump?merid=${orderDetailVO.merId }&action=product_jump">
+																	${productSvc.getOneProduct(orderDetailVO.merId).name}</a></td>
 																	<td>${orderDetailVO.qty}</td>
 																	<td>$${orderDetailVO.unitPrice}</td>
 																	<c:if test="${orderSvc.getOneByOrderId(orderDetailVO.orderId).orderStatus == 3}">
