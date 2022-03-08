@@ -42,23 +42,17 @@ public class MembersRegisterServlet extends HttpServlet {
 		Timestamp timestamp = new Timestamp(longTime);
 //        String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(timestamp);
 
-		String checkbox = req.getParameter("checkbox");// 隱私權政策是否有勾選
 
 		// 註冊
 		if ("register".equals(action)) { // MembersRegister.jsp裡的請求
-			System.out.println("按鈕有觸發成功");
-			System.out.println(checkbox+"1在哪裡");
-
-			// 先判斷是否有勾選隱私權政策
-			if (checkbox == null || checkbox.trim().length() == 0) {
-				System.out.println(checkbox+"2在哪裡");
-				req.setAttribute("warningPrivacyMsg", "如欲註冊為會員，需勾選同意隱私權政策!謝謝!");
-				req.getRequestDispatcher("../nest-frontend/MembersRegister.jsp").forward(req, res);
-
-			} else {
+			String checkbox = req.getParameter("checkbox");// 隱私權政策是否有勾選
+			
+			// 先判斷是否有勾選隱私權政策(checkbox沒勾選的值就是null)
+			if (checkbox!=null) {	
+//				Integer checkbox = Integer.parseInt(checkbox1);
 				// 再驗證密碼跟確認密碼欄是否一致
 				if (password.equals(passwordrp)) {
-					System.out.println("密碼："+password+"確認密碼："+passwordrp);
+//					System.out.println("密碼："+password+"確認密碼："+passwordrp);
 					// 確認密碼跟確認密碼為一致後，再撈DB的資料，看有沒有get到email
 					MembersDAO_interface membersDAOInterface = new MembersDAO();
 					MembersVO membersbean = membersDAOInterface.select(email);
@@ -74,7 +68,6 @@ public class MembersRegisterServlet extends HttpServlet {
 						System.out.println("membersbean："+membersbean);
 						// 表示目前資料庫無相同之email，則可繼續進行註冊→則新增1個membersVO
 						MembersService memberssvc = new MembersService();// 註冊方法放在service所以用service
-//							MembersDAO membersDAO = new MembersDAO();
 						MembersVO membersVO = new MembersVO();
 
 						// 將client端輸入的資料set進去
@@ -92,22 +85,34 @@ public class MembersRegisterServlet extends HttpServlet {
 
 					}
 
-				} else {
-					System.out.println("密碼不一致，密碼："+password+"確認密碼："+passwordrp);
-					req.setAttribute("warningMembersMsg1", "不好意思!您的密碼輸入不一致，請再確認!");
-					req.getRequestDispatcher("../nest-frontend/MembersRegister.jsp").forward(req, res);
-
+				
+				}else {
+					
+				System.out.println("密碼不一致，密碼："+password+"確認密碼："+passwordrp);
+				req.setAttribute("warningMembersMsg1", "不好意思!您的密碼輸入不一致，請再確認!");
+				req.getRequestDispatcher("../nest-frontend/MembersRegister.jsp").forward(req, res);
+				
 				}
+				
+			
+
+			} else {
+				req.setAttribute("warningPrivacyMsg", "如欲註冊為會員，需勾選同意隱私權政策!謝謝!");
+				req.getRequestDispatcher("../nest-frontend/MembersRegister.jsp").forward(req, res);
+				
+			}
+
+			return;
 
 			}
 			
-			return;
+			
 		}
 
 		
 
-	}
+}
 
 	
 
-}
+

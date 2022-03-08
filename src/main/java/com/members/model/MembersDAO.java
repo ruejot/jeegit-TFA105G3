@@ -34,16 +34,16 @@ public class MembersDAO implements MembersDAO_interface {
 		"UPDATE MEMBERS SET NAME=?, MOBILE=?, PHONE=?, ADDRESS=?, DATE=?, EMAIL=?, PASSWORD=?, NICKNAME=?, INTRO=?, PHOTO=?"
 		+ " WHERE MEMBER_ID=?";
 
-//	// 修改密碼
-//	private static final String UPDATEPASSWORD = "UPDATE MEMBERS SET PASSWORD=? WHERE MEMBER_ID=?";
+	// 忘記密碼後的變更密碼
+	private static final String UPDATEPASSWORD = "UPDATE MEMBERS SET PASSWORD=? WHERE MEMBER_ID=?";
 	// 刪除
 	private static final String DELETE = "DELETE FROM MEMBERS WHERE MEMBER_ID=?";
 //	//查詢by MEMBER_ID
 	private static final String GET_ONE_STMT = "SELECT MEMBER_ID, NAME, MOBILE, PHONE, ADDRESS, DATE, EMAIL, PASSWORD, NICKNAME, INTRO, PHOTO FROM MEMBERS WHERE MEMBER_ID = ?";
 	// 查詢密碼by MEMBER_ID
 	private static final String GET_PASSWORD = "SELECT MEMBER_ID, NAME, MOBILE, PHONE, ADDRESS, DATE, EMAIL, PASSWORD, NICKNAME, INTRO, PHOTO FROM MEMBERS WHERE MEMBER_ID = ?";
-	// 查詢MEMBER_ID BY EMAIL
-	private static final String GET_MEMBERID = "SELECT MEMBER_ID FROM MEMBERS WHERE EMAIL =?";
+	// 查詢MEMBER_ID+EMAIL BY EMAIL
+	private static final String GET_ID_EMAIL = "SELECT MEMBER_ID, EMAIL FROM MEMBERS WHERE EMAIL =?";
 	// 查詢by EMAIL
 	private static final String GET_EMAIL_STMT = "SELECT MEMBER_ID, NAME, MOBILE, PHONE, ADDRESS, DATE, EMAIL, PASSWORD, NICKNAME, INTRO, PHOTO FROM MEMBERS WHERE EMAIL =?";
 	// 查詢by EMAIL and PASSWORD
@@ -156,50 +156,44 @@ public class MembersDAO implements MembersDAO_interface {
 		}
 	}
 
-//	// 修改密碼
-//	@Override
+	// 忘記密碼後的變更密碼
+	@Override
 //	public void updateMemberPW(Integer memberid,String password,String email,String name,String mobile) {
-//		
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		
-//		try {
-//			 MembersVO memberBean = new MembersVO();
-//			
-//			con = ds.getConnection();
-//			pstmt = con.prepareStatement(UPDATEPASSWORD);
-//
-//			pstmt.setInt(1, memberBean.getMemberid());
-//			pstmt.setString(2, memberBean.getPassword());
-//			
-//			pstmt.setString(3, memberBean.getEmail());
-//			pstmt.setString(4, memberBean.getName());
-//			pstmt.setString(5, memberBean.getMobile());
-//
-//
-//			pstmt.executeUpdate();
-//
-//			// Handle any driver errors
-//		} catch (SQLException se) {
-//			throw new RuntimeException("A database error occured. " + se.getMessage());
-//			// Clean up JDBC resources
-//		} finally {
-//			if (pstmt != null) {
-//				try {
-//					pstmt.close();
-//				} catch (SQLException se) {
-//					se.printStackTrace(System.err);
-//				}
-//			}
-//			if (con != null) {
-//				try {
-//					con.close();
-//				} catch (Exception e) {
-//					e.printStackTrace(System.err);
-//				}
-//			}
-//		}
-//	}
+	public void updateMemberPW(MembersVO memberBean) {	
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			 	
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATEPASSWORD);
+
+			pstmt.setString(1, memberBean.getPassword());
+			pstmt.setInt(2, memberBean.getMemberid());
+			
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 
 	// 刪除DELETE
 	@Override
@@ -297,7 +291,7 @@ public class MembersDAO implements MembersDAO_interface {
 
 	// 查詢MEMBER_ID BY EMAIL
 	@Override
-	public MembersVO selectMemberID(String email) {
+	public MembersVO selectMemberIDEmail(String email) {
 
 		MembersVO memberBean = null;
 
@@ -307,7 +301,7 @@ public class MembersDAO implements MembersDAO_interface {
 
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_MEMBERID);
+			pstmt = con.prepareStatement(GET_ID_EMAIL);
 
 			pstmt.setString(1, email);
 
@@ -317,16 +311,8 @@ public class MembersDAO implements MembersDAO_interface {
 				memberBean = new MembersVO();
 
 				memberBean.setMemberid(rs.getInt("MEMBER_ID"));
-//				memberBean.setName(rs.getString("NAME"));
-//				memberBean.setMobile(rs.getString("MOBILE"));
-//				memberBean.setPhone(rs.getString("PHONE"));
-//				memberBean.setAddress(rs.getString("ADDRESS"));
-//				memberBean.setTimestamp(rs.getTimestamp("DATE"));
-//				memberBean.setEmail(rs.getString("EMAIL"));
-//				memberBean.setPassword(rs.getString("PASSWORD"));
-//				memberBean.setNickname(rs.getString("NICKNAME"));
-//				memberBean.setIntro(rs.getString("INTRO"));
-//				memberBean.setPhoto(rs.getBytes("PHOTO"));
+				memberBean.setEmail(rs.getString("EMAIL"));
+				
 			}
 
 			// Handle any driver errors
