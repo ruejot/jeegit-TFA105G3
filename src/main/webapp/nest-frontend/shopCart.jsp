@@ -157,20 +157,20 @@
                        	
                     	</div>
                     	<div class="divider-2 mb-30"></div>
-<!--                             	<table class="table no-border"> -->
-<!--                                 	<tbody> -->
-<!--                                     	<tr> -->
-<!--                                         	<td class="cart_total_label"> -->
-<!--                                             	<h6 class="text-brand">總計</h6> -->
-<!--                                         	</td> -->
-<!--                                         	<td class="cart_total_amount"> -->
-<%--                                             	<h4 class="text-brand text-end">$ <%=pList.stream() --%>
-<!--                                             	                                          .mapToInt(p -> qtyMap.get(p.getMerid()) * p.getPrice()) -->
-<%--                                             	                                          .sum()%></h4> --%>
-<!--                                         	</td> -->
-<!--                                     	</tr> -->
-<!--                                 	</tbody> -->
-<!--                             	</table> -->
+                            	<table class="table no-border">
+                                	<tbody>
+                                    	<tr>
+                                        	<td class="cart_total_label">
+                                            	<h6 class="text-brand">總計</h6>
+                                        	</td>
+                                        	<td class="cart_total_amount">
+                                            	<h4 class="text-brand text-end">$ <%=pList.stream()
+                                            	                                          .mapToInt(p -> qtyMap.get(p.getMerid()) * p.getPrice())
+                                             	                                          .sum()%></h4> 
+                                        	</td>
+                                    	</tr>
+                                	</tbody>
+                            	</table>
                             	<div class="cart-action d-flex justify-content-between">
                                 	<a href="<%=request.getContextPath()%>/nest-frontend/HomePage.jsp" class="btn" ><i class="fi-rs-arrow-left mr-10"></i>繼續購物</a>
 <!--                                 	<button type="submit"><i class="fi-rs-arrow-left mr-10"></i>繼續購物</button> -->
