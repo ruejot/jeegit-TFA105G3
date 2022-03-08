@@ -44,9 +44,9 @@ public class BusRegisterServlet extends HttpServlet  {
 //        String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(timestamp);
 		
         // 註冊
-		if ("register".equals(busaction)) { // Register.jsp裡的請求
+		if ("register".equals(busaction)) { // BusRegister.jsp裡的請求
 			//先驗證密碼跟確認密碼欄是否一致
-			if("password".equals(passwordrp)){
+			if(password.equals(passwordrp)){
 			
 				//確認密碼跟確認密碼為一致後
 				// 再撈DB的資料，看有沒有get到email

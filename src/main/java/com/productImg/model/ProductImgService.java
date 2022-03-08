@@ -30,13 +30,13 @@ private ProductImgDAO_interface dao;
 //			dao.update(productImgVO);
 //		}
 		
-		public ProductImgVO updateProductImg(Integer imgid, Integer merid, byte[] merpic, Date time, Connection con) {
+		public ProductImgVO updateProductImg(Integer imgid, Integer merid, byte[] merpic, Date time) {
 			ProductImgVO proImgVO = new ProductImgVO();
 			proImgVO.setImgid(imgid);
 			proImgVO.setMerid(merid);
 			proImgVO.setMerpic(merpic);
 			proImgVO.setTime(time);
-			dao.update(proImgVO, con);
+			dao.update(proImgVO);
 			
 			return proImgVO;
 		}

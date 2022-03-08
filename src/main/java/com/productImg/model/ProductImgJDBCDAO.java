@@ -65,49 +65,49 @@ public class ProductImgJDBCDAO implements ProductImgDAO_interface {
 //
 //	}
 
-//	@Override
-//	public void update(ProductImgVO productImgVO) {
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//
-//		try {
-//
-//			Class.forName(driver);
-//			con = DriverManager.getConnection(url, userid, passwd);
-//			pstmt = con.prepareStatement(UPDATE);
-//
-//			pstmt.setInt(1, productImgVO.getMerid());
-//			pstmt.setBytes(2, productImgVO.getMerpic());
-//			pstmt.setDate(3, productImgVO.getTime());
-//			pstmt.setInt(4, productImgVO.getImgid());
-//
-//			pstmt.executeUpdate();
-//
-//			// Handle any driver errors
-//		} catch (ClassNotFoundException e) {
-//			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-//			// Handle any SQL errors
-//		} catch (SQLException se) {
-//			throw new RuntimeException("A database error occured. " + se.getMessage());
-//			// Clean up JDBC resources
-//		} finally {
-//			if (pstmt != null) {
-//				try {
-//					pstmt.close();
-//				} catch (SQLException se) {
-//					se.printStackTrace(System.err);
-//				}
-//			}
-//			if (con != null) {
-//				try {
-//					con.close();
-//				} catch (Exception e) {
-//					e.printStackTrace(System.err);
-//				}
-//			}
-//		}
-//
-//	}
+	@Override
+	public void update(ProductImgVO productImgVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE);
+
+			pstmt.setInt(1, productImgVO.getMerid());
+			pstmt.setBytes(2, productImgVO.getMerpic());
+			pstmt.setDate(3, productImgVO.getTime());
+			pstmt.setInt(4, productImgVO.getImgid());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
 
 	@Override
 	public void delete(Integer imgid) {
@@ -274,47 +274,56 @@ public class ProductImgJDBCDAO implements ProductImgDAO_interface {
 		ProductImgJDBCDAO dao = new ProductImgJDBCDAO();
 
 		// 新增
-//		String path = "C:/Tibame-Web Project";
-//		File input1 = new File(path + "/1.jpg");
-//		int length1 = (int) input1.length();
-//		byte[] photo1 = new byte[length1];
-//		FileInputStream fis1 = new FileInputStream(input1);
-//		fis1.read(photo1);
-//		fis1.close();
+		String path = "C:/Tibame-Web Project";
+		File input1 = new File(path + "/1.jpg");
+		int length1 = (int) input1.length();
+		byte[] photo1 = new byte[length1];
+		FileInputStream fis1 = new FileInputStream(input1);
+		fis1.read(photo1);
+		fis1.close();
+		
+//		String path1 = "C:/Tibame-Web Project";
+//		File input2 = new File(path + "/2.png");
+//		int length2 = (int) input2.length();
+//		byte[] photo2 = new byte[length2];
+//		FileInputStream fis2 = new FileInputStream(input2);
+//		fis2.read(photo2);
+//		fis2.close();
 //
 //		ProductImgVO productImgVO1 = new ProductImgVO();
 //		productImgVO1.setMerid(2);
 //		productImgVO1.setMerpic(photo1);
 //		productImgVO1.setTime(java.sql.Date.valueOf("2022-02-03"));
 //		dao.insert(productImgVO1);
+		
 //
 //		// 修改
 //		ProductImgVO productImgVO2 = new ProductImgVO();
-//		productImgVO2.setMerid(2);
+//		productImgVO2.setMerid(97);
 //		productImgVO2.setMerpic(photo1);
-//		productImgVO2.setTime(java.sql.Date.valueOf("2022-02-10"));
-//		productImgVO2.setImgid(1);
+//		productImgVO2.setTime(java.sql.Date.valueOf("2022-03-06"));
+//		productImgVO2.setImgid(58);
 //		dao.update(productImgVO2);
 
 		// 刪除
 //		dao.delete(2);
 
 		// 查詢
-		ProductImgVO productImgVO3 = dao.findByPrimaryKey(3);
-		System.out.print(productImgVO3.getImgid() + ",");
-		System.out.print(productImgVO3.getMerid() + ",");
-		System.out.print(productImgVO3.getMerpic() + ",");
-		System.out.print(productImgVO3.getTime() + ",");
-		System.out.println("---------------------");
-
-		List<ProductImgVO> list = dao.getAll();
-		for (ProductImgVO aImg : list) {
-			System.out.print(aImg.getImgid() + ",");
-			System.out.print(aImg.getMerid() + ",");
-			System.out.print(aImg.getMerpic() + ",");
-			System.out.print(aImg.getTime() + ",");
-			System.out.println();
-		}
+//		ProductImgVO productImgVO3 = dao.findByPrimaryKey(3);
+//		System.out.print(productImgVO3.getImgid() + ",");
+//		System.out.print(productImgVO3.getMerid() + ",");
+//		System.out.print(productImgVO3.getMerpic() + ",");
+//		System.out.print(productImgVO3.getTime() + ",");
+//		System.out.println("---------------------");
+//
+//		List<ProductImgVO> list = dao.getAll();
+//		for (ProductImgVO aImg : list) {
+//			System.out.print(aImg.getImgid() + ",");
+//			System.out.print(aImg.getMerid() + ",");
+//			System.out.print(aImg.getMerpic() + ",");
+//			System.out.print(aImg.getTime() + ",");
+//			System.out.println();
+//		}
 	}
 
 	@Override
@@ -360,40 +369,40 @@ public class ProductImgJDBCDAO implements ProductImgDAO_interface {
 
 	}
 
-	@Override
-	public void update(ProductImgVO productImgVO, Connection con) {
-		PreparedStatement pstmt = null;
-
-		try {
-			pstmt = con.prepareStatement(UPDATE);
-
-			pstmt.setInt(1, productImgVO.getMerid());
-			pstmt.setBytes(2, productImgVO.getMerpic());
-			pstmt.setDate(3, productImgVO.getTime());
-
-			pstmt.executeUpdate();
-
-		} catch (SQLException se) {
-			if (con != null) {
-				try {
-					// 設定於當有exception發生時之catch區塊內
-					System.err.print("Transaction is being ");
-					System.err.println("rolled back-由-ProductImg");
-					con.rollback();
-				} catch (SQLException excep) {
-					throw new RuntimeException("rollback error occured. " + excep.getMessage());
-				}
-			}
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-		}
-	}
+//	@Override
+//	public void update(ProductImgVO productImgVO, Connection con) {
+//		PreparedStatement pstmt = null;
+//
+//		try {
+//			pstmt = con.prepareStatement(UPDATE);
+//
+//			pstmt.setInt(1, productImgVO.getMerid());
+//			pstmt.setBytes(2, productImgVO.getMerpic());
+//			pstmt.setDate(3, productImgVO.getTime());
+//
+//			pstmt.executeUpdate();
+//
+//		} catch (SQLException se) {
+//			if (con != null) {
+//				try {
+//					// 設定於當有exception發生時之catch區塊內
+//					System.err.print("Transaction is being ");
+//					System.err.println("rolled back-由-ProductImg");
+//					con.rollback();
+//				} catch (SQLException excep) {
+//					throw new RuntimeException("rollback error occured. " + excep.getMessage());
+//				}
+//			}
+//		} finally {
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace();
+//				}
+//			}
+//		}
+//	}
 
 //	@Override
 //	public void delete(ProductImgVO productImgVO, Connection con) {
