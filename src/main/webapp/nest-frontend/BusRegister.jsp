@@ -117,7 +117,7 @@
 																<label class="form-check-label" for="privacycheckbox"><span>我同意隱私權政策</span></label>
 															</div>
 														</div>
-														<a href="page-privacy-policy.html"><i
+														<a href="../views/privacyPolicy.jsp"><i
 															class="fi-rs-book-alt mr-5 text-muted"></i>由此了解更多隱私權政策</a>
 														<!-- 若無勾選同意隱私權政策時會出警告訊息在這 -->
 														<span style="color: red;">${warningPrivacyMsg}</span>
