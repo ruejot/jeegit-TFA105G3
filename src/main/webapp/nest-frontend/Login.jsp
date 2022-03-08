@@ -133,7 +133,7 @@
 													<!-- 帳密錯誤時會出錯誤訊息在這 -->
 													<span style ="color: red;">${errMsg1}</span>
 													<div class="mb-3">
-														<a href="#" class="float-end font-sm text-muted">忘記密碼?</a> 
+														<a href="../nest-backend/busForgetPassword.jsp" class="float-end font-sm text-muted">忘記密碼?</a> 
 														<!-- <label class="form-check">
 															<input type="checkbox" class="form-check-input" checked="" /> <span class="form-check-label">記住我</span>
 														</label> -->

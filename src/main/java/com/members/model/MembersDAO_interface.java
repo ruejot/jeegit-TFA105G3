@@ -12,7 +12,7 @@ public interface MembersDAO_interface {
 	public abstract MembersVO select(Integer memberid);
 	public abstract MembersVO select(String email);	
 	public abstract MembersVO selectByEmailAndPassword(String email, String password);
-//	select 2 data By PrimaryKey	
+//	select 2 parameters of single data By PrimaryKey	
 	public abstract MembersVO selectMemberIDEmail(String email);
 //	select all table data
 	public abstract List<MembersVO> selectAll();

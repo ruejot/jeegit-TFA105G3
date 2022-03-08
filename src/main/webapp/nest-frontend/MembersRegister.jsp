@@ -104,14 +104,15 @@
 																<!-- (取消此作法)必須勾選，否則會跳警告提示框(詳如下方script) -->
 																<input class="form-check-input"
 																	type="checkbox" name="checkbox" id="privacycheckbox"
-																	value="1" onchange="privacychecked()" checked><label class="form-check-label" for="privacycheckbox"><span>我同意隱私權政策</span></label>
-																</input>
+																	value="1" checked>
+<!-- 																	input不用加onchange="privacychecked()"事件來判斷是否有checked，因為沒勾，getParameter的值就是"null" -->
+																<label class="form-check-label" for="privacycheckbox"><span>我同意隱私權政策</span></label>
 																<!-- 若無勾選同意隱私權政策時會出警告訊息在這 -->
 																<span style="color: red;">${warningPrivacyMsg}</span>
 																
 															</div>
 														</div>
-														<a href="page-privacy-policy.html"><i
+														<a href="../views/privacyPolicy.jsp"><i
 															class="fi-rs-book-alt mr-5 text-muted"></i>由此了解更多隱私權政策</a>
 													</div>
 													<!-- 輸入之帳號已被註冊時出警告訊息在這 -->
