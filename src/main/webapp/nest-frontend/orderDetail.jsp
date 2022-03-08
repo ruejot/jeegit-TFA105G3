@@ -3,8 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.orderDetail.model.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="com.members.model.*"%>
 
-<%	
+<%
+	MembersVO membersVO = (MembersVO) session.getAttribute("MemberUsing");
   List<OrderDetailVO> list = (List<OrderDetailVO>)request.getAttribute("orderDetailList");
   pageContext.setAttribute("list",list);
 %>
