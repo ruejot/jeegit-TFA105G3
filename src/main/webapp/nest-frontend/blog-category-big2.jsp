@@ -143,7 +143,7 @@ pageContext.setAttribute("list2",list2);
                                     <article class="first-post mb-30 hover-up animated" style="visibility: visible">
                                         <div class="position-relative overflow-hidden">
                                             <div class="post-thumb border-radius-15">
-                                                 <a href="<%=request.getContextPath()%>/MemBlogArtServlet?action=getOne_For_Display&artid=${memBlogArtVO.artid}">            
+                                                 <a href="<%=request.getContextPath()%>/ArtDisplay?action=getOne_For_Display&artid=${memBlogArtVO.artid}">            
 
 <%--                                                 	<c:forEach var="MemArtPicVO" items="${list2}"> --%>
 <%--                    										 <c:if test="${memBlogArtVO.artid==memArtPicVO.blArtId}"> --%>
@@ -157,7 +157,7 @@ pageContext.setAttribute("list2",list2);
                                         </div>
                                         <div class="entry-content">
                                             <h2 class="post-title mb-20">
-                                                <a href="<%=request.getContextPath()%>/MemBlogArtServlet?action=getOne_For_Display&artid=${memBlogArtVO.artid}">${memBlogArtVO.title}</a>
+                                                <a href="<%=request.getContextPath()%>/ArtDisplay?action=getOne_For_Display&artid=${memBlogArtVO.artid}">${memBlogArtVO.title}</a>
                                             </h2>
                                             <div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
                                             <p class="post-exerpt font-medium text-muted mb-30">${memBlogArtVO.content}</p>
@@ -176,7 +176,7 @@ pageContext.setAttribute("list2",list2);
                                                         >
                                                     </div>
                                                 </div>
-                                                <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/MemBlogArtServlet" style="margin-bottom: 0px;">
+                                                <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArtDisplay" style="margin-bottom: 0px;">
                                                 <input type="hidden" name="artid"  value="${memBlogArtVO.artid}">
                                                 <input type="hidden" name="action" value="getOne_For_Display">
                                                 <button type="submit" class="btn btn-sm"><i class="fi-rs-arrow-right ml-10"></i>更多...</button>

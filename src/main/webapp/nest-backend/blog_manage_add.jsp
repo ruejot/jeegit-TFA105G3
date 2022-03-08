@@ -79,128 +79,36 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
                                                 <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false"><i class="fi-rs-settings-sliders mr-10"></i>會員中心</a>
                                             </li>
                                             -->
-										<li class="nav-item"><a class="nav-link active"
-											id="orders-tab" data-bs-toggle="tab" href="#orders"
-											role="tab" aria-controls="orders" aria-selected="false"><i
+										<li class="nav-item"><a class="nav-link"
+											id="orders-tab" href="<%=request.getContextPath()%>/nest-backend/blog_manage_article.jsp"
+											role="tab" ><i
 												class="fi-rs-settings mr-10"></i>文章管理</a></li>
 										<!--
                                             <li class="nav-item">
                                                 <a class="nav-link" id="track-orders-tab" data-bs-toggle="tab" href="#track-orders" role="tab" aria-controls="track-orders" aria-selected="false"><i class="fi-rs-shopping-cart-check mr-10"></i>Track Your Order</a>
                                             </li>
                                              -->
-										<li class="nav-item"><a class="nav-link"
-											id="dashboard-tab" data-bs-toggle="tab" href="#dashboard"
-											role="tab" aria-controls="dashboard" aria-selected="false"><i
+										<li class="nav-item"><a class="nav-link active"
+											id="dashboard-tab" href="<%=request.getContextPath()%>/nest-backend/blog_manage_add.jsp"
+											role="tab"><i
 												class="fi-rs-pencil mr-10"></i>發表新文</a></li>
 
 										<li class="nav-item"><a class="nav-link" id="address-tab"
-											data-bs-toggle="tab" href="#address" role="tab"
-											aria-controls="address" aria-selected="true"><i
+											href="<%=request.getContextPath()%>/nest-backend/blog_manage_saved.jsp" role="tab"
+											><i
 												class="fi-rs-heart mr-10"></i>收藏文章</a></li>
 
 										<li class="nav-item"><a class="nav-link"
-											id="account-detail-tab" data-bs-toggle="tab"
-											href="#account-detail" role="tab"
-											aria-controls="account-detail" aria-selected="true"><i
+											id="account-detail-tab" 
+											href="<%=request.getContextPath()%>/nest-backend/blog_manage_follow.jsp" role="tab"
+											><i
 												class="fi-rs-following mr-10"></i>關注中</a></li>
 									</ul>
 								</div>
 							</div>
 							<div class="col-md-9">
-								<div class="tab-content account dashboard-content pl-50">
-									<div class="tab-pane fade active show" id="orders"
-										role="tabpanel" aria-labelledby="orders-tab">
-										<div class="card">
-											<div class="content-header">
-												<div class="col-md-9">
-													<h2 class="content-title card-title">文章管理</h2>
-												</div>
-												<!-- 												<div class="col-md-2"> -->
-												<!-- 													<a -->
-												<%-- 														href="<%=request.getContextPath()%>/nest-backend/blog_add-article.jsp" --%>
-												<!-- 														class="btn btn-primary btn-sm rounded">新增文章</a> -->
-												<!-- 												</div> -->
-											</div>
-											<header class="card-header">
-												<div class="row align-items-center">
-													<div class="col-2 col-check flex-grow-0">
-														<div class="form-check ms-2">
-															全選 <input id="form-check-input" class="form-check-input"
-																type="checkbox" value="" />
-														</div>
-													</div>
-													<div class="col-6"">
-														<span id="batch_delete_btn" />
-													</div>
-												</div>
-											</header>
-											<div class="card-body">
-												<%@ include file="../nest-backend/blog_manage_page.file"%>
-												<c:forEach var="memBlogArtVO" items="${list}"
-													begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-													<article class="itemlist">
-														<div class="row align-items-center">
-															<div class="col col-check flex-grow-0">
-																<div class="form-check">
-																	<input class="form-check-input checkbox-inner"
-																		type="checkbox" name="artid[]"
-																		value="${memBlogArtVO.artid}" />
-																</div>
-															</div>
-															<div class="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
-																<a class="itemside"
-																	href="<%=request.getContextPath()%>/MemBlogArtServlet?action=getOne_For_Display&artid=${memBlogArtVO.artid}">
-																	<div class="left">
-																		<img
-																			src="<%= request.getContextPath() %>/GetPic?blArtPicId=${memBlogArtVO.artid}"
-																			class="img-sm img-thumbnail" alt="Item" />
-																	</div>
-																	<div class="info">
-																		<h6 class="mb-0">${memBlogArtVO.title}</h6>
-																	</div>
-																</a>
-															</div>
-															<div class="col-lg-1 col-sm-2 col-4 col-date"
-																style="width: 125px;">
-																<span>${memBlogArtVO.posttimeDate}</span>
-															</div>
-															<div class="col-lg-2 col-sm-2 col-4 col-action text-end">
-
-																<FORM METHOD="post"
-																	ACTION="<%=request.getContextPath()%>/MemBlogArtServlet"
-																	style="margin-bottom: 0px;">
-																	<input type="hidden" name="artid"
-																		value="${memBlogArtVO.artid}"> <input
-																		type="hidden" name="action" value="edit">
-																	<button type="submit"
-																		class="btn btn-sm font-sm rounded btn-brand">
-																		<i class="material-icons md-edit"></i>編輯
-																	</button>
-
-																</FORM>
-
-
-																<FORM METHOD="post"
-																	ACTION="<%=request.getContextPath()%>/MemBlogArtServlet"
-																	style="margin-bottom: 0px;">
-																	<input type="hidden" name="artid"
-																		value="${memBlogArtVO.artid}"> <input
-																		type="hidden" name="action" value="delete">
-																	<button type="submit"
-																		class="btn btn-sm font-sm btn-light rounded">
-																		<i class="material-icons md-delete_forever"></i>刪除
-																	</button>
-																</FORM>
-															</div>
-														</div>
-														<!-- row .// -->
-													</article>
-												</c:forEach>
-											</div>
-										</div>
-									</div>
-									<div class="tab-pane fade" id="dashboard" role="tabpanel"
-										aria-labelledby="dashboard-tab">
+											<%@ include file="../nest-backend/blog_manage_page.file"%>
+									
 										<div class="row">
 				<div class="col-9">
 					<div class="content-header">
@@ -278,8 +186,6 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 						<div class="card mb-7"></div>
 
 						<div>
-							<button
-								class="btn btn-light rounded font-sm mr-5 text-body hover-up">儲存草稿</button>
 							<button type="submit" class="btn btn-md rounded font-sm hover-up">新增文章</button>
 						</div>
 					</div>
@@ -298,7 +204,6 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 											<div class="content-header">
 												<div class="col-md-10">
 													<h2 class="content-title card-title">收藏文章</h2>
-													<p>Lorem ipsum dolor sit amet.</p>
 												</div>
 											</div>
 											<header class="card-header">
@@ -629,14 +534,14 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 	<script src="<%=request.getContextPath()%>/assets/js/main_frontend.js"></script>
 	<script src="<%=request.getContextPath()%>/assets/js/shop.js"></script>
 </body>
-	<script>
-		$("input#product_title").blur(function(){
-			if ($("input#product_title").val().trim()=='')
-				$("#errMsg").html("<div class='text-danger'>文章標題不得空白</div>")
-			else
-				$("#errMsg").html("")
-		})
-	</script>
+<!-- 	<script> -->
+<!-- // 		$("input#product_title").blur(function(){ -->
+<!-- // 			if ($("input#product_title").val().trim()=='') -->
+<!-- // 				$("#errMsg").html("<div class='text-danger'>文章標題不得空白</div>") -->
+<!-- // 			else -->
+<!-- // 				$("#errMsg").html("") -->
+<!-- // 		}) -->
+<!-- 	</script> -->
 
 <script>
 	$("textarea#article_content").blur(function(){
@@ -686,4 +591,18 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
                                 }
 
                             </script>
+
+
+<script type="text/javascript">
+	window.onload=function(){
+		//如果location存有資料,跳到錨點
+		var location_id='${location}';
+		if(location_id!=''){
+			document.getElementById(location_id).click();
+		}
+	
+	}
+	</script>
+
+
 </html>

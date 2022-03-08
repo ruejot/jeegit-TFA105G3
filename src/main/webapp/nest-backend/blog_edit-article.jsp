@@ -86,7 +86,7 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
                             <div>
                                 <input type="hidden" name="action" value="update">
                                 <input type="hidden" name="artid" value="<%=memBlogArtVO.getArtid()%>" />
-                                <button class="btn btn-light rounded font-sm mr-5 text-body hover-up">儲存草稿</button>
+<!--                                 <button class="btn btn-light rounded font-sm mr-5 text-body hover-up">儲存草稿</button> -->
                                 <button type="submit" class="btn btn-md rounded font-sm hover-up">確認修改</button>
                             </div>
                     </div>                            
