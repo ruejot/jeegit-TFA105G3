@@ -1,11 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- [editor,date] wei,2022-02-22 -->
+<%@ page import="com.bus.model.*"%>
 
+<%
+BusVO busVO = (BusVO) session.getAttribute("BusUsing");
+%>
 <html lang="zh-Hant-TW">
 <head>
 <meta charset="utf-8" />
-<title>Petting 會員設定</title>
+<title>Petting 商業會員 變更密碼</title>
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -40,68 +43,66 @@
 				</div>
 				<div class="card-body">
 					<form method="post" name="enq"
-						action="<%=request.getContextPath()%>/buss/BusPasswordChange">
+						action="<%=request.getContextPath()%>/bus/BusPasswordChange">
 						<div class="form-group col-md-6">
 							<label>使用者ID：</label><span>${BusUsing.busid}</span><span>；</span>
 							<label name="busEmail" type="email">Email(帳號)：<span>${BusUsing.email}</label>
-							
+
 							<input type="hidden" name="busBusid" value="${BusUsing.busid}"></input>
 							<input type="hidden" name="busEmail" value="${BusUsing.email}"></input>
-							
 							<input type="hidden" name="busPhone" value="${BusUsing.phone}"></input>
 							<input type="hidden" name="busAddress" value="${BusUsing.address}"></input>
 							<input type="hidden" name="busTaxid" value="${BusUsing.taxid}"></input>
 							<input type="hidden" name="busDate" value="${BusUsing.date}"></input>
-							<input type="hidden" name="busEmail" value="${BusUsing.email}"></input>
-							<input type="hidden" name="busIntro" value="${BusUsing.intro}"></input>
-							<input type="hidden" name="busFB" value="${BusUsing.busFB}"></input>
-							<input type="hidden" name="busIG" value="${BusUsing.busIG}"></input>
-							<input type="hidden" name="busWebsite" value="${BusUsing.busWebsite}"></input>
-							<input type="hidden" name="busPaymentprovide" value="${BusUsing.busPaymentprovide}"></input>
-						</div>
+							<input type="hidden" name="busFB" value="${BusUsing.fb}"></input>
+							<input type="hidden" name="busIG" value="${BusUsing.ig}"></input>
+							<input type="hidden" name="busWebsite" value="${BusUsing.website}"></input>
+							<input type="hidden" name="busPaymentprovide" value="${BusUsing.paymentprovide}"></input>
 
-						<div class="row">
+							<div class="row">
+								<div class="form-group col-md-12">
+									<h6 style="color: red;">注意!${BusUsing.name}您現在正在進行密碼變更作業!!</h6>
+									<input type="hidden" name="busName" value="${BusUsing.name}"></input>
+								</div>
+								<div class="form-group col-md-12">
+									<label>現在的密碼*(如需修改資料，需輸入現在的密碼，以做確認)</label> <input required=""
+										class="form-control" name="busPassword" type="password"
+										placeholder="請輸入目前的密碼" />
+									<!-- 現在密碼填錯時↓ -->
+									<span style="color: red;">${busPWErrMsg}</span>
+								</div>
+								<div class="form-group col-md-12">
+									<label>新的密碼*</label> <input required="" class="form-control"
+										name="newBusPassword" type="password" placeholder="請輸入新密碼" />
+								</div>
+								<div class="form-group col-md-12">
+									<label>確認密碼*</label> <input required="" class="form-control"
+										name="newBusPasswordRp" type="password"
+										placeholder="請再輸入一次新密碼" />
+									<!-- 新密碼兩欄填寫不一致時↓ -->
+									<span style="color: red;">${warningBusPWDismatchMsg}</span>
+								</div>
+								<div class="col-md-12">
+									<button type="submit"
+										class="btn btn-fill-out submit font-weight-bold" name="action"
+										value="changepw"
+										style="border-color: green; border-width: 1px; border-style: solid;">確認修改密碼</button>
+									<!-- 必填欄位尚未被填寫時↓ -->
+									<span style="color: red;">${warningBusPWMsg}</span>
+									<!-- 會員資料設定修改成功時↓ -->
+									<span style="color: red;">${BusPWupdateMsg}</span>
+								</div>
 
-							<div class="form-group col-md-12">
-								<h6 style="color: red;">注意!${BusUsing.name}您現在正在進行密碼變更作業!!</h6>
-								<input type="hidden" name="busName"
-									value="${BusUsing.name}"></input>
+
+
+
+
 							</div>
 
-							<div class="form-group col-md-12">
-								<label>現在的密碼*(如需修改資料，需輸入現在的密碼，以做確認)</label> <input required=""
-									class="form-control" name="busPassword" type="password"
-									placeholder="請輸入目前的密碼" />
-								<!-- 現在密碼填錯時↓ -->
-								<span style="color: red;">${busPWErrMsg}</span>
-							</div>
 
-							<div class="form-group col-md-12">
-								<label>新的密碼*</label> <input required="" class="form-control"
-									name="newBusPassword" type="password" placeholder="請輸入新密碼" />
-							</div>
-							<div class="form-group col-md-12">
-								<label>確認密碼*</label> <input required="" class="form-control"
-									name="newBusPasswordRp" type="password"
-									placeholder="請再輸入一次新密碼" />
-								<!-- 新密碼兩欄填寫不一致時↓ -->
-								<span style="color: red;">${warningBusPWDismatchMsg}</span>
-							</div>
-							<div class="col-md-12">
-								<button type="submit"
-									class="btn btn-fill-out submit font-weight-bold" name="action"
-									value="changepw">確認修改密碼</button>
-								<!-- 必填欄位尚未被填寫時↓ -->
-								<span style="color: red;">${warningBusPWMsg}</span>
-								<!-- 會員資料設定修改成功時↓ -->
-								<span style="color: red;">${BusPWupdateMsg}</span>
-							</div>
-
-
-
-							
 						</div>
 					</form>
+					
 
 
 				</div>
