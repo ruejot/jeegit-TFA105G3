@@ -5,6 +5,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.members.model.*"%>
 <%@page buffer="8192kb" autoFlush="true" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%	
 	MembersVO membersVO = (MembersVO) session.getAttribute("MemberUsing");	
 	Integer memberId = membersVO.getMemberid();
@@ -113,7 +114,9 @@
 
 																<tr>
 																	<td>${orderVO.orderId}</td>
-																	<td>${orderVO.orderTime}</td>
+																	<fmt:formatDate value="${orderVO.orderTime}" var="formattedDate" 
+               																 type="date" pattern="yyyy/MM/dd HH:mm:ss" />
+																	<td>${formattedDate}</td>
 																	<td><c:if test="${orderVO.orderStatus == 1}">處理中</c:if>
 																		<c:if test="${orderVO.orderStatus == 2}">配送中</c:if>
 																		<c:if test="${orderVO.orderStatus == 3}">已完成</c:if>
@@ -121,7 +124,8 @@
 																	<td>$${orderVO.orderSum}</td>
 																	<td>
 																		<form method= "POST" ACTION= "orderDetail.do">
-																			<button class="btn-small d-block" type="submit">詳細</button>
+																			<button class="btn-small d-block" type="submit" style="width: 80px; height: 50px;
+																													padding: 10px 25px;	font-size: 14px;">詳細</button>
 																			<input type="hidden" name="orderId" value="${orderVO.orderId}">
 																			<input type="hidden" name="action" value="get_Ord_Detail">
 																		</form>
@@ -129,7 +133,8 @@
 																	<c:if test="${orderVO.orderStatus == 1}">
 																		<td>
 																			<form method= "POST" ACTION= "order.do">
-																				<button class="" type="submit">取消</button>
+																				<button class="" type="submit" style="width: 80px; height: 50px;
+																													padding: 10px 25px;	font-size: 14px;">取消</button>
 																				<input type="hidden" name="orderId" value="${orderVO.orderId}">
 																				<input type="hidden" name="action" value="cancel_Ord">
 																			</form>
@@ -137,7 +142,11 @@
 																	</c:if>
 																	<c:if test="${orderVO.orderStatus != 1}">
 																		<td>
-																				<button class="" type="">無法取消</button>
+																				<button style="font-size: 14px; font-weight: 500; 
+																								padding: 10px 25px; color: #ffffff;
+																								border: none; background-color: #E5E5E5;
+																								border: 1px solid #E5E5E5; border-radius: 10px;
+																								width: 80px; height: 50px;">取消</button>
 																		</td>
 																	</c:if>
 																</tr>
