@@ -41,7 +41,7 @@
                 <div class="row">
                     <div class="col-xl-11 col-lg-12 m-auto">
                         <div class="row flex-row-reverse">
-                            <div class="col-xl-9">
+                            <div class="col-xl-10">
                                 <div class="product-detail accordion-detail">
                                     <div class="row mb-50 mt-30">
                                         <div class="col-md-6 col-sm-12 col-xs-12 mb-md-0 mb-sm-5">
@@ -113,7 +113,7 @@
                                         <div class="col-12">
                                             <div class="row related-products">
 	                                            <c:forEach var="relatedProd" items="${relatedProd}" end="9" >
-	                                                <div class="col-lg-3 col-md-4 col-12 col-sm-6">
+	                                                <div class="col-lg-3 col-md-4 col-12 col-sm-6 mb-5">
 	                                                    <div class="product-cart-wrap hover-up">
 	                                                        <a href="<%=request.getContextPath()%>/product/ProductJump?merid=${relatedProd.merid}&action=product_jump" tabindex="0">
 	                                                        <div class="product-content-wrap">
@@ -132,7 +132,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 primary-sidebar sticky-sidebar mt-30">
+                            <div class="col-xl-1 primary-sidebar sticky-sidebar mt-30">
 
                                 <!-- Fillter By Price -->
 <!--                                 <div class="sidebar-widget price_range range mb-30"> -->

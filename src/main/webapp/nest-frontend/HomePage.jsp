@@ -51,7 +51,7 @@ request.setAttribute("mainlist5", mainlist5);
 	<main class="main pages">
 <%-- 		<jsp:include page="/views/userMainPage-header.jsp" /> --%>
 			<!-- 頭 上排十大類 -->
-	<section class="popular-categories section-padding">
+	<section class="popular-categories mt-5">
 		<div class="container wow animate__animated animate__fadeIn">
 			<div class="section-title">
 				<div class="title">
@@ -240,41 +240,41 @@ request.setAttribute("mainlist5", mainlist5);
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-4 col-md-6">
-						<div class="banner-img wow animate__animated animate__fadeInUp"
+						<div class="banner-img wow animate__animated animate__fadeInUp mt-10"
 							data-wow-delay="0">
 							<img src="<%=request.getContextPath()%>/assets/imgs/banner/sleepdog.jpg" alt="" height=340px width=512px />
 							<div class="banner-text">
 								<h4>
 									&#129409;阿偉的商店&#129409; <br /> <br /> 寵物百貨
 								</h4>
-								<a href="shop-grid-left.html" class="btn btn-xs">逛起來 <i
+								<a href="<%=request.getContextPath()%>/nest-frontend/ShopMainpage.do?busid=5&action=show_Shop_Mainpage" class="btn btn-xs">逛起來 <i
 									class="fi-rs-arrow-small-right"></i></a>
 							</div>
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6">
-						<div class="banner-img wow animate__animated animate__fadeInUp"
+						<div class="banner-img wow animate__animated animate__fadeInUp mt-10"
 							data-wow-delay=".2s">
 							<img src="<%=request.getContextPath()%>/assets/imgs/banner/152.jpg" alt="" height=340px width=512px/>
 							<div class="banner-text">
 								<h4>
 									Poké Ball ϞϞ(๑⚈ ․̫ ⚈๑)∩<br /> 寶可夢是種非常可愛的生物
 								</h4>
-								<a href="shop-grid-left.html" class="btn btn-xs">逛起來 <i
+								<a href="<%=request.getContextPath()%>/nest-frontend/ShopMainpage.do?busid=4&action=show_Shop_Mainpage" class="btn btn-xs">逛起來 <i
 									class="fi-rs-arrow-small-right"></i></a>
 							</div>
 						</div>
 					</div>
 					<div class="col-lg-4 d-md-none d-lg-flex">
 						<div
-							class="banner-img mb-sm-0 wow animate__animated animate__fadeInUp"
+							class="banner-img mb-sm-0 wow animate__animated animate__fadeInUp mt-10"
 							data-wow-delay=".4s">
 							<img src="<%=request.getContextPath()%>/assets/imgs/banner/ego.png" alt="" height=340px width=512px/>
 							<div class="banner-text">
 								<h4>
 									寵物也要吃好好 <br />有機寵物鮮食
 								</h4>
-								<a href="shop-grid-left.html" class="btn btn-xs">逛起來 <i
+								<a href="<%=request.getContextPath()%>/nest-frontend/ShopMainpage.do?busid=3&action=show_Shop_Mainpage" class="btn btn-xs">逛起來 <i
 									class="fi-rs-arrow-small-right"></i></a>
 							</div>
 						</div>

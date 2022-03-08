@@ -171,7 +171,7 @@
                                         <li>
                                         <a style="color: #386641" class="active" href="index.html">商城首頁</a>
                                         </li>
-                                        <li><a href="page-about.html">關於我們</a></li>
+                                        <li><a href="<%=request.getContextPath()%>/views/aboutUs.jsp">關於我們</a></li>
                                         <li><a href="shop-grid-right.html">寵物糧食<i class="fi-rs-angle-down"></i></a>
                                             <ul class="sub-menu">
                                                 <li><a href="shop-grid-right.html">品牌飼料</a></li>
