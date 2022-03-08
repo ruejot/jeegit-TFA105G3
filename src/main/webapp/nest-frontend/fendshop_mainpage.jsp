@@ -108,7 +108,6 @@ request.setAttribute("productlist_shopMp", productlist_shopMp);
 	<!--End userHeader-->
 	<main class="main pages">
 		<!-- <main class="page-header breadcrumb-wrap"> 是 首頁>其他頁 顯示列 this block 至少有2種樣式，有的頁面甚至沒有page-header區塊，會再確認userMainPage-header.jsp這樣分割是否適合。 -->
-		<jsp:include page="/views/userMainPage-header.jsp" />
 		<!-- 開始寫此jsp頁內容，重點，從<div class="page-header..."> 的{同層下一區塊}開始寫內容 -->
 		<div class="container mb-30">
 			<div class="archive-header-2 text-center pt-70 pb-30">
@@ -186,11 +185,11 @@ request.setAttribute("productlist_shopMp", productlist_shopMp);
 							<div class="follow-social mb-20">
 								<h6 class="mb-15">聯絡我們</h6>
 								<ul class="social-network">
-									<li class="hover-up ml-40"><a href="#"> <img src="../assets/imgs/theme/icons/social-fb.svg" alt="" />
+									<li class="hover-up ml-40"><a href="https://www.facebook.com/ntoubakingclub/"> <img src="../assets/imgs/theme/icons/social-fb.svg" alt="" />
 									</a></li>
-									<li class="hover-up ml-20"><a href="#"> <img src="../assets/imgs/theme/icons/social-insta.svg" alt="" />
+									<li class="hover-up ml-20"><a href="https://www.instagram.com/cataholic.lover/"> <img src="../assets/imgs/theme/icons/social-insta.svg" alt="" />
 									</a></li>
-									<li class="hover-up ml-20"><a href="#"> <img src="../assets/imgs/theme/icons/social-tw.svg" alt="" />
+									<li class="hover-up ml-20"><a href="../nest-frontend/fendcs_mail.jsp"> <img src="../assets/imgs/theme/icons/email_nb.png" alt="" />
 									</a></li>
 								</ul>
 							</div>
