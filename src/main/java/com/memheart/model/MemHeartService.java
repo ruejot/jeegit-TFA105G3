@@ -11,7 +11,7 @@ public class MemHeartService {
 	private MemHeartDAO_interface dao;
 
 	public MemHeartService() {
-		dao = new MemHeartJDBCDAO();
+		dao = new MemHeartDAO();
 	}
 
 	public List<MemHeartVO> getAll() {
@@ -20,6 +20,11 @@ public class MemHeartService {
 
 	public MemHeartVO findByPrimaryKey(Integer heArtId, Integer heMemberId) {
 		return dao.findByPrimaryKey(heArtId,heMemberId);
+	}
+	
+	
+	public MemHeartVO ifLiked(Integer heArtId,Integer heMemberId) {
+		return dao.ifLiked(heArtId,heMemberId);
 	}
 
 	public Set<MemHeartVO> getCountByMember(Integer heMemberId) {

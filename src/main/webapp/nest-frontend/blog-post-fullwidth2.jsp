@@ -1,5 +1,6 @@
 ﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.memblogart.model.*"%>
 <%@ page import="com.memreply.model.*"%>
@@ -54,6 +55,11 @@ pageContext.setAttribute("list2",list2);
 <jsp:include page="/views/userHeader.jsp"></jsp:include>
 </head>
 
+<style>
+
+
+</style>
+
 <body>
     <main class="main">
         <div class="page-content mb-50">
@@ -77,7 +83,7 @@ pageContext.setAttribute("list2",list2);
                                             <div class="social-icons single-share">
                                                 <ul class="text-grey-5 d-inline-block">
                                                     <li class="mr-5"><img class="bookmark" src="assets/imgs/theme/icons/icon-bookmark.svg" alt=""><a class="saved" href="#" >收藏此文章</a></li>
-                                                    <li><a href="#"><img src="assets/imgs/theme/icons/icon-heart-2.svg" alt=""></a></li>
+                                                    <li class="he-5"><img src="assets/imgs/theme/icons/icon-heart-2.svg" alt=""><a class="liked" href="#" >按讚</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -148,25 +154,11 @@ pageContext.setAttribute("list2",list2);
                                                             <div class="col-12">
                                                                 <div class="form-group">
                                                                     <input type="hidden" name="reArtId" value="<%=memBlogArtVO.getArtid()%>">
+                                                                    <input type="hidden" name="reMemberId" value="<%=membersVO.getMemberid()%>">
                                                                     <input type="hidden" name="action" value="insert">
                                                                     <textarea class="form-control w-100" name="re" id="comment" cols="30" rows="9" placeholder="請在此輸入回應內容"></textarea>
                                                                 </div>
                                                             </div>
-<!--                                                             <div class="col-sm-6"> -->
-<!--                                                                 <div class="form-group"> -->
-<!--                                                                     <input class="form-control" name="name" id="name" type="text" placeholder="Name"> -->
-<!--                                                                 </div> -->
-<!--                                                             </div> -->
-<!--                                                             <div class="col-sm-6"> -->
-<!--                                                                 <div class="form-group"> -->
-<!--                                                                     <input class="form-control" name="email" id="email" type="email" placeholder="Email"> -->
-<!--                                                                 </div> -->
-<!--                                                             </div> -->
-<!--                                                             <div class="col-12"> -->
-<!--                                                                 <div class="form-group"> -->
-<!--                                                                     <input class="form-control" name="website" id="website" type="text" placeholder="Website"> -->
-<!--                                                                 </div> -->
-<!--                                                             </div> -->
                                                         </div>
                                                         
                                                         <div class="form-group">
@@ -185,26 +177,39 @@ pageContext.setAttribute("list2",list2);
 <!--                                                                     TODO:member名稱要用id進資料庫找出來 -->
                                                                     <c:forEach var="membersVOinfo" items="${list3}">
                                                                         
-                                                                    <a href="#" class="font-heading text-brand">
+                                                                    <a href="<%=request.getContextPath()%>/MemBlogArtServlet?action=getMem_For_Display&memberId=${memReplyVO.reMemberId}" class="font-heading text-brand">
                                                                     <c:if test="${memReplyVO.reMemberId==membersVOinfo.memberid}">
                                                                     ${membersVOinfo.nickname}
                                                                     </c:if>
                                                                     </a>
-                                                                        
                                                                     </c:forEach>
                                                                 </div>
-                                                                <div class="desc">
+<!--                                                                 <div class="desc"> -->
+<!--                                                                     <div class="justify-content-between mb-10"> -->
+                                                                        
+<!--                                                                         <div class="d-flex align-items-center"> -->
+<!--                                                                         <div style="display:block;"> -->
+<%--                                                                         <p class="mb-10">${memReplyVO.re}</p> --%>
+<!--                                                                         </div> -->
+<%-- <%--                                                                         <fmt:formatDate value="${memReplyVO.time}" var="formattedDate" type="date" pattern="yyyy/MM/dd HH:mm:ss"/> --%> 
+<%--                                                                             <span class="font-xs text-muted">${memReplyVO.time}</span> --%>
+                                                                        
+<!--                                                                         </div> -->
+                                                                        
+                                                                        
+<!--                                                                     </div> -->
+                                                                    
+<!--                                                                 </div> -->
+                                                                    <div class="desc">
                                                                     <div class="d-flex justify-content-between mb-10">
                                                                         <div class="d-flex align-items-center">
-                                                                            <span class="font-xs text-muted">${memReplyVO.time}</span>
+                                                                            <span class="font-xs text-muted">${memReplyVO.time} </span>
                                                                         </div>
-                                                                        <div class="product-rate d-inline-block">
-                                                                            <div class="product-rating" style="width:80%">
-                                                                            </div>
+                                                                        <div class="d-inline-block">
+                                                                            
                                                                         </div>
                                                                     </div>
-                                                                    <p class="mb-10">${memReplyVO.re}<a href="#" class="reply">Reply</a></p>
-                                                                    <% %>
+                                                                    <p class="mb-10"> ${memReplyVO.re}</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -307,6 +312,51 @@ pageContext.setAttribute("list2",list2);
                 });
         })
     </script>
+
+    <script>
+        $('li.he-5').click(function(){
+            console.log("有執行");
+            $('li.he-5').toggleClass("liked");
+//             $('img.bookmark').attr("src", "assets/imgs/theme/icons/bookmark_black_24dp.svg");
+
+            $.ajax({
+                method: "POST",
+                url: "<%=request.getContextPath()%>/MemHeartServlet",
+                data: {
+                    action: "if_liked",
+                    heArtId:"<%=memBlogArtVO.getArtid()%>",
+                    heMemberId:"<%=membersVO.getMemberid()%>",
+                    },
+
+                dataType : 'json',
+
+                complete: function(jqXHR){
+                    console.log(jqXHR.readyState)
+                    if(jqXHR.readyState === 4) {
+                        console.log(jqXHR.responseText)
+                        data = jqXHR.responseText
+                        console.log(JSON.parse(data).success);
+                        console.log(JSON.parse(data).type);
+
+                        if(JSON.parse(data).success && JSON.parse(data).type==="insert"){
+                            $('li.he-5').toggleClass("liked");
+                            $('a.liked').text("收回讚");
+                            
+                        } else {
+                            $('li.he-5').toggleClass("liked")
+                            $('a.liked').text("按讚");
+                        }
+
+
+
+                    }
+                }
+
+
+                });
+        })
+    </script>
+
 
 
 
