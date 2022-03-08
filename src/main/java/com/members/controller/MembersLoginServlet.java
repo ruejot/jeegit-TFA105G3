@@ -59,8 +59,8 @@ public class MembersLoginServlet extends HttpServlet {
 //			      
 //			      
 			} else {
-//				將錯誤訊息("資料有誤，請重新輸入!!")取key名為errMsg，放在login.jsp頁面上，以${errMsg}呈現
-				req.setAttribute("errMsg", "資料有誤，請重新輸入!!");
+//				將錯誤訊息("資料有誤或並未填寫，請重新輸入!!")取key名為errMsg，放在login.jsp頁面上，以${errMsg}呈現
+				req.setAttribute("errMsg", "資料有誤或並未填寫，請重新輸入!!");
 				req.getRequestDispatcher("../nest-frontend/Login.jsp").forward(req, res);
 							
 				//方法2.彈跳提醒錯誤的視窗
