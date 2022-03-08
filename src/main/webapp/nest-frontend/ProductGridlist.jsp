@@ -117,7 +117,7 @@ pageContext.setAttribute("list", list);
 												</div>
 												<div class="add-cart">
 													<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
-														<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+														<button type="submit" id="btn_submit" class="btn btn-xs"> 
 															<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
 															<input type="hidden" name="action" value="add">                                                    
 			                                                <input type="hidden" name="qty"  id="i_qty" value="1">   

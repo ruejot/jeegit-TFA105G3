@@ -207,7 +207,7 @@ request.setAttribute("mainlist5", mainlist5);
 							<img  style="margin:auto;" src="<%=request.getContextPath()%>/assets/imgs/slider/buyingdog.jpg" width=1200px/> 
 							<div class="slider-content">
 								<h1 class="display-2 mb-40">
-									趕緊加入<br /> 全台灣最ㄒㄧㄚ的寵物商店
+									趕緊加入<br /> 全台灣最ㄒ—ㄚ的寵物商店
 								</h1>
 								<p class="mb-65">訂閱每周優惠商品</p>
 								<form class="form-subcriber d-flex" action="<%=request.getContextPath()%>/commonUtil/sendMailServlet">
@@ -350,7 +350,7 @@ request.setAttribute("mainlist5", mainlist5);
 												</div>
 												<div class="add-cart">
                             				<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
-												<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+												<button type="submit" id="btn_submit" class="btn btn-xs"> 
 													<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
 													<input type="hidden" name="action" value="add">                                                    
 	                                                <input type="hidden" name="qty"  id="i_qty" value="1">   
@@ -412,7 +412,7 @@ request.setAttribute("mainlist5", mainlist5);
 												</div>
 												<div class="add-cart">
 											<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
-												<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+												<button type="submit" id="btn_submit" class="btn btn-xs"> 
 													<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
 													<input type="hidden" name="action" value="add">                                                    
 	                                                <input type="hidden" name="qty"  id="i_qty" value="1">   
@@ -474,7 +474,7 @@ request.setAttribute("mainlist5", mainlist5);
 												</div>
 												<div class="add-cart">
 													<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
-														<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+														<button type="submit" id="btn_submit" class="btn btn-xs"> 
 															<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
 															<input type="hidden" name="action" value="add">                                                    
 			                                                <input type="hidden" name="qty"  id="i_qty" value="1">   
@@ -535,7 +535,7 @@ request.setAttribute("mainlist5", mainlist5);
 												</div>
 												<div class="add-cart">
 													<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
-														<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+														<button type="submit" id="btn_submit" class="btn btn-xs"> 
 															<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
 															<input type="hidden" name="action" value="add">                                                    
 			                                                <input type="hidden" name="qty"  id="i_qty" value="1">   
@@ -596,7 +596,7 @@ request.setAttribute("mainlist5", mainlist5);
 												</div>
 												<div class="add-cart">
 													<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
-														<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+														<button type="submit" id="btn_submit" class="btn btn-xs"> 
 															<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
 															<input type="hidden" name="action" value="add">                                                    
 			                                                <input type="hidden" name="qty"  id="i_qty" value="1">   
@@ -679,7 +679,7 @@ request.setAttribute("mainlist5", mainlist5);
 												</div>
 												<div class="add-cart">
 													<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
-														<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+														<button type="submit" id="btn_submit" class="btn btn-xs"> 
 															<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
 															<input type="hidden" name="action" value="add">                                                    
 			                                                <input type="hidden" name="qty"  id="i_qty" value="1">   

@@ -35,7 +35,6 @@
 	<jsp:include page="/views/userHeader.jsp" />
 	<!--End userHeader-->
 	<main class="main pages">
-		<jsp:include page="/views/userMainPage-header.jsp" />
 		 <div class="container">
             <!-- Main HERE -->
             <div class="container mb-30">
@@ -67,14 +66,12 @@
                                         </div>
                                         <div class="col-md-6 col-sm-12 col-xs-12">
                                             <div class="detail-info pr-30 pl-30">
-                                                <span class="stock-status out-stock"> Sale Off </span>
                                                 <h2 class="title-detail">${aProd.get(0).name}</h2>
                                                 <div class="product-detail-rating">
                                                     <div class="product-rate-cover text-end">
                                                         <div class="product-rate d-inline-block">
                                                             <div class="product-rating" style="width: 90%"></div>
                                                         </div>
-                                                        <span class="font-small ml-5 text-muted"> (32 reviews)</span>
                                                     </div>
                                                 </div>
                                                 <div class="clearfix product-price-cover">
