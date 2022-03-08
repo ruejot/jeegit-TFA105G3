@@ -2,6 +2,10 @@ package com.product.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
+import com.productImg.model.ProductImgDAO_interface;
 
 public class HomePageService {
 
@@ -24,6 +28,7 @@ public class HomePageService {
 //		System.out.println("count="+ sublist);
 		return subcounts;
 	}
+
 	public Integer getCountsByMainCategory(String main) {
 		List<ProductVO> list = dao.getAll();
 		int maincounts = 0;
@@ -37,11 +42,12 @@ public class HomePageService {
 //		System.out.println("count="+ sublist);
 		return maincounts;
 	}
+
 	public Integer getCountsBySearchBox(String text) {
 		List<ProductVO> list = dao.getAllByProductName(text);
 		int counts = 0;
 		for (int i = 0; i < list.size(); i++) {
-				counts++;
+			counts++;
 		}
 		return counts;
 	}
@@ -65,19 +71,20 @@ public class HomePageService {
 		if (name == null || name.trim().length() == 0) {
 			return null;
 		}
-		return dao.getAllByProductName(name);
-	}
+			return dao.getAllByProductName(name);
+		}
+	
 
 	public List<ProductVO> getSpecialClassByMainCategory(String maincategory) {
 		return dao.getAllByMainCategory(maincategory);
 	}
-	
-	public List<ProductVO> getSubCategoryName(String subcategory){
+
+	public List<ProductVO> getSubCategoryName(String subcategory) {
 		List<ProductVO> list = dao.getAll();
-		List<ProductVO> sublist= new ArrayList<ProductVO>();
+		List<ProductVO> sublist = new ArrayList<ProductVO>();
 		ProductVO productVO = null;
-		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).getSubCategory().equals(subcategory)) {
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getSubCategory().equals(subcategory)) {
 				productVO = new ProductVO();
 				productVO.setMerid(list.get(i).getMerid());
 				productVO.setBusid(list.get(i).getBusid());

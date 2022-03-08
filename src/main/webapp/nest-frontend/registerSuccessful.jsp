@@ -45,7 +45,7 @@
 <%-- 					<h4><%=session.getAttribute("name")%>，歡迎加入PETTING!</h4>						 --%>
 						<!-- <meta http-equiv="refresh" content="等待秒數;url=頁面路徑"/>   -->
 						<br>
-						<p>將在5秒後自動跳轉至登入頁!再煩請重新登入!!</p>
+						<p>將在<img src="http://unicatolicaquixada.edu.br/wp-content/uploads/2019/08/contagem-regressiva-gif-6.gif" class="n3VNCb" style="width: 17px; height: 27px; margin: 0px;">秒後自動跳轉至登入頁!再煩請重新登入!!</p>
 						<meta http-equiv="refresh" content="5;url=/jeeweb-TFA105G3/nest-frontend/Login.jsp">
 				</span>
 				<span style="font-size:24px;">

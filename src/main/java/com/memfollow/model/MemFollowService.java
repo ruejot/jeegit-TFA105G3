@@ -35,19 +35,29 @@ public class MemFollowService {
 		return memFollowBean;
 	}
 	
-	public void deleteMemFollow(Integer friendshipId) {
-		dao.delete(friendshipId);
+	public void deleteMemFollow(Integer memberId,Integer followee) {
+		dao.delete(memberId,followee);
 	}
 
 	public MemFollowVO findByPrimaryKey(Integer friendshipId) {
 		return dao.findByPrimaryKey(friendshipId);
 	}
+	
+	public MemFollowVO ifFriend(Integer memberId, Integer followee) {
+		return dao.ifFriend(memberId,followee);
+	}
+	
+	
 
 	public List<MemFollowVO> getAll() {
 		return dao.getAll();
 	}
+//	
+//	public List<MemFollowVO> getAllByMemberId(Integer memberId) {
+//		return dao.getAllByMemberId(memberId);
+//	}
 	
-	public List<MemFollowVO> getAllByMemberId(Integer memberId) {
-		return dao.getAllByMemberId(memberId);
+	public List<MemFollowVO> getAllByFollowee(Integer followee) {
+		return dao.getAllByFollowee(followee);
 	}
 }

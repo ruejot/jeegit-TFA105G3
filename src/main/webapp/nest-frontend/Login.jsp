@@ -26,11 +26,7 @@
 	<jsp:include page="/views/userHeader.jsp" />
 	<!--End userHeader-->
 	<main class="main pages">
-		<jsp:include page="/views/userMainPage-header.jsp" />
-		<!-- page="/views/userMainPage-header.jsp" /> 說明如下 -->
-		<!-- userMainPage-header.jsp，是 首頁>其他頁 顯示列 ，這一個 block 至少有2種樣式，有的頁面甚至沒有page-header區塊，自己觀察。 -->
-		<!-- 需要因應各業顯示內容變動，會再確認userMainPage-header.jsp這樣分割是否適合。 -->
-		<!--  -->
+
 		<div class="page-content pt-50 pb-50">
 			<div class="container">
 				<div class="row">
@@ -111,7 +107,7 @@
 													</a>
 												</div> -->
 												<p class="text-center mb-4">
-													還沒有帳號嗎? <a href="../nest-frontend/Register.jsp">按此註冊</a>
+													還沒有帳號嗎? <a href="../nest-frontend/MembersRegister.jsp">按此註冊</a>
 												</p>
 											</div>
 										</div>
@@ -149,7 +145,7 @@
 												</form>
 
 												<p class="text-center mb-4">
-													還沒有廠商帳號嗎? <a href="../nest-frontend/Register.jsp">由此註冊成為合作店家</a>
+													還沒有廠商帳號嗎? <a href="../nest-frontend/BusRegister.jsp">由此註冊成為合作店家</a>
 												</p>
 											</div>
 										</div>

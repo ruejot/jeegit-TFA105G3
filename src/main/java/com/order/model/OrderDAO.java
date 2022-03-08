@@ -48,7 +48,7 @@ public class OrderDAO implements OrderDAO_interface{
 //		}
 //	}
 
-	public void insertWithOrderDetail(OrderVO orderVO, List<OrderDetailVO> list) {
+	public String insertWithOrderDetail(OrderVO orderVO, List<OrderDetailVO> list) {
 		Connection  con = null;
 		PreparedStatement pstmt = null;
 		
@@ -108,6 +108,7 @@ public class OrderDAO implements OrderDAO_interface{
 			System.out.println("list.size()-B="+list.size());
 			System.out.println("新增訂單編號" + next_orderId + "時,共有" + list.size()
 					+ "筆訂單明細同時被新增");
+			return next_orderId;
 			
 			
 		} catch (SQLException se) {

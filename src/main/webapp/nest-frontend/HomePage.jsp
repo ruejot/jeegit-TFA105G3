@@ -7,13 +7,22 @@
 <!-- [editor,date] wei,2022-02-22 -->
 <%
 ProductService productSvc = new ProductService();
-
-
 List<ProductVO> productlist = productSvc.getAll();
 session.setAttribute("productlist", productlist);
 
+
 HomePageService homePageSVC = new HomePageService();
 pageContext.setAttribute("homePageSVC", homePageSVC);
+List<ProductVO> mainlist1 = homePageSVC.getSpecialClassByMainCategory("寵物食品");
+request.setAttribute("mainlist1", mainlist1);
+List<ProductVO> mainlist2 = homePageSVC.getSpecialClassByMainCategory("生活用品");
+request.setAttribute("mainlist2", mainlist2);
+List<ProductVO> mainlist3 = homePageSVC.getSpecialClassByMainCategory("寵物玩具");
+request.setAttribute("mainlist3", mainlist3);
+List<ProductVO> mainlist4 = homePageSVC.getSpecialClassByMainCategory("居家清潔");
+request.setAttribute("mainlist4", mainlist4);
+List<ProductVO> mainlist5 = homePageSVC.getSpecialClassByMainCategory("美容用具");
+request.setAttribute("mainlist5", mainlist5);
 %>
 <html lang="zh-Hant-TW">
 <head>
@@ -40,7 +49,7 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 
 	<!--End userHeader-->
 	<main class="main pages">
-		<jsp:include page="/views/userMainPage-header.jsp" />
+<%-- 		<jsp:include page="/views/userMainPage-header.jsp" /> --%>
 			<!-- 頭 上排十大類 -->
 	<section class="popular-categories section-padding">
 		<div class="container wow animate__animated animate__fadeIn">
@@ -201,9 +210,10 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 									趕緊加入<br /> 全台灣最ㄒㄧㄚ的寵物商店
 								</h1>
 								<p class="mb-65">訂閱每周優惠商品</p>
-								<form class="form-subcriber d-flex">
-									<input type="email" placeholder="電子信箱 emaill address" />
-									<button class="btn" type="submit">訂閱</button>
+								<form class="form-subcriber d-flex" action="<%=request.getContextPath()%>/commonUtil/sendMailServlet">
+									<input type="email" placeholder="電子信箱 emaill address" name="email"/>
+									<input type="hidden" name="action" value="sendmail">
+									<button class="btn" type="submit">領取</button>
 								</form>
 							</div>
 						</div>
@@ -214,8 +224,9 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 									品牌特惠!!<br /> &emsp;&emsp;3.18購物節
 								</h1>
 								<p class="mb-65">領取你的三折優惠券</p>
-								<form class="form-subcriber d-flex">
-									<input type="email" placeholder="電子信箱 emaill address" />
+								<form class="form-subcriber d-flex" action="<%=request.getContextPath()%>/commonUtil/sendMailServlet">
+									<input type="email" placeholder="電子信箱 emaill address" name="email"/>
+									<input type="hidden" name="action" value="sendmail">
 									<button class="btn" type="submit">領取</button>
 								</form>
 							</div>
@@ -274,53 +285,36 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 <!--尾 橫三幅 廣告頁面-->
 		<!--End banners-->
 		<section class="product-tabs section-padding position-relative">
-			<div class="container">
-				<div class="section-title style-2 wow animate__animated animate__fadeIn">
-					<h3>熱門商品</h3>
-<!--頭 熱門商品右側 MainCategory -->
-					<ul class="nav nav-tabs links" id="myTab" role="tablist">
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="nav-tab-seven" data-bs-toggle="tab"
-								data-bs-target="#tab-seven" type="button" role="tab"
-								aria-controls="tab-seven" aria-selected="false">品牌飼料</button>
-								
-						</li>
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="nav-tab-two" data-bs-toggle="tab"
-								data-bs-target="#tab-two" type="button" role="tab"
-								aria-controls="tab-two" aria-selected="false">貓狗罐頭</button>
-						</li>
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="nav-tab-three" data-bs-toggle="tab"
-								data-bs-target="#tab-three" type="button" role="tab"
-								aria-controls="tab-three" aria-selected="false">抓板玩具</button>
-						</li>
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="nav-tab-four" data-bs-toggle="tab"
-								data-bs-target="#tab-four" type="button" role="tab"
-								aria-controls="tab-four" aria-selected="false">環境清潔</button>
-						</li>
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="nav-tab-five" data-bs-toggle="tab"
-								data-bs-target="#tab-five" type="button" role="tab"
-								aria-controls="tab-five" aria-selected="false">居家用品</button>
-						</li>
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="nav-tab-six" data-bs-toggle="tab"
-								data-bs-target="#tab-six" type="button" role="tab"
-								aria-controls="tab-six" aria-selected="false">外出用品</button>
-						</li>
-					</ul>
-<!--尾 熱門商品右側 MainCategory -->
-				</div>
-				</div>
-				<!--頭 熱門商品 商品列表-->
-				<div class="tab-content" id="myTabContent">
+                <div class="container">
+                    <div class="section-title style-2 wow animate__animated animate__fadeIn">
+                        <h3>熱門商品</h3>
+                        <ul class="nav nav-tabs links" id="myTab" role="tablist">
+                            
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="nav-tab-seven" data-bs-toggle="tab" data-bs-target="#tab-one" type="button" role="tab" aria-controls="tab-one" aria-selected="false">寵物食品</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="nav-tab-two" data-bs-toggle="tab" data-bs-target="#tab-two" type="button" role="tab" aria-controls="tab-two" aria-selected="false">生活用品</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="nav-tab-three" data-bs-toggle="tab" data-bs-target="#tab-three" type="button" role="tab" aria-controls="tab-three" aria-selected="false">寵物玩具</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="nav-tab-four" data-bs-toggle="tab" data-bs-target="#tab-four" type="button" role="tab" aria-controls="tab-four" aria-selected="false">居家清潔</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="nav-tab-five" data-bs-toggle="tab" data-bs-target="#tab-five" type="button" role="tab" aria-controls="tab-five" aria-selected="false">美容用具</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--End nav-tabs-->
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
+                            <div class="tab-content" id="myTabContent">
 					<div class="tab-pane fade show active" id="tab-one" role="tabpanel"
 						aria-labelledby="tab-one">
 						<div class="row product-grid-4">
-							<!--頭 熱門十商品-->
-							<c:forEach var="product" items="${productlist}" end="29" step="3" >
+                            <c:forEach var="product" items="${mainlist1}">
 								<div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
 									<div
 										class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn"
@@ -355,18 +349,277 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 													<span>$ ${product.price}</span>
 												</div>
 												<div class="add-cart">
-													<i class="fi-rs-shopping-cart mr-5">Add</i>
+                            				<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
+												<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+													<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
+													<input type="hidden" name="action" value="add">                                                    
+	                                                <input type="hidden" name="qty"  id="i_qty" value="1">   
+													<input type="hidden" name="merId" value="${product.merid}">                                                    
+													<input type="hidden" name="busId" value="${product.busid}">                                                    
+													<input type="hidden" name="price" value="${product.price}">
+													<input type="hidden" name="location" value="<%=request.getContextPath()%>/nest-frontend/showCartServlet.do?action=showcart">
+													
+											</form>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</c:forEach>
-							<!--頭 熱門十商品-->
-						</div>
-					</div>
-				</div>
-		</section>
+							</div>
+							</div>
+							</div>
+                        </div>
+                        <!--En tab one-->
+                        <div class="tab-pane fade" id="tab-two" role="tabpanel" aria-labelledby="tab-two">
+                            <div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="tab-one" role="tabpanel"
+						aria-labelledby="tab-one">
+						<div class="row product-grid-4">
+                            <c:forEach var="product" items="${mainlist2}">
+								<div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+									<div
+										class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn"
+										data-wow-delay=".1s">
+										<div class="product-img-action-wrap">
+											<div class="product-img product-img-zoom">
+													<a href="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+														<img class="default-img" style="height:266px" 
+															src="<%=request.getContextPath()%>/ProdFirstPic?aa=${product.merid}"/>
+													</a>
+											</div>
+										</div>
+										<div class="product-content-wrap">
+											<div class="product-category">
+												<a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=${product.subCategory}">
+													${product.subCategory}
+												</a>
+											</div>
+											<h2>
+												<a href="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+													${product.name}
+												</a>
+											</h2>
+<!-- 											<div class="product-rate-cover"> -->
+<!-- 												<div class="product-rate d-inline-block"> -->
+<!-- 													<div class="product-rating" style="width: 20%"></div> -->
+<!-- 												</div> -->
+<!-- 												<span class="font-small ml-5 text-muted"> (4.0)</span> -->
+<!-- 											</div> -->
+											<div class="product-card-bottom">
+												<div class="product-price">
+													<span>$ ${product.price}</span>
+												</div>
+												<div class="add-cart">
+											<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
+												<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+													<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
+													<input type="hidden" name="action" value="add">                                                    
+	                                                <input type="hidden" name="qty"  id="i_qty" value="1">   
+													<input type="hidden" name="merId" value="${product.merid}">                                                    
+													<input type="hidden" name="busId" value="${product.busid}">                                                    
+													<input type="hidden" name="price" value="${product.price}">
+													<input type="hidden" name="location" value="<%=request.getContextPath()%>/nest-frontend/showCartServlet.do?action=showcart">
+													
+											</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+							</div>
+							</div>
+							</div>
+                        </div>
+                        <!--En tab two-->
+                        <div class="tab-pane fade" id="tab-three" role="tabpanel" aria-labelledby="tab-three">
+                           <div class="tab-content" id="myTabContent">
+								<div class="tab-pane fade show active" id="tab-one" role="tabpanel"
+									aria-labelledby="tab-one">
+									<div class="row product-grid-4">
+                            <c:forEach var="product" items="${mainlist3}">
+								<div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+									<div
+										class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn"
+										data-wow-delay=".1s">
+										<div class="product-img-action-wrap">
+											<div class="product-img product-img-zoom">
+													<a href="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+														<img class="default-img" style="height:266px" 
+															src="<%=request.getContextPath()%>/ProdFirstPic?aa=${product.merid}"/>
+													</a>
+											</div>
+										</div>
+										<div class="product-content-wrap">
+											<div class="product-category">
+												<a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=${product.subCategory}">
+													${product.subCategory}
+												</a>
+											</div>
+											<h2>
+												<a href="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+													${product.name}
+												</a>
+											</h2>
+<!-- 											<div class="product-rate-cover"> -->
+<!-- 												<div class="product-rate d-inline-block"> -->
+<!-- 													<div class="product-rating" style="width: 20%"></div> -->
+<!-- 												</div> -->
+<!-- 												<span class="font-small ml-5 text-muted"> (4.0)</span> -->
+<!-- 											</div> -->
+											<div class="product-card-bottom">
+												<div class="product-price">
+													<span>$ ${product.price}</span>
+												</div>
+												<div class="add-cart">
+													<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
+														<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+															<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
+															<input type="hidden" name="action" value="add">                                                    
+			                                                <input type="hidden" name="qty"  id="i_qty" value="1">   
+															<input type="hidden" name="merId" value="${product.merid}">                                                    
+															<input type="hidden" name="busId" value="${product.busid}">                                                    
+															<input type="hidden" name="price" value="${product.price}">
+															<input type="hidden" name="location" value="<%=request.getContextPath()%>/nest-frontend/showCartServlet.do?action=showcart">
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+							</div>
+							</div>
+							</div>
+                        </div>
+                        <!--En tab three-->
+                        <div class="tab-pane fade" id="tab-four" role="tabpanel" aria-labelledby="tab-four">
+                            <div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="tab-one" role="tabpanel"
+						aria-labelledby="tab-one">
+						<div class="row product-grid-4">
+                            <c:forEach var="product" items="${mainlist4}">
+								<div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+									<div
+										class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn"
+										data-wow-delay=".1s">
+										<div class="product-img-action-wrap">
+											<div class="product-img product-img-zoom">
+													<a href="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+														<img class="default-img" style="height:266px" 
+															src="<%=request.getContextPath()%>/ProdFirstPic?aa=${product.merid}"/>
+													</a>
+											</div>
+										</div>
+										<div class="product-content-wrap">
+											<div class="product-category">
+												<a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=${product.subCategory}">
+													${product.subCategory}
+												</a>
+											</div>
+											<h2>
+												<a href="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+													${product.name}
+												</a>
+											</h2>
+<!-- 											<div class="product-rate-cover"> -->
+<!-- 												<div class="product-rate d-inline-block"> -->
+<!-- 													<div class="product-rating" style="width: 20%"></div> -->
+<!-- 												</div> -->
+<!-- 												<span class="font-small ml-5 text-muted"> (4.0)</span> -->
+<!-- 											</div> -->
+											<div class="product-card-bottom">
+												<div class="product-price">
+													<span>$ ${product.price}</span>
+												</div>
+												<div class="add-cart">
+													<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
+														<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+															<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
+															<input type="hidden" name="action" value="add">                                                    
+			                                                <input type="hidden" name="qty"  id="i_qty" value="1">   
+															<input type="hidden" name="merId" value="${product.merid}">                                                    
+															<input type="hidden" name="busId" value="${product.busid}">                                                    
+															<input type="hidden" name="price" value="${product.price}">
+															<input type="hidden" name="location" value="<%=request.getContextPath()%>/nest-frontend/showCartServlet.do?action=showcart">
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+							</div>
+							</div>
+							</div>
+                        </div>
+                        <!--En tab four-->
+                        <div class="tab-pane fade" id="tab-five" role="tabpanel" aria-labelledby="tab-five">
+                            <div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="tab-one" role="tabpanel"
+						aria-labelledby="tab-one">
+						<div class="row product-grid-4">
+                            <c:forEach var="product" items="${mainlist5}">
+								<div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+									<div
+										class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn"
+										data-wow-delay=".1s">
+										<div class="product-img-action-wrap">
+											<div class="product-img product-img-zoom">
+													<a href="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+														<img class="default-img" style="height:266px" 
+															src="<%=request.getContextPath()%>/ProdFirstPic?aa=${product.merid}"/>
+													</a>
+											</div>
+										</div>
+										<div class="product-content-wrap">
+											<div class="product-category">
+												<a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=${product.subCategory}">
+													${product.subCategory}
+												</a>
+											</div>
+											<h2>
+												<a href="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+													${product.name}
+												</a>
+											</h2>
+<!-- 											<div class="product-rate-cover"> -->
+<!-- 												<div class="product-rate d-inline-block"> -->
+<!-- 													<div class="product-rating" style="width: 20%"></div> -->
+<!-- 												</div> -->
+<!-- 												<span class="font-small ml-5 text-muted"> (4.0)</span> -->
+<!-- 											</div> -->
+											<div class="product-card-bottom">
+												<div class="product-price">
+													<span>$ ${product.price}</span>
+												</div>
+												<div class="add-cart">
+													<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
+														<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+															<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
+															<input type="hidden" name="action" value="add">                                                    
+			                                                <input type="hidden" name="qty"  id="i_qty" value="1">   
+															<input type="hidden" name="merId" value="${product.merid}">                                                    
+															<input type="hidden" name="busId" value="${product.busid}">                                                    
+															<input type="hidden" name="price" value="${product.price}">
+															<input type="hidden" name="location" value="<%=request.getContextPath()%>/nest-frontend/showCartServlet.do?action=showcart">
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+							</div>
+							</div>
+							</div>
+                        </div>
+                        <!--En tab five-->
+                    </div>
+                    <!--End tab-content-->
+                </div>
+            </section>
 		<!--頭 輪播CSS-->
 		<section class="section-padding pb-5">
 			<div class="container">
@@ -425,7 +678,16 @@ pageContext.setAttribute("homePageSVC", homePageSVC);
 													<span>$ ${product.price}</span>
 												</div>
 												<div class="add-cart">
-													<i class="fi-rs-shopping-cart mr-5">Add</i>
+													<form action="<%=request.getContextPath()%>/nest-frontend/cartServlet.do" method="POST">
+														<button type="submit" id="btn_submit" style="color:#3BB77E "> 
+															<i class="fi-rs-shopping-cart mr-5"></i>Add</button>
+															<input type="hidden" name="action" value="add">                                                    
+			                                                <input type="hidden" name="qty"  id="i_qty" value="1">   
+															<input type="hidden" name="merId" value="${product.merid}">                                                    
+															<input type="hidden" name="busId" value="${product.busid}">                                                    
+															<input type="hidden" name="price" value="${product.price}">
+															<input type="hidden" name="location" value="<%=request.getContextPath()%>/nest-frontend/showCartServlet.do?action=showcart">
+													</form>
 												</div>
 											</div>
 										</div>

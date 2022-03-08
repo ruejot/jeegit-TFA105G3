@@ -26,8 +26,10 @@ public class ProductJumpServlet extends HttpServlet {
 		if("product_jump".equals(action)) {
 			Integer i = Integer.parseInt(req.getParameter("merid"));
 			List<ProductVO> aProd = SERVICE.getAllByProductId(i);
+			List<ProductVO> relatedProd = SERVICE.getSubCategoryName(aProd.get(0).getSubCategory());
 			if(aProd!=null) {
 			req.setAttribute("aProd", aProd);
+			req.setAttribute("relatedProd", relatedProd);
 			System.out.println(aProd.get(0).getName());
 			System.out.println("$"+aProd.get(0).getPrice()+" console from PJS");
 			req.getRequestDispatcher("../nest-frontend/ShopProductPage.jsp").forward(req,res);

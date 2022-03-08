@@ -1,6 +1,8 @@
 package com.memblogart.model;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class MemBlogArtVO implements java.io.Serializable{
 	private Integer artid;
@@ -9,8 +11,14 @@ public class MemBlogArtVO implements java.io.Serializable{
 	private Timestamp posttime;
 	private Integer heart;
 	private String content;
+	private String posttimeDate;
 	
-	
+	public String getPosttimeDate() {
+		return posttimeDate;
+	}
+	public void setPosttimeDate(String posttimeDate) {
+		this.posttimeDate = posttimeDate;
+	}
 	public Integer getArtid() {
 		return artid;
 	}

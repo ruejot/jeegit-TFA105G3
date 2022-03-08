@@ -13,6 +13,7 @@
 <!-- Template CSS -->
 <%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" /> --%>
 <%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" /> --%>
+<script src="https://kit.fontawesome.com/7e95db7a28.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<!-- Quick view -->
@@ -43,34 +44,40 @@
 								<input type="text" placeholder="請輸入關鍵字...." />
 							</form>
 						</div>
-						<div class="header-action-right">
-							<div class="header-action-2">
-								<div class="header-action-icon-2">
-									<a href="<%=request.getContextPath()%>/nest-backend/productManage.jsp"><span class="lable">
-									<i class="fas fa-hotdog fa-lg mr-10" style="color: black"></i>商品管理</span></a>
-								</div>
-								<div class="header-action-icon-2">
-									<a href="<%=request.getContextPath()%>/nest-backend/orderManage.jsp"><span class="lable">
-									<i class="far fa-folder-open fa-lg mr-10" style="color: black"></i>訂單管理</span></a>
-								</div>
-								<div class="header-action-icon-2">
-									<a>
-									<img class="svgInject" alt="Account" src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-user.svg" />
-									</a> <a><span class="lable ml-0">合作廠商</span></a>
-									<div
-										class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
-										<ul>
-											<li><a href="<%=request.getContextPath()%>/nest-frontend/memberCenter.jsp">
-											<i class="fi fi-rs-user mr-10"></i>會員中心</a></li>
-											<li><a href="<%=request.getContextPath()%>/nest-frontend/fendshop_mainpage.jsp">
-											<i class="fi fi-rs-settings-sliders mr-10"></i>我的商店</a></li>
-											<li><a href="<%=request.getContextPath()%>/bus/BusLogout?action=logout">
-											<i class="fi fi-rs-sign-out mr-10"></i>廠商登出</a></li>
-										</ul>
+														<div class="header-action-right">
+									<div class="header-action-2">
+										<div class="header-action-icon-2">
+											<a href="<%=request.getContextPath()%>/nest-backend/productManage.jsp">
+											<span class="lable mr-10" style="font-size: 18px; color: #3bb77e;"><i class="fa-regular fa-shelves fa-lg mr-5"></i>商品管理</span></a>
+										</div>
+										<div class="header-action-icon-2">
+											<a href="<%=request.getContextPath()%>/nest-backend/orderManage.jsp">
+												<span class="lable mr-10" style="font-size: 18px; color: #3bb77e;"><i class="far fa-folder-open fa-lg mr-5"></i>訂單管理</span></a>
+										</div>
+										<div class="header-action-icon-2">
+											<a>
+											<span class="label mr-40" style="font-size: 18px; color: #3bb77e;"><i class="fa-regular fa-user-large fa-lg mr-5"></i>合作廠商</span></a>
+											<div
+												class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
+												<ul>
+													<li><a
+														href="<%=request.getContextPath()%>/nest-backend/busAccountCenter.jsp">
+															<i class="fi fi-rs-user mr-10"></i>廠商資料
+													</a></li>
+													<li><a
+														href="<%=request.getContextPath()%>/nest-frontend/fendshop_mainpage.jsp?action=fromBackendSelf">
+															<i class="fi fi-rs-settings-sliders mr-10"></i>我的商店
+													</a></li>
+													<li><a
+														href="<%=request.getContextPath()%>/bus/BusLogout?action=logout">
+<!-- 														<input type="hidden" name="action" value="logout"> -->
+															<i class="fi fi-rs-sign-out mr-10"></i>廠商登出
+													</a></li>
+												</ul>
+											</div>
+										</div>
 									</div>
 								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -101,7 +108,7 @@
                             <a href="page-contact.html"><i class="fi-rs-marker"></i>台北市中山區南京東路三段219號5樓 </a>
                         </div>
                         <div class="single-mobile-header-info">
-                            <a href="page-login.html"><i class="fi-rs-user"></i>登入 / 登出 </a>
+                            <a href="<%=request.getContextPath()%>/nest-frontend/Login.jsp"><i class="fi-rs-user"></i>登入 / 登出 </a>
                         </div>
                         <div class="single-mobile-header-info">
                             <a href="#"><i class="fi-rs-headphones"></i>02-2712-0589 </a>

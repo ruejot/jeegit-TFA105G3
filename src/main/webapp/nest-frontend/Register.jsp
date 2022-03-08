@@ -27,15 +27,7 @@
 			<jsp:include page="/views/userHeader.jsp" />
 			<!--End userHeader-->
 			<main class="main pages">
-				<jsp:include page="/views/userMainPage-header.jsp" />
-				<!-- page="/views/userMainPage-header.jsp" /> 說明如下 -->
-				<!-- userMainPage-header.jsp，是 首頁>其他頁 顯示列 ，這一個 block 至少有2種樣式，有的頁面甚至沒有page-header區塊，自己觀察。 -->
-				<!-- 需要因應各業顯示內容變動，會再確認userMainPage-header.jsp這樣分割是否適合。 -->
-				<!--  -->
-				<!-- 開始寫此jsp頁內容，重點，從<div class="page-header..."> 的"同層下一區塊"開始寫內容 -->
-				<!-- "同層下一區塊"，板模各頁不盡相同 -->
-				<!-- 有些板模頁是<div class="page-content ..." 開頭 -->
-				<!-- 有些板模頁是<div class="container"> 開頭。自己觀察 -->
+
 				<div class="page-content pt-50 pb-50">
 					<div class="container">
 						<div class="row">

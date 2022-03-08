@@ -1,11 +1,24 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.csdetail.model.*"%>
+<%@ page import="com.bus.model.*"%>
 <%@ page import="java.util.List"%>
 
 <%
 CsDetailService csDetailSvc = new CsDetailService();
-List<CsDetailVO> list = csDetailSvc.selectAll();
+List<CsDetailVO> list = null;
+
+// if BusUsing. session中key值存在，代表目前有廠商登入。只顯示這一個Bus的相關CS單。
+// else 沒有BusUsing，就selectAll() (測試用) 
+// List<CsDetailVO> list = csDetailSvc.selectAll();
+
+if(session.getAttribute("BusUsing")!=null){
+	Integer currentBusId = ((BusVO) session.getAttribute("BusUsing")).getBusid();
+	list = csDetailSvc.selectCsDetailListByBusid(currentBusId);
+} else {
+	list = csDetailSvc.selectAll();
+}
+
 pageContext.setAttribute("list", list);
 %>
 
@@ -34,6 +47,9 @@ pageContext.setAttribute("list", list);
 </head>
 
 <body>
+<%-- <a class="btn btn-xs" href="<%=request.getContextPath()%>/nest-frontend/ShopMainpage.do?busid=3&action=show_Shop_Mainpage" style="background-color:#386641;"> --%>
+<!-- 	查看商店<i class="fi-rs-arrow-small-right"></i> -->
+<!-- </a> -->
 	<div class="screen-overlay"></div>
 	<jsp:include page="/views/sellerAside.jsp" />
 	<main class="main-wrap">
@@ -43,18 +59,12 @@ pageContext.setAttribute("list", list);
 			<div class="content-header">
 				<div>
 					<h2 class="content-title card-title">客服列表</h2>
-					<p>回應顧客服務留言，全部列表.</p>
+					<p>回應顧客服務留言。</p>
 				</div>
-				<!-- <div>
-                        <input type="text" placeholder="Search order ID" class="form-control bg-white" />
-                    </div> -->
 			</div>
 			<div class="card mb-4">
 				<header class="card-header">
 					<div class="row gx-3">
-						<!--                             <div class="col-lg-4 col-md-6 me-auto"> -->
-						<!--                                 <input type="text" placeholder="搜尋會員ID..." class="form-control" /> -->
-						<!--                             </div> -->
 						<div class="col-lg-2 col-6 col-md-3">
 							<select class="form-select">
 								<option>全部客服表單</option>
@@ -65,9 +75,9 @@ pageContext.setAttribute("list", list);
 						</div>
 						<div class="col-lg-2 col-6 col-md-3">
 							<select class="form-select">
+								<option>顯示　5筆</option>
+								<option>顯示 10筆</option>
 								<option>顯示 20筆</option>
-								<option>顯示 30筆</option>
-								<option>顯示 40筆</option>
 							</select>
 						</div>
 					</div>
@@ -111,11 +121,11 @@ pageContext.setAttribute("list", list);
 											</c:if></td>
 										<td>${csDetailVO.replytime}</td>
 										<td class="text-end">
-											<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/CsDetail.do"
+											<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/nest-backend/CsServletOnlyBus.do"
 												class="badge rounded font-sm">
-												<input type="submit" value="回覆" class="btn btn-md rounded font-sm"> <input type="hidden"
-													name="caseid" value="${csDetailVO.caseid}"> <input type="hidden" name="action"
-													value="getOne_For_Update">
+												<input type="submit" value="回覆" class="btn btn-md rounded font-sm"> 
+												<input type="hidden" name="caseid" value="${csDetailVO.caseid}">
+												<input type="hidden" name="action" value="getOne_For_Update">
 											</FORM> <!-- <a href="#" class="btn btn-md rounded font-sm">內容</a> -->
 										</td>
 									</tr>

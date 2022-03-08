@@ -31,10 +31,16 @@ public class MemFollowDAO implements MemFollowDAO_interface {
 			+ " VALUES (?, ?, ?)";
 	private static final String UPDATE = "UPDATE MEM_FOLLOW  SET MEMBER_ID=?, FOLLOWEE=?, FRIENDSHIP=?"
 			+ " WHERE FRIENDSHIP_ID=?";
-	private static final String DELETE = "DELETE FROM MEM_FOLLOW WHERE FRIENDSHIP_ID=?";
+	private static final String DELETE = "DELETE FROM MEM_FOLLOW WHERE MEMBER_ID = ? and FOLLOWEE = ?;";
 	private static final String GET_ONE_STMT = "SELECT FRIENDSHIP_ID, MEMBER_ID, FOLLOWEE, FRIENDSHIP FROM MEM_FOLLOW WHERE FRIENDSHIP_ID = ?";
 	private static final String GET_ALL_STMT = "SELECT FRIENDSHIP_ID, MEMBER_ID, FOLLOWEE, FRIENDSHIP FROM MEM_FOLLOW ORDER BY FRIENDSHIP_ID";
 	private static final String GET_ALL_BY_MEMBER_ID_STMT = "SELECT FRIENDSHIP_ID, MEMBER_ID, FOLLOWEE, FRIENDSHIP FROM MEM_FOLLOW WHERE MEMBER_ID = ?";
+
+	private static final String GET_ALL_BY_FOLLOWEE = "SELECT * FROM MEM_FOLLOW WHERE FOLLOWEE = ?";
+	private static final String IF_FRIEND = "SELECT * FROM MEM_FOLLOW where MEMBER_ID = ? and FOLLOWEE = ?";
+
+	
+	
 	
 	@Override
 	public void insert(MemFollowVO memFollowBean) {
@@ -115,7 +121,7 @@ public class MemFollowDAO implements MemFollowDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer friendshipId) {
+	public void delete(Integer memberId,Integer followee) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -124,7 +130,8 @@ public class MemFollowDAO implements MemFollowDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, friendshipId);
+			pstmt.setInt(1, memberId);
+			pstmt.setInt(2, followee);
 
 			pstmt.executeUpdate();
 
@@ -149,6 +156,65 @@ public class MemFollowDAO implements MemFollowDAO_interface {
 				}
 			}
 		}
+	}
+	
+
+	@Override
+	public MemFollowVO ifFriend(Integer memberId,Integer followee) {
+		MemFollowVO memFollowBean = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(IF_FRIEND);
+
+			pstmt.setInt(1, memberId);
+			pstmt.setInt(2, followee);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				memFollowBean = new MemFollowVO();
+				//FRIENDSHIP_ID, MEMBER_ID, FOLLOWEE, FRIENDSHIP
+				memFollowBean.setFriendshipId(rs.getInt("FRIENDSHIP_ID"));
+				memFollowBean.setMemberId(rs.getInt("MEMBER_ID"));
+				memFollowBean.setFollowee(rs.getInt("FOLLOWEE"));
+				memFollowBean.setFriendship(rs.getString("FRIENDSHIP"));
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return memFollowBean;
 	}
 
 	@Override
@@ -208,6 +274,8 @@ public class MemFollowDAO implements MemFollowDAO_interface {
 		return memFollowBean;
 	}
 
+	
+
 	@Override
 	public List<MemFollowVO> getAll() {
 		List<MemFollowVO> list = new ArrayList<MemFollowVO>();
@@ -266,7 +334,7 @@ public class MemFollowDAO implements MemFollowDAO_interface {
 	}
 
 	@Override
-	public List<MemFollowVO> getAllByMemberId(Integer memberId) {
+	public List<MemFollowVO> getAllByFollowee(Integer followee) {
 		List<MemFollowVO> list = new ArrayList<MemFollowVO>();
 		MemFollowVO memFollowBean = null;
 		
@@ -277,8 +345,8 @@ public class MemFollowDAO implements MemFollowDAO_interface {
 		try {
 			con = ds.getConnection();
 			
-			pstmt = con.prepareStatement(GET_ALL_BY_MEMBER_ID_STMT);
-			pstmt.setInt(1, memberId);
+			pstmt = con.prepareStatement(GET_ALL_BY_FOLLOWEE);
+			pstmt.setInt(1, followee);
 			
 			rs = pstmt.executeQuery();
 			
@@ -289,6 +357,7 @@ public class MemFollowDAO implements MemFollowDAO_interface {
 				memFollowBean.setMemberId(rs.getInt("MEMBER_ID"));
 				memFollowBean.setFollowee(rs.getInt("FOLLOWEE"));
 				memFollowBean.setFriendship(rs.getString("FRIENDSHIP"));
+				
 				// 讀取完一筆Bean就存到list，若rs.next()還有再讀取下一個
 				list.add(memFollowBean);
 			}

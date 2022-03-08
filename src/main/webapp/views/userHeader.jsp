@@ -15,7 +15,8 @@
 <%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/slider-range.css" /> --%>
 <!-- Manually open animate.min.css if you need. -->
 <!-- <link rel="stylesheet" href="assets/css/plugins/animate.min.css" /> -->
-<%-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" /> --%>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
+<script src="https://kit.fontawesome.com/7e95db7a28.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<header class="header-area header-style-1 header-height-2">
@@ -65,36 +66,30 @@
 								<div class="header-action-right">
 									<div class="header-action-2">
 										<div class="header-action-icon-2">
-											<a
-												href="<%=request.getContextPath()%>/nest-backend/productManage.jsp"><span
-												class="lable"> <i class="fas fa-hotdog fa-lg mr-10"
-													style="color: black"></i>商品管理
-											</span></a>
+											<a href="<%=request.getContextPath()%>/nest-backend/productManage.jsp">
+											<span class="lable mr-10" style="font-size: 18px; color: #3bb77e;"><i class="fa-regular fa-shelves fa-lg mr-5"></i>商品管理</span></a>
 										</div>
 										<div class="header-action-icon-2">
-											<a
-												href="<%=request.getContextPath()%>/nest-backend/orderManage.jsp"><span
-												class="lable"> <i
-													class="far fa-folder-open fa-lg mr-10" style="color: black"></i>訂單管理
-											</span></a>
+											<a href="<%=request.getContextPath()%>/nest-backend/orderManage.jsp">
+												<span class="lable mr-10" style="font-size: 18px; color: #3bb77e;"><i class="far fa-folder-open fa-lg mr-5"></i>訂單管理</span></a>
 										</div>
 										<div class="header-action-icon-2">
-											<a> <img class="svgInject" alt="Account"
-												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-user.svg" />
-											</a> <a><span class="lable ml-0">合作廠商</span></a>
+											<a>
+											<span class="label mr-50" style="font-size: 18px; color: #3bb77e;"><i class="fa-regular fa-user-large fa-lg mr-5"></i>合作廠商</span></a>
 											<div
 												class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
 												<ul>
 													<li><a
-														href="<%=request.getContextPath()%>/nest-frontend/memberCenter.jsp">
-															<i class="fi fi-rs-user mr-10"></i>會員中心
+														href="<%=request.getContextPath()%>/nest-backend/busAccountCenter.jsp">
+															<i class="fi fi-rs-user mr-10"></i>廠商資料
 													</a></li>
 													<li><a
-														href="<%=request.getContextPath()%>/nest-frontend/fendshop_mainpage.jsp">
+														href="<%=request.getContextPath()%>/nest-frontend/fendshop_mainpage.jsp?action=fromBackendSelf">
 															<i class="fi fi-rs-settings-sliders mr-10"></i>我的商店
 													</a></li>
 													<li><a
 														href="<%=request.getContextPath()%>/bus/BusLogout?action=logout">
+<!-- 														<input type="hidden" name="action" value="logout"> -->
 															<i class="fi fi-rs-sign-out mr-10"></i>廠商登出
 													</a></li>
 												</ul>
@@ -107,39 +102,41 @@
 								<div class="header-action-right">
 									<div class="header-action-2">
 										<div class="header-action-icon-2">
-											<a class="mini-cart-icon" href="shop-cart.html"> <img
-												alt="Cart"
-												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-cart.svg" />
-												<span class="pro-count blue">N</span>
-											</a> <a href="shop-cart.html"><span class="lable">購物車</span></a>
+											<a class="mini-cart-icon" href="<%=request.getContextPath()%>/nest-frontend/showCartServlet.do?action=showcart"> 
+<!-- 											<img -->
+<!-- 												alt="Cart" -->
+<%-- 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-cart.svg" /> --%>
+<!-- 												<span class="pro-count blue">N</span> -->
+<%-- 											</a> <a href="<%=request.getContextPath()%>/nest-frontend/shopCart.jsp"> --%>
+											<span class="lable mr-20" style="font-size: 18px; color: #3bb77e;"><i class="fa-regular fa-cart-shopping fa-lg mr-5"></i>購物車</span></a>
 										</div>
 										<c:if test="${MemberUsing != null}">
-											<div class="header-action-icon-2">
-												<a> <img class="svgInject"
-													alt="Account"
-													src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-user.svg" />
-												</a> <a><span class="lable ml-0">歡迎回來</span></a>
-												<div
+										<div class="header-action-icon-2">
+											<a>
+											<span class="label mr-50" style="font-size: 18px; color: #3bb77e;"><i class="fa-regular fa-user-large fa-lg mr-5"></i>歡迎回來</span></a>
+											<div
 													class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
 													<ul>
-														<li><a href="page-account.html"><i
+														<li><a href="<%=request.getContextPath()%>/nest-frontend/accountCenter.jsp"><i
 																class="fi fi-rs-user mr-10"></i>會員中心</a></li>
-														<li><a href="page-account.html"><i
-																class="fi fi-rs-location-alt mr-10"></i>訂單管理</a></li>
-														<li><a href="page-account.html"><i
-																class="fi fi-rs-settings-sliders mr-10"></i>帳戶設定</a></li>
+														<li><a href="<%=request.getContextPath()%>/nest-backend/blog_manage.jsp"><i
+																class="fi fi-rs-settings-sliders mr-10"></i>部落格管理</a></li>
 														<li><a href="<%=request.getContextPath()%>/members/MembersLogout?action=logout"><i
-																class="fi fi-rs-sign-out mr-10"></i>會員登出</a></li>
+																class="fi fi-rs-sign-out mr-10"></i>會員登出</a>
+<!-- 																<input type="hidden" name="action" value="logout"> </li> -->
 													</ul>
 												</div>
 											</div>
 										</c:if>
 										<c:if test="${BusUsing == null && MemberUsing == null}">
+										<!-- 都沒登入===遊客 -->
 											<div class="header-action-icon-2">
-												<a href="<%=request.getContextPath()%>/nest-frontend/Login.jsp"> <img class="svgInject"
-													alt="Account"
-													src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-user.svg" />
-												</a> <a href="<%=request.getContextPath()%>/nest-frontend/Login.jsp"><span class="lable ml-0">登入</span></a>
+												<a href="<%=request.getContextPath()%>/nest-frontend/Login.jsp"> 
+<!-- 												<img class="svgInject" -->
+<!-- 													alt="Account" -->
+<%-- 													src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-user.svg" /> --%>
+<%-- 												</a> <a href="<%=request.getContextPath()%>/nest-frontend/Login.jsp"> --%>
+												<span class="label mr-50" style="font-size: 18px; color: #3bb77e;"><i class="fa-regular fa-user-large fa-lg mr-5"></i>登入</span></a>
 											</div>
 										</c:if>
 									</div>
@@ -155,7 +152,7 @@
 			<div class="container">
 				<div class="header-wrap header-space-between position-relative">
 					<div class="logo logo-width-1 d-block d-lg-none">
-						<a href="index.html"><img
+						<a href="<%=request.getContextPath()%>/nest-frontend/HomePage.jsp"><img
 							src="<%=request.getContextPath()%>/assets/imgs/theme/logo_Petting.svg"
 							alt="logo" /></a>
 					</div>
@@ -169,48 +166,45 @@
 								class="categories-dropdown-wrap categories-dropdown-active-large font-heading">
 								<div class="d-flex categori-dropdown-inner">
 									<ul>
-										<li><a href="shop-grid-right.html"> <img
+										<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=寵物食品"> <img
 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-1.svg"
 												alt="" />寵物飼料
 										</a></li>
-										<li><a href="shop-grid-right.html"> <img
+										<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=寵物罐頭"> <img
 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-2.svg"
 												alt="" />寵物罐頭
 										</a></li>
-										<li><a href="shop-grid-right.html"> <img
+										<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=居家清潔"> <img
 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-3.svg"
 												alt="" />寵物保健
 										</a></li>
-										<li><a href="shop-grid-right.html"> <img
+										<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=寵物食品"> <img
 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-4.svg"
 												alt="" />寵物零食
 										</a></li>
-										<li><a href="shop-grid-right.html"> <img
+										<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=寵物玩具"> <img
 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-5.svg"
 												alt="" />寵物玩具
 										</a></li>
 									</ul>
 									<ul class="end">
-										<li><a href="shop-grid-right.html"> <img
+										<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=生活用品"> <img
 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-6.svg"
 												alt="" />居家用品
 										</a></li>
-										<li><a href="shop-grid-right.html"> <img
+										<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=外出用品"> <img
 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-7.svg"
 												alt="" />外出用品
 										</a></li>
-										<li><a href="shop-grid-right.html"> <img
+										<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=美容護理"> <img
 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-8.svg"
 												alt="" />美容護理
 										</a></li>
-										<li><a href="shop-grid-right.html"> <img
+										<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=居家清潔"> <img
 												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-9.svg"
-												alt="" />人氣商品
+												alt="" />居家清潔
 										</a></li>
-										<li><a href="shop-grid-right.html"> <img
-												src="<%=request.getContextPath()%>/assets/imgs/theme/icons/category-10.svg"
-												alt="" />其他
-										</a></li>
+										
 									</ul>
 								</div>
 							</div>
@@ -219,31 +213,26 @@
 							class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
 							<nav>
 								<ul>
-									<li class="hot-deals"><img
+									<li><img
 										src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-hot.svg"
-										alt="hot deals" /> <a href="shop-grid-right.html">熱門商品</a></li>
-									<li><a style="color: #386641" class="active"
-										href="index.html">商城首頁</a></li>
-									<li><a href="page-about.html">關於我們</a></li>
-									<li><a href="shop-grid-right.html">寵物糧食<i
+										alt="hot deals" /><a style="color: #386641" class="active"
+										href="<%=request.getContextPath()%>/nest-frontend/HomePage.jsp">商城首頁</a></li>
+									<li><a>寵物糧食<i
 											class="fi-rs-angle-down"></i></a>
 										<ul class="sub-menu">
-											<li><a href="shop-grid-right.html">品牌飼料</a></li>
-											<li><a href="shop-grid-left.html">貓狗罐罐</a></li>
-											<li><a href="shop-list-right.html">貓狗零食</a></li>
-											<li><a href="shop-list-left.html">寵物保健</a></li>
+											<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=貓犬飼料">貓犬飼料</a></li>
+											<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=貓抓板">貓抓板</a></li>
+											<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=零食點心">零食點心</a></li>
 										</ul></li>
-									<li><a href="#">生活用品 <i class="fi-rs-angle-down"></i></a>
+									<li><a>生活用品 <i class="fi-rs-angle-down"></i></a>
 										<ul class="sub-menu">
-											<li><a href="vendors-grid.html">居家用品</a></li>
-											<li><a href="vendors-list.html">外出用品</a></li>
-											<li><a href="vendor-details-1.html">寵物玩具</a></li>
-											<li><a href="vendor-details-2.html">美容護理</a></li>
+											<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=清潔">清潔用品</a></li>
+											<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=HomeTag&mainCategory=寵物玩具">寵物玩具</a></li>
+											<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&mainCategory=美容用具">美容裝飾</a></li>
 										</ul></li>
-									<li><a href="#">寵物服務 </a></li>
-									<li><a href="blog-category-grid.html">部落格首頁 </a></li>
-									<li><a href="page-contact.html"
-										style="margin-right: 80px;">聯絡我們</a></li>
+									<li><a href="<%=request.getContextPath()%>/nest-frontend/blog-category-big2.jsp">部落格首頁</a></li>
+									<li><a href="<%=request.getContextPath()%>/nest-frontend/contact_us.jsp"
+										style="margin-right: 80px;">關於我們</a></li>
 								</ul>
 							</nav>
 						</div>
@@ -259,17 +248,20 @@
 						<div class="header-action-2">
 
 							<div class="header-action-icon-2">
-								<a class="mini-cart-icon" href="shop-cart.html"> <img
+								<a class="mini-cart-icon label mr-10" href="<%=request.getContextPath()%>/nest-frontend/shopCart.jsp"> 
+								<img
 									alt="Account"
 									src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-cart.svg" />
-									<span class="pro-count white">4</span>
+<!-- 									<span class="pro-count white">4</span> -->
 								</a>
+								</div>
 
 								<div class="header-action-icon-2">
-									<a href="page-account.html"> <img class="svgInject"
+									<a href="<%=request.getContextPath()%>/nest-frontend/Login.jsp"> 
+									<img class="svgInject"
 										alt="user"
 										src="<%=request.getContextPath()%>/assets/imgs/theme/icons/icon-user.svg" />
-									</a> <a href="page-account.html"><span class="lable ml-0">會員中心</span></a>
+										<span class="label mr-10" style="font-size: 22px;"></span></a>
 
 								</div>
 							</div>
@@ -277,13 +269,12 @@
 					</div>
 				</div>
 			</div>
-		</div>
 	</header>
 	<div class="mobile-header-active mobile-header-wrapper-style">
 		<div class="mobile-header-wrapper-inner">
 			<div class="mobile-header-top">
 				<div class="mobile-header-logo">
-					<a href="index.html"><img
+					<a href="<%=request.getContextPath()%>/nest-frontend/HomePage.jsp"><img
 						src="<%=request.getContextPath()%>/assets/imgs/theme/logo_Petting.svg"
 						alt="logo" /></a>
 				</div>
@@ -296,52 +287,60 @@
 			</div>
 			<div class="mobile-header-content-area">
 				<div class="mobile-search search-style-3 mobile-header-border">
-					<form action="#">
-						<input type="text" placeholder="請輸入關鍵字..." />
-						<button type="submit">
-							<i class="fi-rs-search"></i>
-						</button>
+					<form action="../product/SearchServlet" method="GET">
+						<input type="text" placeholder="請輸入關鍵字...." name="usersearch" />
+						<input type="hidden" name="action" value="search_from_header">
+						<button type="submit" value="搜尋"></button>
 					</form>
 				</div>
-				<div class="mobile-menu-wrap mobile-header-border">
-					<!-- mobile menu start -->
-					<nav>
-						<ul class="mobile-menu font-heading">
-							<li class="menu-item-has-children"><a href="index.html">商城首頁</a></li>
-							<li class="menu-item-has-children"><a
-								href="shop-grid-right.html">寵物糧食</a>
-								<ul class="dropdown">
-									<li><a href="shop-grid-right.html">品牌飼料</a></li>
-									<li><a href="shop-grid-left.html">貓狗罐罐</a></li>
-									<li><a href="shop-list-right.html">貓狗零食</a></li>
-									<li><a href="shop-list-left.html">寵物保健</a></li>
-								</ul></li>
-							<li class="menu-item-has-children"><a href="#">生活用品</a>
-								<ul class="dropdown">
-									<li><a href="vendors-grid.html">居家用品</a></li>
-									<li><a href="vendors-list.html">外出用品</a></li>
-									<li><a href="vendor-details-1.html">寵物玩具</a></li>
-									<li><a href="vendor-details-2.html">美容護理</a></li>
-								</ul></li>
-							<li class="menu-item-has-children"><a href="#">寵物服務</a></li>
-							<li class="menu-item-has-children"><a
-								href="blog-category-fullwidth.html">部落格首頁</a></li>
-							<li class="menu-item-has-children"><a
-								href="page-contact.html">聯絡我們</a></li>
-						</ul>
-					</nav>
-					<!-- mobile menu end -->
-				</div>
+<!-- 				<div class="mobile-menu-wrap mobile-header-border"> -->
+<!-- 					mobile menu start -->
+<!-- 					<nav> -->
+<!-- 						<ul class="mobile-menu font-heading"> -->
+<!-- 							<li class="menu-item-has-children"><a href="index.html">商城首頁</a></li> -->
+<!-- 							<li class="menu-item-has-children"><a -->
+<!-- 								href="shop-grid-right.html">寵物糧食</a> -->
+<!-- 								<ul class="dropdown"> -->
+<!-- 									<li><a href="shop-grid-right.html">品牌飼料</a></li> -->
+<!-- 									<li><a href="shop-grid-left.html">貓狗罐罐</a></li> -->
+<!-- 									<li><a href="shop-list-right.html">貓狗零食</a></li> -->
+<!-- 									<li><a href="shop-list-left.html">寵物保健</a></li> -->
+<!-- 								</ul></li> -->
+<!-- 							<li class="menu-item-has-children"><a href="#">生活用品</a> -->
+<!-- 								<ul class="dropdown"> -->
+<!-- 									<li><a href="vendors-grid.html">居家用品</a></li> -->
+<!-- 									<li><a href="vendors-list.html">外出用品</a></li> -->
+<!-- 									<li><a href="vendor-details-1.html">寵物玩具</a></li> -->
+<!-- 									<li><a href="vendor-details-2.html">美容護理</a></li> -->
+<!-- 								</ul></li> -->
+<!-- 							<li class="menu-item-has-children"><a href="#">寵物服務</a></li> -->
+<!-- 							<li class="menu-item-has-children"><a -->
+<!-- 								href="blog-category-fullwidth.html">部落格首頁</a></li> -->
+<!-- 							<li class="menu-item-has-children"><a -->
+<!-- 								href="page-contact.html">關於我們</a></li> -->
+<!-- 						</ul> -->
+<!-- 					</nav> -->
+<!-- 					mobile menu end -->
+<!-- 				</div> -->
+				
 				<div class="mobile-header-info-wrap">
 					<div class="single-mobile-header-info">
-						<a href="page-contact.html"><i class="fi-rs-marker"></i>台北市中山區南京東路三段219號5樓
+						<a href="<%=request.getContextPath()%>/nest-frontend/contact_us.jsp"><i class="fi-rs-marker"></i>台北市中山區南京東路三段219號5樓
 						</a>
 					</div>
 					<div class="single-mobile-header-info">
-						<a href="page-login.html"><i class="fi-rs-user"></i>登入 / 登出 </a>
+					<c:choose>
+						<c:when test="${not(BusUsing == null) || not(MemberUsing == null)}">
+						<!-- 有任一身分登入 -->
+						<a href="<%=request.getContextPath()%>/members/MembersLogout?action=logout"><i class="fi-rs-user"></i>登入 / 登出 </a>
+						</c:when>
+						<c:otherwise>
+						<a href="<%=request.getContextPath()%>/nest-frontend/Login.jsp"><i class="fi-rs-user"></i>登入 / 登出 </a>
+						</c:otherwise>
+					</c:choose>
 					</div>
 					<div class="single-mobile-header-info">
-						<a href="#"><i class="fi-rs-headphones"></i>02-2712-0589 </a>
+						<a><i class="fi-rs-headphones"></i>02-2712-0589 </a>
 					</div>
 				</div>
 				<!--
@@ -385,7 +384,7 @@
 	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.vticker-min.js"></script> --%>
 	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.theia.sticky.js"></script> --%>
 	<%--     <script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.elevatezoom.js"></script> --%>
-	<script src="https://kit.fontawesome.com/60002e5c50.js"></script>
+	
 	<!--     Invoice JS, shop-inovice-*.html -->
 	<!--     <script src="assets/js/invoice/jspdf.min.js"></script> -->
 	<!--     <script src="assets/js/invoice/invoice.js"></script> -->

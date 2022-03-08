@@ -1,9 +1,11 @@
 package com.cart.controller;
 
 import java.io.IOException;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
-import javax.management.loading.PrivateClassLoader;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,10 +14,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.cart.model.Products;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.cart.model.JedisCartListService;
+import com.members.model.MembersService;
+import com.members.model.MembersVO;
+import com.product.model.ProductService;
+import com.product.model.ProductVO;
 
 
-@WebServlet("/CartServlet")
+
+@WebServlet("/nest-frontend/cartServlet.do")
 public class CartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -28,16 +38,26 @@ public class CartServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		
 		HttpSession session = req.getSession();
-		Vector<Products> cartlist = (Vector<Products>) session.getAttribute("cart");
+		MembersVO membersVO = (MembersVO)session.getAttribute("MemberUsing");
+		String memberId = membersVO.getMemberid().toString();
+		
+		List<String> cartlist = JedisCartListService.getCartList(memberId);
+		Map<String, List<ProductVO>> map = new LinkedHashMap<>();
+	    Map<Integer, Integer> qtyMap = new LinkedHashMap<>();
 		String action = req.getParameter("action");
+		
 		
 		if (!action.equals("checkout")) {
 			
 			// 刪除商品
 			if (action.equals("delete")) {
-				String del = req.getParameter("del");
-				int d = Integer.parseInt(del);
-				cartlist.removeElementAt(d);
+				String merId = (String) req.getParameter("del");
+				try {
+					JedisCartListService.deleteCartListbyMerId(memberId, cartlist, merId);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 			// 新增商品到購物車中
@@ -45,71 +65,122 @@ public class CartServlet extends HttpServlet {
 				boolean match = false;
 				
 				// 取得新增商品
-				Products addProducts = getProducts(req);
+				JSONObject addProducts = null;
+				try {
+					addProducts = getProducts(req);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				// 新增第一項商品到購物車時
 				if(cartlist == null) {
-					cartlist = new Vector<Products>();
-					cartlist.add(addProducts);
+					try {
+						JedisCartListService.addCartList(memberId, addProducts);
+						System.out.println("CS 81 ");
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						System.out.println("CS 84 ");
+						e.printStackTrace();
+					}
 				} else {
-					for (int i = 0; i < cartlist.size(); i++) {
-						Products products = cartlist.get(i);
-						
-						// 假如新增商品購物車裡已經有了
-						if (products.getMerId().equals(addProducts.getMerId())) {
-							products.setQty(products.getQty() + addProducts.getQty());
-							cartlist.setElementAt(products, i);
-							match = true;
-						}
+					// 假如新增商品購物車裡已經有了
+					String qty = req.getParameter("qty");
+					String merId = req.getParameter("merId");
+					try {
+						match = JedisCartListService.updateCartList(memberId, cartlist, merId, qty, match);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 					
-					// 假如新增商品購物車裡沒有
+					// 假如新增商品購物車裡沒有(回傳的 match 沒有變 true)
 					if (!match) {
-						cartlist.add(addProducts);
+						System.out.println("CS 100 ");
+						try {
+							JedisCartListService.addCartList(memberId, addProducts);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}	
 				}
 			}
-			
-			session.setAttribute("cart", cartlist);
-			String url = req.getRequestURI();
+			List<String> savelist = JedisCartListService.getCartList(memberId);
+			session.setAttribute("cart", savelist);
+			String url = req.getParameter("location");
 			res.sendRedirect(url);
-		}
-		
+		}		
 		// 結帳
 		// 計算購物車總價
 		else if (action.equals("checkout")) {
-			int total = 0;
+			
+			String busId = req.getParameter("busIdtoCheckout");
+			List<String> checkoutList = new ArrayList<>();
+			
 			for (int i = 0; i < cartlist.size(); i++) {
-				Products order = cartlist.get(i);
-				int price = order.getPrice();
-				int qty = order.getQty();
-				total += (price*qty);
+				JSONObject product;
+				try {
+					product = new JSONObject(cartlist.get(i));
+					if (product.getString("busId").equals(busId)) {
+						checkoutList.add(product.toString());
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
+			}
+
+			Integer total = 0;
+			Integer amount = 0;
+			for (int j = 0; j < checkoutList.size(); j++) {
+				JSONObject product;
+				try {
+					product = new JSONObject(checkoutList.get(j));
+					Integer qty = Integer.valueOf(product.getString("qty"));
+					Integer price = Integer.valueOf(product.getString("price"));
+
+					total += (price*qty);
+					amount += qty;
+
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
 			}
 			
-			String amount = String.valueOf(total);
-			req.setAttribute("amount", amount);
-			String url = "shopCart.jsp";
+			Integer memberid = Integer.valueOf(memberId);
+			MembersService memSvc = new MembersService();
+			MembersVO member = memSvc.select(memberid);
+			
+			req.setAttribute("total", String.valueOf(total));
+			req.setAttribute("amount", String.valueOf(amount));
+			session.setAttribute("list", checkoutList);
+			req.setAttribute("name", member.getName());
+			req.setAttribute("email", member.getEmail());
+			req.setAttribute("mobile", member.getMobile());
+			String url = "orderCheckout.jsp";
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
-		}
+			
+		} 
+		
 	}
 	
-	private Products getProducts(HttpServletRequest req) {
+	private JSONObject getProducts(HttpServletRequest req) throws JSONException {
 		String qty = req.getParameter("qty");
 		String merId = req.getParameter("merId");
 		String busId = req.getParameter("busId");
-		String name = req.getParameter("name");
 		String price = req.getParameter("price");
 		
-		Products products = new Products();
+		JSONObject jsonObject = new JSONObject();
 		
-		products.setMerId((new Integer(merId)).intValue());
-		products.setBusId((new Integer(busId)).intValue());
-		products.setName(name);
-		products.setQty((new Integer(qty)).intValue());
-		products.setPrice((new Integer(price)).intValue());
+		jsonObject.put("merId", merId);
+		jsonObject.put("busId", busId);
+		jsonObject.put("qty", qty);
+		jsonObject.put("price", price);
 		
-		return products;
+		return jsonObject;
 	}
 
 }
