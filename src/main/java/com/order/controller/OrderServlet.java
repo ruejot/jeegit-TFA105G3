@@ -17,8 +17,11 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.cart.model.JedisCartListService;
+import com.members.model.MembersVO;
 import com.order.model.*;
 import com.orderDetail.model.OrderDetailVO;
+import com.product.model.*;
 
 
 
@@ -47,18 +50,12 @@ public class OrderServlet extends HttpServlet {
 				// 接收請求參數
 				// 取得訂單id
 				Integer orderId = new Integer(req.getParameter("orderId"));
-//				// 開始查詢資料
+				// 開始查詢資料
 				OrderService orderSvc1 = new OrderService();
 				OrderVO orderVO = orderSvc1.cancelOrder(orderId);
-//				System.out.println(orderVO.getMemberId());
-//				OrderService orderSvc2 = new OrderService();
-//				List<OrderVO> list = orderSvc2.getOrdersByMemberId(orderVO.getMemberId());
-//				// 取消完成，準備轉交
-//				req.setAttribute("list", list);
+				// 取消完成，返回頁面
 				String url = "accountCenter.jsp";
 				res.sendRedirect(url);
-//				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交頁面
-//				successView.forward(req, res);
 
 				// 其他錯誤處理
 			} catch (Exception e) {
@@ -79,25 +76,11 @@ public class OrderServlet extends HttpServlet {
 				if (name == null || (name.trim()).length() == 0) {
 					errorMsgs.add("請輸入收件人姓名");
 				}
-//				// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//					RequestDispatcher failureView = req
-//							.getRequestDispatcher("orderCheckout.jsp");
-//					failureView.forward(req, res);
-//					return;//程式中斷
-//				}
 				
 				String email = req.getParameter("email");
 				if (email == null || (email.trim()).length() == 0) {
 					errorMsgs.add("請輸入email");
 				}
-//				// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//					RequestDispatcher failureView = req
-//							.getRequestDispatcher("orderCheckout.jsp");
-//					failureView.forward(req, res);
-//					return;//程式中斷
-//				}
 				
 				String county = req.getParameter("county");
 				String district = req.getParameter("district");
@@ -110,13 +93,6 @@ public class OrderServlet extends HttpServlet {
 						errorMsgs.add("選擇宅配到府，請務必輸入完整收件地址");
 					}
 				}
-//				// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//					RequestDispatcher failureView = req
-//							.getRequestDispatcher("orderCheckout.jsp");
-//					failureView.forward(req, res);
-//					return;//程式中斷
-//				}
 				
 				String mobile = req.getParameter("email");
 //				String mobileReg = "^[0-9]$"; 
@@ -142,8 +118,8 @@ public class OrderServlet extends HttpServlet {
 				}
 				/******************** 開始成立訂單 ********************/
 				HttpSession session = req.getSession();
-//				Integer memberId = (Integer) session.getAttribute("MemberUsing");
-				Integer memberId = 22;
+				MembersVO membersVO = (MembersVO)session.getAttribute("MemberUsing");
+				Integer memberId = membersVO.getMemberid();
 				Integer busId = 0;
 				Integer total = 0;
 				
@@ -190,7 +166,18 @@ public class OrderServlet extends HttpServlet {
 				
 				OrderDAO dao = new OrderDAO();
 				String new_orderId = dao.insertWithOrderDetail(orderVO, orderList);
+				// 訂單成立後
+				// 移除 session 的結帳列表
 				session.removeAttribute("list");
+				// 從 Redis 移除已購買商品
+				List<String> cartlist = JedisCartListService.getCartList(memberId.toString());
+				JedisCartListService.deleteCartListbyBusId(memberId.toString(), cartlist, busId.toString());
+				// 扣庫存
+				ProductDAO prdDao = new ProductDAO();
+				for (int i = 0; i < orderList.size(); i++) {
+					OrderDetailVO orderDetailVO = orderList.get(i);
+					prdDao.updateMerStockQty(orderDetailVO.getQty(), orderDetailVO.getMerId());
+				}
 				
 				/******************** 訂單成立，準備轉交 ********************/
 				req.setAttribute("new_orderId", new_orderId);

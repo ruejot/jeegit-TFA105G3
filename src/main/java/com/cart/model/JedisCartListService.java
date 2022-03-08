@@ -49,13 +49,26 @@ public class JedisCartListService {
 		return savelist;
 	}
 	
-	public static void deleteCartList (String memberId, List<String> cartlist, String merId) throws JSONException {
+	public static void deleteCartListbyMerId (String memberId, List<String> cartlist, String merId) throws JSONException {
 		String cartKey = new StringBuilder("member").append(":").append(memberId).append(":").append("cart").toString();
 		Jedis jedis = pool.getResource();
 
 		for (int i = 0; i < cartlist.size(); i++) {
 			JSONObject product = new JSONObject(cartlist.get(i));
 			if (product.getString("merId").equals(merId)) {
+				jedis.lrem(cartKey, 0, product.toString());
+			}
+		}
+		jedis.close();
+	}
+	
+	public static void deleteCartListbyBusId (String memberId, List<String> cartlist, String busId) throws JSONException {
+		String cartKey = new StringBuilder("member").append(":").append(memberId).append(":").append("cart").toString();
+		Jedis jedis = pool.getResource();
+
+		for (int i = 0; i < cartlist.size(); i++) {
+			JSONObject product = new JSONObject(cartlist.get(i));
+			if (product.getString("busId").equals(busId)) {
 				jedis.lrem(cartKey, 0, product.toString());
 			}
 		}

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.bus.model.*;
 import com.cart.model.JedisCartListService;
 import com.members.model.MembersService;
 import com.members.model.MembersVO;
@@ -53,7 +54,7 @@ public class CartServlet extends HttpServlet {
 			if (action.equals("delete")) {
 				String merId = (String) req.getParameter("del");
 				try {
-					JedisCartListService.deleteCartList(memberId, cartlist, merId);
+					JedisCartListService.deleteCartListbyMerId(memberId, cartlist, merId);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -153,6 +154,11 @@ public class CartServlet extends HttpServlet {
 			MembersService memSvc = new MembersService();
 			MembersVO member = memSvc.select(memberid);
 			
+			Integer busid = Integer.valueOf(busId);
+			BusService busSvc = new BusService();
+			BusVO busVO = busSvc.select(busid);
+			
+			req.setAttribute("busVO", busVO);
 			req.setAttribute("total", String.valueOf(total));
 			req.setAttribute("amount", String.valueOf(amount));
 			session.setAttribute("list", checkoutList);

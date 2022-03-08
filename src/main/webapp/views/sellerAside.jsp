@@ -35,7 +35,7 @@
 						<i class="icon material-icons md-person"></i> <span class="text">廠商資料</span>
 				</a></li>
 				<li class="menu-item"><a class="menu-link" 
-					href="<%=request.getContextPath()%>/nest-frontend/fendshop_mainpage.jsp">
+					href="<%=request.getContextPath()%>/nest-frontend/fendshop_mainpage.jsp?action=fromBackendSelf">
 						<i class="icon material-icons md-home"></i> <span class="text">我的商店</span>
 				</a></li>
 				<li class="menu-item"><a class="menu-link"
