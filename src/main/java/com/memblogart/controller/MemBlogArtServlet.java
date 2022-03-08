@@ -290,7 +290,8 @@ public class MemBlogArtServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("memBlogArtVO", memBlogArtVO); // 含有輸入格式錯誤的empVO物件,也存入req
-					RequestDispatcher failureView = req.getRequestDispatcher("/nest-backend/blog_add-article.jsp");
+					req.setAttribute("location", "dashboard");
+					RequestDispatcher failureView = req.getRequestDispatcher("/nest-backend/blog_manage.jsp");
 					failureView.forward(req, res);
 					return;
 				}

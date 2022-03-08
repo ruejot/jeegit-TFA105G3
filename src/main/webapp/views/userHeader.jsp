@@ -84,7 +84,7 @@
 															<i class="fi fi-rs-user mr-10"></i>廠商資料
 													</a></li>
 													<li><a
-														href="<%=request.getContextPath()%>/nest-frontend/fendshop_mainpage.jsp">
+														href="<%=request.getContextPath()%>/nest-frontend/fendshop_mainpage.jsp?action=fromBackendSelf">
 															<i class="fi fi-rs-settings-sliders mr-10"></i>我的商店
 													</a></li>
 													<li><a

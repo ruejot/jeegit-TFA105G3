@@ -11,7 +11,9 @@
 
 // 其實不用BusVO busVO =，這行。
 BusVO busVO = (BusVO) request.getAttribute("busVO_from_ShopMainpage"); // attribute 來自CsDetailServlet.java
-// 此行測試，pageContext.setAttribute("busVO_from_ShopMainpage2", busVO);
+
+// 此行測試
+request.setAttribute("busVO_thisPage", busVO);
 
 // 您將傳訊息給 - 【${busVO_from_ShopMainpage.name}】
 // 等同下面
@@ -36,7 +38,7 @@ if(session.getAttribute("MemberUsing")!=null){
 // 這裡是以防無登入者的情況，所以多寫一層用membersVO擷取MemberUsing
 
 // membersVO存成Attribute，如此可用EL語法存取
-pageContext.setAttribute("membersVO_thisPage", membersVO);
+request.setAttribute("membersVO_thisPage", membersVO);
 %>
 
 <%
@@ -99,9 +101,9 @@ pageContext.setAttribute("membersVO_thisPage", membersVO);
 								<div class="col-xl-8">
 									<div class="contact-from-area padding-20-row-col">
 										<h5 class="text-brand mb-10">說說您的需求</h5>
-										<h2 class="mb-10">即將傳送您的訊息 ${busVO_from_ShopMainpagepage.name}</h2>
+										<h2 class="mb-10">即將傳送您的訊息 ${busVO_shopMpage.name}</h2>
 										<p class="text-muted mb-30 font-sm">請在下方留言，將盡快答覆您。</p>
-										<form method="post" action="<%=request.getContextPath()%>/nest-backend/CsDetail.do" class="contact-form-style mt-30" id="contact-form" >
+										<form method="post" action="<%=request.getContextPath()%>/nest-backend/CsServletOnlyMember.do" class="contact-form-style mt-30" id="contact-form" >
 											<div class="row">
 												<div class="col-lg-6 col-md-6">
 													<div class="text ml-20">
@@ -147,7 +149,7 @@ pageContext.setAttribute("membersVO_thisPage", membersVO);
 													<button type="submit" class="submit submit-auto-width">確認並傳送</button>
 													<input type="hidden" name="action" value="insert">
 													<input type="hidden" name="member_id" value="${membersVO_thisPage.memberid}">
-													<input type="hidden" name="bus_id" value="${busVO_from_ShopMainpage.busid}">
+													<input type="hidden" name="bus_id" value="${busVO_shopMpage.busid}">
 												</div>
 											</div>
 										</form>

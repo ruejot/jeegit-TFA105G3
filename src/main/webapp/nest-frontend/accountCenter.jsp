@@ -8,10 +8,8 @@
 <%	
 	MembersVO membersVO = (MembersVO) session.getAttribute("MemberUsing");	
 	Integer memberId = membersVO.getMemberid();
-	System.out.println(memberId);
     OrderService ordSvc = new OrderService();
     List<OrderVO> list = ordSvc.getOrdersByMemberId(memberId);
-    System.out.println(list);
     pageContext.setAttribute("list",list);
     
     

@@ -35,6 +35,27 @@ public class ProductService {
 		return proVO;
 	}
 	
+//	public ProductVO updatePro(Integer merid, Integer busid, String name, Integer price, Integer stock, Date shelfDate, 
+//			Integer status, String description, String shippingMethod, String mainCategory, String subCategory, ProductImgVO proImgVO) {
+//		
+//		ProductVO proVO = new ProductVO();
+//		
+//		proVO.setMerid(merid);
+//		proVO.setBusid(busid);
+//		proVO.setName(name);
+//		proVO.setPrice(price);
+//		proVO.setStock(stock);
+//		proVO.setShelfDate(shelfDate);
+//		proVO.setStatus(status);
+//		proVO.setDescription(description);
+//		proVO.setShippingMethod(shippingMethod);
+//		proVO.setMainCategory(mainCategory);
+//		proVO.setSubCategory(subCategory);
+//		dao.updateWithProductImg(proVO, proImgVO);
+//		
+//		return proVO;
+//	}
+	
 	public ProductVO updatePro(Integer merid, Integer busid, String name, Integer price, Integer stock, Date shelfDate, 
 			Integer status, String description, String shippingMethod, String mainCategory, String subCategory) {
 		

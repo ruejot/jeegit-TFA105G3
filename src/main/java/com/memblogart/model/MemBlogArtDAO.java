@@ -25,7 +25,7 @@ public class MemBlogArtDAO implements MemBlogArtDAO_interface {
 	private static final String INSERT_STMT = "INSERT INTO MEM_BLOG_ART (MEMBER_ID,TITLE,POSTTIME,CONTENT) VALUES (?, ?, ?, ?)";
 
 	private static final String GET_ALL_STMT = "SELECT ART_ID,MEMBER_ID,TITLE,POSTTIME,HEART,CONTENT FROM MEM_BLOG_ART";
-	private static final String GET_ALL_STMT_ByMemberId = "SELECT ART_ID,MEMBER_ID,TITLE,POSTTIME,HEART,CONTENT FROM MEM_BLOG_ART where MEMBER_ID = ?";
+	private static final String GET_ALL_STMT_ByMemberId = "SELECT ART_ID,MEMBER_ID,TITLE,DATE(POSTTIME) POSTTIME_DATE,HEART,CONTENT FROM MEM_BLOG_ART where MEMBER_ID = ?";
 
 	private static final String GET_ONE_STMT = "SELECT ART_ID,MEMBER_ID,TITLE,POSTTIME,HEART,CONTENT FROM MEM_BLOG_ART where ART_ID = ?";
 	private static final String GET_time_ByMemberId_STMT = "SELECT ART_ID,MEMBER_ID,TITLE,POSTTIME,HEART,CONTENT FROM MEM_BLOG_ART where MEMBER_ID = ? order by POSTTIME";
@@ -333,7 +333,8 @@ public class MemBlogArtDAO implements MemBlogArtDAO_interface {
 				artVO.setArtid(rs.getInt("ART_ID"));
 				artVO.setMemberId(rs.getInt("MEMBER_ID"));
 				artVO.setTitle(rs.getString("TITLE"));
-				artVO.setPosttime(rs.getTimestamp("POSTTIME"));
+//				artVO.setPosttime(rs.getTimestamp("POSTTIME"));
+				artVO.setPosttimeDate(rs.getString("POSTTIME_DATE"));
 				artVO.setHeart(rs.getInt("HEART"));
 				artVO.setContent(rs.getString("CONTENT"));
 				list.add(artVO); // Store the row in the list
