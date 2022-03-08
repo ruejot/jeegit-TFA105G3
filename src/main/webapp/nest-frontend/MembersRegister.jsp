@@ -101,14 +101,15 @@
 													<div class="login_footer form-group mb-50">
 														<div class="chek-form">
 															<div class="custome-checkbox">
+																<!-- (取消此作法)必須勾選，否則會跳警告提示框(詳如下方script) -->
 																<input required="required" class="form-check-input"
 																	type="checkbox" name="checkbox" id="exampleCheckbox12"
-																	value="" checked />
-																<!-- (取消此作法)必須勾選，否則會跳警告提示框(詳如下方script) -->
-																<label class="form-check-label" for="exampleCheckbox12"><span>我同意隱私權政策</span></label>
-															</div>
+																	value="1" checked onchange="privacychecked()"><label class="form-check-label" for="exampleCheckbox12"><span>我同意隱私權政策</span></label>
+																</input>
 																<!-- 若無勾選同意隱私權政策時會出警告訊息在這 -->
 																<span style="color: red;">${warningPrivacyMsg}</span>
+																
+															</div>
 														</div>
 														<a href="page-privacy-policy.html"><i
 															class="fi-rs-book-alt mr-5 text-muted"></i>由此了解更多隱私權政策</a>
@@ -159,7 +160,20 @@
 		<!-- 結束此頁，注意相對位置，你寫的最後一行是相對於</main>的前一行 -->
 	</main>
 	<jsp:include page="/views/footer.jsp" />
+	<!-- 這是有打勾，input就會變成checked的onchange事件 -->
+	<script>
+		var privacycheckbox = document.getElementById("exampleCheckbox12");
+		privacycheckbox.onchange(){
 
+			if(privacycheckbox.checked == true){
+				privacycheckbox.value = "1";
+			}else{
+				privacycheckbox.value = "";
+			}
+
+		};
+		
+	</script>
 	<!-- 若未勾選同意隱私權時會跳提示框的script(p.s.在JSP中插入Javascript需要用到<script type="text/javascript"></script>標簽)
 	<script type="text/javascript">
 		window.onload=function(){

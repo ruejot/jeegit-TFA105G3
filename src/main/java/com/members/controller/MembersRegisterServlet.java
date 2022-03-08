@@ -46,28 +46,32 @@ public class MembersRegisterServlet extends HttpServlet {
 
 		// 註冊
 		if ("register".equals(action)) { // MembersRegister.jsp裡的請求
+			System.out.println("按鈕有觸發成功");
+			System.out.println(checkbox+"1在哪裡");
 
 			// 先判斷是否有勾選隱私權政策
 			if (checkbox == null || checkbox.trim().length() == 0) {
+				System.out.println(checkbox+"2在哪裡");
 				req.setAttribute("warningPrivacyMsg", "如欲註冊為會員，需勾選同意隱私權政策!謝謝!");
 				req.getRequestDispatcher("../nest-frontend/MembersRegister.jsp").forward(req, res);
 
 			} else {
 				// 再驗證密碼跟確認密碼欄是否一致
 				if (password.equals(passwordrp)) {
-
+					System.out.println("密碼："+password+"確認密碼："+passwordrp);
 					// 確認密碼跟確認密碼為一致後，再撈DB的資料，看有沒有get到email
 					MembersDAO_interface membersDAOInterface = new MembersDAO();
 					MembersVO membersbean = membersDAOInterface.select(email);
 
 					// 若有撈到email，代表已有相同帳號註冊過
 					if (membersbean != null) {
+						System.out.println("membersbeanget不到"+membersbean);
 						// 則跳提醒說此帳號已被註冊
 						req.setAttribute("warningMembersMsg2", "很抱歉!此帳號已被註冊!!");
 						req.getRequestDispatcher("../nest-frontend/MembersRegister.jsp").forward(req, res);
 //						req.getRequestDispatcher(req.getContextPath() +"/nest-frontend/Register.jsp").forward(req, res);						
 					} else {
-
+						System.out.println("membersbean："+membersbean);
 						// 表示目前資料庫無相同之email，則可繼續進行註冊→則新增1個membersVO
 						MembersService memberssvc = new MembersService();// 註冊方法放在service所以用service
 //							MembersDAO membersDAO = new MembersDAO();
@@ -89,6 +93,7 @@ public class MembersRegisterServlet extends HttpServlet {
 					}
 
 				} else {
+					System.out.println("密碼不一致，密碼："+password+"確認密碼："+passwordrp);
 					req.setAttribute("warningMembersMsg1", "不好意思!您的密碼輸入不一致，請再確認!");
 					req.getRequestDispatcher("../nest-frontend/MembersRegister.jsp").forward(req, res);
 
