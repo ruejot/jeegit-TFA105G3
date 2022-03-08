@@ -59,6 +59,7 @@ BusVO busVO = (BusVO)session.getAttribute("BusUsing");
 						</div>
 						<div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
 						</div>
+						<!-- 
 						<div class="col-md-2 col-6">
 							<select class="form-select">
 								<option selected>上架狀態</option>
@@ -67,6 +68,7 @@ BusVO busVO = (BusVO)session.getAttribute("BusUsing");
 								<option>暫停販售</option>
 							</select>
 						</div>
+						-->
 					</div>
 				</header>
 				<!-- card-header end// -->
@@ -106,7 +108,7 @@ BusVO busVO = (BusVO)session.getAttribute("BusUsing");
 				<%@ include file="pages/page1.file" %> 
 				<c:forEach var="productVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" > 
 					<article class="itemlist">
-						<div class="row align-items-center">
+						<div class="row align-items-center" id="tableRow">
 							<div class="col col-check flex-grow-0">				
 									
 							</div>
@@ -142,7 +144,7 @@ BusVO busVO = (BusVO)session.getAttribute("BusUsing");
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/nest-backend/product.do">
 								<button class="btn btn-sm font-sm btn-light rounded" style="margin-top:5px" type="submit"><i class="material-icons md-delete_forever"></i>刪除</button>
 			     				<input type="hidden" name="merid"  value="${productVO.merid}">
-			     				<input type="hidden" name="action" value="delete"></FORM>
+			     				<input type="hidden" name="action" value="delete"></FORM>			     			
 							</div>
 						</div>
 						<!-- row .// -->
@@ -167,5 +169,6 @@ BusVO busVO = (BusVO)session.getAttribute("BusUsing");
 	<!-- Main Script -->
 	<script src="<%=request.getContextPath()%>/assets/js/main_backend.js" type="text/javascript"></script>
 	<script src="https://kit.fontawesome.com/60002e5c50.js"></script>
+	<script>$('#myTableRow').remove();</script>
 </body>
 </html>

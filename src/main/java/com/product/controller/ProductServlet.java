@@ -130,7 +130,6 @@ public class ProductServlet extends HttpServlet {
 				try {
 					price = Integer.parseInt(req.getParameter("price").trim());
 				} catch (NumberFormatException e) {
-					price = 0;
 					errorMsgs.add("金額請填數字!");
 				}
 
@@ -139,18 +138,16 @@ public class ProductServlet extends HttpServlet {
 				try {
 					stock = Integer.parseInt(req.getParameter("stock").trim());
 				} catch (NumberFormatException e) {
-					stock = 0;
 					errorMsgs.add("庫存請填數字!");
 				}
 
 				// 取得上架狀態
 				Integer status = null;
 				try {
-					status = Integer.parseInt(req.getParameter("status"));
+					status = Integer.parseInt(req.getParameter("status").trim());
 				} catch(NumberFormatException e) {
 					errorMsgs.add("請填上架狀態!");
-				}
-			
+				}			
 
 				// 取得出貨方式
 //				String shippingMethod = req.getParameter("shippingMethod");
@@ -251,7 +248,7 @@ public class ProductServlet extends HttpServlet {
 				if (part != null) {
 				
 				//刪除原有照片
-				ProductImgService proImgSvc = new ProductImgService();
+//				ProductImgService proImgSvc = new ProductImgService();
 				Integer imgid = Integer.parseInt(req.getParameter("imgid"));
 				System.out.println(imgid + "1");
 //				proImgSvc.deleteProductImg(imgid);
@@ -387,6 +384,7 @@ public class ProductServlet extends HttpServlet {
 				try {
 					status = Integer.parseInt(req.getParameter("status"));
 				} catch(NumberFormatException e) {
+					status = 3;
 					errorMsgs.add("請填上架狀態!");
 				}
 				
