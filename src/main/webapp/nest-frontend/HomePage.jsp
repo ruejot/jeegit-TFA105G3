@@ -357,7 +357,7 @@ request.setAttribute("mainlist5", mainlist5);
 													<input type="hidden" name="merId" value="${product.merid}">                                                    
 													<input type="hidden" name="busId" value="${product.busid}">                                                    
 													<input type="hidden" name="price" value="${product.price}">
-													<input type="hidden" name="location" value="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+													<input type="hidden" name="location" value="<%=request.getContextPath()%>/nest-frontend/showCartServlet.do?action=showcart">
 													
 											</form>
 												</div>
@@ -419,7 +419,7 @@ request.setAttribute("mainlist5", mainlist5);
 													<input type="hidden" name="merId" value="${product.merid}">                                                    
 													<input type="hidden" name="busId" value="${product.busid}">                                                    
 													<input type="hidden" name="price" value="${product.price}">
-													<input type="hidden" name="location" value="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+													<input type="hidden" name="location" value="<%=request.getContextPath()%>/nest-frontend/showCartServlet.do?action=showcart">
 													
 											</form>
 												</div>
@@ -481,7 +481,7 @@ request.setAttribute("mainlist5", mainlist5);
 															<input type="hidden" name="merId" value="${product.merid}">                                                    
 															<input type="hidden" name="busId" value="${product.busid}">                                                    
 															<input type="hidden" name="price" value="${product.price}">
-															<input type="hidden" name="location" value="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+															<input type="hidden" name="location" value="<%=request.getContextPath()%>/nest-frontend/showCartServlet.do?action=showcart">
 													</form>
 												</div>
 											</div>
@@ -542,7 +542,7 @@ request.setAttribute("mainlist5", mainlist5);
 															<input type="hidden" name="merId" value="${product.merid}">                                                    
 															<input type="hidden" name="busId" value="${product.busid}">                                                    
 															<input type="hidden" name="price" value="${product.price}">
-															<input type="hidden" name="location" value="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+															<input type="hidden" name="location" value="<%=request.getContextPath()%>/nest-frontend/showCartServlet.do?action=showcart">
 													</form>
 												</div>
 											</div>
@@ -603,7 +603,7 @@ request.setAttribute("mainlist5", mainlist5);
 															<input type="hidden" name="merId" value="${product.merid}">                                                    
 															<input type="hidden" name="busId" value="${product.busid}">                                                    
 															<input type="hidden" name="price" value="${product.price}">
-															<input type="hidden" name="location" value="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+															<input type="hidden" name="location" value="<%=request.getContextPath()%>/nest-frontend/showCartServlet.do?action=showcart">
 													</form>
 												</div>
 											</div>
@@ -686,7 +686,7 @@ request.setAttribute("mainlist5", mainlist5);
 															<input type="hidden" name="merId" value="${product.merid}">                                                    
 															<input type="hidden" name="busId" value="${product.busid}">                                                    
 															<input type="hidden" name="price" value="${product.price}">
-															<input type="hidden" name="location" value="<%=request.getContextPath()%>/product/ProductJump?merid=${product.merid}&action=product_jump">
+															<input type="hidden" name="location" value="<%=request.getContextPath()%>/nest-frontend/showCartServlet.do?action=showcart">
 													</form>
 												</div>
 											</div>

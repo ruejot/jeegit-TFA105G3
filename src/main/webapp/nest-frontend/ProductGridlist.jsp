@@ -124,7 +124,7 @@ pageContext.setAttribute("list", list);
 															<input type="hidden" name="merId" value="${product.merid}">                                                    
 															<input type="hidden" name="busId" value="${product.busid}">                                                    
 															<input type="hidden" name="price" value="${product.price}">
-															<input type="text" name="location" value="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=${product.subCategory}">
+															<input type="hidden" name="location" value="<%=request.getContextPath()%>/product/SearchServlet?action=sub&subCategory=${product.subCategory}">
 													</form>
 												</div>
 											</div>
