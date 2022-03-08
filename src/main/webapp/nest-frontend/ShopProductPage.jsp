@@ -35,14 +35,13 @@
 	<jsp:include page="/views/userHeader.jsp" />
 	<!--End userHeader-->
 	<main class="main pages">
-		<jsp:include page="/views/userMainPage-header.jsp" />
 		 <div class="container">
             <!-- Main HERE -->
             <div class="container mb-30">
                 <div class="row">
                     <div class="col-xl-11 col-lg-12 m-auto">
                         <div class="row flex-row-reverse">
-                            <div class="col-xl-9">
+                            <div class="col-xl-10">
                                 <div class="product-detail accordion-detail">
                                     <div class="row mb-50 mt-30">
                                         <div class="col-md-6 col-sm-12 col-xs-12 mb-md-0 mb-sm-5">
@@ -67,14 +66,12 @@
                                         </div>
                                         <div class="col-md-6 col-sm-12 col-xs-12">
                                             <div class="detail-info pr-30 pl-30">
-                                                <span class="stock-status out-stock"> Sale Off </span>
                                                 <h2 class="title-detail">${aProd.get(0).name}</h2>
                                                 <div class="product-detail-rating">
                                                     <div class="product-rate-cover text-end">
                                                         <div class="product-rate d-inline-block">
                                                             <div class="product-rating" style="width: 90%"></div>
                                                         </div>
-                                                        <span class="font-small ml-5 text-muted"> (32 reviews)</span>
                                                     </div>
                                                 </div>
                                                 <div class="clearfix product-price-cover">
@@ -116,7 +113,7 @@
                                         <div class="col-12">
                                             <div class="row related-products">
 	                                            <c:forEach var="relatedProd" items="${relatedProd}" end="9" >
-	                                                <div class="col-lg-3 col-md-4 col-12 col-sm-6">
+	                                                <div class="col-lg-3 col-md-4 col-12 col-sm-6 mb-5">
 	                                                    <div class="product-cart-wrap hover-up">
 	                                                        <a href="<%=request.getContextPath()%>/product/ProductJump?merid=${relatedProd.merid}&action=product_jump" tabindex="0">
 	                                                        <div class="product-content-wrap">
@@ -135,7 +132,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 primary-sidebar sticky-sidebar mt-30">
+                            <div class="col-xl-1 primary-sidebar sticky-sidebar mt-30">
 
                                 <!-- Fillter By Price -->
 <!--                                 <div class="sidebar-widget price_range range mb-30"> -->

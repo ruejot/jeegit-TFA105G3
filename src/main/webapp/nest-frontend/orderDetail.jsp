@@ -3,8 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.orderDetail.model.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="com.members.model.*"%>
 
-<%	
+<%
+	MembersVO membersVO = (MembersVO) session.getAttribute("MemberUsing");
   List<OrderDetailVO> list = (List<OrderDetailVO>)request.getAttribute("orderDetailList");
   pageContext.setAttribute("list",list);
 %>
@@ -47,22 +49,22 @@
                                             </li>
                                             -->
                                             <li class="nav-item">
-                                                <a class="nav-link active" id="orders-tab" data-bs-toggle="tab" href="accountCenter.jsp" role="tab" aria-controls="orders" aria-selected="false"><i class="fi-rs-shopping-bag mr-10"></i>訂單管理</a>
+                                                <a class="nav-link active" id="orders-tab" data-bs-toggle="tab" href="accountCenter.jsp" role="tab" aria-controls="orders" aria-selected="true"><i class="fi-rs-shopping-bag mr-10"></i>訂單管理</a>
                                             </li>
                                             <!--
                                             <li class="nav-item">
                                                 <a class="nav-link" id="track-orders-tab" data-bs-toggle="tab" href="#track-orders" role="tab" aria-controls="track-orders" aria-selected="false"><i class="fi-rs-shopping-cart-check mr-10"></i>Track Your Order</a>
                                             </li>
                                              -->
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="fi-rs-marker mr-10"></i>文章管理</a>
-                                            </li>
+<!--                                             <li class="nav-item"> -->
+<!--                                                 <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="fi-rs-marker mr-10"></i>文章管理</a> -->
+<!--                                             </li> -->
 
                                             <li class="nav-item">
                                                 <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="fi-rs-user mr-10"></i>帳戶設定</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="page-login.html"><i class="fi-rs-sign-out mr-10"></i>登出</a>
+                                                <a class="nav-link" href="<%=request.getContextPath()%>/members/MembersLogout?action=logout"><i class="fi-rs-sign-out mr-10"></i>登出</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -142,113 +144,135 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--
-                                        <div class="tab-pane fade" id="track-orders" role="tabpanel" aria-labelledby="track-orders-tab">
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    <h3 class="mb-0">Orders tracking</h3>
-                                                </div>
-                                                <div class="card-body contact-from-area">
-                                                    <p>To track your order please enter your OrderID in the box below and press "Track" button. This was given to you on your receipt and in the confirmation email you should have received.</p>
-                                                    <div class="row">
-                                                        <div class="col-lg-8">
-                                                            <form class="contact-form-style mt-30 mb-50" action="#" method="post">
-                                                                <div class="input-style mb-20">
-                                                                    <label>Order ID</label>
-                                                                    <input name="order-id" placeholder="Found in your order confirmation email" type="text" />
-                                                                </div>
-                                                                <div class="input-style mb-20">
-                                                                    <label>Billing email</label>
-                                                                    <input name="billing-email" placeholder="Email you used during checkout" type="email" />
-                                                                </div>
-                                                                <button class="submit submit-auto-width" type="submit">Track</button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        -->
-                                        <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="card mb-3 mb-lg-0">
-                                                        <div class="card-header">
-                                                            <h3 class="mb-0">文章管理</h3>
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <address>
-                                                                3522 Interstate<br />
-                                                                75 Business Spur,<br />
-                                                                Sault Ste. <br />Marie, MI 49783
-                                                            </address>
-                                                            <p>New York</p>
-                                                            <a href="#" class="btn-small">Edit</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="card">
-                                                        <div class="card-header">
-                                                            <h5 class="mb-0">Shipping Address</h5>
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <address>
-                                                                4299 Express Lane<br />
-                                                                Sarasota, <br />FL 34249 USA <br />Phone: 1.941.227.4444
-                                                            </address>
-                                                            <p>Sarasota</p>
-                                                            <a href="#" class="btn-small">Edit</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
+                                        <!-- ===============================帳戶資料=============================== -->
                                         <div class="tab-pane fade" id="account-detail" role="tabpanel" aria-labelledby="account-detail-tab">
                                             <div class="card">
                                                 <div class="card-header">
-                                                    <h5>Account Details</h5>
+                                                    <h5>帳戶設定</h5>
                                                 </div>
                                                 <div class="card-body">
-                                                    <p>Already have an account? <a href="page-login.html">Log in instead!</a></p>
-                                                    <form method="post" name="enq">
+                                                    <form method="post" name="enq"
+                                                        action="<%=request.getContextPath()%>/members/MembersDataUpdate">
+                                                        <div class="form-group col-md-6">
+                                                            <label>使用者ID：</label><span>${MemberUsing.memberid}</span>
+                                                            <input type="hidden" name="membersMemberid" value="${MemberUsing.memberid}">
+                                                            <input type="hidden" name="membersDate" value="<%=membersVO.getDate()%>">
+                                                        </div>
                                                         <div class="row">
+    
                                                             <div class="form-group col-md-6">
-                                                                <label>First Name <span class="required">*</span></label>
-                                                                <input required="" class="form-control" name="name" type="text" />
+                                                                <label>姓名 *<span class="required"></span></label>
+                                                                <!-- <input required="" class="form-control" name="name" type="text" /> -->
+                                                                <input class="form-control" name="membersName" required="required"
+                                                                    type="text" value="${MemberUsing.name}">
                                                             </div>
                                                             <div class="form-group col-md-6">
-                                                                <label>Last Name <span class="required">*</span></label>
-                                                                <input required="" class="form-control" name="phone" />
+                                                                <label>暱稱</label> <input class="form-control"
+                                                                    name="membersNickname" type="text" value="${MemberUsing.nickname}"></input>
+                                                            </div>
+                                                            <!-- <div class="form-group col-md-6">
+                                                                <label>新密碼 *</label> <input class="form-control"
+                                                                    required name="NEWmembersPassword" type="password" placeholder="若新密碼不須修改，請輸入舊密碼"></input>
+                                                            </div> -->
+                                                            <div class="form-group col-md-12">
+                                                                <label>Email *(本欄位不可更改)</label>
+                                                                <!-- input標籤設為disabled="disabled"為不可編輯的意思 -->
+                                                                <input required="required" class="form-control" readonly="readonly"
+                                                                name="membersEmail" type="email" value="${MemberUsing.email}" style="background-color: #e9ecef;"></input>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label>手機 *<span class="required"></span></label> <input
+                                                                required="required" class="form-control" name="membersMobile" value="${MemberUsing.mobile}"></input>
+                                                                <!-- 當手機號碼格式不合格時↓ -->
+                                                                <span style="color: red;">${warningDataMembersMsg1}</span>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label>電話</label> <input class="form-control"
+                                                                name="membersPhone" type="text" value="${MemberUsing.phone}"></input>
                                                             </div>
                                                             <div class="form-group col-md-12">
-                                                                <label>Display Name <span class="required">*</span></label>
-                                                                <input required="" class="form-control" name="dname" type="text" />
+                                                                <label>地址</label> <input class="form-control"
+                                                                name="membersAddress" type="text" value="${MemberUsing.address}"></input>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label>簡介</label> <textarea class="form-control"
+                                                                name="membersIntro" placeholder="想說什麼呢~~" style="height: 130px;" rows="3">${MemberUsing.intro}</textarea>
                                                             </div>
                                                             <div class="form-group col-md-12">
-                                                                <label>Email Address <span class="required">*</span></label>
-                                                                <input required="" class="form-control" name="email" type="email" />
+                                                                <label>現在的密碼*(如需修改任何資料，需輸入現在的密碼，以做確認)</label> <input class="form-control"
+                                                                    name="old_MembersPwd" type="password"></input>
                                                             </div>
-                                                            <div class="form-group col-md-12">
-                                                                <label>Current Password <span class="required">*</span></label>
-                                                                <input required="" class="form-control" name="password" type="password" />
-                                                            </div>
-                                                            <div class="form-group col-md-12">
-                                                                <label>New Password <span class="required">*</span></label>
-                                                                <input required="" class="form-control" name="npassword" type="password" />
-                                                            </div>
-                                                            <div class="form-group col-md-12">
-                                                                <label>Confirm Password <span class="required">*</span></label>
-                                                                <input required="" class="form-control" name="cpassword" type="password" />
-                                                            </div>
+                                                            <!-- <div class="form-group col-md-12">
+                                                                    <label>現在的密碼*(如需修改資料，需輸入現在的密碼，以做確認)</label> <input
+                                                                        required="" class="form-control" name="membersPassword"
+                                                                        type="password" />
+                                                                </div> -->
+    
+                                                            <!-- <hr>
+                                                                <h5>修改密碼</h5>
+                                                                <br> <br>
+                                                                <div class="form-group col-md-12">
+                                                                    <label>新的密碼</label> <input class="form-control"
+                                                                        name="newnMembersPassword" type="password" />
+                                                                </div>
+                                                                <div class="form-group col-md-12">
+                                                                    <label>確認密碼</label> <input class="form-control"
+                                                                        name="newMembersPasswordRp" type="password" />
+                                                                </div> ${MemberUsing.date}-->
+                                                            
+                                                            
                                                             <div class="col-md-12">
-                                                                <button type="submit" class="btn btn-fill-out submit font-weight-bold" name="submit" value="Submit">Save Change</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-fill-out submit font-weight-bold"
+                                                                    name="action" value="membersdataupdate">儲存修改</button>
+                                                                <!-- 必填欄位尚未被填寫時↓ -->
+                                                                <span style="color: red;">${warningDataMembersMsg}</span>
+                                                                <!-- 密碼寫錯時↓ -->
+                                                                <span style="color: red;">${errMembersPWMsg}</span>
+                                                                <!-- 會員資料設定修改成功時↓ -->
+                                                                <span style="color: red;">${DataupdateSuccessMembersMsg1}</span>
+                                                            </div>
+    
+                                                            <!-- ===============================修改密碼=============================== -->
+                                                            <hr class="my-5" />
+    
+                                                            <div class="row" style="max-width: 920px">
+    
+                                                                <div class="col-md">
+                                                                    <article class="box mb-3 bg-light">
+                                                                        <a
+                                                                            class="btn float-end btn-light btn-sm rounded font-md"
+                                                                            href="<%=request.getContextPath()%>/nest-frontend/membersChangePassword.jsp"
+                                                                            name="action" vlaue="changepw">變更密碼</a>
+                                                                        <h5>變更密碼</h5>
+                                                                        <small class="text-muted d-block" style="width: 70%">更改密碼</small>
+                                                                    </article>
+                                                                </div>
+                                                                <!-- col.//
+                                                               
+                                                                <!-- ===============================修改密碼=============================== -->
+    
+                                                                <!-- ===============================刪除帳號=============================== -->
+    
+                                                                <div class="col-md">
+                                                                    <article class="box mb-3 bg-light">
+                                                                        <a class="btn float-end btn-light rounded btn-sm font-md" href="<%=request.getContextPath()%>/nest-frontend/membersAccountDelete.jsp">刪除帳號</a>
+                                                                        <h5>刪除帳號</h5>
+                                                                        <small class="text-muted d-block" style="width: 70%">請注意!一旦您選擇刪除帳號後，將無法再回復帳號!</small>
+                                                                    </article>
+                                                                </div>
+                                                                <!-- ===============================刪除帳號=============================== -->
                                                             </div>
                                                         </div>
                                                     </form>
+    
+    
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- ===============================帳戶資料=============================== -->
+
                                     </div>
                                 </div>
                             </div>

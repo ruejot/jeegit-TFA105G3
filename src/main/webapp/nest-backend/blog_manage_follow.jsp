@@ -115,33 +115,33 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
                                         
                 <div class="content-header">
                     <h2 class="content-title">我追蹤的用戶</h2>
-                    <div>
-                        <a href="#" class="btn btn-primary"><i class="material-icons md-plus"></i> Create new</a>
-                    </div>
+<!--                     <div> -->
+<!--                         <a href="#" class="btn btn-primary"><i class="material-icons md-plus"></i> Create new</a> -->
+<!--                     </div> -->
                 </div>
                 <div class="card mb-4">
-                    <header class="card-header">
-                        <div class="row gx-3">
-                            <div class="col-lg-4 col-md-6 me-auto">
-                                <input type="text" placeholder="Search..." class="form-control" />
-                            </div>
-                            <div class="col-lg-2 col-6 col-md-3">
-                                <select class="form-select">
-                                    <option>Show 8</option>
-                                    <option>Show 10</option>
-                                    <option>Show 15</option>
-                                    <option>Show all</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-2 col-6 col-md-3">
-                                <select class="form-select">
-                                    <option>Status: all</option>
-                                    <option>Active only</option>
-                                    <option>Disabled</option>
-                                </select>
-                            </div>
-                        </div>
-                    </header>
+<!--                     <header class="card-header"> -->
+<!--                         <div class="row gx-3"> -->
+<!--                             <div class="col-lg-4 col-md-6 me-auto"> -->
+<!--                                 <input type="text" placeholder="Search..." class="form-control" /> -->
+<!--                             </div> -->
+<!--                             <div class="col-lg-2 col-6 col-md-3"> -->
+<!--                                 <select class="form-select"> -->
+<!--                                     <option>Show 8</option> -->
+<!--                                     <option>Show 10</option> -->
+<!--                                     <option>Show 15</option> -->
+<!--                                     <option>Show all</option> -->
+<!--                                 </select> -->
+<!--                             </div> -->
+<!--                             <div class="col-lg-2 col-6 col-md-3"> -->
+<!--                                 <select class="form-select"> -->
+<!--                                     <option>Status: all</option> -->
+<!--                                     <option>Active only</option> -->
+<!--                                     <option>Disabled</option> -->
+<!--                                 </select> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </header> -->
                     <!-- card-header end// -->
                     <div class="card-body">
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-3">
@@ -150,7 +150,7 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
                             <div class="col">
                                 <div class="card card-user">
                                     <div class="card-header">
-                                        <img class="img-md img-avatar" src="assets/imgs/people/avatar-2.png" alt="User pic" />
+                                        <img class="img-md img-avatar" src="assets/imgs/people/cat_img_01.png" alt="User pic" />
                                     </div>
                                     <div class="card-body">
                                         <c:forEach var="membersVO" items="${list3}">

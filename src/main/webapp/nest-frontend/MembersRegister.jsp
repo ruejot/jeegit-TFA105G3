@@ -102,16 +102,17 @@
 														<div class="chek-form">
 															<div class="custome-checkbox">
 																<!-- (取消此作法)必須勾選，否則會跳警告提示框(詳如下方script) -->
-																<input required="required" class="form-check-input"
-																	type="checkbox" name="checkbox" id="exampleCheckbox12"
-																	value="1" checked onchange="privacychecked()"><label class="form-check-label" for="exampleCheckbox12"><span>我同意隱私權政策</span></label>
-																</input>
+																<input class="form-check-input"
+																	type="checkbox" name="checkbox" id="privacycheckbox"
+																	value="1" checked>
+<!-- 																	input不用加onchange="privacychecked()"事件來判斷是否有checked，因為沒勾，getParameter的值就是"null" -->
+																<label class="form-check-label" for="privacycheckbox"><span>我同意隱私權政策</span></label>
 																<!-- 若無勾選同意隱私權政策時會出警告訊息在這 -->
 																<span style="color: red;">${warningPrivacyMsg}</span>
 																
 															</div>
 														</div>
-														<a href="page-privacy-policy.html"><i
+														<a href="../views/privacyPolicy.jsp"><i
 															class="fi-rs-book-alt mr-5 text-muted"></i>由此了解更多隱私權政策</a>
 													</div>
 													<!-- 輸入之帳號已被註冊時出警告訊息在這 -->
@@ -161,34 +162,33 @@
 	</main>
 	<jsp:include page="/views/footer.jsp" />
 	<!-- 這是有打勾，input就會變成checked的onchange事件 -->
-	<script>
-		var privacycheckbox = document.getElementById("exampleCheckbox12");
-		privacycheckbox.onchange(){
+	<!-- <script>改value值沒有意義，因為checkbox跟radis沒打勾就是null
+		var privacycheckbox = document.getElementById("privacycheckbox");
+		privacycheckbox.onchange=function(){
 
 			if(privacycheckbox.checked == true){
 				privacycheckbox.value = "1";
 			}else{
-				privacycheckbox.value = "";
+				privacycheckbox.value = "0";
 			}
+		};		
+	</script> -->
 
-		};
-		
-	</script>
-	<!-- 若未勾選同意隱私權時會跳提示框的script(p.s.在JSP中插入Javascript需要用到<script type="text/javascript"></script>標簽)
-	<script type="text/javascript">
+	<!-- 若未勾選同意隱私權時會跳提示框的script(p.s.在JSP中插入Javascript需要用到<script type="text/javascript"></script>標簽) -->
+	<!-- <script type="text/javascript">
 		window.onload=function(){
 	 
 			
-			var submitBtn = document.getElementById("submit");
+			var submitBtn = document.getElementsByName("action");
 	 
 			submitBtn.onclick = function () {
-				if(!document.getElementById("checkbox").checked) {
+				if(document.getElementByN("privacycheckbox").value!=1) {
 					alert("需勾選同意隱私權政策!謝謝!");
 					return false;
 				}
 			};
-		}
-	</script> -->
+		} -->
+	</script>
 	<!-- Preloader Start -->
 	<!-- Vendor JS-->
 	<script

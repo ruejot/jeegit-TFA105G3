@@ -109,7 +109,7 @@
 						</c:if>
 						<c:if test="<%=payment.codePointAt(1)==49 %>">
 							<div class="custome-radio">
-								<input class="form-check-input" required="" type="radio" name="payment" id="exampleRadios4" checked="" value="2">
+								<input class="form-check-input" required="" type="radio" name="payment" id="exampleRadios4" value="2">
 								<label class="form-check-label" for="exampleRadios4" data-bs-toggle="collapse"
 									data-target="#checkPayment" aria-controls="checkPayment">貨到付款</label>
 							</div>
@@ -150,7 +150,7 @@
 									aria-controls="checkPayment">超商取貨</label>
 							</div>
 							<div class="custome-radio">
-								<input class="form-check-input" required="" type="radio" name="shipping" id="exampleRadios9" checked="" value="3">
+								<input class="form-check-input" required="" type="radio" name="shipping" id="exampleRadios9" value="3">
 								<label class="form-check-label" for="exampleRadios9" data-bs-toggle="collapse" data-target="#paypal"
 									aria-controls="paypal">面交</label>
 							</div>
