@@ -74,29 +74,26 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 				<article class="itemlist">
 						<div class="row align-items-center">
 							<div class="col col-check flex-grow-0">
-								<div class="">
-								
-								</div>
 							</div>
 							<div class="col-lg-3 col-sm-4 col-8 flex-grow-1 col-name">
 							<div class="itemside">
-								<h6 class="mb-0">商品照片</h6>
+								<h6 class="mb-0" style="font-size:1.25rem">商品照片</h6>
 							<div class="info">
-								<h6 class="mb-0">商品名稱</h6>
+								<h6 class="mb-0" style="margin-left: 35px; font-size:1.25rem">商品名稱</h6>
 							</div>
 							</div>
 							</div>
 							<div class="col-lg-1 col-sm-2 col-4 col-price">
-								<h6 class="mb-0">商品價格</h6>
+								<h6 class="mb-0" style="font-size:1.25rem">商品價格</h6>
 							</div>
 							<div class="col-lg-1 col-sm-2 col-4 col-price">
-								<h6 class="mb-0">庫存數量</h6>
+								<h6 class="mb-0" style="font-size:1.25rem">庫存數量</h6>
 							</div>
 							<div class="col-lg-1 col-sm-2 col-4 col-status">
-								<h6 class="mb-0">上架狀態</h6>
+								<h6 class="mb-0" style="font-size:1.25rem">上架狀態</h6>
 							</div>
 							<div class="col-lg-2 col-sm-2 col-4 col-date">
-								<h6 class="mb-0">上架日期</h6>
+								<h6 class="mb-0" style="font-size:1.25rem">上架日期</h6>
 							</div>
 							<div class="col-lg-2 col-sm-2 col-4 col-action text-end">		
 							</div>
@@ -107,26 +104,23 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 				<c:forEach var="productVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" > 
 					<article class="itemlist">
 						<div class="row align-items-center" id="tableRow">
-							<div class="col col-check flex-grow-0">				
-									
-							</div>
 							<div class="col-lg-3 col-sm-4 col-8 flex-grow-1 col-name">
 								<a class="itemside" href="#">
 								 <jsp:useBean id="productImgSvc" scope="page" class="com.productImg.model.ProductImgService" />
 										<img src="<%=request.getContextPath()%>/ShowPic?imgid=${productImgSvc.getOneProductImg(productVO.merid).imgid}"
-											class="img-sm img-thumbnail" alt="Item" />
+											class="img-md img-thumbnail" alt="Item" />
 									<div class="info">
-										<h6 class="mb-0">${productVO.name}</h6>
+										<h6 class="mb-0" style="font-size:1.25rem">${productVO.name}</h6>
 									</div>
 								</a>
 							</div>
 							<div class="col-lg-1 col-sm-2 col-4 col-price">
-								<span>${productVO.price}</span>
+								<span style="font-size:1.25rem">${productVO.price}</span>
 							</div>
 							<div class="col-lg-1 col-sm-2 col-4 col-price">
-								<span>${productVO.stock}</span>
+								<span style="font-size:1.25rem">${productVO.stock}</span>
 							</div>
-							<div class="col-lg-1 col-sm-2 col-4 col-status">
+							<div class="col-lg-1 col-sm-2 col-4 col-status" style="font-size:1.25rem">
 								<c:if test="${productVO.status == 1}">尚未開賣</c:if>
 								<c:if test="${productVO.status == 2}">熱賣中</c:if>	
 								<c:if test="${productVO.status == 3}">暫停販售</c:if>
@@ -140,7 +134,7 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 			     				<input type="hidden" name="merid"  value="${productVO.merid}">
 			     				<input type="hidden" name="action" value="getOne_For_Update"></FORM>
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/nest-backend/product.do">
-								<button class="btn btn-sm font-sm btn-light rounded" style="margin-top:5px" type="submit"><i class="material-icons md-delete_forever"></i>刪除</button>
+								<button id="myButton" class="btn btn-sm font-sm btn-light rounded" style="margin-top:5px" type="submit"><i class="material-icons md-delete_forever"></i>刪除</button>
 			     				<input type="hidden" name="merid"  value="${productVO.merid}">
 			     				<input type="hidden" name="action" value="delete"></FORM>			     			
 							</div>
@@ -167,6 +161,6 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 	<!-- Main Script -->
 	<script src="<%=request.getContextPath()%>/assets/js/main_backend.js" type="text/javascript"></script>
 	<script src="https://kit.fontawesome.com/60002e5c50.js"></script>
-	<script>$('#myTableRow').remove();</script>
+
 </body>
 </html>

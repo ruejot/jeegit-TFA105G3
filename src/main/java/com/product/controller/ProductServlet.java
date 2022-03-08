@@ -116,15 +116,7 @@ public class ProductServlet extends HttpServlet {
 					errorMsgs.add("請填寫商品描述!");
 				}
 
-				// 取得商品日期
-//				java.sql.Date shelfDate = null;
-//				try {
-//					shelfDate = java.sql.Date.valueOf(req.getParameter("shelfDate").trim());
-//				} catch (IllegalArgumentException e) {
-//					shelfDate = new java.sql.Date(System.currentTimeMillis());
-//					errorMsgs.add("請填上架日期!");
-//				}
-				
+				// 取得商品日期	
 				java.sql.Date shelfDate =  java.sql.Date.valueOf(req.getParameter("shelfDate").trim());
 
 				// 取得商品價格
@@ -247,12 +239,8 @@ public class ProductServlet extends HttpServlet {
 				Part part = req.getPart("upfile2");
 				if (part != null) {
 				
-				//刪除原有照片
-//				ProductImgService proImgSvc = new ProductImgService();
+				//取得圖片Id
 				Integer imgid = Integer.parseInt(req.getParameter("imgid"));
-				System.out.println(imgid + "1");
-//				proImgSvc.deleteProductImg(imgid);
-				System.out.println(imgid + "2");
 						
 				//取得日期
 				timepic = new java.sql.Date(System.currentTimeMillis());
@@ -294,7 +282,6 @@ public class ProductServlet extends HttpServlet {
 				String url = "productManage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-//				res.sendRedirect(url);
 
 				// 其他可能錯誤處理
 //			} catch (Exception e) {
