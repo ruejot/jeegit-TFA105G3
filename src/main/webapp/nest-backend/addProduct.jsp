@@ -149,7 +149,6 @@ int i = 0;
 							<div class="input-upload">
 								<img src="../assets/imgs/theme/upload.svg" alt="" /> 
 								<input class="form-control" type="file" name="upfile1"> <br/>
-								<input class="form-control" type="file" name="upfile2">
 							</div>
 						</div>
 					</div>

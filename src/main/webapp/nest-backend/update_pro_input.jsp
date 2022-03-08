@@ -2,9 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.product.model.*"%>
+<%@ page import="java.util.*" %>
 
 <%
 ProductVO productVO = (ProductVO) request.getAttribute("productVO");
+List<ProductVO> productImgVO = (List<ProductVO>) request.getAttribute("productImgVO");
+
 int i = 0, index = 0;
 %>
 
@@ -35,6 +38,7 @@ int i = 0, index = 0;
 							<button class="btn btn-md rounded font-sm hover-up" style="background-color:#386641;" type="submit"><span>重新上架</span></button>
 							<input type="hidden" name="action" value="update">	
 							<input type="hidden" name="merid" value="<%=productVO.getMerid()%>">
+							<input type="hidden" name="imgid" value="${productImgVO.get(0).imgid}">												
 							<input type="hidden" name="busid" class="form-control" value="<%=(productVO==null)? "" : productVO.getBusid()%>" />	
 						</div>
 					</div>
@@ -149,7 +153,7 @@ int i = 0, index = 0;
 						</div>
 						<div class="card-body">
 							<div class="input-upload">
-							<jsp:useBean id="productImgSvc" scope="page" class="com.productImg.model.ProductImgService" />
+ 							<jsp:useBean id="productImgSvc" scope="page" class="com.productImg.model.ProductImgService" />
 								<img src="<%=request.getContextPath()%>/ShowPic?imgid=${productImgSvc.getOneProductImg(productVO.merid).imgid}"
 											 alt="../assets/imgs/theme/upload.svg" class="img-sm img-thumbnail" /> 
 								<input class="form-control" type="file" name="upfile2">

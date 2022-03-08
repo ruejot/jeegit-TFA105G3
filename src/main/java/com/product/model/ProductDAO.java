@@ -34,7 +34,7 @@ public class ProductDAO implements ProductDAO_interface {
 	private static final String GET_Imgs_ByMerid_STMT = "SELECT IMG_ID, MER_PIC, TIME, MER_ID FROM pet_g3db_tfa105.MER_IMG WHERE MER_ID = ?";
 	private static final String GET_ALL_By_vMerPro = "SELECT * FROM pet_g3db_tfa105.v_merimg_mer";
 	private static final String FIND_AllbyMerid = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE MER_ID= ?";
-	private static final String FIND_AllbyMerName = "SELECT * FROM pet_g3db_tfa105.MER WHERE MER_NAME like ? ";
+	private static final String FIND_AllbyMerName = "SELECT * FROM pet_g3db_tfa105.MER WHERE NAME like ? ";
 	private static final String FIND_AllbyMainCategory = "SELECT * FROM pet_g3db_tfa105.MER WHERE Main_Category like ? ";
 	private static final String FIND_AllbySubCategory = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE Sub_Category = ? ";
 	private static final String GET_PRODUCTS_BY_BUSID = "SELECT * FROM pet_g3db_tfa105.MER WHERE BUS_ID = ? ORDER BY MER_ID DESC";
@@ -395,6 +395,7 @@ public class ProductDAO implements ProductDAO_interface {
 				productVO.setMerid(rs.getInt("mer_id"));
 				productVO.setBusid(rs.getInt("bus_id"));
 				productVO.setName(rs.getString("mer_name"));
+				productVO.setDescription(rs.getString("description"));
 				productVO.setMerpic(rs.getBytes("mer_pic"));
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setStock(rs.getInt("stock"));
@@ -788,7 +789,7 @@ public class ProductDAO implements ProductDAO_interface {
 	}
 
 //	@Override
-//	public void updateWithProductImg(ProductVO productVO, List<ProductImgVO> list) {
+//	public void updateWithProductImg(ProductVO productVO, ProductImgVO proImgVO) {
 //		Connection con = null;
 //		PreparedStatement pstmt = null;
 //
@@ -826,21 +827,21 @@ public class ProductDAO implements ProductDAO_interface {
 //				System.out.println("未取得自增主鍵值");
 //			}
 //			rs.close();
-//			
-//			
+//				
 //
 //			// 再同時更新照片
 //			ProductImgDAO dao = new ProductImgDAO();
-//			System.out.println("list.size()-A=" + list.size());
-//			for (ProductImgVO addImg : list) {
-//				addImg.setMerid(Integer.parseInt(next_merId));
-//				dao.insert(addImg, con);
-//			}
+//			dao.insert(proImgVO, con);
+////			System.out.println("list.size()-A=" + list.size());
+////			for (ProductImgVO addImg : list) {
+////				addImg.setMerid(Integer.parseInt(next_merId));
+////				dao.insert(addImg, con);
+////			}
 //			// 設定於pstmt.executeUpdate()之後
 //			con.commit();
 //			con.setAutoCommit(true);
-//			System.out.println("list.size()-B=" + list.size());
-//			System.out.println("更新商品編號" + next_merId + "時,共有" + list.size() + "筆圖片同時被更新");
+////			System.out.println("list.size()-B=" + list.size());
+////			System.out.println("更新商品編號" + next_merId + "時,共有" + list.size() + "筆圖片同時被更新");
 //
 //		} catch (SQLException se) {
 //			if (con != null) {
@@ -872,5 +873,5 @@ public class ProductDAO implements ProductDAO_interface {
 //		}
 //		
 //	}
-
+//
 }
