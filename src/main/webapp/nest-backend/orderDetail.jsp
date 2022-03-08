@@ -127,8 +127,7 @@
                                                 <th width="35%">產品名稱</th>
                                                 <th width="15%">單價</th>
                                                 <th width="15%">數量</th>
-                                                <th width="15%" class="text-end">小計</th>
-                                                <th width="20%"class="text-end">評價</th>
+                                                <th width="15%" class="text-end">小計</th>                                          
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -137,13 +136,12 @@
                                             <tr>
                                                 <td>
                                                     <a class="itemside" href="#"> 
-                                                        <div> ${productSvc.getOneProduct(orderDetailVO.merId).name}</div>
+                                                        <div>${productSvc.getOneProduct(orderDetailVO.merId).name}</div>
                                                     </a>
                                                 </td>
                                                 <td>${orderDetailVO.unitPrice}</td>
                                                 <td>${orderDetailVO.qty}</td>
-                                                <td class="text-end">${orderDetailVO.unitPrice*orderDetailVO.qty}</td>
-                                                <td class="text-end">${orderDetailVO.comment}</td>
+                                                <td class="text-end">${orderDetailVO.unitPrice*orderDetailVO.qty}</td>                                              
                                             </tr>
                                             </c:forEach>
                                           

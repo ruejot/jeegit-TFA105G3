@@ -17,8 +17,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import com.bus.model.BusVO;
 import com.product.model.ProductService;
 import com.product.model.ProductVO;
 import com.productImg.model.ProductImgService;
@@ -163,12 +165,10 @@ public class ProductServlet extends HttpServlet {
 				}
 
 				// 到時需從登入頁面getSession取得busid
-				Integer busid = 1; 
-//				Object account = session.getAttribute("BusUsing");
-//				if(account == null) {
-//				session.setAttribute("location", req.getRequestURI());
-//				res.sendRedirect(req.getContextPath() + "/login.html");
-//				return;
+//				Integer busid = 1; 
+				HttpSession session = req.getSession();
+				BusVO busVO = (BusVO)session.getAttribute("BusUsing");
+				Integer busid = busVO.getBusid();
 				
 				
 				// 取得主商品類別
@@ -404,12 +404,10 @@ public class ProductServlet extends HttpServlet {
 				}
 
 				// 到時需從登入頁面getSession取得busid
-				Integer busid = 1; 
-//				Object account = session.getAttribute("BusUsing");
-//				if(account == null) {
-//				session.setAttribute("location", req.getRequestURI());
-//				res.sendRedirect(req.getContextPath() + "/login.html");
-//				return;
+//				Integer busid = 1; 
+				HttpSession session = req.getSession();
+				BusVO busVO = (BusVO)session.getAttribute("BusUsing");
+				Integer busid = busVO.getBusid();
 
 				// 取得主商品類別
 				String mainCategory = req.getParameter("mainCategory");
@@ -438,7 +436,6 @@ public class ProductServlet extends HttpServlet {
 				
 				//以下是圖片上傳
 				byte[] productImg1 = null;
-//				byte[] productImg2 = null;
 				
 				req.setCharacterEncoding("UTF-8"); // 處理中文檔名
 				res.setContentType("text/html; charset=UTF-8");
@@ -468,13 +465,7 @@ public class ProductServlet extends HttpServlet {
 						productImg1 = new byte[in1.available()];
 						in1.read(productImg1);
 						in1.close();
-						out.println("buffer length: " + productImg1.length);
-						
-//						InputStream in2 = part.getInputStream();
-//						productImg2 = new byte[in2.available()];
-//						in2.read(productImg2);
-//						in2.close();
-//						out.println("buffer length: " + productImg2.length);
+						out.println("buffer length: " + productImg1.length);					
 						
 					}
 				
@@ -490,12 +481,7 @@ public class ProductServlet extends HttpServlet {
 				productImgVO1.setMerpic(productImg1);
 				productImgVO1.setTime(timepic);
 				
-//				ProductImgVO productImgVO2 = new ProductImgVO();
-//				productImgVO2.setMerpic(productImg2);
-//				productImgVO2.setTime(timepic);
-				
 				proImgVO.add(productImgVO1);
-//				proImgVO.add(productImgVO2);
 
 				// Send the user back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -508,10 +494,7 @@ public class ProductServlet extends HttpServlet {
 				ProductService proSvc = new ProductService();
 				proVO = proSvc.addPro(busid, name, price, stock, shelfDate, status, description, sb.toString(), mainCategory,
 						subCategory, proImgVO);
-					
-				//新增照片
-				//ProductImgService proImgSvc = new ProductImgService();
-				//proImgVO = proImgSvc.addProductImg(merid, productImg, timepic);
+
 				
 				// 新增完成，準備轉交
 				String url = "productManage.jsp";

@@ -2,17 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.order.model.*"%>
+<%@ page import="com.bus.model.*"%>
 <%@ page import="java.util.*"%>
 
 
-<%--
-List<OrderVO> list = (List<OrderVO>)session.getAttribute("list");
-//OrderServlet.java(Controller), 存入session的list物件
---%>
 
-<%
+<%  BusVO busVO = (BusVO)session.getAttribute("BusUsing");
+	Integer busId = busVO.getBusid();
 	OrderService ordSvc = new OrderService();
-    List<OrderVO> list = ordSvc.getOrdersByBusId(1);
+    List<OrderVO> list = ordSvc.getOrdersByBusId(busId);
     pageContext.setAttribute("list",list);
 %>
 
