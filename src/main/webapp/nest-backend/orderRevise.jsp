@@ -127,7 +127,6 @@
                                                 <th width="15%">單價</th>
                                                 <th width="15%">數量</th>
                                                 <th width="15%" class="text-end">小計</th>
-                                                <th width="20%"class="text-end">評價</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -142,7 +141,6 @@
                                                 <td>${orderDetailVO.unitPrice}</td>
                                                 <td>${orderDetailVO.qty}</td>
                                                 <td class="text-end">${orderDetailVO.unitPrice*orderDetailVO.qty}</td>
-                                                <td class="text-end">${orderDetailVO.comment}</td>
                                             </tr>
                                             </c:forEach>
                                             <tr>

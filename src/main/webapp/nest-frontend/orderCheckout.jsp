@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.bus.model.*" %>
 <!-- [editor,date] wei,2022-02-22 -->
+
+
 
 <html lang="zh-Hant-TW">
 <head>
@@ -95,26 +98,36 @@
 					<div class="payment ml-30 mb-50">
 						<h4 class="mb-20">付款方式</h4>
 						<div class="payment_option">
+						<%BusVO busVO = (BusVO) request.getAttribute("busVO");%>
+	                    <%StringBuffer payment = new StringBuffer(busVO.getPaymentprovide());%>
+						<c:if test="<%=payment.codePointAt(0)==49 %>">
 							<div class="custome-radio">
 								<input class="form-check-input" required="" type="radio" name="payment" id="exampleRadios3" value="1">
 								<label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse" data-target="#bankTranfer"
 									aria-controls="bankTranfer">信用卡付款</label>
 							</div>
+						</c:if>
+						<c:if test="<%=payment.codePointAt(1)==49 %>">
 							<div class="custome-radio">
-								<input class="form-check-input" required="" type="radio" name="payment" id="exampleRadios4" checked="" value="2">
+								<input class="form-check-input" required="" type="radio" name="payment" id="exampleRadios4" value="2">
 								<label class="form-check-label" for="exampleRadios4" data-bs-toggle="collapse"
 									data-target="#checkPayment" aria-controls="checkPayment">貨到付款</label>
 							</div>
+						</c:if>
+						<c:if test="<%=payment.codePointAt(2)==49 %>">
 							<div class="custome-radio">
 								<input class="form-check-input" required="" type="radio" name="payment" id="exampleRadios5" value="3">
 								<label class="form-check-label" for="exampleRadios5" data-bs-toggle="collapse" data-target="#paypal"
 									aria-controls="paypal">ATM轉帳</label>
 							</div>
+						</c:if>
+						<c:if test="<%=payment.codePointAt(3)==49 %>">
 							<div class="custome-radio">
 								<input class="form-check-input" required="" type="radio" name="payment" id="exampleRadios6" value="4">
 								<label class="form-check-label" for="exampleRadios6" data-bs-toggle="collapse" data-target="#bankTranfer"
 									aria-controls="bankTranfer">超商付款</label>
 							</div>
+						</c:if>
 						</div>
 						<div class="payment-logo d-flex">
 							<!-- <img class="mr-15" src="assets/imgs/theme/icons/payment-paypal.svg" alt=""> -->
@@ -137,7 +150,7 @@
 									aria-controls="checkPayment">超商取貨</label>
 							</div>
 							<div class="custome-radio">
-								<input class="form-check-input" required="" type="radio" name="shipping" id="exampleRadios9" checked="" value="3">
+								<input class="form-check-input" required="" type="radio" name="shipping" id="exampleRadios9" value="3">
 								<label class="form-check-label" for="exampleRadios9" data-bs-toggle="collapse" data-target="#paypal"
 									aria-controls="paypal">面交</label>
 							</div>

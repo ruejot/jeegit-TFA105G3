@@ -410,6 +410,8 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 	@Override
 	public List<MemSavedArtVO> getArtBySavMem(Integer savMemberId) {
 
+		System.out.println("有執行savedVO");
+		System.out.println("savMemberId"+savMemberId);
 		List<MemSavedArtVO> list = new ArrayList<MemSavedArtVO>();
 		MemSavedArtVO artVO = null;
 
@@ -433,6 +435,7 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 				artVO.setSavMemberId(rs.getInt("SAV_MEMBER_ID"));
 				artVO.setSavArtId(rs.getInt("SAV_ART_ID"));
 				artVO.setTime(rs.getTimestamp("TIME"));
+				list.add(artVO);
 			}
 
 			// Handle any driver errors
@@ -472,7 +475,7 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 	
 	public static void main(String[] args) {
 
-		
+//		
 //		MemSavedArtService service = new MemSavedArtService();
 //		
 //		service.addSaved(3, 20, new Timestamp(System.currentTimeMillis()));
@@ -482,6 +485,15 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 //		service.delete(9);
 //		
 //		
+//		List<MemSavedArtVO> list = service.getArtBySavMem(1);
+//		for (MemSavedArtVO memsavedartVO4 : list) {
+//			System.out.print(memsavedartVO4.getSavId() + ",");
+//			System.out.print(memsavedartVO4.getSavMemberId() + ",");
+//			System.out.print(memsavedartVO4.getSavArtId() + ",");
+//			System.out.println(memsavedartVO4.getTime());
+//			System.out.println();
+//		}
+		
 //		
 //		MemSavedArtVO memsavedartVO3 = service.findByPrimaryKey(3);
 //		System.out.print(memsavedartVO3.getSavId() + ",");

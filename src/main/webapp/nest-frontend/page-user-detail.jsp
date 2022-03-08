@@ -143,7 +143,7 @@ pageContext.setAttribute("list",list);
                                     <div class="col col-check flex-grow-0">
                                     </div>
                                     <div class="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
-                                        <a class="itemside" href="<%=request.getContextPath()%>/MemBlogArtServlet?action=getOne_For_Display&artid=${memBlogArtVO.artid}">
+                                        <a class="itemside" href="<%=request.getContextPath()%>/ArtDisplay?action=getOne_For_Display&artid=${memBlogArtVO.artid}">
                                             <div class="left">
                                                 <img src="<%= request.getContextPath() %>/GetPic?blArtPicId=${memBlogArtVO.artid}" class="img-sm img-thumbnail" alt="Item" />
                                             </div>
@@ -156,10 +156,10 @@ pageContext.setAttribute("list",list);
                                     <div class="col-lg-2 col-sm-2 col-6 col-date">
                                         <span>02.11.2021</span>
                                     </div>
-                                    <div class="col-lg-2 col-sm-2 col-4 col-action text-end">
-                                        <a href="#" class="btn btn-sm font-sm rounded btn-brand"> <i class="material-icons md-favorite_border"></i> like </a>
-                                        <a href="#" class="btn btn-sm font-sm btn-light rounded"> <i class="material-icons md-bookmark_border"></i> bookmark </a>
-                                    </div>
+<!--                                     <div class="col-lg-2 col-sm-2 col-4 col-action text-end"> -->
+<!--                                         <a href="#" class="btn btn-sm font-sm rounded btn-brand"> <i class="material-icons md-favorite_border"></i> 按讚 </a> -->
+<!--                                         <a href="#" class="mr-5 btn btn-sm font-sm btn-light rounded"> <i class="material-icons md-bookmark_border"></i> 收藏 </a> -->
+<!--                                     </div> -->
                                 </div>
                                 <!-- row .// -->
                             </article>
@@ -264,6 +264,9 @@ pageContext.setAttribute("list",list);
 
 
                     });
+                
+                
+                
                         
 //                     complete: function(data){
                         
@@ -276,6 +279,8 @@ pageContext.setAttribute("list",list);
 
         </script>
 
+
+<!--         </script> -->
 
         <jsp:include page="footer.jsp"></jsp:include>
     </body>

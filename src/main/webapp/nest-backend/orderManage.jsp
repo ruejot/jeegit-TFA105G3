@@ -1,18 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.order.model.*"%>
+<%@ page import="com.bus.model.*"%>
 <%@ page import="java.util.*"%>
+<%@page import="java.text.*" %>
 
 
-<%--
-List<OrderVO> list = (List<OrderVO>)session.getAttribute("list");
-//OrderServlet.java(Controller), 存入session的list物件
---%>
 
-<%
+<%  BusVO busVO = (BusVO)session.getAttribute("BusUsing");
+	Integer busId = busVO.getBusid();
 	OrderService ordSvc = new OrderService();
-    List<OrderVO> list = ordSvc.getOrdersByBusId(1);
+    List<OrderVO> list = ordSvc.getOrdersByBusId(busId);
     pageContext.setAttribute("list",list);
 %>
 
@@ -92,7 +92,9 @@ List<OrderVO> list = (List<OrderVO>)session.getAttribute("list");
                                         <span class="badge rounded-pill alert-warning"><c:if test="${orderVO.orderStatus == 3}">3.已完成</c:if></span>
                                         <span class="badge rounded-pill alert-warning"><c:if test="${orderVO.orderStatus == 4}">4.已取消</c:if></span>
                                         </td>
-                                        <td>${orderVO.orderTime}</td> 
+                                        <fmt:formatDate value="${orderVO.orderTime}" var="formattedDate" 
+                                                        type="date" pattern="yyyy-MM-dd HH:mm:ss" />
+                                        <td>${formattedDate}</td>
                                         <td class="text-end">
                                          <form method="post" ACTION="<%=request.getContextPath()%>/nest-backend/orderDetail.do">
                                             <button class="btn btn-sm font-sm rounded btn-brand" type="submit">訂單明細</button>
@@ -154,8 +156,6 @@ List<OrderVO> list = (List<OrderVO>)session.getAttribute("list");
 		    }       
 		  }
 		}
-	
-
 
 
 	</script>

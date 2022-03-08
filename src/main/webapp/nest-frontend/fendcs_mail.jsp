@@ -47,7 +47,7 @@ request.setAttribute("membersVO_thisPage", membersVO);
 <html lang="zh-Hant-TW">
 <head>
 <meta charset="utf-8" />
-<title>客服詢問-Petting</title>
+<title>郵件商家-Petting</title>
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -87,10 +87,10 @@ request.setAttribute("membersVO_thisPage", membersVO);
 							<div class="row">
 								<div class="col-xl-8">
 									<div class="contact-from-area padding-20-row-col">
-										<h5 class="text-brand mb-10">說說您的需求</h5>
-										<h2 class="mb-10">即將傳送您的訊息 ${busVO_shopMpage.name}</h2>
-										<p class="text-muted mb-30 font-sm">請在下方留言，將盡快答覆您。</p>
-										<form method="post" action="<%=request.getContextPath()%>/nest-backend/CsServletOnlyMember.do" class="contact-form-style mt-30" id="contact-form" >
+										<h5 class="text-brand mb-10">E-mail聯絡商家</h5>
+										<h2 class="mb-10">寄送您的詢問給 ${busVO_shopMpage.name}</h2>
+										<p class="text-muted mb-30 font-sm">將以郵件通知商家關於您的需求。</p>
+										<form method="post" action="<%=request.getContextPath()%>/nest-backend/CsMailServlet" class="contact-form-style mt-30" id="contact-form" >
 											<div class="row">
 												<div class="col-lg-6 col-md-6">
 													<div class="text ml-20">
@@ -102,39 +102,24 @@ request.setAttribute("membersVO_thisPage", membersVO);
 												</div>
 												<div class="col-lg-6 col-md-6">
 													<div class="text ml-20">
-														會員E-mail
-													</div>
-													<div class="input-style mb-20">
-														<input type="email" readonly name="memberEmail" value="${membersVO_thisPage.email}" placeholder="電子信箱" style="background-color: #e9ecef;"/>
-													</div>
-												</div>
-												<div class="col-lg-6 col-md-6">
-													<div class="text ml-20">
-														您的聯絡電話
-													</div>
-													<div class="input-style mb-20">
-														<input type="tel" name="telephone" value="${membersVO_thisPage.phone}" placeholder="您的連絡電話" />
-													</div>
-												</div>
-												<div class="col-lg-6 col-md-6">
-													<div class="text ml-20">
-														回報時間(今天)
+														今日日期
 													</div>
 													<div class="input-style mb-20">
 														<input type="text" readonly name="case_time" id="today" placeholder="回報時間" style="background-color: #e9ecef;"/>
 													</div>
 												</div>
-												<div class="col-lg-6 col-md-6">
-													<div class="input-style mb-20">
-														<input name="subject" placeholder="標題" type="text" />
-													</div>
-												</div>
+<!-- 												<div class="col-lg-6 col-md-6"> -->
+<!-- 													<div class="input-style mb-20"> -->
+<!-- 														<input name="subject" placeholder="標題" type="text" /> -->
+<!-- 													</div> -->
+<!-- 												</div> -->
 												<div class="col-lg-12 col-md-12">
 													<div class="textarea-style mb-30">
-														<textarea name="feedback" placeholder="您的留言詢問內容(必填) *"></textarea>
+														<textarea name="mailContent" placeholder="您的信件內容(必填) *"></textarea>
 													</div>
-													<button type="submit" class="submit submit-auto-width">確認並傳送</button>
-													<input type="hidden" name="action" value="insert">
+													<button type="submit" class="submit submit-auto-width">傳送郵件</button>
+													<input type="hidden" placeholder="電子信箱 emaill address" name="BusEmail"/>
+													<input type="hidden" name="action" value="sendmail">
 													<input type="hidden" name="member_id" value="${membersVO_thisPage.memberid}">
 													<input type="hidden" name="bus_id" value="${busVO_shopMpage.busid}">
 												</div>

@@ -1,136 +1,147 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-		<!-- [editor,date] wei,2022-02-22 -->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- [editor,date] wei,2022-02-22 -->
 
-		<html lang="zh-Hant-TW">
+<html lang="zh-Hant-TW">
 
-		<head>
-			<meta charset="utf-8" />
-			<title>Petting-註冊會員</title>
-			<meta http-equiv="x-ua-compatible" content="ie=edge" />
-			<meta name="description" content="" />
-			<meta name="viewport" content="width=device-width, initial-scale=1" />
-			<meta property="og:title" content="" />
-			<meta property="og:type" content="" />
-			<meta property="og:url" content="" />
-			<meta property="og:image" content="" />
-			<!-- Favicon -->
-			<link rel="shortcut icon" type="image/x-icon"
-				href="<%=request.getContextPath()%>/assets/imgs/theme/Petting_logo.png" />
-			<!-- Template CSS -->
-			<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/slider-range.css" />
-			<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" />
-			<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
-		</head>
+<head>
+<meta charset="utf-8" />
+<title>Petting-註冊會員</title>
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="" />
+<meta property="og:type" content="" />
+<meta property="og:url" content="" />
+<meta property="og:image" content="" />
+<!-- Favicon -->
+<link rel="shortcut icon" type="image/x-icon"
+	href="<%=request.getContextPath()%>/assets/imgs/theme/Petting_logo.png" />
+<!-- Template CSS -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/assets/css/plugins/slider-range.css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/assets/css/plugins/animate.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/assets/css/main_frontend.css" />
+</head>
 
-		<body>
-			<jsp:include page="/views/userHeader.jsp" />
-			<!--End userHeader-->
-			<main class="main pages">
+<body>
+	<jsp:include page="/views/userHeader.jsp" />
+	<!--End userHeader-->
+	<main class="main pages">
 
-				<div class="page-content pt-50 pb-50">
-					<div class="container">
+		<div class="page-content pt-50 pb-50">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-10 m-auto">
 						<div class="row">
-							<div class="col-lg-10 m-auto">
-								<div class="row">
-									<div class="col-md-3">
-										<div class="dashboard-menu">
-											
-											<ul class="nav flex-column" role="tablist">											
-												<li class="nav-item"><a class="nav-link active" id="memberlogin-tab"
-														data-bs-toggle="tab" href="#memberlogin" role="tab"
-														aria-controls="memberlogin" aria-selected="false" style="background-color:#FFD05E"><i
-															class="fi-rs-settings-sliders mr-10"></i>個人會員註冊</a></li>
-											</ul>
-										</div>
-									</div>
-									<div class="col-md-9">
-										<div class="tab-content account dashboard-content pl-50">
+							<div class="col-md-3">
+								<div class="dashboard-menu">
 
-											<div class="tab-pane fade active show" id="memberlogin" role="tabpanel"
-												aria-labelledby="memberlogin-tab">
-												<div class="card card-login mx-auto col-md-8">
-													<!--mx-auto-->
-													<div class="card-body">
+									<ul class="nav flex-column" role="tablist">
+										<li class="nav-item"><a class="nav-link active"
+											id="memberlogin-tab" data-bs-toggle="tab" href="#memberlogin"
+											role="tab" aria-controls="memberlogin" aria-selected="false"
+											style="background-color: #FFD05E"><i
+												class="fi-rs-settings-sliders mr-10"></i>個人會員註冊</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-md-9">
+								<div class="tab-content account dashboard-content pl-50">
 
-														<h3 class="card-title mb-4 text-center rounded"
-															style="background-color:#FFD05E">個人會員註冊</h3>
-														<p class="text-center mb-4">
-															已有帳號嗎? <a
-																href="<%=request.getContextPath()%>/nest-frontend/Login.jsp">由此登入</a>
-														</p>
-														<!-- 用form綁定，這樣才可對應到MemberRegisterServlet的@WebServlet("/members/MembersRegister") -->
-														<form method="POST"
-															action="<%=request.getContextPath()%>/members/MembersRegister">
-															<!-- 或可以這樣寫：<form action="../members/MembersRegister" method="POST"> -->
-															<div class="mb-3">
-																<input required="" class="form-control" name="membersEmail"
-																	placeholder="個人會員 E-mail" type="email" />
-															</div>
-															<!-- form-group// -->
-															<div class="mb-3">
-																<input required="" class="form-control" name="membersPassword"
-																	placeholder="密碼" type="password" />
-															</div>
-															<div class="mb-3">
-																<input required="" class="form-control" name="membersPasswordRp"
-																	placeholder="確認密碼" type="password" />
-															</div>
-															<!-- 密碼跟確認密碼不一致時，會出警告訊息在這 -->
-															<span style ="color: red;">${warningMembersMsg1}</span>
-															<div class="mb-3">
-																<input required="" class="form-control" name="membersName"
-																	placeholder="姓名" type="text" />
-															</div>
-															<div class="mb-3">
-																<input required="" class="form-control" name="membersMobile"
-																	placeholder="手機(09xxxxxxxx)" type="text" />
-															</div>
-															<!-- form-group// -->
+									<div class="tab-pane fade active show" id="memberlogin"
+										role="tabpanel" aria-labelledby="memberlogin-tab">
+										<div class="card card-login mx-auto col-md-8">
+											<!--mx-auto-->
+											<div class="card-body">
 
-															<!-- 帳號已被註冊時會出警告訊息在這 -->
-															<span style="color: red;">${warningMembersMsg2}</span>
-															<div class="login_footer form-group mb-50">
-																<div class="chek-form">
-																	<div class="custome-checkbox">
-																		<input required="required" class="form-check-input" type="checkbox"
-																			name="checkbox" id="exampleCheckbox12"
-																			value="" />
-																		<label class="form-check-label"
-																			for="exampleCheckbox12"><span>我同意隱私權政策</span></label>
-																	</div>
-																</div>
-																<a href="page-privacy-policy.html"><i
-																		class="fi-rs-book-alt mr-5 text-muted"></i>由此了解更多隱私權政策</a>
-															</div>
-															<!-- 輸入之帳號已被註冊時出警告訊息在這 -->
-															<span style ="color: red;">${waringMemMsg2}</span>
-															<!-- form-group form-check .// -->
-															<div class="mb-4">
-																<!-- membersLoginservlet的login的if判斷式是找到action=login↓ -->
-																<button type="submit" class="btn btn-primary w-100"
-																	name="action" value="register">送出並註冊</button>
-																<!-- <input type="hidden" name="action" value="login"> -->
-															</div>
-															<!-- form-group// -->
-														</form>
-
-
+												<h3 class="card-title mb-4 text-center rounded"
+													style="background-color: #FFD05E">個人會員註冊</h3>
+												<p class="text-center mb-4">
+													已有帳號嗎? <a
+														href="<%=request.getContextPath()%>/nest-frontend/Login.jsp">由此登入</a>
+												</p>
+												<!-- 用form綁定，這樣才可對應到MemberRegisterServlet的@WebServlet("/members/MembersRegister") -->
+												<form method="POST"
+													action="<%=request.getContextPath()%>/members/MembersRegister">
+													<!-- 或可以這樣寫：<form action="../members/MembersRegister" method="POST"> -->
+													<div class="mb-3">
+														<input required="" class="form-control"
+															name="membersEmail" placeholder="個人會員 E-mail"
+															type="email" />
 													</div>
-												</div>
+													<!-- form-group// -->
+													<div class="mb-3">
+														<input required="" class="form-control"
+															name="membersPassword" placeholder="密碼" type="password" />
+													</div>
+													<div class="mb-3">
+														<input required="" class="form-control"
+															name="membersPasswordRp" placeholder="確認密碼"
+															type="password" />
+													</div>
+													<!-- 密碼跟確認密碼不一致時，會出警告訊息在這 -->
+													<span style="color: red;">${warningMembersMsg1}</span>
+													<div class="mb-3">
+														<input required="" class="form-control" name="membersName"
+															placeholder="姓名" type="text" />
+													</div>
+													<div class="mb-3">
+														<input required="" class="form-control"
+															name="membersMobile" placeholder="手機(09xxxxxxxx)"
+															type="text" />
+													</div>
+													<!-- form-group// -->
+
+													<!-- 帳號已被註冊時會出警告訊息在這 -->
+													<span style="color: red;">${warningMembersMsg2}</span>
+													<div class="login_footer form-group mb-50">
+														<div class="chek-form">
+															<div class="custome-checkbox">
+																<!-- (取消此作法)必須勾選，否則會跳警告提示框(詳如下方script) -->
+																<input class="form-check-input"
+																	type="checkbox" name="checkbox" id="privacycheckbox"
+																	value="1" onchange="privacychecked()" checked><label class="form-check-label" for="privacycheckbox"><span>我同意隱私權政策</span></label>
+																</input>
+																<!-- 若無勾選同意隱私權政策時會出警告訊息在這 -->
+																<span style="color: red;">${warningPrivacyMsg}</span>
+																
+															</div>
+														</div>
+														<a href="page-privacy-policy.html"><i
+															class="fi-rs-book-alt mr-5 text-muted"></i>由此了解更多隱私權政策</a>
+													</div>
+													<!-- 輸入之帳號已被註冊時出警告訊息在這 -->
+													<span style="color: red;">${waringMemMsg2}</span>
+													<!-- form-group form-check .// -->
+													<div class="mb-4">
+														<!-- membersLoginservlet的login的if判斷式是找到action=login↓ -->
+														<button type="submit" class="btn btn-primary w-100"
+															name="action" value="register">送出並註冊</button>
+														<!-- <input type="hidden" name="action" value="login"> -->
+													</div>
+													<!-- form-group// -->
+												</form>
+
+
 											</div>
-
-
-
-
-
 										</div>
 									</div>
+
+
+
+
+
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
 
 
 
@@ -146,44 +157,90 @@
 
 
 
-				<!-- 結束此頁，注意相對位置，你寫的最後一行是相對於</main>的前一行 -->
-			</main>
-			<jsp:include page="/views/footer.jsp" />
+		<!-- 結束此頁，注意相對位置，你寫的最後一行是相對於</main>的前一行 -->
+	</main>
+	<jsp:include page="/views/footer.jsp" />
+	<!-- 這是有打勾，input就會變成checked的onchange事件 -->
+	<!-- <script>改value值沒有意義，因為checkbox跟radis沒打勾就是null
+		var privacycheckbox = document.getElementById("privacycheckbox");
+		privacycheckbox.onchange=function(){
 
-			<!-- Preloader Start -->
-			<!-- Vendor JS-->
-			<script src="<%=request.getContextPath()%>/assets/js/vendors/modernizr-3.6.0.min.js"></script>
-			<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-3.6.0.min.js"></script>
-			<script src="<%=request.getContextPath()%>/assets/js/vendors/jquery-migrate-3.3.0.min.js"></script>
-			<script src="<%=request.getContextPath()%>/assets/js/vendors/bootstrap.bundle.min.js"></script>
-			<script src="<%=request.getContextPath()%>/assets/js/plugins/slick.js"></script>
-			<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.syotimer.min.js"></script>
-			<script src="<%=request.getContextPath()%>/assets/js/plugins/wow.js"></script>
-			<!--slider-range.js, jquery-ui.js , never appear at sametime-->
-			<script src="<%=request.getContextPath()%>/assets/js/plugins/slider-range.js"></script>
-			<!-- index-3.html, index-4, shop-*.html，板模的這幾頁有用到jquery-ui.js -->
-			<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery-ui.js"></script>
-			<!-- blog-post-fullwidth.html, shop-*.html，板模的這幾頁有用到perfect-scrollbar.js -->
-			<script src="<%=request.getContextPath()%>/assets/js/plugins/perfect-scrollbar.js"></script>
-			<script src="<%=request.getContextPath()%>/assets/js/plugins/magnific-popup.js"></script>
-			<script src="<%=request.getContextPath()%>/assets/js/plugins/select2.min.js"></script>
-			<script src="<%=request.getContextPath()%>/assets/js/plugins/waypoints.js"></script>
-			<script src="<%=request.getContextPath()%>/assets/js/plugins/counterup.js"></script>
-			<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.countdown.min.js"></script>
-			<script src="<%=request.getContextPath()%>/assets/js/plugins/images-loaded.js"></script>
-			<script src="<%=request.getContextPath()%>/assets/js/plugins/isotope.js"></script>
-			<script src="<%=request.getContextPath()%>/assets/js/plugins/scrollup.js"></script>
-			<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.vticker-min.js"></script>
-			<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.theia.sticky.js"></script>
-			<script src="<%=request.getContextPath()%>/assets/js/plugins/jquery.elevatezoom.js"></script>
+			if(privacycheckbox.checked == true){
+				privacycheckbox.value = "1";
+			}else{
+				privacycheckbox.value = "0";
+			}
+		};		
+	</script> -->
 
-			<!-- Invoice page's JS -->
-			<!-- <script src="assets/js/invoice/jspdf.min.js"></script> -->
-			<!-- <script src="assets/js/invoice/invoice.js"></script> -->
+	<!-- 若未勾選同意隱私權時會跳提示框的script(p.s.在JSP中插入Javascript需要用到<script type="text/javascript"></script>標簽) -->
+	<!-- <script type="text/javascript">
+		window.onload=function(){
+	 
+			
+			var submitBtn = document.getElementsByName("action");
+	 
+			submitBtn.onclick = function () {
+				if(document.getElementByN("privacycheckbox").value!=1) {
+					alert("需勾選同意隱私權政策!謝謝!");
+					return false;
+				}
+			};
+		} -->
+	</script>
+	<!-- Preloader Start -->
+	<!-- Vendor JS-->
+	<script
+		src="<%=request.getContextPath()%>/assets/js/vendors/modernizr-3.6.0.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/vendors/jquery-3.6.0.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/vendors/jquery-migrate-3.3.0.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/vendors/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/slick.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/plugins/jquery.syotimer.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/plugins/wow.js"></script>
+	<!--slider-range.js, jquery-ui.js , never appear at sametime-->
+	<script
+		src="<%=request.getContextPath()%>/assets/js/plugins/slider-range.js"></script>
+	<!-- index-3.html, index-4, shop-*.html，板模的這幾頁有用到jquery-ui.js -->
+	<script
+		src="<%=request.getContextPath()%>/assets/js/plugins/jquery-ui.js"></script>
+	<!-- blog-post-fullwidth.html, shop-*.html，板模的這幾頁有用到perfect-scrollbar.js -->
+	<script
+		src="<%=request.getContextPath()%>/assets/js/plugins/perfect-scrollbar.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/plugins/magnific-popup.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/plugins/select2.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/plugins/waypoints.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/plugins/counterup.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/plugins/jquery.countdown.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/plugins/images-loaded.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/plugins/isotope.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/plugins/scrollup.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/plugins/jquery.vticker-min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/plugins/jquery.theia.sticky.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/assets/js/plugins/jquery.elevatezoom.js"></script>
 
-			<!-- Template  JS -->
-			<script src="<%=request.getContextPath()%>/assets/js/main_frontend.js"></script>
-			<script src="<%=request.getContextPath()%>/assets/js/shop.js"></script>
-		</body>
+	<!-- Invoice page's JS -->
+	<!-- <script src="assets/js/invoice/jspdf.min.js"></script> -->
+	<!-- <script src="assets/js/invoice/invoice.js"></script> -->
 
-		</html>
+	<!-- Template  JS -->
+	<script src="<%=request.getContextPath()%>/assets/js/main_frontend.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/shop.js"></script>
+</body>
+
+</html>

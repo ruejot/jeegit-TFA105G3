@@ -5,7 +5,7 @@
 <html lang="zh-Hant-TW">
 <head>
 <meta charset="utf-8" />
-<title>seller板模-Petting</title>
+<title>Petting 商業會員 刪除帳號</title>
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,13 +32,23 @@
 													<div class="form-group col-md-6">
 														<label>使用者ID：</label><span>${BusUsing.busid}</span><span>；</span>
 														<label name="busEmail" type="email">Email(帳號)：<span>${BusUsing.email}</label>
+															<input type="hidden" name="busBusid" value="${BusUsing.busid}"></input>
+															<input type="hidden" name="busEmail" value="${BusUsing.email}"></input>
+															<input type="hidden" name="busPhone" value="${BusUsing.phone}"></input>
+															<input type="hidden" name="busAddress" value="${BusUsing.address}"></input>
+															<input type="hidden" name="busTaxid" value="${BusUsing.taxid}"></input>
+															<input type="hidden" name="busDate" value="${BusUsing.date}"></input>
+															<input type="hidden" name="busFB" value="${BusUsing.fb}"></input>
+															<input type="hidden" name="busIG" value="${BusUsing.ig}"></input>
+															<input type="hidden" name="busWebsite" value="${BusUsing.website}"></input>
+															<input type="hidden" name="busPaymentprovide" value="${BusUsing.paymentprovide}"></input>
 															
 													</div>
 													
 													<div class="row">
 
 														<div class="form-group col-md-12">
-															<h6 style="color:red;">注意!!${BusUsing.name}您現在正在進行密碼變更作業!!</h6>
+															<h6 style="color:red;">注意!!${BusUsing.name}您現在正在進行帳號作業!!</h6>
 															<input type="hidden" name="busName" value="${BusUsing.name}"></input>
 														</div>
 
@@ -65,7 +75,7 @@
 														</div>
 														<div class="col-md-12">
 															<button type="submit"
-																class="btn btn-fill-out submit font-weight-bold"
+																class="btn btn-fill-out submit font-weight-bold" style="border-color:green;border-width:1px;border-style:solid;"
 																name="action" value="deleteBus">確認刪除帳號</button>
 															<!-- 必填欄位尚未被填寫時↓ -->
 															<span style="color: red;">${warningBusDeleteMsg}</span>

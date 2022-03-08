@@ -68,9 +68,10 @@
 													<!-- 帳密錯誤時會出錯誤訊息在這 -->
 													<span style ="color: red;">${errMsg}</span>
 													<div class="mb-3">
-														<a href="#" class="float-end font-sm text-muted">忘記密碼?</a> <label class="form-check"> <input
-															type="checkbox" class="form-check-input" /> <span class="form-check-label">記住我</span>
-														</label>
+														<a href="../nest-frontend/membersForgetPassword.jsp" class="float-end font-sm text-muted">忘記密碼?</a> 
+														<!-- <label class="form-check">
+															<input type="checkbox" class="form-check-input" /> <span class="form-check-label">記住我</span>
+														</label> -->
 													</div>
 													<!-- form-group form-check .// -->
 													<div class="mb-4">
@@ -132,9 +133,10 @@
 													<!-- 帳密錯誤時會出錯誤訊息在這 -->
 													<span style ="color: red;">${errMsg1}</span>
 													<div class="mb-3">
-														<a href="#" class="float-end font-sm text-muted">忘記密碼?</a> <label class="form-check"> <input
-															type="checkbox" class="form-check-input" checked="" /> <span class="form-check-label">記住我</span>
-														</label>
+														<a href="#" class="float-end font-sm text-muted">忘記密碼?</a> 
+														<!-- <label class="form-check">
+															<input type="checkbox" class="form-check-input" checked="" /> <span class="form-check-label">記住我</span>
+														</label> -->
 													</div>
 													<!-- form-group form-check .// -->
 													<div class="mb-4">

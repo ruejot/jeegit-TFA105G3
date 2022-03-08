@@ -157,7 +157,7 @@ pageContext.setAttribute("list",list);
                                     </div>
                                     <div class="col-lg-2 col-sm-2 col-4 col-action text-end">
                                         <a href="#" class="btn btn-sm font-sm rounded btn-brand"> <i class="material-icons md-favorite_border"></i> like </a>
-                                        <a href="#" class="btn btn-sm font-sm btn-light rounded"> <i class="material-icons md-bookmark_border"></i> bookmark </a>
+                                        <a href="#" class="mr-5 btn btn-sm font-sm btn-light rounded"> <i class="material-icons md-bookmark_border"></i> bookmark </a>
                                     </div>
                                 </div>
                                 <!-- row .// -->
@@ -243,9 +243,9 @@ pageContext.setAttribute("list",list);
         
         
         <script>
-            $('li.mr-5').click(function(){
+            $('a.mr-5').click(function(){
                 console.log("有執行");
-                $('li.mr-5').toggleClass("saved");
+                $('a.mr-5').toggleClass("saved");
 //             $('img.bookmark').attr("src", "assets/imgs/theme/icons/bookmark_black_24dp.svg");
 
                 $.ajax({
@@ -255,7 +255,7 @@ pageContext.setAttribute("list",list);
                     data: {
                         action: "if_saved",
                         savMemberId:"<%=membersVO.getMemberid()%>",
-                        savArtId:"<%=memBlogArtVO.getArtid()%>",
+                        savArtId:"${mem}",
                         },
 
                     dataType : 'json',
@@ -273,7 +273,7 @@ pageContext.setAttribute("list",list);
                                 $('a.saved').text("已收藏文章");
                             
                         } else {
-                            $('li.mr-5').toggleClass("saved")
+                            $('a.mr-5').toggleClass("saved")
                             $('a.saved').text("收藏此文章");
                         }
 
@@ -286,6 +286,10 @@ pageContext.setAttribute("list",list);
                     });
             })
         </script>
+
+
+
+
 
 
         <jsp:include page="footer.jsp"></jsp:include>
