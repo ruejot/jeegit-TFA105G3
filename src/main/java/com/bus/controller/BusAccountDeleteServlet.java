@@ -12,7 +12,7 @@ import com.bus.model.BusDAO_interface;
 import com.bus.model.BusService;
 import com.bus.model.BusVO;
 
-@WebServlet("/buss/BusAccountDelete")
+@WebServlet("/bus/BusAccountDelete")
 public class BusAccountDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -53,25 +53,26 @@ public class BusAccountDeleteServlet extends HttpServlet {
 						bussvc.deleteBus(id);
 
 						req.setAttribute("BusDeleteMsg", "帳號已刪除成功!!");
-						req.getRequestDispatcher("../nest-frontend/busAccDeletedSuccess.jsp").forward(req, res);
+						req.getSession().invalidate();
+						req.getRequestDispatcher("../nest-backend/busAccDeletedSuccess.jsp").forward(req, res);
 						
 
 					} else {
 
 						req.setAttribute("warningBusPWDismatchMsg", "兩次密碼輸入不一致，請重新填寫，謝謝!!");
-						req.getRequestDispatcher("../nest-frontend/busAccountDelete.jsp").forward(req, res);
+						req.getRequestDispatcher("../nest-backend/busAccountDelete.jsp").forward(req, res);
 
 					}
 
 				} else {
 					req.setAttribute("busPWErrMsg", "密碼輸入錯誤!!請再重新輸入謝謝");
-					req.getRequestDispatcher("../nest-frontend/busAccountDelete.jsp").forward(req, res);
+					req.getRequestDispatcher("../nest-backend/busAccountDelete.jsp").forward(req, res);
 
 				}
 
 			} else {
 				req.setAttribute("warningBusDeleteMsg", "不好意思!尚有必填欄位未填，請確實填寫，謝謝!!");
-				req.getRequestDispatcher("../nest-frontend/busAccountDelete.jsp").forward(req, res);
+				req.getRequestDispatcher("../nest-backend/busAccountDelete.jsp").forward(req, res);
 			}
 			return;
 		}

@@ -1,5 +1,6 @@
 ﻿<%@page import="java.util.stream.Collectors"%>
 <%@page import="org.apache.catalina.filters.AddDefaultCharsetFilter"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>

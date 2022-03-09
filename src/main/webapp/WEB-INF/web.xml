@@ -7,4 +7,61 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+
+	<filter>
+		<filter-name>EncodingFilter</filter-name>
+		<filter-class>com.filter.EncodingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>EncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>BusAccessBackFilter</filter-name>
+		<filter-class>com.filter.BusAccessBackFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>BusAccessBackFilter</filter-name>
+		<url-pattern>/nest-backend/addProduct.jsp</url-pattern>
+		<url-pattern>/nest-backend/bendcsdetail_listall.jsp</url-pattern>
+		<url-pattern>/nest-backend/bendcsdetail_updateone.jsp</url-pattern>
+		<url-pattern>/nest-backend/busAccDeletedSuccess.jsp</url-pattern>
+		<url-pattern>/nest-backend/busAccountCenter.jsp</url-pattern>
+		<url-pattern>/nest-backend/busAccountDelete.jsp</url-pattern>
+		<url-pattern>/nest-backend/busChangePassword.jsp</url-pattern>
+		<url-pattern>/nest-backend/busPWChanged.jsp</url-pattern>
+		<url-pattern>/nest-backend/orderDetail.jsp</url-pattern>
+		<url-pattern>/nest-backend/orderManage.jsp</url-pattern>
+		<url-pattern>/nest-backend/orderRevise.jsp</url-pattern>
+		<url-pattern>/nest-backend/productManage.jsp</url-pattern>
+		<url-pattern>/nest-backend/update_pro_input.jsp</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>MemCanBtnFilter</filter-name>
+		<filter-class>com.filter.MemCanBtnFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>MemCanBtnFilter</filter-name>
+		<url-pattern>/nest-frontend/accountCenter.jsp</url-pattern>
+		<url-pattern>/nest-frontend/articleManagement.jsp</url-pattern>
+		<url-pattern>/nest-frontend/fendcs_reply.jsp</url-pattern>
+		<url-pattern>/nest-frontend/shopCart.jsp</url-pattern>
+		<url-pattern>/nest-frontend/showCartServlet.do</url-pattern>
+		<url-pattern>/nest-frontend/cartServlet.do</url-pattern>
+		<url-pattern>/ArtDisplay</url-pattern>
+		<url-pattern>/nest-frontend/fendcs_mail.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher> <!-- 針對btn轉跳 設定FORWARD是重點 -->
+	</filter-mapping>
+<!-- 	<error-page> -->
+<!-- 		<error-code>404</error-code> -->
+<!-- 		<location>/nest-frontend/show404Restriction.jsp</location> -->
+<!-- 	</error-page> -->
+
+<!-- 	<error-page> -->
+<!-- 		<error-code>500</error-code> -->
+<!-- 		<location>/nest-frontend/show404Restriction.jsp</location> -->
+<!-- 	</error-page> -->
 </web-app>

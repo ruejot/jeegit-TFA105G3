@@ -80,6 +80,18 @@ public class BusService {
 		return busBean;
 	}
 	
+	//忘記密碼後的變更密碼
+	public BusVO updateBusPW(Integer busid,String password) {
+		BusVO busBean = new BusVO();
+		
+		busBean.setBusid(busid);
+		busBean.setPassword(password);
+		
+		dao.updateBusPW(busBean);
+		return busBean;
+	}
+	
+	
 	//刪除
 	public void deleteBus(Integer busid) {
 		dao.delete(busid);
@@ -88,6 +100,11 @@ public class BusService {
 	//查詢
 	public BusVO select(Integer busid) {
 		return dao.select(busid);
+	}
+	
+	//查詢BUS_ID&EMAIL BY EMAIL
+	public BusVO selectBusIDEmail(String email) {
+		return dao.selectBusIDEmail(email);
 	}
 	
 	//查詢全部

@@ -8,6 +8,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.memblogart.model.MemBlogArtVO;
+import com.memfollow.model.MemFollowVO;
 
 import java.sql.*;
 
@@ -35,6 +36,8 @@ public class MemHeartDAO implements MemHeartDAO_interface {
 	//private static final String DELETE_DEPT = "DELETE FROM dept2 where deptno = ?";	
 	
 	private static final String UPDATE = "UPDATE MEM_HEART HE_MEMBER_ID=? , TIME=? where HE_ART_ID = ?";
+
+	private static final String IF_LIKED = "SELECT * FROM MEM_HEART where HE_ART_ID = ? and HE_MEMBER_ID = ?";
 
 	@Override
 	public void insert(MemHeartVO memHeartVO) {
@@ -239,6 +242,67 @@ pstmt.executeUpdate("set auto_increment_increment=1;");
 		return memheartVO;
 	}
 
+	
+	public MemHeartVO ifLiked(Integer heArtId,Integer heMemberId) {
+		MemHeartVO memHeartBean = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(IF_LIKED);
+
+			pstmt.setInt(1, heArtId);
+			pstmt.setInt(2, heMemberId);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				memHeartBean = new MemHeartVO();
+				//FRIENDSHIP_ID, MEMBER_ID, FOLLOWEE, FRIENDSHIP
+				memHeartBean.setHeArtId(rs.getInt("HE_ART_ID"));
+				memHeartBean.setHeMemberId(rs.getInt("HE_MEMBER_ID"));
+				memHeartBean.setTime(rs.getTimestamp("TIME"));
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return memHeartBean;
+	}
+	
+	
+	
+	
+	
 	@Override
 	public List<MemHeartVO> getAll() {
 		List<MemHeartVO> list = new ArrayList<MemHeartVO>();

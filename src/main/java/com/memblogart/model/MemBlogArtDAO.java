@@ -39,7 +39,9 @@ public class MemBlogArtDAO implements MemBlogArtDAO_interface {
 	
 	private static final String FIND_LAST_INSERTID= "SELECT LAST_INSERT_ID()";
 	private static final String UPDATE = "UPDATE MEM_BLOG_ART set TITLE=? , POSTTIME=? , CONTENT=? where ART_ID = ?";
+	private static final String UPDATE_HEART = "UPDATE MEM_BLOG_ART set HEART=? where ART_ID = ?";
 
+	
 	@Override
 	public int insert(MemBlogArtVO memblogartVO) {
 

@@ -46,6 +46,16 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
                                     <label for="product_title" class="form-label">文章標題</label>
                                     <input type="text" placeholder="Type here" class="form-control" id="product_title" name="title" value="<%= (memBlogArtVO==null)? "" : memBlogArtVO.getTitle()%>"/>
                                 </div>
+                                <div id="errMsg"></div>
+								<c:if test="${not empty errorMsgs}">
+									<font style="color: red">請修正以下錯誤:</font>
+									<ul>
+										<c:forEach var="message" items="${errorMsgs}">
+											<li style="color: red">${message}</li>
+										</c:forEach>
+									</ul>
+								</c:if>
+							</div>
                             </div>
                         </div>
                         <!-- card end// -->

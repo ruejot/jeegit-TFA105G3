@@ -91,7 +91,6 @@ public class OrderDetailServlet extends HttpServlet {
 		
 		// 聯繫客服 (待測試)
 		if ("contact_Ord_Detail".equals(action)) { // 來自orderDetail的請求
-
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to send the ErrorPage
 			// view.
@@ -105,7 +104,7 @@ public class OrderDetailServlet extends HttpServlet {
 				OrderService orderSvc = new OrderService();
 				OrderVO orderVO = orderSvc.getOneByOrderId(orderId);
 				// 查詢完成，準備轉交
-				req.setAttribute("orderVO", orderVO); // 資料庫取出orderVO物件,存入req
+				req.setAttribute("orderVO_From_Order", orderVO); // 資料庫取出orderVO物件,存入req
 				String url = "fendcs_reply.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交頁面
 				successView.forward(req, res);

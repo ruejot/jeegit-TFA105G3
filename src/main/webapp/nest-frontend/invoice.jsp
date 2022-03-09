@@ -43,7 +43,7 @@
                                     <div class="row align-items-center">
                                         <div class="col-md-6">
                                             <div class="logo">
-                                                <a href="index.html" style="width: 200px"><img src="<%=request.getContextPath()%>/assets/imgs/theme/logo_Petting.svg" alt="logo" /></a>
+                                                <a href="HomePage.jsp" style="width: 200px"><img src="<%=request.getContextPath()%>/assets/imgs/theme/logo_Petting.svg" alt="logo" /></a>
                                             </div>
                                         </div>
                                         <div class="col-md-6 text-end">
@@ -108,7 +108,11 @@
                                                 <tr>
                                                     <td>
                                                         <div class="item-desc-1">
-                                                            <span>${productSvc.getOneProduct(orderDetailVO.merId).name}</span>
+                                                            <span>
+                                                            	<a href="<%=request.getContextPath()%>/product/ProductJump?merid=${orderDetailVO.merId }&action=product_jump">
+                                                            		${productSvc.getOneProduct(orderDetailVO.merId).name}
+                                                            	</a>	
+                                                            </span>
                                                         </div>
                                                     </td>
                                                     <td class="text-center">$${orderDetailVO.unitPrice}</td>

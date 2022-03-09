@@ -155,17 +155,17 @@ MemBlogArtVO memBlogArtVO = (MemBlogArtVO) request.getAttribute("memBlogArtVO");
 							<div class="card-body">
 
 
-								<div class="mb-4">
-									<label class="form-label">#HashTags</label> <input type="text"
-										placeholder="Type here" class="form-control" />
-								</div>
-								<span>熱門#HashTags</span> <a href="#"
-									class="font-xs hover-up mr-15"><i
-									class="font-xs material-icons md-close text-body"></i> 兔兔這麼可愛</a> <a
-									href="#" class="font-xs hover-up mr-15"><i
-									class="font-xs material-icons md-close text-body"></i> 喵主子</a> <a
-									href="#" class="font-xs hover-up mr-15"><i
-									class="font-xs material-icons md-close text-body"></i> 黃金獵犬</a>
+<!-- 								<div class="mb-4"> -->
+<!-- 									<label class="form-label">#HashTags</label> <input type="text" -->
+<!-- 										placeholder="Type here" class="form-control" /> -->
+<!-- 								</div> -->
+<!-- 								<span>熱門#HashTags</span> <a href="#" -->
+<!-- 									class="font-xs hover-up mr-15"><i -->
+<!-- 									class="font-xs material-icons md-close text-body"></i> 兔兔這麼可愛</a> <a -->
+<!-- 									href="#" class="font-xs hover-up mr-15"><i -->
+<!-- 									class="font-xs material-icons md-close text-body"></i> 喵主子</a> <a -->
+<!-- 									href="#" class="font-xs hover-up mr-15"><i -->
+<!-- 									class="font-xs material-icons md-close text-body"></i> 黃金獵犬</a> -->
 
 							</div>
 						</div>

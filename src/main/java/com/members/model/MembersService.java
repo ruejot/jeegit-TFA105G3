@@ -77,21 +77,18 @@ public class MembersService {
 		return memberBean;
 	}
 	
-//	//修改密碼
-//	public MembersVO updateMemberPW(Integer memberid,String password,String email,String name,String mobile) {
-//		
-//		MembersVO memberBean = new MembersVO();
-//		
-//		memberBean.setMemberid(memberid);
-//		memberBean.setName(name);
-//		memberBean.setMobile(mobile);
-//		memberBean.setEmail(email);
-//		memberBean.setPassword(password);
-//		
-//		dao.update(memberBean);
-//		return memberBean;
-//		
-//	}
+	//忘記密碼後的變更密碼
+	public MembersVO updateMemberPW(Integer memberid,String password) {
+		
+		MembersVO memberBean = new MembersVO();
+		
+		memberBean.setMemberid(memberid);
+		memberBean.setPassword(password);
+		
+		dao.updateMemberPW(memberBean);
+		return memberBean;
+		
+	}
 	
 	//刪除
 	public void deleteMember(Integer memberid) {
@@ -102,6 +99,12 @@ public class MembersService {
 	public MembersVO select(Integer memberid) {
 		return dao.select(memberid);
 	}
+	
+	//查詢MEMBER_ID&EMAIL BY EMAIL
+	public MembersVO selectMemberIDEmail(String email) {
+		return dao.selectMemberIDEmail(email);
+	}
+	
 	
 	//查詢全部
 	public List<MembersVO> selectAll() {

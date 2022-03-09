@@ -32,14 +32,13 @@ public class CsMailServlet extends HttpServlet {
 		String snederName = req.getParameter("memberName");
 		String mailContent = req.getParameter("mailContent");
 		
-		// + mailContent;
 		
 //		==== if need to get manberVO use session to get it. ===
 //		MembersVO mb = (MembersVO) req.getSession().getAttribute("MemberUsing");
 		if ("sendmail".equals(action)) {
-			String content = "會員的回應訊息：\r\n"
+			String content = "會員【" + snederName + "】的回應訊息：\r\n"
 					+ "\r\n"
-					+ "商品很讚!!";
+					+ mailContent;
 //					+ "📣🇯🇵日本、🇰🇷韓國、🇮🇩印尼、🇵🇭菲律賓、🇻🇳越南📣🇹🇭泰國/東南亞食品代購/台灣南北雜貨。\r\n"
 //					+ "📣居家生活百貨類。\r\n"
 //					+ "\r\n"
@@ -47,7 +46,7 @@ public class CsMailServlet extends HttpServlet {
 //					+ "     歡迎聊聊詢問。\r\n"
 //					+ "\r\n"
 //					+ "📣營業時間週一-週日 08：00-22：000";
-			SendMail sendmail = new SendMail("gooberlul@gmail.com", "來自會員的訊息", content);
+			SendMail sendmail = new SendMail("gooberlul@gmail.com", "[Petting客服郵件] 來自會員【" + snederName + "】的訊息", content);
 			sendmail.send();
 			req.getRequestDispatcher("../nest-frontend/HomePage.jsp").forward(req, res);
 		}
