@@ -53,6 +53,7 @@ public class BusAccountDeleteServlet extends HttpServlet {
 						bussvc.deleteBus(id);
 
 						req.setAttribute("BusDeleteMsg", "帳號已刪除成功!!");
+						req.getSession().invalidate();
 						req.getRequestDispatcher("../nest-backend/busAccDeletedSuccess.jsp").forward(req, res);
 						
 

@@ -66,6 +66,7 @@ public class MembersAccountDeleteServlet extends HttpServlet {
 						memberssvc.deleteMember(id);
 
 						req.setAttribute("MembersDeleteMsg", "帳號已刪除成功!!");
+						req.getSession().invalidate();
 						req.getRequestDispatcher("../nest-frontend/membersAccDeletedSuccess.jsp").forward(req, res);
 						
 

@@ -94,7 +94,7 @@ public class MembersDataUpdateServlet extends HttpServlet {
 				}
 
 			} else {
-				req.setAttribute("errMembersPWMsg", "不好意思!您密碼輸入錯誤!需輸入正確密碼後方可儲存修改資料!!");
+				req.setAttribute("errMembersPWMsg", "不好意思!您密碼輸入錯誤或未填!需輸入正確密碼後方可儲存修改資料!!");
 				req.getRequestDispatcher("../nest-frontend/accountSetting.jsp").forward(req, res);
 			}
 			//

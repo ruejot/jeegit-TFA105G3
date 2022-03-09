@@ -71,7 +71,7 @@ public class BusForgetPWServlet extends HttpServlet {
 					busmailsvc.sendMail(to, subject, messageText);
 
 					/*************************** 4.修改完成,準備轉交(Send the Success view) *************/
-					req.setAttribute("BusForgetMsg", "驗證信已發送成功!!");
+					req.setAttribute("BusForgetMsg", "密碼函已發送至 貴公司所註冊的E-mail信箱!!");
 					req.getRequestDispatcher("../nest-backend/busForgetPassword.jsp").forward(req, res);
 
 					/*************************** 其他可能的錯誤處理 *************************************/
