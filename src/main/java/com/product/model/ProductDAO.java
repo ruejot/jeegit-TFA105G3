@@ -37,7 +37,7 @@ public class ProductDAO implements ProductDAO_interface {
 	private static final String FIND_AllbyMerName = "SELECT * FROM pet_g3db_tfa105.MER WHERE NAME like ? ";
 	private static final String FIND_AllbyMainCategory = "SELECT * FROM pet_g3db_tfa105.MER WHERE Main_Category like ? ";
 	private static final String FIND_AllbySubCategory = "SELECT * FROM pet_g3db_tfa105.v_MERIMG_MER WHERE Sub_Category = ? ";
-	private static final String GET_PRODUCTS_BY_BUSID = "SELECT * FROM pet_g3db_tfa105.MER WHERE BUS_ID = ? ORDER BY MER_ID DESC";
+	private static final String GET_PRODUCTS_BY_BUSID = "SELECT * FROM pet_g3db_tfa105.MER WHERE BUS_ID = ? ORDER BY SHELF_DATE DESC";
 	private static final String GET_PRODUCT_QTY_BY_MERID = "UPDATE pet_g3db_tfa105.MER SET STOCK = STOCK - ? WHERE MER_ID = ?";
 
 	@Override
