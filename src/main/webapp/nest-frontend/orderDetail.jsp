@@ -136,7 +136,8 @@
                                                         <form method= "POST" ACTION= "orderDetail.do">
 															<button class="btn-small d-block" type="submit" style="width: 110px; height: 50px;
 																													padding: 5px 20px;	font-size: 14px;">聯繫客服</button>
-															<input type="hidden" name="orderId" value="${orderDetailVO.orderId}">
+															<input type="hidden" name="orderId" value="${list.get(0).orderId}">
+															<%-- <input type="hidden" name="orderId" value="${orderDetailVO.orderId}"> --%>
 															<input type="hidden" name="action" value="contact_Ord_Detail">
 														</form>
                                                        	<a href="accountCenter.jsp">回上頁</a>

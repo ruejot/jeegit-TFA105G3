@@ -169,7 +169,7 @@ public class CsServletOnlyMember extends HttpServlet {
 
 			// 填充完成，準備轉跳頁面
 			// 這裡將來可以用，記錄前一頁面，回到前一頁的寫法。
-			String url = "/nest-frontend/fendshop_mainpage.jsp";
+			String url = "/nest-frontend/ShopMainpage.do?busid="+req.getParameter("bus_id")+"&action=show_Shop_Mainpage";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
