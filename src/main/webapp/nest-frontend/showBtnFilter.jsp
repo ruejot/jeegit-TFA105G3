@@ -7,12 +7,12 @@
 <html lang="zh-Hant-TW">
 <head>
 <meta charset="utf-8" />
-<title>FrontEnd板模-Petting</title>
+<title>Limit-Petting</title>
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <%-- url=<%=request.getSession().getAttribute("sourcePage")%>" --%>
-<meta http-equiv="refresh" content="<%=countDownSec%>; url=HomePage.jsp" />
+<meta http-equiv="refresh" content="<%=countDownSec%>; url=<%=session.getAttribute("BusUsing")== null?"Login.jsp":"HomePage.jsp"%>" />
 <meta property="og:title" content="" />
 <meta property="og:type" content="" />
 <meta property="og:url" content="" />
@@ -38,7 +38,25 @@
                     <div class="row">
                         <div class="col-xl-8 col-lg-10 col-md-12 m-auto text-center">
                             <p class="mb-20"><img src="../assets/imgs/page/shibaWait.gif" alt="" class="hover-up" /></p>
-                            <h1 class="display-2 mb-30">請先登入為個人會員<br/>將於 <span class="countdownNum" id="seconds"><%=countDownSec%></span> 秒後回到網站首頁 !</h1>
+                            <h1 class="display-2 mb-30">
+                            <c:choose>
+                            	<c:when test="${BusUsing == null}">
+                            		訪客您好<br/>
+                            	</c:when>
+                            	<c:otherwise>
+                            		廠商夥伴您好<br/>
+                            	</c:otherwise>
+                            </c:choose>
+                            請先登入為個人會員<br/>將於 <span class="countdownNum" id="seconds"><%=countDownSec%></span> 秒後
+                            <c:choose>
+                            	<c:when test="${BusUsing == null}">
+                            		前往登入頁面<br/>
+                            	</c:when>
+                            	<c:otherwise>
+                            		回到網站首頁 !<br/>
+                            	</c:otherwise>
+                            </c:choose>
+                            </h1>
                             <p class="font-lg text-grey-700 mb-30">
                                 不能進來喔!<br />
                                 只有個人會員才能進行這個動作。<br />

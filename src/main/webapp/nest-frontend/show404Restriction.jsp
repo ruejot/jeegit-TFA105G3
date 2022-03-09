@@ -7,7 +7,7 @@
 <html lang="zh-Hant-TW">
 <head>
 <meta charset="utf-8" />
-<title>FrontEnd板模-Petting</title>
+<title>Waiting-Petting</title>
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />

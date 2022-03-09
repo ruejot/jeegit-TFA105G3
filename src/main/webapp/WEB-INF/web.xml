@@ -49,7 +49,9 @@
 		<url-pattern>/nest-frontend/fendcs_reply.jsp</url-pattern>
 		<url-pattern>/nest-frontend/shopCart.jsp</url-pattern>
 		<url-pattern>/nest-frontend/showCartServlet.do</url-pattern>
+		<url-pattern>/nest-frontend/cartServlet.do</url-pattern>
 		<url-pattern>/ArtDisplay</url-pattern>
+		<url-pattern>/nest-frontend/fendcs_mail.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher> <!-- 針對btn轉跳 設定FORWARD是重點 -->
 	</filter-mapping>
