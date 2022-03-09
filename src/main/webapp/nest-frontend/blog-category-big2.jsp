@@ -64,19 +64,19 @@ pageContext.setAttribute("list2",list2);
                             <div class="col-xl-9 text-end d-none d-xl-block">
                                 <ul class="tags-list">
                                     <li class="hover-up">
-                                        <a href="blog-category-grid.html"><i class="fi-rs-cross mr-10"></i>貓貓</a>
+                                        <a href="#"><i class="fi-rs-cross mr-10"></i>貓貓</a>
                                     </li>
                                     <li class="hover-up active">
-                                        <a href="blog-category-grid.html"><i class="fi-rs-cross mr-10"></i>寵物知識</a>
+                                        <a href="#"><i class="fi-rs-cross mr-10"></i>寵物知識</a>
                                     </li>
                                     <li class="hover-up">
-                                        <a href="blog-category-grid.html"><i class="fi-rs-cross mr-10"></i>米克斯</a>
+                                        <a href="#"><i class="fi-rs-cross mr-10"></i>米克斯</a>
                                     </li>
                                     <li class="hover-up">
-                                        <a href="blog-category-grid.html"><i class="fi-rs-cross mr-10"></i>天竺鼠車車</a>
+                                        <a href="#"><i class="fi-rs-cross mr-10"></i>天竺鼠車車</a>
                                     </li>
                                     <li class="hover-up mr-0">
-                                        <a href="blog-category-grid.html"><i class="fi-rs-cross mr-10"></i>木木梟</a>
+                                        <a href="#"><i class="fi-rs-cross mr-10"></i>木木梟</a>
                                     </li>
                                 </ul>
                             </div>

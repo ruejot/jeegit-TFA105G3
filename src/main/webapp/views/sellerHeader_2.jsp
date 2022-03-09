@@ -27,22 +27,9 @@
 					</div>
 					<div class="header-right">
 						<div class="search-style-2">
-							<form action="#">
-<!-- 								<select class="select-active"> -->
-<!-- 									<option>所有類別</option> -->
-<!-- 									<option>寵物飼料</option> -->
-<!-- 									<option>寵物罐頭</option> -->
-<!-- 									<option>寵物保健</option> -->
-<!-- 									<option>寵物零食</option> -->
-<!-- 									<option>寵物玩具</option> -->
-<!-- 									<option>居家用品</option> -->
-<!-- 									<option>外出用品</option> -->
-<!-- 									<option>美容護理</option> -->
-<!-- 									<option>人氣商品</option> -->
-<!-- 									<option>其他</option> -->
-<!-- 								</select>  -->
-								<input type="text" placeholder="請輸入關鍵字...." />
-							</form>
+<!-- 							<form action="#"> -->
+<!-- 								<input type="text" placeholder="請輸入關鍵字...." /> -->
+<!-- 							</form> -->
 						</div>
 														<div class="header-action-right">
 									<div class="header-action-2">

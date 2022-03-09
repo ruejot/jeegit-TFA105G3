@@ -110,9 +110,9 @@ pageContext.setAttribute("list2",list2);
                                         <!--Entry bottom-->
                                         <div class="entry-bottom mt-50 mb-30">
                                             <div class="tags w-50 w-sm-100">
-                                                <a href="blog-category-big.html" rel="tag" class="hover-up btn btn-sm btn-rounded mr-10">deer</a>
-                                                <a href="blog-category-big.html" rel="tag" class="hover-up btn btn-sm btn-rounded mr-10">nature</a>
-                                                <a href="blog-category-big.html" rel="tag" class="hover-up btn btn-sm btn-rounded mr-10">conserve</a>
+<!--                                                 <a href="blog-category-big.html" rel="tag" class="hover-up btn btn-sm btn-rounded mr-10">deer</a> -->
+<!--                                                 <a href="blog-category-big.html" rel="tag" class="hover-up btn btn-sm btn-rounded mr-10">nature</a> -->
+<!--                                                 <a href="blog-category-big.html" rel="tag" class="hover-up btn btn-sm btn-rounded mr-10">conserve</a> -->
                                             </div>
                                             <div class="social-icons single-share">
                                                 <ul class="text-grey-5 d-inline-block">
