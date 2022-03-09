@@ -3,6 +3,7 @@
 <%@ page import="com.csdetail.model.*"%>
 <%@ page import="com.members.model.*"%>
 <%@ page import="com.bus.model.*"%>
+<%@ page import="com.order.model.*"%>
 
 <%
 // 已經透過csdetail controller 從 shop_mainpage 接收 busid並在 controller中 setAttribute存入busVO
@@ -12,8 +13,7 @@
 BusVO busVO = (BusVO) request.getAttribute("busVO_from_ShopMainpage"); // attribute 來自CsDetailServlet.java
 
 // 此行測試
-request.setAttribute("busVO_thisPage", busVO);
-
+// request.setAttribute (  "busVO_thisPage"  , busVO );
 // 您將傳訊息給 - 【${busVO_from_ShopMainpage.name}】
 // 等同下面
 // 您將傳訊息給 - 【< %=busVO.getName()% >】
@@ -28,7 +28,7 @@ request.setAttribute("busVO_thisPage", busVO);
 MembersService membersSvc = new MembersService();
 
 //(測試用)如果沒登入，默認顯示memberid = 1的個人用戶;
-MembersVO membersVO = membersSvc.select(2);
+MembersVO membersVO = membersSvc.select(1002);
 if(session.getAttribute("MemberUsing")!=null){
 	membersVO = ((MembersVO)session.getAttribute("MemberUsing"));
 }
@@ -42,6 +42,8 @@ request.setAttribute("membersVO_thisPage", membersVO);
 
 <%
 // 如果從訂單頁面傳過來(但有訂單資訊)
+//來自訂單頁面，透過OrderDetailServlet.java的 if ("contact_Ord_Detail".equals(action)) {
+request.getAttribute("orderVO_From_Order");
 %>
 
 <html lang="zh-Hant-TW">
@@ -136,7 +138,15 @@ request.setAttribute("membersVO_thisPage", membersVO);
 													<button type="submit" class="submit submit-auto-width">確認並傳送</button>
 													<input type="hidden" name="action" value="insert">
 													<input type="hidden" name="member_id" value="${membersVO_thisPage.memberid}">
-													<input type="hidden" name="bus_id" value="${busVO_shopMpage.busid}">
+													<c:choose>
+														<c:when test="${not empty orderVO_From_Order}">
+															<input type="hidden" name="bus_id" value="${orderVO_From_Order.busId}">
+															<input type="hidden" name="order_id" value="${orderVO_From_Order.orderId}">
+														</c:when>
+														<c:otherwise>
+															<input type="hidden" name="bus_id" value="${busVO_shopMpage.busid}">
+														</c:otherwise>
+													</c:choose>
 												</div>
 											</div>
 										</form>

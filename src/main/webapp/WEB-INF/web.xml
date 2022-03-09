@@ -7,7 +7,7 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-	
+
 	<filter>
 		<filter-name>EncodingFilter</filter-name>
 		<filter-class>com.filter.EncodingFilter</filter-class>
@@ -16,7 +16,7 @@
 		<filter-name>EncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+
 	<filter>
 		<filter-name>BusAccessBackFilter</filter-name>
 		<filter-class>com.filter.BusAccessBackFilter</filter-class>
@@ -55,4 +55,13 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher> <!-- 針對btn轉跳 設定FORWARD是重點 -->
 	</filter-mapping>
+<!-- 	<error-page> -->
+<!-- 		<error-code>404</error-code> -->
+<!-- 		<location>/nest-frontend/show404Restriction.jsp</location> -->
+<!-- 	</error-page> -->
+
+<!-- 	<error-page> -->
+<!-- 		<error-code>500</error-code> -->
+<!-- 		<location>/nest-frontend/show404Restriction.jsp</location> -->
+<!-- 	</error-page> -->
 </web-app>

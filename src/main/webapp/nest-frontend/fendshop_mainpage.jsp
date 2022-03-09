@@ -28,12 +28,13 @@ if (request.getAttribute("busVO_From_ShopProductPage") != null) {
 	productlist_shopMp = productSvc.getProductsByBusid(busVO.getBusid());
 } else {
 // 如果不是，就顯示預設的商家id_4。(測試用，e.g.直接點開fendshop_maimpage.jsp)
-	busVO = busSvc.select(4); // 預設顯示bus_id=4的商店
+	busVO = busSvc.select(2004); // 預設顯示bus_id=4的商店
 	productlist_shopMp = productSvc.getProductsByBusid(4);
 }
 
 session.setAttribute("busVO_shopMpage", busVO);
 request.setAttribute("productlist_shopMp", productlist_shopMp);
+session.setAttribute("sourceMainPage", request.getRequestURI());
 %>
 
 <%

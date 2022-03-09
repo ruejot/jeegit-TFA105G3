@@ -26,7 +26,7 @@
 	<jsp:include page="/views/userHeader.jsp" />
 	<!--End userHeader-->
 	<main class="main pages">
-		<jsp:include page="/views/userMainPage-header.jsp" />
+<%-- 		<jsp:include page="/views/userMainPage-header.jsp" /> --%>
 		<!-- page="/views/userMainPage-header.jsp" /> 說明如下 -->
 		<!-- userMainPage-header.jsp，是 首頁>其他頁 顯示列 ，這一個 block 至少有2種樣式，有的頁面甚至沒有page-header區塊，自己觀察。 -->
 		<!-- 需要因應各業顯示內容變動，會再確認userMainPage-header.jsp這樣分割是否適合。 -->

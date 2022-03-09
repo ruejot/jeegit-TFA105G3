@@ -247,7 +247,7 @@ request.setAttribute("mainlist5", mainlist5);
 								<h4>
 									&#129409;阿偉的商店&#129409; <br /> <br /> 寵物百貨
 								</h4>
-								<a href="<%=request.getContextPath()%>/nest-frontend/ShopMainpage.do?busid=5&action=show_Shop_Mainpage" class="btn btn-xs">逛起來 <i
+								<a href="<%=request.getContextPath()%>/nest-frontend/ShopMainpage.do?busid=2005&action=show_Shop_Mainpage" class="btn btn-xs">逛起來 <i
 									class="fi-rs-arrow-small-right"></i></a>
 							</div>
 						</div>
@@ -260,7 +260,7 @@ request.setAttribute("mainlist5", mainlist5);
 								<h4>
 									Poké Ball ϞϞ(๑⚈ ․̫ ⚈๑)∩<br /> 寶可夢是種非常可愛的生物
 								</h4>
-								<a href="<%=request.getContextPath()%>/nest-frontend/ShopMainpage.do?busid=4&action=show_Shop_Mainpage" class="btn btn-xs">逛起來 <i
+								<a href="<%=request.getContextPath()%>/nest-frontend/ShopMainpage.do?busid=2004&action=show_Shop_Mainpage" class="btn btn-xs">逛起來 <i
 									class="fi-rs-arrow-small-right"></i></a>
 							</div>
 						</div>
@@ -274,7 +274,7 @@ request.setAttribute("mainlist5", mainlist5);
 								<h4>
 									寵物也要吃好好 <br />有機寵物鮮食
 								</h4>
-								<a href="<%=request.getContextPath()%>/nest-frontend/ShopMainpage.do?busid=3&action=show_Shop_Mainpage" class="btn btn-xs">逛起來 <i
+								<a href="<%=request.getContextPath()%>/nest-frontend/ShopMainpage.do?busid=2003&action=show_Shop_Mainpage" class="btn btn-xs">逛起來 <i
 									class="fi-rs-arrow-small-right"></i></a>
 							</div>
 						</div>
