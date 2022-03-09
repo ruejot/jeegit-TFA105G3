@@ -388,8 +388,21 @@ public class MembersJDBCDAO implements MembersDAO_interface{
 		return null;
 	}
 
+
 	@Override
-	public MembersVO selectMemberID(String email) {
+	public void updateMemberPW(MembersVO memberBean) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public MembersVO selectMemberIDEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MembersVO selectPassword(Integer memberid) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -66,19 +66,19 @@ pageContext.setAttribute("list", list);
 				<header class="card-header">
 					<div class="row gx-3">
 						<div class="col-lg-2 col-6 col-md-3">
-							<select class="form-select">
-								<option>全部客服表單</option>
-								<option>1_待處理</option>
-								<option>2_處理中</option>
-								<option>3_已完成</option>
-							</select>
+<!-- 							<select class="form-select"> -->
+<!-- 								<option>全部客服表單</option> -->
+<!-- 								<option>1_待處理</option> -->
+<!-- 								<option>2_處理中</option> -->
+<!-- 								<option>3_已完成</option> -->
+<!-- 							</select> -->
 						</div>
 						<div class="col-lg-2 col-6 col-md-3">
-							<select class="form-select">
-								<option>顯示　5筆</option>
-								<option>顯示 10筆</option>
-								<option>顯示 20筆</option>
-							</select>
+<!-- 							<select class="form-select"> -->
+<!-- 								<option>顯示　5筆</option> -->
+<!-- 								<option>顯示 10筆</option> -->
+<!-- 								<option>顯示 20筆</option> -->
+<!-- 							</select> -->
 						</div>
 					</div>
 				</header>

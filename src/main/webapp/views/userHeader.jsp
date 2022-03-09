@@ -231,7 +231,7 @@
 											<li><a href="<%=request.getContextPath()%>/product/SearchServlet?action=sub&mainCategory=美容用具">美容裝飾</a></li>
 										</ul></li>
 									<li><a href="<%=request.getContextPath()%>/nest-frontend/blog-category-big2.jsp">部落格首頁</a></li>
-									<li><a href="<%=request.getContextPath()%>/nest-frontend/contact_us.jsp"
+									<li><a href="<%=request.getContextPath()%>/views/aboutUs.jsp"
 										style="margin-right: 80px;">關於我們</a></li>
 								</ul>
 							</nav>

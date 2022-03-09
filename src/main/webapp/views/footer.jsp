@@ -45,7 +45,7 @@
 					<div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
 						<h4 class="widget-title">關於我們</h4>
 						<ul class="footer-list mb-sm-5 mb-md-0">
-							<li><a style="color: #386641;" href="#">關於Petting</a></li>
+							<li><a style="color: #386641;" href="<%=request.getContextPath()%>/views/aboutUs.jsp">關於Petting</a></li>
 							<li><a style="color: #386641;" href="#">隱私權政策</a></li>
 						</ul>
 					</div>
