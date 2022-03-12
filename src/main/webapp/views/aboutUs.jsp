@@ -40,7 +40,7 @@
 	P.article{
 		font-size: 24px; color:#08834a;
 		text-align: left;
-		margin-left: 400px;
+/* 		margin-left: 400px; */
 	}
 	li.manager{
 		font-size: 20px; color:#08834a; 
@@ -113,6 +113,85 @@
 			</div>
 		</div>
 	</section>
+	
+	<!-- Team-->
+	<section class="page-section bg-light" id="team">
+		<div class="container">
+			<div class="text-center">
+				<h2 class="section-heading text-uppercase">香香組的組員</h2>
+			</div>
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="team-member">
+						<img class="mx-auto rounded-circle" src="<%=request.getContextPath()%>/image/aboutUs/JW_.png"
+							alt="..." />
+						<h4>張家瑋</h4>
+						<i class="fas fa-solid fa-phone"></i> &nbsp 0910-855899 <br>
+						<i class="fas fa-solid fa-envelope"></i>&nbsp cawic107@gmail.com
+						<!-- <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a> -->
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="team-member" >
+						<img class="mx-auto rounded-circle" src="<%=request.getContextPath()%>/image/aboutUs/SA.jpg"
+							alt="..." />
+						<h4>盧思安</h4>
+						<i class="fas fa-solid fa-phone"></i> &nbsp 0910-965433 <br>
+						<i class="fas fa-solid fa-envelope"></i>&nbsp im_lu3@hotmail.com
+						<!-- <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a> -->
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="team-member">
+						<img class="mx-auto rounded-circle" src="<%=request.getContextPath()%>/image/aboutUs/TY.jpg"
+							alt="..." />
+						<h4>張庭瑜</h4>
+						<i class="fas fa-solid fa-phone"></i> &nbsp 0975-370125 <br>
+						<i class="fas fa-solid fa-envelope"></i>&nbsp b860627@gmail.com
+						<!-- <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a> -->
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="team-member">
+						<img class="mx-auto rounded-circle" src="<%=request.getContextPath()%>/image/aboutUs/YS.jpg"
+							alt="..." />
+						<h4>張毓珊</h4>
+						<i class="fas fa-solid fa-phone"></i> &nbsp 0918-890529 <br>
+						<i class="fas fa-solid fa-envelope"></i>&nbsp schang119@gmail.com
+						<!-- <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a> -->
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="team-member">
+						<img class="mx-auto rounded-circle" src="<%=request.getContextPath()%>/image/aboutUs/YH.png"
+							alt="..." />
+						<h4>郭語涵</h4>
+						<i class="fas fa-solid fa-phone"></i> &nbsp 0987-330938 <br>
+						<i class="fas fa-solid fa-envelope"></i>&nbsp
+						b14001378@gs.ncku.edu.tw
+						<!-- <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a> -->
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="team-member">
+						<img class="mx-auto rounded-circle" src="<%=request.getContextPath()%>/image/aboutUs/JT.png"
+							alt="..." />
+						<h4>陳璟葶</h4>
+						<i class="fas fa-solid fa-phone"></i> &nbsp 0988-083495 <br>
+						<i class="fas fa-solid fa-envelope"></i>&nbsp astrid0919@gmail.com
+						<!-- <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a> -->
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 mx-auto text-center">
+					<p class="large text-muted">緯育Tibame &nbsp Java雲端服務開發技術養成班:
+						105期第三組</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	
 	<!-- Portfolio Grid-->
 	<section class="page-section bg-light" id="portfolio">
 		<div class="container">
@@ -238,94 +317,66 @@
 		</div>
 	</section>
 
-	<!-- Team-->
-	<section class="page-section bg-light" id="team">
-		<div class="container">
-			<div class="text-center">
-				<h2 class="section-heading text-uppercase">Our Amazing Team</h2>
-			</div>
-			<div class="row">
-				<div class="col-lg-4">
-					<div class="team-member">
-						<img class="mx-auto rounded-circle" src="assets/img/team/1.jpg"
-							alt="..." />
-						<h4>張家瑋</h4>
-						<i class="fas fa-solid fa-phone"></i> &nbsp 0910-123123 <br>
-						<i class="fas fa-solid fa-envelope"></i>&nbsp 123123@gmail.com
-						<!-- <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a> -->
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="team-member">
-						<img class="mx-auto rounded-circle" src="assets/img/team/1.jpg"
-							alt="..." />
-						<h4>盧思安</h4>
-						<i class="fas fa-solid fa-phone"></i> &nbsp 0910-965433 <br>
-						<i class="fas fa-solid fa-envelope"></i>&nbsp im_lu3@hotmail.com
-						<!-- <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a> -->
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="team-member">
-						<img class="mx-auto rounded-circle" src="assets/img/team/1.jpg"
-							alt="..." />
-						<h4>張庭瑜</h4>
-						<i class="fas fa-solid fa-phone"></i> &nbsp 0975-370125 <br>
-						<i class="fas fa-solid fa-envelope"></i>&nbsp b860627@gmail.com
-						<!-- <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a> -->
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="team-member">
-						<img class="mx-auto rounded-circle" src="assets/img/team/1.jpg"
-							alt="..." />
-						<h4>張毓珊</h4>
-						<i class="fas fa-solid fa-phone"></i> &nbsp 0918-890529 <br>
-						<i class="fas fa-solid fa-envelope"></i>&nbsp schang119@gmail.com
-						<!-- <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a> -->
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="team-member">
-						<img class="mx-auto rounded-circle" src="assets/img/team/1.jpg"
-							alt="..." />
-						<h4>郭語涵</h4>
-						<i class="fas fa-solid fa-phone"></i> &nbsp 0987-330938 <br>
-						<i class="fas fa-solid fa-envelope"></i>&nbsp
-						b14001378@gs.ncku.edu.tw
-						<!-- <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a> -->
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="team-member">
-						<img class="mx-auto rounded-circle" src="assets/img/team/1.jpg"
-							alt="..." />
-						<h4>陳璟葶</h4>
-						<i class="fas fa-solid fa-phone"></i> &nbsp 0910-123123 <br>
-						<i class="fas fa-solid fa-envelope"></i>&nbsp 123123@gmail.com
-						<!-- <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a> -->
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-8 mx-auto text-center">
-					<p class="large text-muted">緯育Tibame &nbsp Java雲端服務開發技術養成班:
-						105期第三組</p>
-				</div>
-			</div>
-		</div>
-	</section>
+	
 	<!-- Clients-->
 	<div class="py-5">
 		<div class="container">
 			<div class="row align-items-center">
-				<div class="col-md-3 col-sm-6 my-3">
-					<a href="#!"><img class="img-fluid img-brand d-block mx-auto"
-						src="assets/img/logos/facebook.svg" alt="..." /></a>
+				<div class="col-md-2 col-sm-6 my-3">
+					<img class="img-fluid img-brand d-block mx-auto"
+						src="<%=request.getContextPath()%>/image/aboutUs/maven.png" alt="..." /></a>
 				</div>
-				<div class="col-md-3 col-sm-6 my-3">
-					<a href="#!"><img class="img-fluid img-brand d-block mx-auto"
-						src="assets/img/logos/ibm.svg" alt="..." /></a>
+				<div class="col-md-2 col-sm-6 my-3">
+					<img class="img-fluid img-brand d-block mx-auto"
+						src="<%=request.getContextPath()%>/image/aboutUs/Tomcat.png" alt="..." /></a>
+				</div>
+				<div class="col-md-2 col-sm-6 my-3">
+					<img class="img-fluid img-brand d-block mx-auto"
+						src="<%=request.getContextPath()%>/image/aboutUs/java.png" alt="..." /></a>
+				</div>
+				<div class="col-md-2 col-sm-6 my-3">
+					<img class="img-fluid img-brand d-block mx-auto"
+						src="<%=request.getContextPath()%>/image/aboutUs/java servlet.png" alt="..." /></a>
+				</div>
+				<div class="col-md-2 col-sm-6 my-3">
+					<img class="img-fluid img-brand d-block mx-auto"
+						src="<%=request.getContextPath()%>/image/aboutUs/jsp.png" alt="..." /></a>
+				</div>
+				<div class="col-md-2 col-sm-6 my-3">
+					<img class="img-fluid img-brand d-block mx-auto"
+						src="<%=request.getContextPath()%>/image/aboutUs/jQuery.png" alt="..." /></a>
+				</div>
+				<div class="col-md-2 col-sm-6 my-3">
+					<img class="img-fluid img-brand d-block mx-auto"
+						src="<%=request.getContextPath()%>/image/aboutUs/HTML.png" alt="..." /></a>
+				</div>
+				<div class="col-md-2 col-sm-6 my-3">
+					<img class="img-fluid img-brand d-block mx-auto"
+						src="<%=request.getContextPath()%>/image/aboutUs/AJAX.png" alt="..." /></a>
+				</div>
+				<div class="col-md-2 col-sm-6 my-3">
+					<img class="img-fluid img-brand d-block mx-auto"
+						src="<%=request.getContextPath()%>/image/aboutUs/eclipse.png" alt="..." /></a>
+				</div>
+				<div class="col-md-2 col-sm-6 my-3">
+					<img class="img-fluid img-brand d-block mx-auto"
+						src="<%=request.getContextPath()%>/image/aboutUs/SourceTree.png" alt="..." /></a>
+				</div>
+				<div class="col-md-2 col-sm-6 my-3">
+					<img class="img-fluid img-brand d-block mx-auto"
+						src="<%=request.getContextPath()%>/image/aboutUs/git.png" alt="..." /></a>
+				</div>
+				<div class="col-md-2 col-sm-6 my-3">
+					<img class="img-fluid img-brand d-block mx-auto"
+						src="<%=request.getContextPath()%>/image/aboutUs/redis.png" alt="..." /></a>
+				</div>
+				<div class="col-md-2 col-sm-6 my-3">
+					<img class="img-fluid img-brand d-block mx-auto"
+						src="<%=request.getContextPath()%>/image/aboutUs/MySQL.png" alt="..." /></a>
+				</div>
+				<div class="col-md-2 col-sm-6 my-3">
+					<img class="img-fluid img-brand d-block mx-auto"
+						src="<%=request.getContextPath()%>/image/aboutUs/JDBC.png" alt="..." /></a>
 				</div>
 			</div>
 		</div>
@@ -358,7 +409,11 @@
 								<!-- Project details-->
 								<h2 class="text-uppercase">後台管理、身分驗證</h2>
 								<img class="img-fluid d-block mx-auto"
-									src="assets/img/portfolio/1.jpg" alt="..." />
+									src="<%=request.getContextPath()%>/image/aboutUs/JW1.png" />
+								<img class="img-fluid d-block mx-auto"
+									src="<%=request.getContextPath()%>/image/aboutUs/JW2.png" />
+								<img class="img-fluid d-block mx-auto"
+									src="<%=request.getContextPath()%>/image/aboutUs/JW3.png" />
 								<p class="article">
 									1.後台管理系統<br>
 									2.商家賣場頁面<br>
@@ -397,7 +452,13 @@
 								<!-- Project details-->
 								<h2 class="text-uppercase">搜尋首頁、商品頁</h2>
 								<img class="img-fluid d-block mx-auto"
-									src="<%=request.getContextPath()%>/image/test.png" alt="..." />
+									src="<%=request.getContextPath()%>/image/aboutUs/SA1.png"/>
+								<img class="img-fluid d-block mx-auto"
+									src="<%=request.getContextPath()%>/image/aboutUs/SA2.png"/>
+								<img class="img-fluid d-block mx-auto"
+									src="<%=request.getContextPath()%>/image/aboutUs/SA3.png"/>
+								<img class="img-fluid d-block mx-auto"
+									src="<%=request.getContextPath()%>/image/aboutUs/SA4.png"/>
 								<p class="article">
 									1.商城首頁畫面<br>
 									2.商品的資料查詢<br>
@@ -434,7 +495,13 @@
 								<!-- Project details-->
 								<h2 class="text-uppercase">廠商、會員中心</h2>
 								<img class="img-fluid d-block mx-auto"
-									src="assets/img/portfolio/3.jpg" alt="..." />
+									src="<%=request.getContextPath()%>/image/aboutUs/TY1.png" />
+								<img class="img-fluid d-block mx-auto"
+									src="<%=request.getContextPath()%>/image/aboutUs/TY2.png" />
+								<img class="img-fluid d-block mx-auto"
+									src="<%=request.getContextPath()%>/image/aboutUs/TY3.png" />
+								<img class="img-fluid d-block mx-auto"
+									src="<%=request.getContextPath()%>/image/aboutUs/TY4.png" />
 								<p class="article">
 									1.廠商、會員登入頁面<br>
 									2.廠商、會員登入驗證<br>
@@ -471,11 +538,18 @@
 								<!-- Project details-->
 								<h2 class="text-uppercase">購物車、會員訂單</h2>
 								<img class="img-fluid d-block mx-auto"
-									src="assets/img/portfolio/4.jpg" alt="..." />
+									src="<%=request.getContextPath()%>/image/aboutUs/YS1.png" />
+								<img class="img-fluid d-block mx-auto"
+									src="<%=request.getContextPath()%>/image/aboutUs/YS2.png" />
+								<img class="img-fluid d-block mx-auto"
+									src="<%=request.getContextPath()%>/image/aboutUs/YS3.png" />
+								<img class="img-fluid d-block mx-auto"
+									src="<%=request.getContextPath()%>/image/aboutUs/YS4.png" />
 								<p class="article">
-									1.購物車商品修改<br>
-									2.結帳頁面同步會員資料<br>
-									3.結帳成功產生訂單
+									1.購物車<br>
+									2.購物車商品修改<br>
+									3.結帳頁面同步會員資料<br>
+									4.結帳成功產生訂單
 									
 								</p>
 								<ul class="list-inline">
@@ -508,7 +582,13 @@
 								<!-- Project details-->
 								<h2 class="text-uppercase">論壇網頁、文章管理</h2>
 								<img class="img-fluid d-block mx-auto"
-									src="assets/img/portfolio/5.jpg" alt="..." />
+									src="<%=request.getContextPath()%>/image/aboutUs/YH1.png" />
+								<img class="img-fluid d-block mx-auto"
+									src="<%=request.getContextPath()%>/image/aboutUs/YH2.png" />
+								<img class="img-fluid d-block mx-auto"
+									src="<%=request.getContextPath()%>/image/aboutUs/YH3.png" />
+								<img class="img-fluid d-block mx-auto"
+									src="<%=request.getContextPath()%>/image/aboutUs/YH4.png" />
 								<p class="article">
 									1.文章新增/修改<br>
 									2.文章收藏<br>
@@ -545,9 +625,18 @@
 								<!-- Project details-->
 								<h2 class="text-uppercase">商品管理、廠商訂單</h2>
 								<img class="img-fluid d-block mx-auto"
-									src="assets/img/portfolio/6.jpg" alt="..." />
-								<p class="article">
-									整天躺著生活的陳璟葶。會吃伸手能及的地方長出來的草，如果草吃光了，就會很不情願地換個地方。刻在草原上半徑１公尺的圓圈，<br>是陳璟葶躺在地上吃光了身邊的草之後形成的。!
+									src="<%=request.getContextPath()%>/image/aboutUs/JT1.png" />
+								<img class="img-fluid d-block mx-auto"
+									src="<%=request.getContextPath()%>/image/aboutUs/JT2.png" />
+								<img class="img-fluid d-block mx-auto"
+									src="<%=request.getContextPath()%>/image/aboutUs/JT3.png" />
+								<img class="img-fluid d-block mx-auto"
+									src="<%=request.getContextPath()%>/image/aboutUs/JT4.png" />
+									<p class="article">
+									1.商家會員<br>
+									2.商家後台-商品新增、修改<br>
+									4.商家後台-出貨訂單管理
+								</p>
 								
 								<ul class="list-inline">
 									<li class="manager"><strong>>項目負責人:</strong> 陳璟葶</li>
