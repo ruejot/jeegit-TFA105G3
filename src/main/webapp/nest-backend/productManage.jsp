@@ -79,7 +79,7 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 							<div class="itemside">
 								<h6 class="mb-0" style="font-size:1.25rem">商品照片</h6>
 							<div class="info">
-								<h6 class="mb-0" style="margin-left: 35px; font-size:1.25rem">商品名稱</h6>
+								<h6 class="mb-0" style="margin-left: 10px; font-size:1.25rem">商品名稱</h6>
 							</div>
 							</div>
 							</div>
@@ -134,7 +134,7 @@ List<ProductVO> list = (List<ProductVO>)session.getAttribute("list");
 			     				<input type="hidden" name="merid"  value="${productVO.merid}">
 			     				<input type="hidden" name="action" value="getOne_For_Update"></FORM>
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/nest-backend/product.do">
-								<button id="myButton" class="btn btn-sm font-sm btn-light rounded" style="margin-top:5px" type="submit"><i class="material-icons md-delete_forever"></i>刪除</button>
+								<button id="myButton" class="btn btn-sm font-sm btn-light rounded" style="margin-top:5px" type="submit"><i class="material-icons md-delete_forever"></i>下架</button>
 			     				<input type="hidden" name="merid"  value="${productVO.merid}">
 			     				<input type="hidden" name="action" value="delete"></FORM>			     			
 							</div>
